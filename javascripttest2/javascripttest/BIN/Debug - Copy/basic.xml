@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<basic xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <setting Server_Url="h92.sg.kunlun.com" enableAuto="true" txtqUser="zenite" txtqPwd="asd1989229" />
+</basic>

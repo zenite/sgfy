@@ -1,0 +1,973 @@
+#mask_alpha {background:url(../images/x.gif);}
+.tabpage li.now h2{background:url(../images/ui/normal.gif) -168px 0;}
+.tabpage li.normal h2{background:url(../images/ui/normal.gif) -98px 0;}
+.tabpage li.normal h2 a:hover{background:url(../images/ui/normal.gif) -168px 0px;}
+.tabpage .container li.now h3{background:url(../images/bg_msgsubnormal.gif) 0 -34px;}
+.tabpage .container li.normal h3{background:url(../images/bg_msgsubnormal.gif);}
+a:link.nextstep,a:visited.nextstep,a:link.prevstep,a:visited.prevstep{background:url(../images/ui/next.gif) -86px 0;}
+a:hover.nextstep{background:url(../images/ui/next.gif) -86px -30px;}
+a:active.nextstep{background:url(../images/ui/next.gif) -86px -60px;}
+a:link.prevstep,a:visited.prevstep{background:url(../images/ui/next.gif) 0 0;}
+a:hover.prevstep{background:url(../images/ui/next.gif) 0 -30px;}
+a:active.prevstep{background:url(../images/ui/next.gif) 0 -60px;}
+a:link.sendbutton,a:visited.sendbutton{background:url(../images/ui/send.gif);}
+a:hover.sendbutton{background:url(../images/ui/send.gif) 0 -30px;}
+a:active.sendbutton{background:url(../images/ui/send.gif) 0 -60px;}
+a:link.autobuilding,a:visited.autobuilding{background:url(../images/ui/speed.gif) 0 0;}
+a:hover.autobuilding{background:url(../images/ui/speed.gif) 0 -17px;}
+a:active.autobuilding{background:url(../images/ui/speed.gif) 0 -34px;}
+a:link.speedfast,a:visited.speedfast{background:url(../images/ui/speed.gif) -59px 0;}
+a:hover.speedfast{background:url(../images/ui/speed.gif) -59px -17px;}
+a:active.speedfast{background:url(../images/ui/speed.gif) -59px -34px;}
+a:link.defarray,a:visited.defarray{background:url(../images/ui/speed.gif) -87px 0;}
+a:hover.defarray{background:url(../images/ui/speed.gif) -87px -17px;}
+a:active.defarray{background:url(../images/ui/speed.gif) -87px -34px;}
+a:link.refresh,a:visited.refresh{background:url(../images/ui/speed.gif) -146px 0;}
+a:hover.refresh{background:url(../images/ui/speed.gif) -146px -17px;}
+a:active.refresh{background:url(../images/ui/speed.gif) -146px -34px;}
+a:link.speed3,a:visited.speed3{background:url(../images/ui/speed3.gif);}
+a:hover.speed3{background:url(../images/ui/speed3.gif) 0 -18px;}
+a:active.speed3{background:url(../images/ui/speed3.gif) 0 -36px;}
+a:link.deploy,a:visited.deploy{background:url(../images/ui/deploy.gif);}
+a:hover.deploy{background:url(../images/ui/deploy.gif) 0 -26px;}
+a:active.deploy{background:url(../images/ui/deploy.gif) 0 -52px;}
+a:link.treasure,a:visited.treasure{background:url(../images/ui/voucher.gif);}
+a:hover.treasure{background:url(../images/ui/voucher.gif) 0 -26px;}
+a:active.treasure{background:url(../images/ui/voucher.gif) 0 -52px;}
+a:link.shopbutton,a:visited.shopbutton{background:url(../images/ui/voucher.gif) -63px 0;}
+a:hover.shopbutton{background:url(../images/ui/voucher.gif) -63px -26px;}
+a:active.shopbutton{background:url(../images/ui/voucher.gif) -63px -52px;}
+a:link.msg,a:visited.msg{background:url(../images/ui/deploy.gif) -165px 0;}
+a:hover.msg{background:url(../images/ui/deploy.gif) -165px -26px;}
+a:active.msg{background:url(../images/ui/deploy.gif) -165px -52px;}
+a:link.voucher,a:visited.voucher{background:url(../images/ui/voucher.gif) -126px 0;}
+a:hover.voucher{background:url(../images/ui/voucher.gif) -126px -26px;}
+a:active.voucher{background:url(../images/ui/voucher.gif) -126px -52px;}
+a:link.redbutton_s,a:visited.redbutton_s,a:link.redbutton_s_task,a:visited.redbutton_s_task,a.greenbutton,a:link.redbutton_b,a:visited.redbutton_b,a.voucher,a.confirm,a:link.consume,a:visited.consume,a.redbutton_s_1,a:link.yellowbutton_b,a:visited.yellowbutton_b,a:link.disablebutton,a:visited.disablebutton,a:link.disablebutton_b1,a:visited.disablebutton_b1,a:link.bluebutton_s,a:visited.bluebutton_s{background:url(../images/ui/button.gif) -137px 0;}
+a:link.redbutton_s_task,a:visited.redbutton_s_task{background:url(../images/ui/button_finish_task.gif);}
+a:link.disablebutton,a:visited.disablebutton{background:url(../images/ui/bg_disable.gif);}
+a:link.disablebutton_b,a:visited.disablebutton_b{background:url(../images/ui/bg_disable_b.gif);}
+a:link.disablebutton_b1,a:visited.disablebutton_b1{background:url(../images/ui/bg_disable.gif) -62px 0;}
+a:link.yellowbutton_b,a:visited.yellowbutton_b{background:url(../images/ui/button.gif) -198px 0;}
+a:hover.yellowbutton_b{background:url(../images/ui/button.gif) -198px -23px;}
+a:active.yellowbutton_b{background:url(../images/ui/button.gif) -198px -46px;}
+a:link.redbutton_s_1,a:visited.redbutton_s_1{background:url(../images/ui/button.gif) 0 0;}
+a:hover.redbutton_s_1{background:url(../images/ui/button.gif) 0 -23px;}
+a:active.redbutton_s_1{background:url(../images/ui/button.gif) 0 -46px;}
+a:hover.redbutton_s{background:url(../images/ui/button.gif) -137px -23px;}
+a:active.redbutton_s{background:url(../images/ui/button.gif) -137px -46px;}
+a:link.greenbutton,a:visited.greenbutton{background:url(../images/ui/button.gif) -347px 0;}
+a:hover.greenbutton{background:url(../images/ui/button.gif) -347px -23px;}
+a:active.greenbutton{background:url(../images/ui/button.gif) -347px -46px;}
+a:link.greenbutton_now,a:visited.greenbutton_now{background:url(../images/ui/button.gif) -347px -46px;}
+a:link.redbutton_b,a:visited.redbutton_b{background:url(../images/ui/button.gif) -259px 0;}
+a:hover.redbutton_b{background:url(../images/ui/button.gif) -259px -23px;}
+a:active.redbutton_b{background:url(../images/ui/button.gif) -259px -46px;}
+a:link.consume,a:visited.consume{background:url(../images/ui/button.gif) -198px 0;}
+a:hover.consume{background:url(../images/ui/button.gif) -198px -23px;}
+a:active.consume{background:url(../images/ui/button.gif) -198px -46px;}
+a:link.bluebutton_s,a:visited.bluebutton_s{background:url(../images/ui/button.gif) -543px 0;}
+a:hover.bluebutton_s{background:url(../images/ui/button.gif) -543px -23px;}
+a:active.bluebutton_s{background:url(../images/ui/button.gif) -543px -46px;}
+a:link.purplebutton_b,a:visited.purplebutton_b{background:url(../images/ui/button.gif) -435px 0;}
+a:hover.purplebutton_b{background:url(../images/ui/button.gif) -435px -23px;}
+a:active.purplebutton_b{background:url(../images/ui/button.gif) -435px -46px;}
+a:link.purplebutton_b_now,a:visited.purplebutton_b_now{background:url(../images/ui/button.gif) -435px -46px;}
+a:link.confirm,a:visited.confirm{background:url(../images/ui/confirm.gif);}
+a:hover.confirm{background:url(../images/ui/confirm.gif) 0 -30px;}
+a:active.confirm{background:url(../images/ui/confirm.gif) 0 -60px;}
+a:link.luban_btn,a:visited.luban_btn{background:url(../images/ui/bg_luban.gif) 0 0;}
+a:hover.luban_btn{background:url(../images/ui/bg_luban.gif) 0 -30px;}
+a:active.luban_btn{background:url(../images/ui/bg_luban.gif) 0 -60px;}
+a:link.coordinatebook,a:visited.coordinatebook{background:url(../images/ui/position.gif) 0 0;}
+a:hover.coordinatebook{background:url(../images/ui/position.gif) 0 -22px;}
+a:active.coordinatebook{background:url(../images/ui/position.gif) 0 -44px;}
+a:link.yellowbutton_luban,a:visited.yellowbutton_luban{background:url(../images/ui/luban_b.gif);}
+a:hover.yellowbutton_luban{background:url(../images/ui/luban_b.gif) -137px 0;}
+a:active.yellowbutton_luban{background:url(../images/ui/luban_b.gif) -274px 0;}
+a.yellowbutton_luban_d{background:url(../images/ui/luban_b_disabled.gif);}
+a:link.yellowbutton_luban_reborn,a:visited.yellowbutton_luban_reborn{background:url(../images/ui/luban_reborn_b.gif);}
+a:hover.yellowbutton_luban_reborn{background:url(../images/ui/luban_reborn_b.gif) -137px 0;}
+a:active.yellowbutton_luban_reborn{background:url(../images/ui/luban_reborn_b.gif) -274px 0;}
+a.yellowbutton_luban_reborn_d{background:url(../images/ui/luban_reborn_b_disabled.gif);}
+a:link.show,a:visited.show,a:link.hide,a:visited.hide{background:url(../images/ui/arrow.gif);}
+a:hover.hide{background:url(../images/ui/arrow.gif) 0 -17px;}
+a:active.hide{background:url(../images/ui/arrow.gif) 0 -34px;}
+a:link.show,a:visited.show{background:url(../images/ui/arrow.gif) -18px 0;}
+a:hover.show{background:url(../images/ui/arrow.gif) -18px -17px;}
+a:active.show{background:url(../images/ui/arrow.gif) -18px -34px;}
+a:link.help,a:visited.help,a.help_disabled{background:url(../images/ui/help.gif);}
+a:hover.help{background:url(../images/ui/help.gif) -20px 0;}
+a:active.help{background:url(../images/ui/help.gif) -40px 0;}
+a.help_disabled{background:url(../images/ui/help.gif) -60px 0;}
+a:link.speedfast_disable,a:visited.speedfast_disable{background:url(../images/ui/speed.gif) 0 -54px;}
+a:link.bluerect,a:visited.bluerect{background:url(../images/ui/floatbutton.gif) 0 0;}
+a:hover.bluerect{background:url(../images/ui/floatbutton.gif) -39px 0;}
+a:active.bluerect{background:url(../images/ui/floatbutton.gif) -78px 0;}
+a:link.greenrect,a:visited.greenrect{background:url(../images/ui/floatbutton.gif) 0 -74px;}
+a:hover.greenrect{background:url(../images/ui/floatbutton.gif) -39px -74px;}
+a:active.greenrect{background:url(../images/ui/floatbutton.gif) -78px -74px;}
+a:link.normalrect,a:visited.normalrect{background:url(../images/ui/floatbutton.gif) 0 -37px;}
+a:hover.normalrect{background:url(../images/ui/floatbutton.gif) -39px -37px;}
+a:active.normalrect{background:url(../images/ui/floatbutton.gif) -78px -37px;}
+a:link.yellowrect,a:visited.yellowrect{background:url(../images/ui/floatbutton.gif) 0 -111px;}
+a:hover.yellowrect{background:url(../images/ui/floatbutton.gif) -39px -111px;}
+a:active.yellowrect{background:url(../images/ui/floatbutton.gif) -78px -111px;}
+a:link.executebutton,a:visited.executebutton,a:link.canclebutton,a:visited.canclebutton,.dialogconfirm,.dialogconfirm_down,.dialogconfirm_over,.dialogcancel,.dialogcancel_down,.dialogcancel_over{background:url(../images/ui/button.gif) -604px 0;}
+a:hover.executebutton,.dialogconfirm_over{background:url(../images/ui/button.gif) -604px -23px;}
+a:active.executebutton,.dialogconfirm_down{background:url(../images/ui/button.gif) -604px -46px;}
+a:link.canclebutton,a:visited.canclebutton,.dialogcancel{background:url(../images/ui/button.gif) -647px 0;}
+a:hover.canclebutton,.dialogcancel_over{background:url(../images/ui/button.gif) -647px -23px;}
+a:active.canclebutton,.dialogcancel_down{background:url(../images/ui/button.gif) -647px -46px;}
+a:link.wjbuttons,a:visited.wjbuttons{background:url(../images/wj.gif) 0 0;}
+a:hover.wjbuttons{background:url(../images/wj.gif) 0 -23px;}
+a:active.wjbuttons{background:url(../images/wj.gif) 0 -46px;}
+a:link.closewindow,a:visited.closewindow{background:url(../images/ui/bg_close.gif);}
+a:hover.closewindow{background:url(../images/ui/bg_close.gif) 0 -19px;}
+a:active.closewindow{background:url(../images/ui/bg_close.gif) 0 -38px;}
+a:link.closewindow_b,a:visited.closewindow_b{background:url(../images/ui/bg_close1.gif) 0 0;}
+a:hover.closewindow_b{background:url(../images/ui/bg_close1.gif) 0 -30px;}
+a:active.closewindow_b{background:url(../images/ui/bg_close1.gif) 0 -60px;}
+a:link.submitbutton,a:visited.submitbutton{background:url(../images/ui/bg_close1.gif) -86px 0;}
+a:link.closewindow_b,a:visited.closewindow_b,a.submitbutton{background:url(../images/ui/bg_close1.gif) 0 0;}
+a:hover.submitbutton{background:url(../images/ui/bg_close1.gif) -86px -30px;}
+a:active.submitbutton{background:url(../images/ui/bg_close1.gif) -86px -60px;}
+.dialogcloseico{background:url(../images/ui/bg_close.gif);}
+.dialogcloseico_over {background:url(../images/ui/bg_close.gif) 0 -19px;}
+.dialogcloseico_down {background:url(../images/ui/bg_close.gif) 0 -38px;}
+.dialogbnico{background:url(../images/ui/button.gif) -137px 0;}
+.dialogbnico_over{background:url(../images/ui/button.gif) -137px -23px;}
+.dialogbnico_down{background:url(../images/ui/button.gif) -137px -46px;}
+#header{background-position:0 22px;}
+#content #leftcontent #newertips{background:url(../images/accountstatus.gif);}
+#canvas #buildbutton{background:url(../images/switchbutton.gif);}
+#header .header_top{background:url(../images/bg_headertop.gif);}
+#header a:link.modechange,#header a:visited.modechange{background:url(../images/ui/mode.gif) -69px 0;}
+#header a:hover.modechange{background:url(../images/ui/mode.gif) -69px -20px;}
+#header a:active.modechange{background:url(../images/ui/mode.gif) -69px -40px;}
+#header .subnav a:link,#header .subnav a:visited{background:url(../images/bg_subnav.gif);}
+#header .subnav a:link.voucher,#header .subnav a:visited.voucher{background:url(../images/ui/mode.gif);}
+#header .subnav a:hover.voucher{background:url(../images/ui/mode.gif) 0 -20px;}
+#header .subnav a:active.voucher{background:url(../images/ui/mode.gif) 0 -40px;}
+#header .subnav a:link.guide,#header .subnav a:visited.guide{background:url(../images/ui/mode.gif) -138px 0;}
+#header .subnav a:hover.guide{background:url(../images/ui/mode.gif) -138px -20px;}
+#header .subnav a:active.guide{background:url(../images/ui/mode.gif) -138px -40px;}
+#header .nav li.sc a:link,#header .nav li.sc a:visited{background:url(../images/ui/nav-bt.gif) no-repeat 0px 0px;}
+#header .nav li.sc a:hover{background:url(../images/ui/nav-bt.gif) no-repeat 0 -53px;}
+#header .nav li.cg a:link,#header .nav li.cg a:visited{background:url(../images/ui/nav-bt.gif) no-repeat -40px 0px;}
+#header .nav li.cg a:hover{background:url(../images/ui/nav-bt.gif) no-repeat -40px -53px;}
+#header .nav li.dt a:link,#header .nav li.dt a:visited{background:url(../images/ui/nav-bt.gif) no-repeat -80px 0px;}
+#header .nav li.dt a:hover{background:url(../images/ui/nav-bt.gif) no-repeat -80px -53px;}
+#header .nav li.jy a:link,#header .nav li.jy a:visited{background:url(../images/ui/nav-bt.gif) no-repeat -400px 0px;}
+#header .nav li.jy a:hover{background:url(../images/ui/nav-bt.gif) no-repeat -400px -52px;}
+#header .nav li.nz a:link,#header .nav li.nz a:visited{background:url(../images/ui/nav-bt.gif) no-repeat -120px 0px;}
+#header .nav li.nz a:hover{background:url(../images/ui/nav-bt.gif) no-repeat -120px -53px;}
+#header .nav li.js a:link,#header .nav li.js a:visited{background:url(../images/ui/nav-bt.gif) no-repeat -160px 0;}
+#header .nav li.js a:hover{background:url(../images/ui/nav-bt.gif) no-repeat -160px -53px;}
+#header .nav li.kj a:link,#header .nav li.kj a:visited{background:url(../images/ui/nav-bt.gif) no-repeat -200px 0px;}
+#header .nav li.kj a:hover{background:url(../images/ui/nav-bt.gif) no-repeat -200px -53px;}
+#header .nav li.lm a:link,#header .nav li.lm a:visited{background:url(../images/ui/nav-bt.gif) no-repeat -240px 0px;}
+#header .nav li.lm a:hover{background:url(../images/ui/nav-bt.gif) no-repeat -240px -53px;}
+#header .nav li.xx a:link,#header .nav li.xx a:visited{background:url(../images/ui/nav-bt.gif) no-repeat -360px 0px;}
+#header .nav li.xx a:hover{background:url(../images/ui/nav-bt.gif) no-repeat -360px -53px;}
+#header .nav li.rw a:link,#header .nav li.rw a:visited{background:url(../images/ui/nav-bt.gif) no-repeat -280px 0px;}
+#header .nav li.rw a:hover{background:url(../images/ui/nav-bt.gif) no-repeat -280px -53px;}
+#header .nav li.shop a:link,#header .nav li.shop a:visited{background:url(../images/ui/nav-bt.gif) no-repeat -320px 0px;}
+#header .nav li.shop a:hover{background:url(../images/ui/nav-bt.gif) no-repeat -320px -53px;}
+#content #leftcontent{background:url(../images/bg_leftcontent.gif);}
+#content #leftcontent .msg{background:url(../images/bg_resourceinfo.gif);}
+#content #leftcontent .msg .production{background:url(../images/bg_production.gif);}
+#content #leftcontent .msg a:link.average,#content #leftcontent .msg a:visited.average{background:url(../images/ui/operate.gif);}
+#content #leftcontent .msg a:hover.average{background:url(../images/ui/operate.gif) -54px 0;}
+#content #leftcontent .msg a:link.speedfast_1,#content #leftcontent .msg a:visited.speedfast_1{background:url(../images/ui/operate.gif) 0 -16px;}
+#content #leftcontent .msg a:hover.speedfast_1{background:url(../images/ui/operate.gif) -54px -16px;}
+#content #rightcontent{background:url(../images/bg_rightcontent.jpg);}
+#content #rightcontent .city .selectcity,#content #rightcontent .city .rename{background:url(../images/ui/arrow.gif) 0 -17px;}
+#content #rightcontent .city a:link.selectcity,#content #rightcontent .city a:visited.selectcity{background:url(../images/ui/arrow.gif);}
+#content #rightcontent .city a:hover.selectcity{background:url(../images/ui/arrow.gif) 0 -17px;}
+#content #rightcontent .city a:active.selectcity{background:url(../images/ui/arrow.gif) 0 -34px;}
+#content #rightcontent .city a:link.rename,#content #rightcontent .city a:visited.rename{background:url(../images/ui/rename.gif);}
+#content #rightcontent .city a:hover.rename{background:url(../images/ui/rename.gif) 0 -19px;}
+#content #rightcontent .player .playername{background:url(../images/bg_player.gif);}
+#content #rightcontent .citydata li.normal h2{background:url(../images/ui/bg_normal.gif);}
+#content #rightcontent .citydata li.now h2{background:url(../images/ui/bg_normal.gif) 0 -28px;}
+#content #rightcontent .citydata li h2.cityinfo a:link,#content #rightcontent .citydata li h2.cityinfo a:visited{background:url(../images/ui/cityinfo.gif) 3px -49px no-repeat;}
+#content #rightcontent .citydata li h2.cityinfo a:hover{background:url(../images/ui/cityinfo.gif) -74px -49px no-repeat;}
+#content #rightcontent .citydata li.now h2.cityinfo a:link,#content #rightcontent .citydata li.now h2.cityinfo a:visited{background:url(../images/ui/cityinfo.gif) -74px -49px no-repeat;}
+#content #rightcontent .citydata li h2.army a:link,#content #rightcontent .citydata li h2.army a:visited{background:url(../images/ui/cityinfo.gif) 3px 3px no-repeat;}
+#content #rightcontent .citydata li h2.army a:hover{background:url(../images/ui/cityinfo.gif) -74px 3px no-repeat;}
+#content #rightcontent .citydata li.now h2.army a:link,#content #rightcontent .citydata li.now h2.army a:visited{background:url(../images/ui/cityinfo.gif) -74px 3px no-repeat;}
+#content #rightcontent .citydata li h2.citylist a:link,#content #rightcontent .citydata li h2.citylist a:visited{background:url(../images/ui/cityinfo.gif) 3px -23px no-repeat;}
+#content #rightcontent .citydata li h2.citylist a:hover{background:url(../images/ui/cityinfo.gif) -74px -23px no-repeat;}
+#content #rightcontent .citydata li.now h2.citylist a:link,#content #rightcontent .citydata li.now h2.citylist a:visited{background:url(../images/ui/cityinfo.gif) -74px -23px no-repeat;}
+#content #rightcontent .cityresources{background:url(../images/bg_resource.gif);}
+#content #rightcontent .citydata .infoshow .armystatistics .soldier_s{background:url(../images/bg_army.gif);}
+#canvas #resleveltips span{background:url(../images/bg_outbuilding_level.gif) no-repeat;}
+#canvas .drawingpages{background:url(../images/bg_pages.jpg);}
+#content #rightcontent .coordinatedetail{background:url(../images/bg_map.jpg);}
+#content #leftcontent #floatvillagename .back{background:url(../images/citynameback.gif);}
+#content #leftcontent #floatvillagename .back1{background:url(../images/citynameback1.gif);}
+.subwindow{background:url(../images/bg_subwindow.gif);}
+.subwindow .leadlist{background:url(../images/bg_lead.gif);}
+.subwindow .leadlist a:link.begin,.subwindow .leadlist a:visited.begin{background:url(../images/ui/arrow.gif);}
+.subwindow .leadlist a:hover.begin{background:url(../images/ui/arrow.gif) 0 -17px;}
+.subwindow .leadlist a:active.begin{background:url(../images/ui/arrow.gif) 0 -34px;}
+.subwindow .messagecenter{background:url(../images/bg_msgcontainer.gif) left bottom no-repeat;}
+.subwindow .messagecenter li.now h2{background:url(../images/ui/normal.gif) -169px 0;}
+.subwindow .messagecenter li.normal h2{background:url(../images/ui/normal.gif) -98px 0;}
+.subwindow .messagecenter li.normal h2 a:hover{background:url(../images/ui/normal.gif) -98px -28px;}
+.subwindow .messagecenter .container li.now h3{background:url(../images/bg_msgsubnormal.gif) 0 -34px;}
+.subwindow .messagecenter .container li.normal h3{background:url(../images/bg_msgsubnormal.gif);}
+.subwindow_content .subwindow_content_left{background:url(../images/bg_containerleft.gif);}
+.subwindow_content .subwindow_content_right .subcontainer h3{background:url(../images/bg_subcontainer_title.gif) no-repeat;}
+.chat {background:url(../images/bg_chat.gif) left bottom no-repeat;}
+.chat_all li.now h3 a:link,.chat_all li.now h3 a:visited{background:url(../images/ui/chat1.gif) 0 -46px;}
+.chat_all li.normal h3 a:link,.chat_all li.normal h3 a:visited{background:url(../images/ui/chat1.gif) 0 0px;}
+.chat_all li.normal h3 a:hover{background:url(../images/ui/chat1.gif) 0 -23px;}
+.chat .chat_message a:link.channel,.chat .chat_message a:visited.channel{background:url(../images/bg_chatchannel.gif);}
+.chat .chat_message a:hover.channel{background:url(../images/bg_chatchannel.gif) -60px 0;}
+.chat .chat_message a:link.sendmsg,.chat .chat_message a:visited.sendmsg{background:url(../images/ui/chat2.gif);}
+.chat .chat_message a:hover.sendmsg{background:url(../images/ui/chat2.gif) 0 -23px;}
+.chat .chat_message a:active.sendmsg{background:url(../images/ui/chat2.gif) 0 -46px;}
+.chat .chat_message a:link.question,.chat .chat_message a:visited.question{background:url(../images/ui/chat2.gif) -65px 0;}
+.chat .chat_message a:hover.question{background:url(../images/ui/chat2.gif) -65px -23px;}
+.chat .chat_message a:active.question{background:url(../images/ui/chat2.gif) -65px -46px;}
+.chat .chat_message a:link.up,.chat .chat_message a:visited.up{background:url(../images/ui/chat2.gif) -155px 0;}
+.chat .chat_message a:hover.up{background:url(../images/ui/chat2.gif) -155px -23px;}
+.chat .chat_message a:active.up{background:url(../images/ui/chat2.gif) -155px -46px;}
+.chat .chat_message a:link.down,.chat .chat_message a:visited.down{background:url(../images/ui/chat2.gif) -180px 0px;}
+.chat .chat_message a:hover.down{background:url(../images/ui/chat2.gif) -180px -23px;}
+.chat .chat_message a:active.down{background:url(../images/ui/chat2.gif) -180px -46px;}
+#chat_s{background:url(../images/bg_chat_s.gif) left bottom no-repeat;}
+a:link.startchat,a:visited.startchat{background:url(../images/ui/chat2.gif) -90px 0;}
+a:hover.startchat{background:url(../images/ui/chat2.gif) -90px -23px;}
+a:active.startchat{background:url(../images/ui/chat2.gif) -90px -46px;}
+.chat ul.databindlist li a:link,.chat ul.databindlist li a:visited{background:url(../images/ui/chat1.gif) 0 0px;}
+.chat ul.databindlist li a:hover{background:url(../images/ui/chat1.gif) 0 -23px;}
+.chat ul.databindlist li.databinditem_active a:link,.chat ul.databindlist li.databinditem_active a:visited{background:url(../images/ui/chat1.gif) 0 -46px;}
+.maps .map_1{background:url(../images/map/map-1.gif);}
+.maps .map_2{background:url(../images/map/map-2.gif);}
+.maps .map_3{background:url(../images/map/map-3.gif);}
+.maps .map_4{background:url(../images/map/map-4.gif);}
+.maps .map_5{background:url(../images/map/map-5.gif);}
+.maps .map_6{background:url(../images/map/map-6.gif);}
+.maps .map_7{background:url(../images/map/map-7.gif);}
+.maps .map_crop{background:url(../images/map/map-crop.gif);}
+.maps .map_lumbercrop{background:url(../images/map/map-lumbercrop.gif);}
+.maps .map_ironcrop{background:url(../images/map/map-ironcrop.gif);}
+.maps .map_claycrop{background:url(../images/map/map-claycrop.gif);}
+.maps .map_wood{background:url(../images/map/map-wood.gif);}
+.maps .map_stone{background:url(../images/map/map-stone.gif);}
+.maps .map_tie{background:url(../images/map/map-tie.gif);}
+.maps .map_food{background:url(../images/map/map-food.gif);}
+.maps .map_wood{background:url(../images/map/map-wood.gif);}
+.maps .map_city{background:url(../images/map/map-city.gif);}
+.maps .map_state_village{background:url(../images/map/map-state-village.gif);}
+.maps .map_state_village_1{background:url(../images/map/map-state-village-1.gif);}
+.maps .map_state_village_small{background:url(../images/map/map-state-village-small.gif);}
+.maps .map_state_village_small_1{background:url(../images/map/map-state-village-small-1.gif);}
+.maps .map_palace_village{background:url(../images/map/map-palace-village.gif);}
+.maps .map_palace_village_1{background:url(../images/map/map-palace-village-1.gif);}
+.maps .map_state_village_old{background:url(../images/map/map-state-village-old.gif);}
+.maps .map_state_village_old_1{background:url(../images/map/map-state-village-old-1.gif);}
+.maps .map_state_village_small_old{background:url(../images/map/map-state-village-small-old.gif);}
+.maps .map_state_village_small_old_1{background:url(../images/map/map-state-village-small-old-1.gif);}
+.maps .map_palace_village_old{background:url(../images/map/map-palace-village-old.gif);}
+.maps .map_palace_village_old_1{background:url(../images/map/map-palace-village-old-1.gif);}
+.maps .map_village_9t{background:url(../images/map/map-village-9t.gif);}
+.maps .map_village_15t{background:url(../images/map/map-village-15t.gif);}
+.maps .map_mountainvillage{background:url(../images/map/map-mountainvillage.gif);}
+.maps .map_battalion_1{background:url(../images/map/map-battalion-1.gif);}
+.maps .map_battalion_2{background:url(../images/map/map-battalion-2.gif);}
+.maps .map_battalion_3{background:url(../images/map/map-battalion-3.gif);}
+.maps .map_battalion_4{background:url(../images/map/map-battalion-4.gif);}
+.maps .map_battalion_5{background:url(../images/map/map-battalion-5.gif);}
+.maps .map_battalion_6{background:url(../images/map/map-battalion-6.gif);}
+.maps .map_battalion_7{background:url(../images/map/map-battalion-7.gif);}
+.maps .map_battalion_8{background:url(../images/map/map-battalion-8.gif);}
+.maps .map_battalion_9{background:url(../images/map/map-battalion-9.gif);}
+.maps .map_battalion_10{background:url(../images/map/map-battalion-10.gif);}
+.maps .null{background:url(../images/map/null.gif);}
+.maps .city_01{background:url(../images/map/city-01.gif);}
+.maps .city_01_1{background:url(../images/map/city-01-1.gif);}
+.maps .city_02{background:url(../images/map/city-02.gif);}
+.maps .city_02_1{background:url(../images/map/city-02-1.gif);}
+.maps .city_03{background:url(../images/map/city-03.gif);}
+.maps .city_03_1{background:url(../images/map/city-03-1.gif);}
+.maps .city_04{background:url(../images/map/city-04.gif);}
+.maps .city_04_1{background:url(../images/map/city-04-1.gif);}
+.maps .city_05{background:url(../images/map/city-05.gif);}
+.maps .city_06{background:url(../images/map/city-06.gif);}
+.maps .city_07{background:url(../images/map/city-07.gif);}
+.maps .city_08{background:url(../images/map/city-08.gif);}
+.maps .city_09{background:url(../images/map/city-09.gif);}
+.maps .city_10{background:url(../images/map/city-10.gif);}
+.maps .city_11{background:url(../images/map/city-11.gif);}
+.maps .city_12{background:url(../images/map/city-12.gif);}
+.maps .city_13{background:url(../images/map/city-13.gif);}
+.maps .city_14{background:url(../images/map/city-14.gif);}
+.maps .city_15{background:url(../images/map/city-15.gif);}
+.maps .city_16{background:url(../images/map/city-16.gif);}
+.maps .city_17{background:url(../images/map/city-17.gif);}
+.maps .city_18{background:url(../images/map/city-18.gif);}
+.maps .city_19{background:url(../images/map/city-19.gif);}
+.maps .city_20{background:url(../images/map/city-20.gif);}
+.maps .city_21{background:url(../images/map/city-21.gif);}
+.maps .city_22{background:url(../images/map/city-22.gif);}
+.maps .city_23{background:url(../images/map/city-23.gif);}
+.maps .city_24{background:url(../images/map/city-24.gif);}
+.maps .city_self4_XCL_vip{background:url(../images/map/xcl/city_self4_XCL_vip.gif);}
+.maps .city_self4_XCL_000{background:url(../images/map/xcl/city_self4_XCL_000.gif);}
+.maps .city_self2_XCL_vip{background:url(../images/map/xcl/city_self2_XCL_vip.gif);}
+.maps .city_self2_XCL_000{background:url(../images/map/xcl/city_self2_XCL_000.gif);}
+.maps .city_tongmeng2_XCL_vip{background:url(../images/map/xcl/city_tongmeng2_XCL_vip.gif);}
+.maps .city_tongmeng2_XCL_000{background:url(../images/map/xcl/city_tongmeng2_XCL_000.gif);}
+.maps .city_nap2_XCL_vip{background:url(../images/map/xcl/city_nap2_XCL_vip.gif);}
+.maps .city_nap2_XCL_000{background:url(../images/map/xcl/city_nap2_XCL_000.gif);}
+.maps .city_war2_XCL_vip{background:url(../images/map/xcl/city_war2_XCL_vip.gif);}
+.maps .city_war2_XCL_000{background:url(../images/map/xcl/city_war2_XCL_000.gif);}
+.maps .city_norelation2_XCL_vip{background:url(../images/map/xcl/city_norelation2_XCL_vip.gif);}
+.maps .city_norelation2_XCL_000{background:url(../images/map/xcl/city_norelation2_XCL_000.gif);}
+.maps .city_mengyou2_XCL_vip{background:url(../images/map/xcl/city_mengyou2_XCL_vip.gif);}
+.maps .city_mengyou2_XCL_000{background:url(../images/map/xcl/city_mengyou2_XCL_000.gif);}
+
+.maps .map_state_village_self4_XCL_vip{background:url(../images/map/xcl/map_state_village_self4_XCL_vip.gif);}
+.maps .map_state_village_self4_XCL_000{background:url(../images/map/xcl/map_state_village_self4_XCL_000.gif);}
+.maps .map_state_village_self2_XCL_vip{background:url(../images/map/xcl/map_state_village_self2_XCL_vip.gif);}
+.maps .map_state_village_self2_XCL_000{background:url(../images/map/xcl/map_state_village_self2_XCL_000.gif);}
+
+.maps .city_01_vip{background:url(../images/map/vip/city-01.gif);}
+.maps .city_01_1_vip{background:url(../images/map/vip/city-01-1.gif);}
+.maps .city_02_vip{background:url(../images/map/vip/city-02.gif);}
+.maps .city_02_1_vip{background:url(../images/map/vip/city-02-1.gif);}
+.maps .city_03_vip{background:url(../images/map/vip/city-03.gif);}
+.maps .city_03_1_vip{background:url(../images/map/vip/city-03-1.gif);}
+.maps .city_04_vip{background:url(../images/map/vip/city-04.gif);}
+.maps .city_04_1_vip{background:url(../images/map/vip/city-04-1.gif);}
+.maps .city_05_vip{background:url(../images/map/vip/city-05.gif);}
+.maps .city_06_vip{background:url(../images/map/vip/city-06.gif);}
+.maps .city_07_vip{background:url(../images/map/vip/city-07.gif);}
+.maps .city_08_vip{background:url(../images/map/vip/city-08.gif);}
+.maps .city_09_vip{background:url(../images/map/vip/city-09.gif);}
+.maps .city_10_vip{background:url(../images/map/vip/city-10.gif);}
+.maps .city_11_vip{background:url(../images/map/vip/city-11.gif);}
+.maps .city_12_vip{background:url(../images/map/vip/city-12.gif);}
+.maps .city_13_vip{background:url(../images/map/vip/city-13.gif);}
+.maps .city_14_vip{background:url(../images/map/vip/city-14.gif);}
+.maps .city_15_vip{background:url(../images/map/vip/city-15.gif);}
+.maps .city_16_vip{background:url(../images/map/vip/city-16.gif);}
+.maps .city_17_vip{background:url(../images/map/vip/city-17.gif);}
+.maps .city_18_vip{background:url(../images/map/vip/city-18.gif);}
+.maps .city_19_vip{background:url(../images/map/vip/city-19.gif);}
+.maps .city_20_vip{background:url(../images/map/vip/city-20.gif);}
+.maps .city_21_vip{background:url(../images/map/vip/city-21.gif);}
+.maps .city_22_vip{background:url(../images/map/vip/city-22.gif);}
+.maps .city_23_vip{background:url(../images/map/vip/city-23.gif);}
+.maps .city_24_vip{background:url(../images/map/vip/city-24.gif);}
+.maps .map_city_vip{background:url(../images/map/vip/map-city.gif);}
+.maps .map_state_village_vip{background:url(../images/map/vip/map-state-village.gif);}
+.maps .map_state_village_1_vip{background:url(../images/map/vip/map-state-village-1.gif);}
+.maps .map_state_village_small_vip{background:url(../images/map/vip/map-state-village-small.gif);}
+.maps .map_state_village_small_1_vip{background:url(../images/map/vip/map-state-village-small-1.gif);}
+.maps .bmine{background:url(../images/map/bmine.gif);}
+.maps .balliance{background:url(../images/map/bmine.gif);}
+.maps .bnap{background:url(../images/map/bmine.gif);}
+.maps .bwar{background:url(../images/map/bmine.gif);}
+.maps .bnone{background:url(../images/map/bmine.gif);}
+.maps .map_tag{background:url(../images/map/map_tag.gif);}
+.map_direction{background:url(../images/map/map_direction_bg.gif);}
+.map_direction #hover_dong{background:url(../images/map/map_direction.gif) -84px 0 no-repeat;}
+.map_direction #hover_nan{background:url(../images/map/map_direction.gif) -56px 0 no-repeat;}
+.map_direction #hover_bei{background:url(../images/map/map_direction.gif) 0 0 no-repeat;}
+.map_direction #hover_xi{background:url(../images/map/map_direction.gif) -28px 0 no-repeat;}
+.map_direction #hover_zhong{background:url(../images/map/map_city.gif) 0 0 no-repeat;}
+#newer_wizard{background:url(../images/x.gif);}
+#newer_wizard_frame{background:url(../images/x.gif);}
+.noviceguide{background:url(../images/bg_noviceguide.gif);}
+#newer_wizard .arrow_up{background:url(../images/guidearrow_up.gif);}
+#newer_wizard .arrow_down{background:url(../images/guidearrow_down.gif);}
+.noviceguide a:link.passguide,.noviceguide a:visited.passguide{background:url(../images/bg_guide.gif) 0 0;}
+.noviceguide a:hover.passguide{background:url(../images/bg_guide.gif) 0 -23px;}
+.noviceguide a:active.passguide{background:url(../images/bg_guide.gif) 0 -46px;}
+.dialog h3{background:url(../images/bg_dialogshop.gif) 0 0 no-repeat;}
+.dialog .dialog_content{background:url(../images/bg_dialogcontent1.gif);}
+.dialog .dialog_content h4.titlebg{background:url(../images/bg_dialogtitle.gif);}
+.dialog .dialog_footer{background:url(../images/bg_dialogshop.gif) 0 -28px no-repeat;}
+.shoptips{background:url(../images/bg_shoptips.gif);}
+.dialog_big .dialog_big_title{background:url(../images/bg_tasktitle.gif);}
+.dialog_big .dialog_big_footer{background:url(../images/bg_tasktitle.gif) 0 -28px;}
+.dialog_big .dialog_big_content{background:url(../images/bg_dialogbig_content.gif);}
+.dialog_big .dialog_big_title .operate span{background:url(../images/bg_shop_jb.gif);}
+.shoppic{background:url(../images/bg_shop.gif);}
+#shop.tabpage{background:url(../images/bg_shoplist1.gif) 0 -9px no-repeat;}
+#shop .exchangecode h3{background:url(../images/bg_subcontainer_title.gif) no-repeat;}
+#shop.tabpage li.now h2{background:url(../images/ui/normal.gif) -238px 0px;}
+#shop.tabpage li.normal h2 a:hover{background:url(../images/ui/normal.gif) -98px -28px;}
+#shop.tabpage li#exchangecode.normal h2{background:url(../images/ui/normal.gif) -308px 0px;}
+#shop.tabpage li#exchangecode.normal h2 a:hover{background:url(../images/ui/normal.gif) -308px -28px;}
+#shop.tabpage li#exchangecode.now h2{background:url(../images/ui/normal.gif) -378px 0px;}
+.resource_upgrade img{background:url(../images/resources02.gif) no-repeat;}
+a:link.close_btn,a:visited.close_btn{background:url(../images/ui/bg_close1.gif) 0 0;}
+a:hover.close_btn{background:url(../images/ui/bg_close1.gif) 0 -30px;}
+a:active.close_btn{background:url(../images/ui/bg_close1.gif) 0 -60px;}
+a:link.upgrade_btn,a:visited.upgrade_btn{background:url(../images/ui/upgrade.gif) 0 0;}
+a:hover.upgrade_btn{background:url(../images/ui/upgrade.gif) 0 -30px;}
+a:active.upgrade_btn{background:url(../images/ui/upgrade.gif) 0 -60px;}
+a:link.queue_btn,a:visited.queue_btn{background:url(../images/ui/upgrade.gif) -86px 0;}
+a:hover.queue_btn{background:url(../images/ui/upgrade.gif) -86px -30px;}
+a:active.queue_btn{background:url(../images/ui/upgrade.gif) -86px -60px;}
+a:link.autoup_btn,a:visited.autoup_btn{background:url(../images/ui/upgrade.gif) -172px 0;}
+a:hover.autoup_btn{background:url(../images/ui/upgrade.gif) -172px -30px;}
+a:active.autoup_btn{background:url(../images/ui/upgrade.gif) -172px -60px;}
+.subwindow_content .subwindow_content_left .building{background:url(../images/bg_building.gif);}
+.subwindow_content .subwindow_content_right .subcontainer .techpic{background:url(../images/bg_tech.gif);}
+#blackmarket li.now h2 a:link,#blackmarket li.now h2 a:visited{background:url(../images/ui/normal.gif) -537px 0px;}
+#blackmarket li.normal h2 a:link,#blackmarket li.normal h2 a:visited{background:url(../images/ui/normal.gif) -448px 0;}
+#blackmarket li.normal h2 a:hover{background:url(../images/ui/normal.gif) -448px -28px;}
+#school,#songdance,#billet,#market,#official_residence,#procurator{background:url(../images/bg_schoolcontainer.gif) left bottom no-repeat;}
+#billet .solider{background:url(../images/armed_branches.gif);}
+#billet .officialpic{background:url(../images/bg_officialpic.gif);}
+#billet .official_info{background:url(../images/bg_official.jpg);}
+#billet .filiation thead th{background:url(../images/bg_filiation.gif);}
+.subwindow_content .subwindow_content_right ul.cavesoliderlist{background:url(../images/bg_cave.gif);}
+.subwindow_content .subwindow_content_right ul.cavesoliderlist li img{background:url(../images/bg_army.gif);}
+.subwindow_content .subwindow_content_right .subcontainer table.recruitdescrption thead th,.subwindow_content .subwindow_content_right .subcontainer .recruithistory thead th,.subwindow_content .subwindow_content_right .subcontainer .talented_person thead th{background:url(../images/bg_recruit.gif);}
+.subwindow_content .subwindow_content_right .subcontainer table.recruithistory thead th{background:url(../images/bg_recruit.gif) -201px 0 no-repeat;}
+a:link.recruitbutton,a:visited.recruitbutton,a:link.recruitbutton1,a:visited.recruitbutton1,a:visited.recruitbutton,a:link.recruitbutton1{background:url(../images/ui/recruit.gif);}
+a:link.recruitbutton2,a:visited.recruitbutton2{background:url(../images/ui/recruit.gif) -84px 0;}
+a:hover.recruitbutton2{background:url(../images/ui/recruit.gif) -84px -18px;}
+a:active.recruitbutton2{background:url(../images/ui/recruit.gif) -84px -36px;}
+a:link.recruitbutton1_disable,a:visited.recruitbutton1_disable{background:url(../images/ui/recruit_disable.gif);}
+a:link.recruitbutton3_disable,a:visited.recruitbutton3_disable{background:url(../images/ui/recruit_disable.gif) -42px 0;}
+a:link.recruitbutton3,a:visited.recruitbutton3{background:url(../images/ui/recruit.gif) -148px 0;}
+a:hover.recruitbutton3{background:url(../images/ui/recruit.gif) -148px -18px;}
+a:active.recruitbutton3{background:url(../images/ui/recruit.gif) -148px -36px;}
+a:link.recruitbutton4,a:visited.recruitbutton4{background:url(../images/ui/recruit.gif) -207px 0;}
+a:hover.recruitbutton4{background:url(../images/ui/recruit.gif) -207px -18px;}
+a:active.recruitbutton4{background:url(../images/ui/recruit.gif) -207px -36px;}
+a:hover.recruitbutton{background:url(../images/ui/recruit.gif) 0 -18px;}
+a:active.recruitbutton{background:url(../images/ui/recruit.gif) 0 -36px;}
+a:link.recruitbutton1,a:visited.recruitbutton1{background:url(../images/ui/recruit.gif) -42px 0;}
+a:hover.recruitbutton1{background:url(../images/ui/recruit.gif) -42px -18px;}
+a:active.recruitbutton1{background:url(../images/ui/recruit.gif) -42px -36px;}
+a:link.question,a:visited.question{background:url(../images/ui/chat2.gif) -65px 0;}
+a:hover.question{background:url(../images/ui/chat2.gif) -65px -23px;}
+a:active.question{background:url(../images/ui/chat2.gif) -65px -46px;}
+a:link.zhangbang,a:visited.zhangbang,a:link.qingu,a:visited.qingu{background:url(../images/ui/zhaoxian.gif);}
+a:hover.zhangbang{background:url(../images/ui/zhaoxian.gif) -86px 0;}
+a:active.zhangbang{background:url(../images/ui/zhaoxian.gif) -172px 0;}
+a:link.qingu,a:visited.qingu{background:url(../images/ui/zhaoxian.gif) 0 -30px;}
+a:hover.qingu{background:url(../images/ui/zhaoxian.gif) -86px -30px;}
+a:active.qingu{background:url(../images/ui/zhaoxian.gif) -172px -30px;}
+a:link.qingu,a:visited.qingu{background:url(../images/ui/zhaoxian.gif) 0 -30px;}
+a:hover.qingu{background:url(../images/ui/zhaoxian.gif) -86px -30px;}
+a:active.qingu{background:url(../images/ui/zhaoxian.gif) -172px -30px;}
+/* start 2012-02-24 */
+a:link.qingchu,a:visited.qingchu{background:url(../images/ui/zhaoxianrefresh.gif) 0 -30px;}
+a:hover.qingchu{background:url(../images/ui/zhaoxianrefresh.gif) -86px -30px;}
+a:active.qingchu{background:url(../images/ui/zhaoxianrefresh.gif) -172px -30px;}
+a:link.dabai,a:visited.dabai{background:url(../images/ui/zhaoxianrefresh.gif) 0 0px;}
+a:hover.dabai{background:url(../images/ui/zhaoxianrefresh.gif) -86px 0px;}
+a:active.dabai{background:url(../images/ui/zhaoxianrefresh.gif) -172px 0px;}
+/* end 2012-02-24 */
+.subwindow_content .subwindow_content_right .subcontainer .recruittitle{background:url(../images/bg_recruit2.gif) left top no-repeat;}
+a:link.redbutton_b1,a:visited.redbutton_b1{background:url(../images/ui/zhaoxian.gif) 0 -60px;}
+.subwindow_content .subwindow_content_right .subcontainer .recruittitle.recall{background:url(../images/bg_recruit1.gif) left top no-repeat;}
+a:hover.redbutton_b1{background:url(../images/ui/zhaoxian.gif) -62px -60px;}
+a:active.redbutton_b1{background:url(../images/ui/zhaoxian.gif) -124px -60px;}
+.subwindow .subwindow_content ul.official_position li{background:url(../images/bg_official_position.gif);}
+a:link.confirmappoint,a:visited.confirmappoint{background:url(../images/ui/confirm.gif) -118px 0;}
+a:hover.confirmappoint{background:url(../images/ui/confirm.gif) -118px -30px;}
+a:active.confirmappoint{background:url(../images/ui/confirm.gif) -118px -60px;}
+.subwindow .messagecenter .container .greenarrow{background:url(../images/ico-downarrow.gif) right center #EEE3CE no-repeat;}
+/*.strug_left{background:url(../images/bg_stru_left.gif) no-repeat;}*/
+.mars{background:url(../images/bg_struggle.gif) no-repeat;}
+.mars_img{background:url(../images/bg_struggleimg.gif) no-repeat;}
+.award{background:url(../images/bg_stru_bot.gif) no-repeat;}
+#task.tabpage{background:url(../images/bg_taskcontent.gif) 0 25px no-repeat;}
+.dialog_big .tasktitle{background:url(../images/bg_tasktitle.gif);}
+.dialog_big .task .taskcontent th{background:url(../images/bg_taskline.gif) left bottom repeat-x;}
+.dialog_big .task .taskcontent td{background:url(../images/bg_taskline.gif) left bottom repeat-x;}
+.dialog_big .task .tasklist a.over{background:url(../images/taskover.gif) no-repeat;}
+.dialog_big .task .tasklist a.no{background:url(../images/taskno.gif) no-repeat;}
+.dialog_big .task .tasklist a.newtask{background:url(../images/tasknew.gif) no-repeat;}
+#userinfo.tabpage{background:url(../images/bg_people.gif) 0 25px no-repeat;}
+#userinfo1.tabpage{background:url(../images/bg_people.gif) 0 3px no-repeat;}
+.pe_account2{background:url(../images/code_bg.gif) no-repeat;}
+.su_account{background:url(../images/pe_name.gif) no-repeat;}
+a:link.closewindow_b,a:visited.closewindow_b{background:url(../images/ui/bg_close1.gif) 0 0;}
+a:hover.closewindow_b{background:url(../images/ui/bg_close1.gif) 0 -30px;}
+a:active.closewindow_b{background:url(../images/ui/bg_close1.gif) 0 -60px;}
+.per_tit{background:url(../images/pe_bg1.gif);}
+.security {background:url(../images/pe_bg2.gif) no-repeat;}
+.co-location{background:url(../images/pe_bg3.gif) no-repeat;}
+.rank_right{background:url(../images/pe_bg4.gif) 0 0 no-repeat;}
+.ban_img{background:url(../images/personal_bg2.gif) 0 0 no-repeat;}
+.ta_input{background:url(../images/na_table.gif) 0 0 no-repeat;}
+.declared{background:url(../images/pe_bg5.gif) 0 0 no-repeat;}
+.textfield{background:url(../images/input_bg2.gif) 0 0 no-repeat;}
+.vaca_con{background:url(../images/bg_xiujia.gif) 0 0 no-repeat;}
+.weapons{background:url(../images/kong_bg.gif) 0 0 no-repeat;}
+.subwindow .messagecenter li.now2 h2{background:url(../images/ui/normal.gif) -238px 0;}
+.arms_con{background:url(../images/kong_bg.gif) 0 0 no-repeat;}
+.arms_name{background:url(../images/bg_img.gif) 0 0 no-repeat;}
+#userinfo.tabpage li.now h2{background:url(../images/ui/normal.gif) -238px 0px;}
+#userinfo.tabpage li.normal h2 a:hover{background:url(../images/ui/normal.gif) -98px -28px;}
+.dialog .dialog_content .maxperson{background:url(../images/bg_maxperson.gif);}
+.dialog .dialog_content table.legion th{background:url(../images/bg_legion.gif);}
+.dialog_big .dialog_big_content.joinin{background:url(../images/bg_dialogbig_content1.gif);}
+#uniondata{background:url(../images/bg_people.gif) 0 0 no-repeat;}
+#uniondata .rank_left p.nation span.ta_input{background:url(../images/na_table.gif) 0 0;width:92px;}
+#uniondata .rank_right ul.union_official li{background:url(../images/bg_unionofficial.gif);}
+#uniondata .rank_right ul.union_official li .militarypic{background:url(../images/bg_militarypic.gif);}
+#union .uniontiger table.tigernow{background:url(../images/bg_tigerleft.gif);}
+#union .uniontiger table.tigerbuy{background:url(../images/bg_tigerleft.gif) 0 -73px;}
+#union .uniontiger table.manor{background:url(../images/bg_tigerleft.gif) 0 -152px;}
+#union .uniontiger .manorlist{background:url(../images/bg_manor.gif);}
+#union .uniontiger .manorlist table tbody td{background:url(../images/bg_table.gif) left bottom repeat-x;}
+#union .unionmain h3{background:url(../images/bg_unionmaintitle.gif);}
+#union .unionmain .unionmain_left{background:url(../images/bg_unionmianleft.gif);}
+#union .unionmain .unionmain_left table span.ta_input{background:url(../images/bg_unioninfo1.gif) 0 0 no-repeat;}
+#union .unionmain .unionmain_left .uniondeclaration{background:url(../images/bg_unioninfo.gif);}
+#union .unionmain .unionmain_left .unionannounce{background:url(../images/bg_unionannounce.gif);}
+#union .unionmain .unionmain_right{background:url(../images/bg_diplomatic.gif);}
+#union #uniondiplomatic .unionmain_left{background:url(../images/bg_uniondiplomaticleft.gif);}
+#union #uniondiplomatic .unionmain_left .tabpage{background:url(../images/bg_diplomatic2.gif) 0 25px no-repeat;}
+#union #uniondiplomatic .unionmain_left .tabpage li.now h2 a:link,#union #uniondiplomatic .unionmain_left .tabpage li.now h2 a:visited{background:url(../images/ui/normal.gif) -168px 0 no-repeat;}
+#union #uniondiplomatic .unionmain_right{background:url(../images/bg_uniondiplomaticright.gif);}
+#diplomatic.tabpage li.now h2 a:link,#diplomatic.tabpage li.now h2 a:visited{background:url(../images/ui/normal.gif) -168px 0 no-repeat;}
+#union #uniondiplomatic h4{background:url(../images/bg_uniontitle.gif);}
+#diplomatic.tabpage li.now h2 a:link,#diplomatic.tabpage li.now h2 a:visited{background:url(../images/ui/normal.gif) -168px 0 no-repeat;}
+#union .infrastructure li{background:url(../images/bg_infrastructure.gif) -101px 0;}
+#union .infrastructure li .officialphoto .iconpic{background:url(../images/iconpic.gif);}
+#union .infrastructure li.officialheader{background:url(../images/bg_infrastructure.gif);}
+#union .regimental{background:url(../images/bg_regimental.gif);}
+#union .regimental li{background:url(../images/bg_regimental1.gif);}
+#union .mass-send .massleft a:link.slideup,#union .mass-send .massleft a:visited.slideup{background:url(../images/ui/bg_tree.gif) repeat-y 0 -13px;}
+#union .mass-send .massleft a:link.slidedown,#union .mass-send .massleft a:visited.slidedown{background:url(../images/ui/bg_tree.gif) repeat-y;}
+#union .infrastructure li .officialphoto .officialname a:link.sz_btn,#union .infrastructure li .officialphoto .officialname a:visited.sz_btn{background:url(../images/unit_frame_sz.jpg) 0 0;}
+#union .regimental li .name a:link.sz_btn,#union .regimental li .name a:visited.sz_btn{background:url(../images/unit_frame_sz.jpg) 0 0;}
+#union .regimental li .name1 a:link.sz_btn,#union .regimental li .name1 a:visited.sz_btn{background:url(../images/unit_frame_sz.jpg) 0 0;}
+#union .regimental li .name2 a:link.sz_btn,#union .regimental li .name2 a:visited.sz_btn{background:url(../images/unit_frame_sz.jpg) 0 0;}
+#union .unionmain .unionstatus a:link.create_btn,#union .unionmain .unionstatus a:visited.create_btn{background:url(../images/unit_frame_sz.jpg) 0 0;}
+.map_read h3{background:url(../images/guide_tit.gif) 0 0 no-repeat;}
+.baseplate h3{background:url(../images/baseplate.gif) 0 0 no-repeat;}
+.defence h3{background:url(../images/help_tit.gif) 0 0 no-repeat;}
+.politic h3{background:url(../images/politic.gif) 0 0 no-repeat;}
+a:link.closewindow_c,a:visited.closewindow_c{background:url(../images/ui/bg_close1.gif) 0 0;}
+a:hover.closewindow_c{background:url(../images/ui/bg_close1.gif) 0 -30px;}
+a:active.closewindow_c{background:url(../images/ui/bg_close1.gif) 0 -60px;}
+.ass_unit .selectTab .now{background:url(../images/bg_subnormal2.gif) 0 -44px no-repeat;}
+.ass_unit .selectTab li{background:url(../images/bg_subnormal2.gif) 0 -10px no-repeat;}
+.subwindow_content .subwindow_content_right .ass_unit h4{background:url(../images/as_titbg.gif) 0 0 no-repeat;}
+a:link.closewindow_q,a:visited.closewindow_q{background:url(../images/ui/chuzeng.gif) 0px 0px;}
+a:hover.closewindow_q{background:url(../images/ui/chuzeng.gif) 0px -30px;}
+a:active.closewindow_q{background:url(../images/ui/bchuzeng.gif) 0px -60px;}
+a:link.closewindow_w,a:visited.closewindow_w{background:url(../images/ui/bg_close1.gif) -258px 0px;}
+a:hover.closewindow_w{background:url(../images/ui/bg_close1.gif) -258px -30px;}
+a:active.closewindow_w{background:url(../images/ui/bg_close1.gif) -258px -60px;}
+#content #rightcontent .coordinatedetail .bandit{background:url(../images/bg_bandit.gif);}
+.tree_name{background:url(../images/opci_bg.gif) 0 0 no-repeat;}
+#message li.now.slide2 h2{background:url(../images/ui/normal.gif) -50px 0;}
+#message li.normal.slide2 h2 a:link,#message li.normal.slide2 h2 a:visited{background:url(../images/ui/normal.gif) 0 0;}
+#message li.normal.slide2 h2 a:hover{background:url(../images/ui/normal.gif) 0 -28px;}
+#message li.normal.slide2 h2 a:active{background:url(../images/ui/normal.gif) -49px 0;}
+#message table input.lmts_btn{background:url(../images/bg_guide.gif) 0 0;}
+.dialog_big .dialog_big_content .formation h3{background:url(../images/baseplate.gif);}
+.subwindow_content .samebuilding h4{background:url(../images/bg_title.gif);}
+.subwindow_content .samebuilding.buildenter h4 {background:none;border:none;}
+.subwindow_content .samebuilding .building{background:url(../images/bg_building.gif);}
+.subwindow_content .samebuilding ul.command li span{background:url(../images/bg_title.gif);}
+.subwindow_content .subwindow_content_right .subcontainer .citymsg{background:url(../images/line.gif) -24px bottom no-repeat;}
+.subwindow_content .subwindow_content_right .subcontainer .citybuilding{background:url(../images/line.gif) -24px bottom no-repeat;}
+.subwindow_content .subwindow_content_right .subcontainer .scout{background:url(../images/scout.jpg) 0 0 no-repeat;}
+.subwindow_content .subwindow_content_right .subcontainer ul.buildinghelp .graphic_example .buildingname{background:url(../images/bg_img.gif);}
+.subwindow .subwindow_content .guide .guide_left ul.tree a:link.slideup,.subwindow .subwindow_content .guide .guide_left ul.tree a:visited.slideup{background:url(../images/bg_tree1.gif) repeat-y 0 -18px;}
+.subwindow .subwindow_content .guide .guide_left ul.tree a:link.slideupselected,.subwindow .subwindow_content .guide .guide_left ul.tree a:visited.slideupselected{background:url(../images/bg_tree1.gif) repeat-y 0 -18px;}
+.subwindow .subwindow_content .guide .guide_left ul.tree a:link.slidedown,.subwindow .subwindow_content .guide .guide_left ul.tree a:visited.slidedown{background:url(../images/bg_tree1.gif) repeat-y;}
+.dialog_big .dialog_big_content .securityoperation .security_content{background:url(../images/bg_security.gif);}
+a:link.securitynow,a:visited.securitynow{background:url(../images/ui/button.gif) -259px 0px;}
+a:hover.securitynow,a:active.securitynow{background:url(../images/ui/button.gif) -259px -23px;}
+.dialog_big .dialog_big_content .box{background:url(../images/bg_box.jpg);}
+.dialog_big .dialog_big_content .box img.nowgoods{background:url(../images/bg_box_nowgoods.gif)}
+.dialog_big .dialog_big_content .box img.specialgoods1{background:url(../images/bg_box_special1.gif)}
+.dialog_big .dialog_big_content .box img.specialgoods2{background:url(../images/bg_box_special2.gif)}
+/*商城道具*/
+.shoppic {background:url(../images/bg_shop.gif);}
+/*#shop.tabpage{background:url(../images/bg_shoplist1.gif) left bottom no-repeat;}*/
+#shop.tabpage li h2 a:link,#shop.tabpage li h2 a:visited{background:url(../images/bg_tabpage_shop.gif) 0 -24px;}
+#shop.tabpage li.now h2 a:link,#shop.tabpage li.now h2 a:visited,#shop.tabpage li.normal h2 a:hover{ background:url(../images/bg_tabpage_shop.gif) 0 0 no-repeat;}
+a:link.tab_shop,a:visited.tab_shop{background:url(../images/bg_tabpage_shop1.gif) -86px 0;}
+a:hover.tab_shop{background:url(../images/bg_tabpage_shop1.gif) 0 0;}
+a:link.tab_treasure,.subwindow .subwindow_header a:visited.tab_treasure{background:url(../images/bg_tabpage_shop1.gif) -86px -35px;}
+a:hover.tab_treasure,.subwindow .subwindow_header  a:link.tab_treasure.now,.subwindow .subwindow_header a:visited.tab_treasure.now{background:url(../images/bg_tabpage_shop1.gif) 0px -35px;}
+.subwindow .subwindow_header a:link.voucher,.subwindow .subwindow_header a:visited.voucher{background:url(../images/bg_shopbtn.gif) -156px 0;}
+.subwindow .subwindow_header a:hover.voucher{background:url(../images/bg_shopbtn.gif) -156px -26px;}
+.subwindow .subwindow_header a:active.voucher{background:url(../images/bg_shopbtn.gif) -156px -52px;}
+.subwindow .subwindow_header a:link.experience,.subwindow .subwindow_header a:visited.experience{background:url(../images/bg_shopbtn.gif);}
+.subwindow .subwindow_header a:hover.experience{background:url(../images/bg_shopbtn.gif) 0 -26px;}
+.subwindow .subwindow_header a:active.experience{background:url(../images/bg_shopbtn.gif) 0 -52px;}
+.subwindow .subwindow_header a:link.exchangecode,.subwindow .subwindow_header a:visited.exchangecode{background:url(../images/bg_shopbtn.gif) -78px 0;}
+.subwindow .subwindow_header a:hover.exchangecode{background:url(../images/bg_shopbtn.gif) -78px -26px;}
+.subwindow .subwindow_header a:active.exchangecode{background:url(../images/bg_shopbtn.gif) -78px -52px;}
+.subwindow .subwindow_header.shoptitle{background:url(../images/bg_shoptitle.gif);}
+.subwindow .shopfast {background:url(../images/bg_shopbottom.gif);}
+.dialog .dialog_content .exchangecode h4{background:url(../images/politic.gif);}
+#shop .shoplist li.bang{ background:url(../images/bang.gif) 187px 3px no-repeat;background-color:#FAF6F1;}
+#shop .shoplist li.zeng{ background:url(../images/store_zeng.gif) 187px 3px no-repeat;background-color:#FAF6F1;}
+#shop .shoplist li.jiaoyi{ background:url(../images/store_yi.gif) 187px 3px no-repeat;background-color:#FAF6F1;}
+#shop .shoplist li.zengyi{ background:url(../images/store_zengyi.gif) 187px 3px no-repeat;background-color:#FAF6F1;}
+#shop .shoplist li.bangonly{ background:url(../images/store_bangonly.gif) 187px 3px no-repeat;background-color:#FAF6F1;}
+#shop .shoplist li.bangfree{ background:url(../images/bangfree.gif) 187px 3px no-repeat;background-color:#FAF6F1;}
+#shop .shoplist li{background-color:#FAF6F1;}
+.subwindow .subwindow_content .propbox_right li.now{background:url(../images/bg_tabpage_shop.gif) no-repeat scroll 0 0;font-weight:bold;color:#cc0000;}
+.subwindow .subwindow_content .propbox_right li.normal{background:url(../images/bg_tabpage_shop.gif) no-repeat scroll 0 -24px;}
+.subwindow .subwindow_content .propboxlist{width:722px;height:163px;background:url(../images/bg_propboxlist.jpg);margin:3px;_margin:3px auto;float:none;position:relative;_left:4px;}
+.subwindow .subwindow_header ul.propbox li.now{background:url(../images/bg_propbox.gif);}
+.subwindow .subwindow_header ul.propbox li.normal{background:url(../images/bg_propbox.gif) 0 -23px;}
+.subwindow .subwindow_header.proptitle{background:url(../images/bg_proptitle.gif);}
+.subwindow .subwindow_content .propboxrank h2{display:block;font-size:12px;font-weight:normal;width:100%;height:23px;margin:10px 0;background:url(../images/bg_propboxrank.gif);color:#ffc;line-height:22px;cursor:pointer;}
+.sub_monarch{background:#F2EDE4 url(../images/quan_bg.gif) 0 0 no-repeat;}
+.subwindow .subwindow_content .voucher_tips{background:url(../images/bg_vouchertips.gif);}
+/*S武将详情*/
+.subwindow .subwindow_content .militarylistlist ul.title{ background:url(../images/bg_militarylistlist.gif);}
+.subwindow .subwindow_content .generaltitle, .subwindow .subwindow_content .generaltitle2{background:url(../images/generalbg.jpg);}
+.subwindow .subwindow_content .generaltitle2{margin-top:0;width:298px; height:22px; background:url(../images/generalbg2.jpg);}
+.subwindow .subwindow_content table.militarydata a:link.recover,.subwindow .subwindow_content table.militarydata a:visited.recover{ background:url(../images/ui/bg_recover.gif);}
+.subwindow .subwindow_content table.militarydata a:hover.recover{background:url(../images/ui/bg_recover.gif) 0 -18px;}
+.subwindow .subwindow_content table.militarydata a:active.recover{background:url(../images/ui/bg_recover.gif) 0 -36px;}
+.subwindow .subwindow_content table.militarydata .strengthvalue{background:url(../images/bg_strength.gif);}
+.subwindow .subwindow_content .equipmentlist{ background-image:url(../images/bg_equipment.gif); background-repeat:no-repeat; background-position:left bottom; }
+#equipment.tabpage li.now h2{background:url(../images/ui/normal.gif) -168px 0;}
+.subwindow .subwindow_content .militarylistequipment{background:url(../images/zhuangbeibg.jpg)}
+.subwindow .subwindow_content .militarylistequipment .militarypic{background:url(../images/bg_equipmentpic.gif);}
+.subwindow .subwindow_content .militarylistequipment .equipment01{background:url(../images/toukui.gif);}
+.subwindow .subwindow_content .militarylistequipment .equipment05{background:url(../images/baibao.gif);}
+.subwindow .subwindow_content .militarylistequipment .equipment06{background:url(../images/huxin.gif);}
+.subwindow .subwindow_content .militarylistequipment .equipment07{background:url(../images/hushou.gif);}
+.subwindow .subwindow_content .militarylistequipment .equipment08{background:url(../images/zuoq.gif);}
+.subwindow .subwindow_content .militarylistequipment .equipment18{background:url(../images/zhanx.gif);}
+.subwindow .subwindow_content .militarylistequipment .equipment19{background:url(../images/wuqi.gif);}
+.subwindow .subwindow_content .militarylistequipment .equipment20{background:url(../images/xjia.gif);}
+.subwindow .subwindow_content .militarylistequipment .stunt{background:url(../images/bg_stunt.gif) center bottom no-repeat;}
+.subwindow .subwindow_content .recruitmenttips{background-image:url(../images/tipsbg.jpg);}
+.subwindow .subwindow_content .biography .generalbiography{color:#E3D7BF;}
+/*E武将详情*/
+/*武将装备*/
+#generalequipment{background:url(../images/bg_rightcontent.jpg);}
+#generalequipment{background:url(../images/rightbg.jpg)}
+#generalequipment .shoppingmall{ position:absolute;top:12px; left:164px;}
+#generalequipment .shoppingmall a,
+#generalequipment .shoppingmall a:hover,
+#generalequipment .shoppingmall a:active{background:url(../images/ui/recruit.gif) repeat 0 0;}
+#generalequipment .shoppingmall a:hover{background:url(../images/ui/recruit.gif) repeat 0 36px;}
+#generalequipment .shoppingmall a:active{background:url(../images/ui/recruit.gif) repeat 0 18px;}
+#generalequipment .equipagelist li a, 
+#generalequipment .equipagelist li a:hover{ background:url(../images/equipage_bot01.gif) no-repeat 0;}
+#generalequipment .equipagelist li a.now{ background:url(../images/equipage_bot02.gif) no-repeat 0;}
+#generalequipment .equipagelist li a:hover{background:url(../images/equipage_bot02.gif) no-repeat 0;}
+#generalequipment .sequence_now a{background:url(../images/ui/button.gif) repeat -198px 0;}
+#generalequipment .sequence_now a:hover{background:url(../images/ui/button.gif) repeat -198px -22px;}
+#generalequipment .sequence_now a:active{background:url(../images/ui/button.gif) repeat -198px 93px;}
+#generalequipment .sequence_normal a{background:url(../images/ui/button.gif) repeat -136px 0;}
+#generalequipment .sequence_normal a:hover{background:url(../images/ui/button.gif) repeat -136px -22px;}
+#generalequipment .sequence_normal a:active{background:url(../images/ui/button.gif) repeat -136px 93px;}
+#generalequipment .pword{background:url(../images/pwordbg.jpg);}
+#equipmentlist_page,#equipmentlist_page a{color:#EDEAC6}
+/*帝王争霸*/
+#championship{background:url(../images/bg_tabpagecontent.gif) 0 26px no-repeat;}
+#championship li.now h2{background:url(../images/ui/normal.gif) repeat scroll -168px 0;}
+/*武将争霸*/
+.subwindow .currentmatch{background:url(../images/currentmatch.jpg);}
+.subwindow .subwindow_content .generalinfo{background:url(../images/matchvs.jpg) 298px 0 no-repeat;}
+.subwindow .subwindow_content .generalinfo .general{background:url(../images/generalinfo.jpg);}
+.strug_right .hegemonyrank{background:url(../images/matchrank.jpg) 0 30px no-repeat;}
+#hegemonyrank{background:url(../images/bg_hegemonyrank.gif);}
+#hegemonyrank li.now h2{background:transparent url(../images/ui/normal.gif) repeat scroll -238px -28px;}
+#generalrank{background:url(../images/bg_generalrank.gif) 0 0 no-repeat;}
+#generalrank li.now h2{background:url(../images/ui/normal.gif)}
+/*指南*/
+/*.subwindow .subwindow_content .guide .guide_right{background-image:url(../images/guide_background.gif)}
+.subwindow .subwindow_content .guide .guide_right .description{background-image:url(../images/guide_background.gif)}
+.subwindow .subwindow_content .guide .guide_right .solider{background:url(../images/armed_branches.gif)}*/
+#guide-right{background:url(../images/guide_background.gif) no-repeat center 200px fixed;}
+/* 任务 */
+.dialog_big .task .taskcontent .taskdescription{background:url(../images/bg_taskdescription.gif);}
+.dialog_big .task .taskcontent .activitydescription{background:url(../images/bg_activityinfo.jpg);}
+.taskFloat{background:url(../images/bg_taskfloat.gif) no-repeat;}
+.dialog_big .task .tasklist li.now {background:url(../images/task_now_back.gif) no-repeat;}
+
+#canvas .checkbox_selected,#canvas .checkbox_noselected{display:block;width:79px;height:19px;line-height:18px;color:#C96;text-decoration:none;text-indent:16px;}
+#canvas .checkbox_selected{background:url(../images/selected.gif) no-repeat 5px 2px;}
+#canvas .checkbox_noselected{background:url(../images/no-selected.gif) no-repeat 5px 2px;}
+#content #rightcontent .player #player_tips{background:url(../images/bg_playertips.gif);}
+/*传令兵*/
+.subwindow_content .subwindow_content_right .batman img.batmanpic{background:url(../images/botmanbg.gif);}
+a:link.automatism_button,a:visited.automatism_button{background:url(../images/botman_button.gif);}
+a:hover.automatism_button{background:url(../images/botman_button.gif) 0 -33px;}
+.subwindow_content .subwindow_content_right .subcontainer .diaobing h3{background:url(../images/bg_subcontainer_title_black.gif) no-repeat scroll 0 0;}
+
+/*S商城修改*/
+.subwindow .subwindow_header.shoptitle a:link.normal,.subwindow .subwindow_header.shoptitle a:visited.normal{background:url(../images/bg_shoptabpage.gif) 0 0 no-repeat;}
+.subwindow .subwindow_header.shoptitle a:hover.normal{background:url(../images/bg_shoptabpage.gif) 0 -27px no-repeat;}
+.subwindow .subwindow_header.shoptitle a:link.now,.subwindow .subwindow_header.shoptitle a:visited.now{background:url(../images/bg_shoptabpage.gif) 0 -27px no-repeat;}
+.subwindow .shopfast a:link,.subwindow .shopfast a:visited{background:url(../images/bg_shopfast.gif);}
+.subwindow .shopfast a:hover{background:url(../images/bg_shopfast.gif) 0 -16px;}
+/*E商城修改*/
+/*广播*/
+.broadcastTop{background:url(../images/bro_top.gif) no-repeat;}
+.broadcastMsg{background-image:url(../images/bro_msg.gif);}
+.broadcastBottom{background:url(../images/bro_bottom.gif) no-repeat;}
+/*npc小人*/
+.npcicon{position:absolute;display:block;top:150px;left:50px;z-index:300;cursor:pointer;}
+.npcicon1{width:22px;height:23px;left:674px;top:259px;}
+.npcicon2{width:31px;height:23px;left:219px;top:337px;}
+.npcicon3{width:30px;height:23px;left:309px;top:103px;}
+.npcicon4{width:63px;height:54px;left:231px;top:201px;}
+.npcicon5,.npcicon5_1{width:14px;height:28px;left:594px;top:66px;}
+.npcicon5_1{left:619px;top:77px;}
+.npcicon6,.npcicon6_1{width:14px;height:28px;left:75px;top:84px;}
+.npcicon6_1{left:100px;top:74px;}
+.npcicon7{width:26px;height:24px;left:574px;top:115px;}
+.npcicon8{width:24px;height:24px;left:574px;top:115px;}
+.npcicon9{width:18px;height:23px;left:574px;top:115px;}
+.npcicon10{width:112px;height:71px;left:574px;top:115px;}
+.npcicon11{width:13px;height:25px;left:235px;top:189px;}
+.npcicon12{width:10px;height:17px;left:546px;top:144px;}
+.npcicon13{width:62px;height:45px;left:510px;top:285px;}
+.npcicon14{width:36px;height:36px;left:225px;top:214px;}
+.npcicon15{width:13px;height:24px;left:444px;top:209px;}
+.npcicon16{width:45px;height:42px;left:431px;top:145px;}
+.npcicon17{width:62px;height:45px;left:462px;top:348px;}
+.npcicon18{width:33px;height:37px;left:200px;top:137px;}
+.npcicon19{width:44px;height:36px;left:256px;top:55px;}
+.npcicon20{width:27px;height:30px;left:41px;top:255px;}
+.npcicon21{width:32px;height:33px;left:447px;top:254px;}
+.npcicon22{width:7px;height:12px;left:557px;top:150px;}
+.npcicon23,.npcicon23_1{width:14px;height:28px;left:212px;top:215px;}
+.npcicon23_1{left:241px;top:229px;}
+
+.subwindow .subwindow_content ul.mengjiang li.fengyun{background:url(../images/bg_fengyun.jpg) 0 0 no-repeat;}
+.subwindow .subwindow_content ul.mengjiang li.zhengba{background:url(../images/bg_zhengba.jpg) 0 0 no-repeat;}
+/*新版太守府首页*/
+.subwindow_content .subwindow_content_right .subcontainer .cityinfo{background:url(../images/bg_cityinfo.gif);}
+.subwindow_content .subwindow_content_right .subcontainer .intelligence{background:url(../images/bg_intelligence.gif);}
+.subwindow_content .subwindow_content_right .subcontainer .scout{background:url(../images/scout.jpg);}
+/*武将修炼*/
+.dialog .dialog_content .practice h4{background:url(../images/bg_practice.gif);}
+.subwindow_content .subwindow_content_right .subcontainer .scout{background:url(../images/scout.jpg);}
+/*军营*/
+.subwindow .subwindow_content .powermap .power_right{background:url(../images/bg_powermap.gif) left top no-repeat;}
+/*成就*/
+img.medalbg10{background:url(../images/medalbg10.gif);}
+img.medalbg20{background:url(../images/medalbg20.gif);}
+img.medalbg30{background:url(../images/medalbg30.gif);}
+img.medalbg40{background:url(../images/medalbg40.gif);}
+img.medalbgblack{background:url(../images/medalbg_g.gif);}
+.medallist li.unmedal img.medal{background:url(../images/medalbg_g.gif);}
+/*用户资料-成就*/
+.success{background:url(../images/bg_success.gif);}
+/*联盟搬迁*/
+.dialog_big .dialog_big_content .removal{background:url(../images/bg_removal.gif);}
+/*武将升级、洗髓*/
+a:link.generalupgrow,a:visited.generalupgrow{color:#FFFFFF;}
+a:hover.generalupgrow{background:url(../images/ui/button.gif) repeat scroll -604px -23px;color:#FFFFFF;}
+a:active.generalupgrow{background:url(../images/ui/button.gif) repeat scroll -604px -46px;color:#FFFFFF;}
+/*武将页面消费*/
+a:link.generalconsume,a:visited.generalconsume{background:url(../images/ui/button.gif) repeat scroll -43px -0px;color:#330000; text-decoration:none;}
+a:hover.generalconsume{background:url(../images/ui/button.gif) repeat scroll -43px -23px;color:#330000; text-decoration:none;}
+a:active.generalconsume{background:url(../images/ui/button.gif) repeat scroll -43px -46px;color:#330000; text-decoration:none;}
+/*武将洗髓*/
+a:link.generalregrow,a:visited.generalregrow{background:url(../images/ui/recruit.gif) repeat scroll 0px 0px;color:#330000; text-decoration:none;}
+a:hover.generalregrow{background:url(../images/ui/recruit.gif) repeat scroll 0px -18px;color:#330000;text-decoration:none;}
+a:active.generalregrow{background:url(../images/ui/recruit.gif) repeat scroll 0px -36px;color:#330000;text-decoration:none;}
+/*联盟改名*/
+.dialog_big .dialog_big_content .unionrename{color:#a5a5a5}
+.dialog_big .dialog_big_content .unionrename .thing table tbody td{background:#151413;}
+.dialog_big .dialog_big_content .unionrename .thing table th{background:#2D2D2D;}
+.dialog_big .dialog_big_content .unionrename .nowname input{border:1px solid #3C4644;background:#000000;color:#FFFFFF;}
+/*交易系统*/
+.subwindow .messagecenter li .ling{background:url(../images/lingpai.gif);}
+.subwindow .messagecenter li .tradebuy{background:url(../images/tradebuy.gif);}
+.subwindow .messagecenter li .forsale span{background:url(../images/forsale.gif);}
+.subwindow .messagecenter li ul.goodslist li img{background:url(../images/bg_shop.gif);}
+.subwindow .messagecenter li .goodsinfo span{background:url(../images/forsale.gif) 0 -26px;}
+.subwindow .messagecenter li ul.goodslist li.nozeng{ background:url(../images/store_nozeng.gif) 137px 3px no-repeat;background-color:#FAF6F1;}
+/*技能书*/
+#rightcontent .skillbook{background:url(../images/skillbook.gif)}
+#rightcontent .skillbook h3{background:url(../images/bg_skillbook.gif)}
+#rightcontent .skillbook li img{background:url(../images/skillbook1.gif)}
+#rightcontent .skillbook li img.yinshu{background:url(../images/skillbook2.gif)}
+
+#content #leftcontent #recommestips{background:url(../images/accountstatus.gif);}
+/*据点战*/
+.jd_tdbg{background:url(../images/j_icon.gif) no-repeat 1px 2px;}
+#union .stronghold .jd_table thead th{ background:url(../images/j_bg.gif) repeat-x top; height:auto;}
+/*建造提速*/
+.infoshow .building .speedqueuebtn{background:url(../images/ui/bg_recover.gif) scroll repeat 0 0;}
+/*司南*/
+.bg_gps{background:url(../images/sinan/bg_gps.gif) no-repeat;}
+.bg_gps .gps_main{background:url(../images/sinan/bg_gps_center.gif) no-repeat center 60px;}
+.bg_gps a:link.button123_r,.bg_gps a:visited.button123_r{background:url(../images/sinan/button274.gif) -274px 0;}
+.bg_gps a:hover.button123_r{background:url(../images/sinan/button274.gif) -274px -22px;}
+/*.bg_gps .gps_main .bord3{background:url(../images/bg_box_nowgoods.gif) repeat 0 0;}*/
+/*隐士小屋*/
+#wrapper .hermit .hermit_td1 .hermit_txt{background:url(../images/yan614.gif) no-repeat 0px 0;}
+/*联盟托管*/
+#lm_hosting .tabpage{background:url(../images/bg_shoplist1.gif) left bottom no-repeat;}
+#lm_hosting .tabpage li h2 a:link,#lm_hosting .tabpage li h2 a:visited{background:url(../images/bg_tabpage_shop.gif) 0 -24px;}
+#lm_hosting .tabpage li.now h2 a:link,#lm_hosting .tabpage li.now h2 a:visited,#lm_hosting.tabpage li.normal h2 a:hover{background:url(../images/bg_tabpage_shop.gif) 0 0 no-repeat;}
+/*最近使用道具*/
+#rightcontent .latestusedbg{background:url(../images/latestusedbg.gif)}
+#latestused .shoplist li {background-color:#FAF6F1;}
+#rightcontent .skillbook h2{color:#FFE28A;}
+/*16T，17T，18T*/
+.maps .map_village_16t{background:url(../images/map/map-village-16t.gif);}
+.maps .map_village_17t{background:url(../images/map/map-village-17t.gif);}
+.maps .map_village_18t{background:url(../images/map/map-village-18t.gif);}
+/*韩信点兵*/
+.n_solider{background:url(../images/armed_branches.gif);}
+a.recruitbutton1_disable64:link, a.recruitbutton1_disable64:visited {background:url(../images/ui/recruit_disable.gif) repeat scroll -42px 0 transparent;}
+#latestused .shoplist li.bang{ background:url(../images/bang.gif) 187px 3px no-repeat;background-color:#FAF6F1;}
+#latestused .shoplist li.zeng{ background:url(../images/store_zeng.gif) 187px 3px no-repeat;background-color:#FAF6F1;}
+#latestused .shoplist li.jiaoyi{ background:url(../images/store_yi.gif) 187px 3px no-repeat;background-color:#FAF6F1;}
+#latestused .shoplist li.zengyi{ background:url(../images/store_zengyi.gif) 187px 3px no-repeat;background-color:#FAF6F1;}
+#latestused .shoplist li.bangonly{ background:url(../images/store_bangonly.gif) 187px 3px no-repeat;background-color:#FAF6F1;}
+#latestused .shoplist li.bangfree{ background:url(../images/bangfree.gif) 187px 3px no-repeat;background-color:#FAF6F1;}
+#latestused .shoplist li{background-color:#FAF6F1;}
+
+/*强力助手*/
+.super_w{background:url(../images/bg_msgcontainer.gif) no-repeat 0 24px #000 ;}
+.super_bar li a:link,.super_bar li a:visited{background:url(../images/ui/normal.gif) -98px 0;}
+.super_bar li a:hover{background:url(../images/ui/normal.gif) -98px -28px;}
+.super_bar li.now a:link,.super_bar li.now a:visited,.super_bar li.now a:hover{background:url(../images/ui/normal.gif) -169px 0;}
+.ys_main .ys_right .box546{background:url(../images/superhelper_1.gif) no-repeat 0 0;}
+
+/*摸金探宝*/
+#xunbao_content .xunbao_left .xb_text{background:url(../images/ucopy/bg_text.jpg);}
+#xunbao_content .xunbao_left .xb_text .xb_pic{background:url(../images/ucopy/bg_list.jpg) no-repeat;}
+a.butt2_88:link,a.butt2_88:visited{background:url(../images/ucopy/butt2_88.gif) no-repeat 0 0;}
+a.butt2_88:hover{background:url(../images/ucopy/butt2_88.gif) no-repeat 0 -23px;}
+
+/*战役系统*/
+.nav_title{background:url(../images/nav_bg.jpg) left top no-repeat;}
+.nav_title .nav_txt{background:url(../images/nav_bg.jpg) right top no-repeat;}
+ul.zd_nav{background:url(../images/zd_nav.gif) repeat-x bottom;}
+ul.zd_nav li{background:url(../images/zd_nav.gif) no-repeat top right;}
+ul.zd_nav li.now{background:url(../images/zd_nav.gif) no-repeat 0 0;}
+
+/*九鼎战役*/
+.subwindow .messagecenter .judian9_left ul.jdmc li a.but43{background:url(../images/tripod/but43.gif);}
+ul.jd9_pic li a{background:url(../images/blankimg.gif);}
+ul.jd9_pic .pic01{background:url(../images/tripod/jd9_pic.gif) no-repeat -20px 3px;}
+ul.jd9_pic .pic02{background:url(../images/tripod/jd9_pic.gif) no-repeat -1px -49px;}
+ul.jd9_pic .pic04{background:url(../images/tripod/jd9_pic.gif) no-repeat 2px -148px;}
+ul.jd9_pic .pic05{background:url(../images/tripod/jd9_pic.gif) no-repeat 20px -243px;}
+.subwindow .messagecenter ul.tab23_bg{background:url(../images/tripod/tab23_bg.gif) repeat-x 0 -50px;}
+.subwindow .messagecenter ul.tab23_bg li{background:url(../images/tripod/tab23_bg.gif) repeat-x 0 -25px;}
+.subwindow .messagecenter ul.tab23_bg li.now{background:url(../images/tripod/tab23_bg.gif) repeat-x 0 0px;}
+.subwindow .messagecenter .judian9_right .tripod_enemy{background:url(../images/blankimg.gif);}
+
+/*武将破限*/
+.chengshen{margin:auto; width:344px;font-size:12px; text-align:left; line-height:20px; color:#5B360B;}
+.chengshen .chengshenTxt{border:1px solid #C8AF80;display:table; margin:5px; background:#EAE2CE; padding:6px 12px;}
+.dialog .dialog_content .chengshen p{ margin:0 auto; font-size:13px; padding:4px; width:229px;  }
+.chengshen .btnCs{ padding:15px 0; margin:0; list-style:none;width:308px}
+.chengshen .btnCs li{padding:0; margin:0; list-style:none; clear:both; line-height:18px;}
+.chengshen .btnCs li .Cright{margin-top:8px;line-height:25px; width:86px; font-size:20px; font-weight:900; text-align:center; color:#f00; float: right}
+.chengshen .btnCs li .disablebutton,.chengshen .btnCs li .redbutton_s{float:left;margin:0;}
+.chengshen .btnCs li strong{display: block; float: left; font-weight: 100; width: 150px; padding-left:6px;}
+.chengshen .btnCs li strong span{font-weight:900;}
+a:link.recruitbutton_disable,a:visited.recruitbutton_disable{background:url(../images/ui/due_hui.gif) -42px 0px; color:#888}
+a:hover.recruitbutton_disable{background:url(../images/ui/due_hui.gif) -42px -36px;color:#888}
+.chengshen .btnCs li .disable_redbutton_s{float:left;margin:0;display:inline-block; float:left; width:61px; height:23px; line-height:23px;color:#888888; text-decoration:none;text-align:center;}
+a:link.disable_redbutton_s,a:visited.disable_redbutton_s{background:url(../images/ui/bg_disable.gif);}
+
+a:link.quhui,a:visited.quhui{background:url(../images/quhui.gif) 0 0; width:78px; height:26px;}
+a:hover.quhui{background:url(../images/quhui.gif) 0 -26px; width:78px; height:26px;}
+a:link.goback,a:visited.goback{background:url(../images/goback.gif) 0 0; width:78px; height:26px;}
+a:hover.goback{background:url(../images/goback.gif) 0 -26px; width:78px; height:26px;}
+/*登陆奖励wcd*/
+.dialog_big .task .hotactive li.now a{ color:#000;}
+.tejia_w{width:400px; margin:5px auto; background:#F6F4F0; border:3px solid #B1A497;}
+.tejia_w .teSp01{width:350px; margin:10px auto; background:#EDE2CE; border:1px solid #C7AF7F; border-bottom:0; }
+.tejia_w p{ margin:0;}
+.tejia_w .teSp02 p, .tejia_w .teSp01 p{border-bottom:1px solid #C7AF7F; height:25px; padding:4px 6px; color:#663300; text-align:left}
+.tejia_w .teSp01 p .redbutton_s{float:right; margin:0;}
+.tejia_w .teSp01 p strong{line-height:24px; font-size:14px;}
+.tejia_w .teSp02{width:350px; margin:10px auto; background:#EDE2CE; border:1px solid #C7AF7F; border-bottom:0;}
+.tejia_w .teSp02 p{height:52px;}
+.tejia_w .teSp02 p .redbutton_s{float:right; margin:12px 0 0 0;}
+.tejia_w .teSp02 p strong{float:left; width:215px; padding-top:12px; display:block; line-height:24px; font-size:14px;}
+.tejia_w .teSp02 p strong .red{float:right; display:block}
+.dialog_big .task .hotactive li.now a{ color:#000;}
+
+/*赛马系统2期*/
+/*.subwindow .subwindow_content{background:#000;}*/
+.btn_tz , a.btn_tz:link ,a.btn_tz:visited{height:18px; display:block;width:42px; line-height:18px; text-indent:0; background:url(../images/tz_bg.gif) no-repeat 0 0; text-align:center; color:#E3D7BF; font-size:12px}
+a.btn_tz:hover{background:url(../images/tz_bg.gif) no-repeat 0 -30px;color:#f60; text-decoration:none}
+.btn59_wy , a.btn59_wy:link ,a.btn59_wy:visited{height:18px; display:block;width:59px; line-height:18px; text-indent:0; background:url(../images/tz_bg.gif) no-repeat -50px 0; text-align:center; color:#E3D7BF; font-size:12px}
+a.btn59_wy:hover{background:url(../images/tz_bg.gif) no-repeat -50px -30px;color:#f60; text-decoration:none}
+.subwindow .messagecenter #ms_td2 th{ height:20px;}
+#ms_td1{height:98px;}
+#ms_td2{width:710px; left:0; height:300px;}
+#mf_w{background:#E7DDCC; border:1px solid #C7AF7F; height:280px;}
+#mf_w .mf_td{width:64px; height:110px; padding:15px 30px; float:left;}
+#mf_w .mf_td p{height:24px; padding:0; margin:0; line-height:24px; font-size:14px;}
+#ma_intro{height:110px;width:380px; padding:6px 5px 0 0;font-size:14px;}
+#ma_intro .ma_td1{float:left;height:84px;width:160px; text-align:right}
+#ma_intro .ma_td2{float:left;height:84px;width:150px; padding-left:10px; text-align:left}
+#ma_intro .ma_td2 p{height:21px; padding:0; margin:0;}
+#ma_intro .ma_td3{float:left;height:84px;width:60px;}
+#ma_intro .ma_td3 p{height:21px; padding:0; margin:0;}
+#ma_intro #ma_td4{clear: both;height:20px; text-align:right}
+#ms_horse{left:6px; top:32px; background:url(../images/bg_horse.jpg) no-repeat 0 0; height:395px;}
+/*跑马页面*/
+#ms3{margin:6px; background:url(../images/bg_ms3.jpg) no-repeat 0 0 #E7DDCC; height:430px; border:1px solid #CBB082;}
+#ms3 .pic_ma35{height:50px;}
+#ms3 .pic_ma35 p{ float:left; width:46px; height:44px; padding:0; margin:0; background:url(../images/bg_35ma.gif) no-repeat 0 0;}
+#ms3 .pic_ma35 p img{ float:left; border:0; width:35px; height:35px;} 
+#gongfang{padding-left:15px; height:160px;}
+#gongfang_info{height:110px; margin-top:90px;text-align: center;}
+#gongfang_info .gongfang_td1{width:450px;font-size:14px}
+#gongfang_info .gongfang_td2{ position:absolute;width:60px;font-size:14px; left:260px; top:60px;}
+#gongfang_info .gongfang_vs{ position:absolute;width:80px;left:330px; top:40px; font-family:tahoma; text-align:center;}
+#gongfang_info .gongfang_td3{float:left;width:310px;}
+#wofang{height:160px;}
+#wofang_info{height:110px;text-align: center;}
+#wofang_info .wofang_td1{width:450px;padding-top:6px; font-size:14px;text-align:left;}
+#wofang_info .wofang_td2{ position:absolute;width:60px;font-size:14px; right:240px; top:60px;}
+#wofang_info .wofang_td3{float:right;width:210px; font-size:14px}
+/*运镖*/
+#leitai_td1{height:98px; padding:4px; background:#FFFDF0; border:1px solid #C7AF7F;}
+#leitai_td1 .intro_01{text-align:left; float:left; width:200px;}
+#leitai_td1 .intro_02{text-align:left; float:left; width:360px; padding-top:6px; font-size:14px}
+#leitai_td1 .intro_03{text-align:left; padding:15px 0 0 0; float:left; width:120px;}
+#leitai_td2{width:710px; left:0; margin-top:4px; height:290px;}
+#leitai_td2 .title{height:21px;background:url(biao_bg.gif); line-height:20px; font-size:13px; padding:0 4px; text-align:left; color:#3F2518; border:1px solid #C7AF7F; border-bottom:0;}
+#leitai_td2 .jz_list{height:237px; padding:4px 4px; background:#E7DDCC; border:1px solid #C7AF7F;}
+#leitai_td2 .jz_list p{padding:0; margin:0; width:136px; height:25px; text-align:center; background:#FFFDF0; line-height:22px; float:left; border-top:1px solid #C7AF7F;border-left:1px solid #C7AF7F;}
+#leitai_td2 .jz_list .jz_tdw{float:left; width:688px; border-bottom:1px solid #C7AF7F;border-right:1px solid #C7AF7F;position:absolute}
+#leitai_td2 .jz_list .jz_td{ clear:both; height:25px;}
+#leitai_td2 .jz_list .jz_td .btn_tz{ margin:3px auto 0px auto}
+/*APP*/
+.zh_bg{background:url(../images/zh_bg.jpg) no-repeat; width:704px; margin:12px 0 0 12px; height:420px;}
+.consume_w{padding-top:40px;}
+.consume_w .consume{ margin-bottom:50px;}
+#zh01{ width:120px; height:157px; display:block; position:absolute; top:57px; left:212px;}
+#zh01.now{ background:url(../images/zh_01.jpg)}
+#zh02{ width:101px; height:121px; display:block; position:absolute; top:57px; left:332px;}
+#zh02.now{ background:url(../images/zh_02.jpg)}
+#zh03{ width:112px; height:169px; display:block; position:absolute; top:214px; left:183px;}
+#zh03.now{ background:url(../images/zh_03.jpg)}
+#zh04{ width:138px; height:205px; display:block; position:absolute; top:178px; left:295px;}
+#zh04.now{ background:url(../images/zh_04.jpg)}
+#zh05{ width:107px; height:182px; display:block; position:absolute; top:201px; left:433px;}
+#zh05.now{ background:url(../images/zh_05.jpg)}
+/*鸿胪寺*/
+.honglu_left{float:left; width:94px; height:120px;}
+.honglu_left h4{ margin:0; padding:0; height:18px; color:#582B04;}
+.honglu_left .hlu_border{width:74px; height:102px; border:1px solid #C8AF80; padding:4px; background:#EEE3CE;}
+.honglu_right{float:left; width:450px; height:124px;border:1px solid #C8AF80; text-align:left; line-height:20px; padding:4px; background:#EEE3CE;}
+.honglu_txt{border:2px solid #CBB387; width:530px; background:#F2EDE4; padding:10px; height:200px;}
+.honglu_txt h4{ margin:0; padding:0; line-height:22px; font-weight:normal; color:#582B04;}
