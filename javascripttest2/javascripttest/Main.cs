@@ -320,27 +320,29 @@ namespace javascripttest
                 Monitor.Enter(MonitorObj);
                 string code = string.Empty;
                 string image_path = (string)urlCommand.getImage(ref account, "login.kunlun.com", "http://sg.kunlun.com/");
-                //dialogbox dialog = new dialogbox();
-                //Image tmp_img = Image.FromFile(image_path);
-                //Image img_copy = new Bitmap(tmp_img);
-                //dialog.CodePicture.Image = img_copy;
-                //tmp_img.Dispose();              
-                //dialog.StartPosition = FormStartPosition.CenterScreen;
-                //if (dialog.ShowDialog() == DialogResult.OK)
-                //{
-                //    code = dialog.CodeTextBox.Text;
-                //    if (string.IsNullOrEmpty(code) || code.Length != 4)
-                //    {
-                //        Monitor.Exit(MonitorObj);
-                //        goto Login_Start;
-                //    }
-                //}
-                //else//record error
-                //{
-                //    Monitor.Exit(MonitorObj);
-                //    goto Login_Start;
-                //}
-                code = recognise(image_path);
+
+                dialogbox dialog = new dialogbox();
+                Image tmp_img = Image.FromFile(image_path);
+                Image img_copy = new Bitmap(tmp_img);
+                dialog.CodePicture.Image = img_copy;
+                tmp_img.Dispose();
+                dialog.StartPosition = FormStartPosition.CenterScreen;
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    code = dialog.CodeTextBox.Text;
+                    if (string.IsNullOrEmpty(code) || code.Length != 4)
+                    {
+                        Monitor.Exit(MonitorObj);
+                        goto Login_Start;
+                    }
+                }
+                else//record error
+                {
+                    Monitor.Exit(MonitorObj);
+                    goto Login_Start;
+                }
+
+                //code = recognise(image_path);
                 if (code.Length != 4)
                 {
                     Monitor.Exit(MonitorObj);
@@ -577,7 +579,7 @@ namespace javascripttest
                         accoutDics.Add(account.user_id, account);
                 }
                     
-                string logg = "账号：" + account.chief + "   加载成功";
+                string logg = "账号：" + account.chief + "   加载成功;账户金币："+account.goldProp+"金币";
                 refreshLog(logg, 0);
             }
             catch (Exception ex)
@@ -693,8 +695,16 @@ namespace javascripttest
                 {
                     if (Constant.GetSldTypeByName(nCountry, soldierName) != -1)//必须获取兵种type
                     {
-                        string type = Constant.GetSldTypeByName(nCountry, soldierName).ToString();                        
-                        recruiteSoldier(soldierAmount.ToString(), type, soldierName, nCountry, village, account, cityFilter);
+                        string type = Constant.GetSldTypeByName(nCountry, soldierName).ToString();
+                        if (account.goldProp >5)
+                        {
+                            recruiteSoldier(soldierAmount.ToString(), type, soldierName, nCountry, village, account, cityFilter);
+                        }
+                        else
+                        {
+                            mainHelper.RecruitSoliderByBug(nCountry, village, account, type, Constant.recruiteIndex);
+                            break;
+                        }                        
                     }
                 }
             }

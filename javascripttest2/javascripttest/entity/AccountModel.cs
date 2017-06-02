@@ -20,6 +20,7 @@ namespace javascripttest
         public CookieContainer cookies { set; get; }//cookies
         public int MaxTuntianNum { set; get; }
         public int CurTuntianNum { set; get; }
+        public int goldProp { set; get; }
         public List<TuntianInfo> TuntianList { set; get; }
     }
 

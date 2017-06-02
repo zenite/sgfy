@@ -61,6 +61,7 @@ namespace javascripttest
 
         public AccountModel InitialAccountInfo(ref AccountModel account)
         {
+            getGlodProp(ref  account);
             List<village> villages = new List<village>();
             string html = httpHelper.Html_get(this.commonUrl.url_head + "act=build.status&villageid=" + account.villageid + "&rand=" + this.Rand().ToString(), this.commonUrl.url, account);
             MatchCollection matchs = new Regex("<village id=\"(?<_villageId>\\d+)\" name=\"(?<_villageName>\\S+)\" x=\"(?<_x>\\d+)\" y=\"(?<_y>\\d+)\" state=\"(?<_state>\\S+)\" ismain=\"(?<_ismain>\\d+)\" isstatevillage=\"(?<_isstatevillage>\\d+)\" assistant=\"(?<_assistant>\\d+)\" />", RegexOptions.None).Matches(html);
@@ -213,6 +214,24 @@ namespace javascripttest
             account.village = villages;
             
             return account;
+        }
+
+        public void getGlodProp(ref AccountModel account)
+        { 
+              string html = httpHelper.Html_get(this.commonUrl.url_head + "act=store.main&first=1&villageid=" + account.villageid + "&userid="+account.user_id+"&rand=" + this.Rand().ToString(), this.commonUrl.url, account);
+              string GlodProphtml = new Regex(@"\]\]></html(.|\n|\r|\s)*?><!\[CDATA\[", RegexOptions.None).Replace(html, "");
+              MatchCollection GoldPropList = new Regex("innerHTML.*'(?<_GoldProp>.*?)'", RegexOptions.None).Matches(GlodProphtml);
+              if (GoldPropList != null)
+              {
+                  foreach (Match item in GoldPropList)
+                  {
+                      account.goldProp = Convert.ToInt32(item.Groups["_GoldProp"].Value);
+                  }
+              }
+              else
+              {
+                  account.goldProp = 0;
+              }            
         }
 
         
@@ -410,6 +429,20 @@ namespace javascripttest
                 
             }
             return str;
+        }
+
+
+        public string RecruitSoliderByBug(int ncountry,village village, AccountModel account, string type,int logIndex)
+        {
+                string str = httpHelper.Html_get(this.commonUrl.url_head + "act=build.act&do=max_raise&btid=5&consume_type=-1&userid="+account.user_id+"&bid="+village.bid+"&type= " + type +"&villageid=" + village.VillageID + "&rand=" + this.Rand().ToString(), commonUrl.url, account);
+            str = this.getParaValue("(?<=(<locat act.*?>)).+?(?=</locat)", str);
+            string invTypeName = string.Empty;
+         
+                logger = account.chief + " 城镇" + village.VillageName + "：bug招募"+ Constant.m_strSoldierNames[ncountry, Convert.ToInt32(type)];
+                recorder(logger, logIndex);
+         
+            return str;
+           // act=build.act&do=max_raise&bid=20&btid=5&type=2&consume_type=0&userid=385&villageid=7117&wc2au=2ad2541&rand=598646
         }
 
         //伤兵
