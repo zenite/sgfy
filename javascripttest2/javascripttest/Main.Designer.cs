@@ -173,7 +173,9 @@
             this.cityFilter = new System.Windows.Forms.ComboBox();
             this.DefensePattern = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.DefenseLower = new System.Windows.Forms.TextBox();
             this.DefenseUpper = new System.Windows.Forms.TextBox();
+            this.label32 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.defenseBattlePause = new System.Windows.Forms.Button();
             this.DefenseBattleStop = new System.Windows.Forms.Button();
@@ -193,13 +195,6 @@
             this.defenseSetting = new System.Windows.Forms.GroupBox();
             this.ch_shuike = new System.Windows.Forms.CheckBox();
             this.ch_kenhuang = new System.Windows.Forms.CheckBox();
-            this.Soldier_jwq = new System.Windows.Forms.CheckBox();
-            this.Soldier_zq = new System.Windows.Forms.CheckBox();
-            this.Soldier_qq = new System.Windows.Forms.CheckBox();
-            this.Soldier_cq = new System.Windows.Forms.CheckBox();
-            this.Soldier_g = new System.Windows.Forms.CheckBox();
-            this.ch_zhongbu = new System.Windows.Forms.CheckBox();
-            this.ch_piaodao = new System.Windows.Forms.CheckBox();
             this.attackSetting = new System.Windows.Forms.GroupBox();
             this.ch_chongche = new System.Windows.Forms.CheckBox();
             this.ch_pili = new System.Windows.Forms.CheckBox();
@@ -212,6 +207,13 @@
             this.Soldier_gj_j = new System.Windows.Forms.CheckBox();
             this.Soldier_gj_qz = new System.Windows.Forms.CheckBox();
             this.ch_jinweibing = new System.Windows.Forms.CheckBox();
+            this.Soldier_jwq = new System.Windows.Forms.CheckBox();
+            this.Soldier_zq = new System.Windows.Forms.CheckBox();
+            this.Soldier_qq = new System.Windows.Forms.CheckBox();
+            this.Soldier_cq = new System.Windows.Forms.CheckBox();
+            this.Soldier_g = new System.Windows.Forms.CheckBox();
+            this.ch_zhongbu = new System.Windows.Forms.CheckBox();
+            this.ch_piaodao = new System.Windows.Forms.CheckBox();
             this.log1 = new System.Windows.Forms.ListBox();
             this.construction = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -1343,6 +1345,7 @@
             this.restrictTime.Name = "restrictTime";
             this.restrictTime.Size = new System.Drawing.Size(61, 25);
             this.restrictTime.TabIndex = 5;
+            this.restrictTime.TextChanged += new System.EventHandler(this.setAttr);
             // 
             // Trader_Target_X
             // 
@@ -1350,6 +1353,7 @@
             this.Trader_Target_X.Name = "Trader_Target_X";
             this.Trader_Target_X.Size = new System.Drawing.Size(64, 25);
             this.Trader_Target_X.TabIndex = 1;
+            this.Trader_Target_X.TextChanged += new System.EventHandler(this.setAttr);
             // 
             // Tran_Timespan
             // 
@@ -1357,6 +1361,7 @@
             this.Tran_Timespan.Name = "Tran_Timespan";
             this.Tran_Timespan.Size = new System.Drawing.Size(100, 25);
             this.Tran_Timespan.TabIndex = 5;
+            this.Tran_Timespan.TextChanged += new System.EventHandler(this.setAttr);
             // 
             // Trader_Resource_Lumber
             // 
@@ -1364,6 +1369,7 @@
             this.Trader_Resource_Lumber.Name = "Trader_Resource_Lumber";
             this.Trader_Resource_Lumber.Size = new System.Drawing.Size(30, 25);
             this.Trader_Resource_Lumber.TabIndex = 1;
+            this.Trader_Resource_Lumber.TextChanged += new System.EventHandler(this.setAttr);
             // 
             // label18
             // 
@@ -1380,6 +1386,7 @@
             this.Trader_Resource_Clay.Name = "Trader_Resource_Clay";
             this.Trader_Resource_Clay.Size = new System.Drawing.Size(30, 25);
             this.Trader_Resource_Clay.TabIndex = 1;
+            this.Trader_Resource_Clay.TextChanged += new System.EventHandler(this.setAttr);
             // 
             // TranPause
             // 
@@ -1396,6 +1403,7 @@
             this.Trader_Resource_Crop.Name = "Trader_Resource_Crop";
             this.Trader_Resource_Crop.Size = new System.Drawing.Size(30, 25);
             this.Trader_Resource_Crop.TabIndex = 1;
+            this.Trader_Resource_Crop.TextChanged += new System.EventHandler(this.setAttr);
             // 
             // TranStart
             // 
@@ -1413,6 +1421,7 @@
             this.Trader_Resource_Iron.Name = "Trader_Resource_Iron";
             this.Trader_Resource_Iron.Size = new System.Drawing.Size(30, 25);
             this.Trader_Resource_Iron.TabIndex = 1;
+            this.Trader_Resource_Iron.TextChanged += new System.EventHandler(this.setAttr);
             // 
             // label17
             // 
@@ -1429,6 +1438,7 @@
             this.Trader_Target_Y.Name = "Trader_Target_Y";
             this.Trader_Target_Y.Size = new System.Drawing.Size(64, 25);
             this.Trader_Target_Y.TabIndex = 1;
+            this.Trader_Target_Y.TextChanged += new System.EventHandler(this.setAttr);
             // 
             // label16
             // 
@@ -1562,6 +1572,7 @@
             this.Battle_type.Name = "Battle_type";
             this.Battle_type.Size = new System.Drawing.Size(64, 23);
             this.Battle_type.TabIndex = 1;
+            this.Battle_type.SelectedIndexChanged += new System.EventHandler(this.setAttr);
             // 
             // Direct_graincentre
             // 
@@ -1573,7 +1584,7 @@
             this.Direct_graincentre.TabStop = true;
             this.Direct_graincentre.Text = "屯田所";
             this.Direct_graincentre.UseVisualStyleBackColor = true;
-            this.Direct_graincentre.CheckedChanged += new System.EventHandler(this.Direct_graincentre_CheckedChanged);
+            this.Direct_graincentre.CheckedChanged += new System.EventHandler(this.setAttr);
             // 
             // Direct_stronghold
             // 
@@ -1586,6 +1597,7 @@
             this.Direct_stronghold.Text = "据点";
             this.Direct_stronghold.UseVisualStyleBackColor = true;
             this.Direct_stronghold.Visible = false;
+            this.Direct_stronghold.CheckedChanged += new System.EventHandler(this.setAttr);
             // 
             // Direct_city
             // 
@@ -1597,7 +1609,7 @@
             this.Direct_city.TabStop = true;
             this.Direct_city.Text = "城镇";
             this.Direct_city.UseVisualStyleBackColor = true;
-            this.Direct_city.CheckedChanged += new System.EventHandler(this.Direct_city_CheckedChanged);
+            this.Direct_city.CheckedChanged += new System.EventHandler(this.setAttr);
             // 
             // groupBox3
             // 
@@ -1610,7 +1622,9 @@
             this.groupBox3.Controls.Add(this.cityFilter);
             this.groupBox3.Controls.Add(this.DefensePattern);
             this.groupBox3.Controls.Add(this.label6);
+            this.groupBox3.Controls.Add(this.DefenseLower);
             this.groupBox3.Controls.Add(this.DefenseUpper);
+            this.groupBox3.Controls.Add(this.label32);
             this.groupBox3.Controls.Add(this.label4);
             this.groupBox3.Location = new System.Drawing.Point(435, 20);
             this.groupBox3.Name = "groupBox3";
@@ -1643,6 +1657,7 @@
             this.chihou.TabIndex = 11;
             this.chihou.Text = "斥候";
             this.chihou.UseVisualStyleBackColor = true;
+            this.chihou.CheckedChanged += new System.EventHandler(this.setAttr);
             // 
             // wei_piaodao
             // 
@@ -1653,6 +1668,7 @@
             this.wei_piaodao.TabIndex = 6;
             this.wei_piaodao.Text = "朴刀兵";
             this.wei_piaodao.UseVisualStyleBackColor = true;
+            this.wei_piaodao.CheckedChanged += new System.EventHandler(this.setAttr);
             // 
             // wei_zhongbu
             // 
@@ -1663,6 +1679,7 @@
             this.wei_zhongbu.TabIndex = 7;
             this.wei_zhongbu.Text = "重步兵";
             this.wei_zhongbu.UseVisualStyleBackColor = true;
+            this.wei_zhongbu.CheckedChanged += new System.EventHandler(this.setAttr);
             // 
             // wu_gebing
             // 
@@ -1673,6 +1690,7 @@
             this.wu_gebing.TabIndex = 8;
             this.wu_gebing.Text = "戈兵";
             this.wu_gebing.UseVisualStyleBackColor = true;
+            this.wu_gebing.CheckedChanged += new System.EventHandler(this.setAttr);
             // 
             // shu_changqiang
             // 
@@ -1683,6 +1701,7 @@
             this.shu_changqiang.TabIndex = 9;
             this.shu_changqiang.Text = "长枪兵";
             this.shu_changqiang.UseVisualStyleBackColor = true;
+            this.shu_changqiang.CheckedChanged += new System.EventHandler(this.setAttr);
             // 
             // shu_qiangqi
             // 
@@ -1693,6 +1712,7 @@
             this.shu_qiangqi.TabIndex = 9;
             this.shu_qiangqi.Text = "枪骑兵";
             this.shu_qiangqi.UseVisualStyleBackColor = true;
+            this.shu_qiangqi.CheckedChanged += new System.EventHandler(this.setAttr);
             // 
             // wu_jinweiqi
             // 
@@ -1703,6 +1723,7 @@
             this.wu_jinweiqi.TabIndex = 10;
             this.wu_jinweiqi.Text = "近卫骑兵";
             this.wu_jinweiqi.UseVisualStyleBackColor = true;
+            this.wu_jinweiqi.CheckedChanged += new System.EventHandler(this.setAttr);
             // 
             // wu_zhongqi
             // 
@@ -1713,6 +1734,7 @@
             this.wu_zhongqi.TabIndex = 10;
             this.wu_zhongqi.Text = "重骑兵";
             this.wu_zhongqi.UseVisualStyleBackColor = true;
+            this.wu_zhongqi.CheckedChanged += new System.EventHandler(this.setAttr);
             // 
             // label12
             // 
@@ -1729,6 +1751,7 @@
             this.DefenseNum.Name = "DefenseNum";
             this.DefenseNum.Size = new System.Drawing.Size(48, 25);
             this.DefenseNum.TabIndex = 13;
+            this.DefenseNum.TextChanged += new System.EventHandler(this.setAttr);
             // 
             // checkBox9
             // 
@@ -1739,6 +1762,7 @@
             this.checkBox9.TabIndex = 12;
             this.checkBox9.Text = "不求压秒";
             this.checkBox9.UseVisualStyleBackColor = true;
+            this.checkBox9.CheckedChanged += new System.EventHandler(this.setAttr);
             // 
             // textBox5
             // 
@@ -1746,6 +1770,7 @@
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(166, 25);
             this.textBox5.TabIndex = 11;
+            this.textBox5.TextChanged += new System.EventHandler(this.setAttr);
             // 
             // label5
             // 
@@ -1768,6 +1793,7 @@
             this.cityFilter.Name = "cityFilter";
             this.cityFilter.Size = new System.Drawing.Size(64, 23);
             this.cityFilter.TabIndex = 1;
+            this.cityFilter.SelectedIndexChanged += new System.EventHandler(this.setAttr);
             // 
             // DefensePattern
             // 
@@ -1783,6 +1809,7 @@
             this.DefensePattern.Name = "DefensePattern";
             this.DefensePattern.Size = new System.Drawing.Size(64, 23);
             this.DefensePattern.TabIndex = 1;
+            this.DefensePattern.SelectedIndexChanged += new System.EventHandler(this.setAttr);
             // 
             // label6
             // 
@@ -1793,12 +1820,30 @@
             this.label6.TabIndex = 4;
             this.label6.Text = "到达时间";
             // 
+            // DefenseLower
+            // 
+            this.DefenseLower.Location = new System.Drawing.Point(223, 28);
+            this.DefenseLower.Name = "DefenseLower";
+            this.DefenseLower.Size = new System.Drawing.Size(69, 25);
+            this.DefenseLower.TabIndex = 5;
+            this.DefenseLower.TextChanged += new System.EventHandler(this.setAttr);
+            // 
             // DefenseUpper
             // 
             this.DefenseUpper.Location = new System.Drawing.Point(77, 27);
             this.DefenseUpper.Name = "DefenseUpper";
-            this.DefenseUpper.Size = new System.Drawing.Size(102, 25);
+            this.DefenseUpper.Size = new System.Drawing.Size(69, 25);
             this.DefenseUpper.TabIndex = 5;
+            this.DefenseUpper.TextChanged += new System.EventHandler(this.setAttr);
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(152, 28);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(67, 15);
+            this.label32.TabIndex = 4;
+            this.label32.Text = "兵力下限";
             // 
             // label4
             // 
@@ -1865,8 +1910,8 @@
             // 
             this.groupBox14.Controls.Add(this.groupBox5);
             this.groupBox14.Controls.Add(this.label11);
-            this.groupBox14.Controls.Add(this.defenseSetting);
             this.groupBox14.Controls.Add(this.attackSetting);
+            this.groupBox14.Controls.Add(this.defenseSetting);
             this.groupBox14.Location = new System.Drawing.Point(14, 7);
             this.groupBox14.Name = "groupBox14";
             this.groupBox14.Size = new System.Drawing.Size(1162, 174);
@@ -1909,6 +1954,7 @@
             this.SoldiersAmount.Name = "SoldiersAmount";
             this.SoldiersAmount.Size = new System.Drawing.Size(132, 25);
             this.SoldiersAmount.TabIndex = 4;
+            this.SoldiersAmount.TextChanged += new System.EventHandler(this.setAttr);
             // 
             // label2
             // 
@@ -1949,7 +1995,7 @@
             this.filterrecruit.Name = "filterrecruit";
             this.filterrecruit.Size = new System.Drawing.Size(94, 23);
             this.filterrecruit.TabIndex = 1;
-            this.filterrecruit.SelectedIndexChanged += new System.EventHandler(this.SoldiersType_SelectedIndexChanged);
+            this.filterrecruit.SelectedIndexChanged += new System.EventHandler(this.setAttr);
             // 
             // SoldiersType
             // 
@@ -1988,7 +2034,7 @@
             this.defenseSetting.Controls.Add(this.Soldier_g);
             this.defenseSetting.Controls.Add(this.ch_zhongbu);
             this.defenseSetting.Controls.Add(this.ch_piaodao);
-            this.defenseSetting.Location = new System.Drawing.Point(780, 7);
+            this.defenseSetting.Location = new System.Drawing.Point(785, 17);
             this.defenseSetting.Name = "defenseSetting";
             this.defenseSetting.Size = new System.Drawing.Size(221, 132);
             this.defenseSetting.TabIndex = 0;
@@ -2005,6 +2051,7 @@
             this.ch_shuike.TabIndex = 22;
             this.ch_shuike.Text = "说客";
             this.ch_shuike.UseVisualStyleBackColor = true;
+            this.ch_shuike.CheckedChanged += new System.EventHandler(this.setAttr);
             // 
             // ch_kenhuang
             // 
@@ -2015,76 +2062,7 @@
             this.ch_kenhuang.TabIndex = 23;
             this.ch_kenhuang.Text = "垦荒";
             this.ch_kenhuang.UseVisualStyleBackColor = true;
-            // 
-            // Soldier_jwq
-            // 
-            this.Soldier_jwq.AutoSize = true;
-            this.Soldier_jwq.Location = new System.Drawing.Point(117, 44);
-            this.Soldier_jwq.Name = "Soldier_jwq";
-            this.Soldier_jwq.Size = new System.Drawing.Size(89, 19);
-            this.Soldier_jwq.TabIndex = 19;
-            this.Soldier_jwq.Text = "近卫骑兵";
-            this.Soldier_jwq.UseVisualStyleBackColor = true;
-            // 
-            // Soldier_zq
-            // 
-            this.Soldier_zq.AutoSize = true;
-            this.Soldier_zq.Location = new System.Drawing.Point(13, 44);
-            this.Soldier_zq.Name = "Soldier_zq";
-            this.Soldier_zq.Size = new System.Drawing.Size(89, 19);
-            this.Soldier_zq.TabIndex = 20;
-            this.Soldier_zq.Text = "重装骑兵";
-            this.Soldier_zq.UseVisualStyleBackColor = true;
-            // 
-            // Soldier_qq
-            // 
-            this.Soldier_qq.AutoSize = true;
-            this.Soldier_qq.Location = new System.Drawing.Point(86, 66);
-            this.Soldier_qq.Name = "Soldier_qq";
-            this.Soldier_qq.Size = new System.Drawing.Size(74, 19);
-            this.Soldier_qq.TabIndex = 17;
-            this.Soldier_qq.Text = "枪骑兵";
-            this.Soldier_qq.UseVisualStyleBackColor = true;
-            // 
-            // Soldier_cq
-            // 
-            this.Soldier_cq.AutoSize = true;
-            this.Soldier_cq.Location = new System.Drawing.Point(14, 66);
-            this.Soldier_cq.Name = "Soldier_cq";
-            this.Soldier_cq.Size = new System.Drawing.Size(74, 19);
-            this.Soldier_cq.TabIndex = 18;
-            this.Soldier_cq.Text = "长枪兵";
-            this.Soldier_cq.UseVisualStyleBackColor = true;
-            // 
-            // Soldier_g
-            // 
-            this.Soldier_g.AutoSize = true;
-            this.Soldier_g.Location = new System.Drawing.Point(156, 19);
-            this.Soldier_g.Name = "Soldier_g";
-            this.Soldier_g.Size = new System.Drawing.Size(59, 19);
-            this.Soldier_g.TabIndex = 15;
-            this.Soldier_g.Text = "戈兵";
-            this.Soldier_g.UseVisualStyleBackColor = true;
-            // 
-            // ch_zhongbu
-            // 
-            this.ch_zhongbu.AutoSize = true;
-            this.ch_zhongbu.Location = new System.Drawing.Point(86, 19);
-            this.ch_zhongbu.Name = "ch_zhongbu";
-            this.ch_zhongbu.Size = new System.Drawing.Size(74, 19);
-            this.ch_zhongbu.TabIndex = 14;
-            this.ch_zhongbu.Text = "重步兵";
-            this.ch_zhongbu.UseVisualStyleBackColor = true;
-            // 
-            // ch_piaodao
-            // 
-            this.ch_piaodao.AutoSize = true;
-            this.ch_piaodao.Location = new System.Drawing.Point(15, 19);
-            this.ch_piaodao.Name = "ch_piaodao";
-            this.ch_piaodao.Size = new System.Drawing.Size(74, 19);
-            this.ch_piaodao.TabIndex = 13;
-            this.ch_piaodao.Text = "朴刀兵";
-            this.ch_piaodao.UseVisualStyleBackColor = true;
+            this.ch_kenhuang.CheckedChanged += new System.EventHandler(this.setAttr);
             // 
             // attackSetting
             // 
@@ -2100,7 +2078,7 @@
             this.attackSetting.Controls.Add(this.Soldier_gj_j);
             this.attackSetting.Controls.Add(this.Soldier_gj_qz);
             this.attackSetting.Controls.Add(this.ch_jinweibing);
-            this.attackSetting.Location = new System.Drawing.Point(780, 11);
+            this.attackSetting.Location = new System.Drawing.Point(767, 24);
             this.attackSetting.Name = "attackSetting";
             this.attackSetting.Size = new System.Drawing.Size(258, 134);
             this.attackSetting.TabIndex = 0;
@@ -2117,6 +2095,7 @@
             this.ch_chongche.TabIndex = 21;
             this.ch_chongche.Text = "冲车";
             this.ch_chongche.UseVisualStyleBackColor = true;
+            this.ch_chongche.CheckedChanged += new System.EventHandler(this.setAttr);
             // 
             // ch_pili
             // 
@@ -2127,6 +2106,7 @@
             this.ch_pili.TabIndex = 21;
             this.ch_pili.Text = "霹雳车";
             this.ch_pili.UseVisualStyleBackColor = true;
+            this.ch_pili.CheckedChanged += new System.EventHandler(this.setAttr);
             // 
             // Soldier_gj_jwq
             // 
@@ -2137,6 +2117,7 @@
             this.Soldier_gj_jwq.TabIndex = 19;
             this.Soldier_gj_jwq.Text = "近卫骑兵";
             this.Soldier_gj_jwq.UseVisualStyleBackColor = true;
+            this.Soldier_gj_jwq.CheckedChanged += new System.EventHandler(this.setAttr);
             // 
             // Soldier_gj_sbg
             // 
@@ -2147,6 +2128,7 @@
             this.Soldier_gj_sbg.TabIndex = 20;
             this.Soldier_gj_sbg.Text = "神臂弓兵";
             this.Soldier_gj_sbg.UseVisualStyleBackColor = true;
+            this.Soldier_gj_sbg.CheckedChanged += new System.EventHandler(this.setAttr);
             // 
             // Soldier_gj_gq
             // 
@@ -2157,6 +2139,7 @@
             this.Soldier_gj_gq.TabIndex = 16;
             this.Soldier_gj_gq.Text = "弓骑兵";
             this.Soldier_gj_gq.UseVisualStyleBackColor = true;
+            this.Soldier_gj_gq.CheckedChanged += new System.EventHandler(this.setAttr);
             // 
             // Soldier_gj_ln
             // 
@@ -2167,6 +2150,7 @@
             this.Soldier_gj_ln.TabIndex = 17;
             this.Soldier_gj_ln.Text = "连弩兵";
             this.Soldier_gj_ln.UseVisualStyleBackColor = true;
+            this.Soldier_gj_ln.CheckedChanged += new System.EventHandler(this.setAttr);
             // 
             // Soldier_gj_ylw
             // 
@@ -2177,6 +2161,7 @@
             this.Soldier_gj_ylw.TabIndex = 17;
             this.Soldier_gj_ylw.Text = "羽林卫";
             this.Soldier_gj_ylw.UseVisualStyleBackColor = true;
+            this.Soldier_gj_ylw.CheckedChanged += new System.EventHandler(this.setAttr);
             // 
             // Soldier_gj_dd
             // 
@@ -2187,6 +2172,7 @@
             this.Soldier_gj_dd.TabIndex = 18;
             this.Soldier_gj_dd.Text = "大刀兵";
             this.Soldier_gj_dd.UseVisualStyleBackColor = true;
+            this.Soldier_gj_dd.CheckedChanged += new System.EventHandler(this.setAttr);
             // 
             // Soldier_gj_j
             // 
@@ -2197,6 +2183,7 @@
             this.Soldier_gj_j.TabIndex = 15;
             this.Soldier_gj_j.Text = "剑兵";
             this.Soldier_gj_j.UseVisualStyleBackColor = true;
+            this.Soldier_gj_j.CheckedChanged += new System.EventHandler(this.setAttr);
             // 
             // Soldier_gj_qz
             // 
@@ -2207,6 +2194,7 @@
             this.Soldier_gj_qz.TabIndex = 14;
             this.Soldier_gj_qz.Text = "青州骑兵";
             this.Soldier_gj_qz.UseVisualStyleBackColor = true;
+            this.Soldier_gj_qz.CheckedChanged += new System.EventHandler(this.setAttr);
             // 
             // ch_jinweibing
             // 
@@ -2217,6 +2205,84 @@
             this.ch_jinweibing.TabIndex = 13;
             this.ch_jinweibing.Text = "近卫兵";
             this.ch_jinweibing.UseVisualStyleBackColor = true;
+            this.ch_jinweibing.CheckedChanged += new System.EventHandler(this.setAttr);
+            // 
+            // Soldier_jwq
+            // 
+            this.Soldier_jwq.AutoSize = true;
+            this.Soldier_jwq.Location = new System.Drawing.Point(117, 44);
+            this.Soldier_jwq.Name = "Soldier_jwq";
+            this.Soldier_jwq.Size = new System.Drawing.Size(89, 19);
+            this.Soldier_jwq.TabIndex = 19;
+            this.Soldier_jwq.Text = "近卫骑兵";
+            this.Soldier_jwq.UseVisualStyleBackColor = true;
+            this.Soldier_jwq.CheckedChanged += new System.EventHandler(this.setAttr);
+            // 
+            // Soldier_zq
+            // 
+            this.Soldier_zq.AutoSize = true;
+            this.Soldier_zq.Location = new System.Drawing.Point(13, 44);
+            this.Soldier_zq.Name = "Soldier_zq";
+            this.Soldier_zq.Size = new System.Drawing.Size(89, 19);
+            this.Soldier_zq.TabIndex = 20;
+            this.Soldier_zq.Text = "重装骑兵";
+            this.Soldier_zq.UseVisualStyleBackColor = true;
+            this.Soldier_zq.CheckedChanged += new System.EventHandler(this.setAttr);
+            // 
+            // Soldier_qq
+            // 
+            this.Soldier_qq.AutoSize = true;
+            this.Soldier_qq.Location = new System.Drawing.Point(86, 66);
+            this.Soldier_qq.Name = "Soldier_qq";
+            this.Soldier_qq.Size = new System.Drawing.Size(74, 19);
+            this.Soldier_qq.TabIndex = 17;
+            this.Soldier_qq.Text = "枪骑兵";
+            this.Soldier_qq.UseVisualStyleBackColor = true;
+            this.Soldier_qq.CheckedChanged += new System.EventHandler(this.setAttr);
+            // 
+            // Soldier_cq
+            // 
+            this.Soldier_cq.AutoSize = true;
+            this.Soldier_cq.Location = new System.Drawing.Point(14, 66);
+            this.Soldier_cq.Name = "Soldier_cq";
+            this.Soldier_cq.Size = new System.Drawing.Size(74, 19);
+            this.Soldier_cq.TabIndex = 18;
+            this.Soldier_cq.Text = "长枪兵";
+            this.Soldier_cq.UseVisualStyleBackColor = true;
+            this.Soldier_cq.CheckedChanged += new System.EventHandler(this.setAttr);
+            // 
+            // Soldier_g
+            // 
+            this.Soldier_g.AutoSize = true;
+            this.Soldier_g.Location = new System.Drawing.Point(156, 19);
+            this.Soldier_g.Name = "Soldier_g";
+            this.Soldier_g.Size = new System.Drawing.Size(59, 19);
+            this.Soldier_g.TabIndex = 15;
+            this.Soldier_g.Text = "戈兵";
+            this.Soldier_g.UseVisualStyleBackColor = true;
+            this.Soldier_g.CheckedChanged += new System.EventHandler(this.setAttr);
+            // 
+            // ch_zhongbu
+            // 
+            this.ch_zhongbu.AutoSize = true;
+            this.ch_zhongbu.Location = new System.Drawing.Point(86, 19);
+            this.ch_zhongbu.Name = "ch_zhongbu";
+            this.ch_zhongbu.Size = new System.Drawing.Size(74, 19);
+            this.ch_zhongbu.TabIndex = 14;
+            this.ch_zhongbu.Text = "重步兵";
+            this.ch_zhongbu.UseVisualStyleBackColor = true;
+            this.ch_zhongbu.CheckedChanged += new System.EventHandler(this.setAttr);
+            // 
+            // ch_piaodao
+            // 
+            this.ch_piaodao.AutoSize = true;
+            this.ch_piaodao.Location = new System.Drawing.Point(15, 19);
+            this.ch_piaodao.Name = "ch_piaodao";
+            this.ch_piaodao.Size = new System.Drawing.Size(74, 19);
+            this.ch_piaodao.TabIndex = 13;
+            this.ch_piaodao.Text = "朴刀兵";
+            this.ch_piaodao.UseVisualStyleBackColor = true;
+            this.ch_piaodao.CheckedChanged += new System.EventHandler(this.setAttr);
             // 
             // log1
             // 
@@ -2278,6 +2344,7 @@
             this.cb_caitiechang.Text = "采铁厂";
             this.cb_caitiechang.UseVisualStyleBackColor = true;
             this.cb_caitiechang.Visible = false;
+            this.cb_caitiechang.CheckedChanged += new System.EventHandler(this.setAttr);
             // 
             // cb_tiekuang
             // 
@@ -2288,6 +2355,7 @@
             this.cb_tiekuang.TabIndex = 0;
             this.cb_tiekuang.Text = "铁矿";
             this.cb_tiekuang.UseVisualStyleBackColor = true;
+            this.cb_tiekuang.CheckedChanged += new System.EventHandler(this.setAttr);
             // 
             // cb_famuchang
             // 
@@ -2299,6 +2367,7 @@
             this.cb_famuchang.Text = "伐木场";
             this.cb_famuchang.UseVisualStyleBackColor = true;
             this.cb_famuchang.Visible = false;
+            this.cb_famuchang.CheckedChanged += new System.EventHandler(this.setAttr);
             // 
             // cb_linchang
             // 
@@ -2309,6 +2378,7 @@
             this.cb_linchang.TabIndex = 0;
             this.cb_linchang.Text = "林场";
             this.cb_linchang.UseVisualStyleBackColor = true;
+            this.cb_linchang.CheckedChanged += new System.EventHandler(this.setAttr);
             // 
             // cb_mofang
             // 
@@ -2320,6 +2390,7 @@
             this.cb_mofang.Text = "磨坊";
             this.cb_mofang.UseVisualStyleBackColor = true;
             this.cb_mofang.Visible = false;
+            this.cb_mofang.CheckedChanged += new System.EventHandler(this.setAttr);
             // 
             // cb_caishichang
             // 
@@ -2331,6 +2402,7 @@
             this.cb_caishichang.Text = "采石场";
             this.cb_caishichang.UseVisualStyleBackColor = true;
             this.cb_caishichang.Visible = false;
+            this.cb_caishichang.CheckedChanged += new System.EventHandler(this.setAttr);
             // 
             // cb_nongtian
             // 
@@ -2341,6 +2413,7 @@
             this.cb_nongtian.TabIndex = 0;
             this.cb_nongtian.Text = "农田";
             this.cb_nongtian.UseVisualStyleBackColor = true;
+            this.cb_nongtian.CheckedChanged += new System.EventHandler(this.setAttr);
             // 
             // cb_shikuang
             // 
@@ -2351,6 +2424,7 @@
             this.cb_shikuang.TabIndex = 0;
             this.cb_shikuang.Text = "石矿";
             this.cb_shikuang.UseVisualStyleBackColor = true;
+            this.cb_shikuang.CheckedChanged += new System.EventHandler(this.setAttr);
             // 
             // Start_Construct
             // 
@@ -2428,6 +2502,7 @@
             this.CreateBuildingName.Name = "CreateBuildingName";
             this.CreateBuildingName.Size = new System.Drawing.Size(76, 23);
             this.CreateBuildingName.TabIndex = 2;
+            this.CreateBuildingName.SelectedIndexChanged += new System.EventHandler(this.setAttr);
             // 
             // label19
             // 
@@ -2447,6 +2522,7 @@
             this.cb_bieyuan.TabIndex = 0;
             this.cb_bieyuan.Text = "别院";
             this.cb_bieyuan.UseVisualStyleBackColor = true;
+            this.cb_bieyuan.CheckedChanged += new System.EventHandler(this.setAttr);
             // 
             // cb_xueguan
             // 
@@ -2457,6 +2533,7 @@
             this.cb_xueguan.TabIndex = 0;
             this.cb_xueguan.Text = "学馆";
             this.cb_xueguan.UseVisualStyleBackColor = true;
+            this.cb_xueguan.CheckedChanged += new System.EventHandler(this.setAttr);
             // 
             // cb_jishi
             // 
@@ -2467,6 +2544,7 @@
             this.cb_jishi.TabIndex = 0;
             this.cb_jishi.Text = "集市";
             this.cb_jishi.UseVisualStyleBackColor = true;
+            this.cb_jishi.CheckedChanged += new System.EventHandler(this.setAttr);
             // 
             // checkBox15
             // 
@@ -2477,6 +2555,7 @@
             this.checkBox15.TabIndex = 0;
             this.checkBox15.Text = "粮仓";
             this.checkBox15.UseVisualStyleBackColor = true;
+            this.checkBox15.CheckedChanged += new System.EventHandler(this.setAttr);
             // 
             // cb_shangbingying
             // 
@@ -2487,6 +2566,7 @@
             this.cb_shangbingying.TabIndex = 0;
             this.cb_shangbingying.Text = "伤兵营";
             this.cb_shangbingying.UseVisualStyleBackColor = true;
+            this.cb_shangbingying.CheckedChanged += new System.EventHandler(this.setAttr);
             // 
             // cb_gewufang
             // 
@@ -2497,6 +2577,7 @@
             this.cb_gewufang.TabIndex = 0;
             this.cb_gewufang.Text = "歌舞坊";
             this.cb_gewufang.UseVisualStyleBackColor = true;
+            this.cb_gewufang.CheckedChanged += new System.EventHandler(this.setAttr);
             // 
             // cb_jianta
             // 
@@ -2507,6 +2588,7 @@
             this.cb_jianta.TabIndex = 0;
             this.cb_jianta.Text = "箭塔";
             this.cb_jianta.UseVisualStyleBackColor = true;
+            this.cb_jianta.CheckedChanged += new System.EventHandler(this.setAttr);
             // 
             // cb_zhaoxianguan
             // 
@@ -2517,6 +2599,7 @@
             this.cb_zhaoxianguan.TabIndex = 0;
             this.cb_zhaoxianguan.Text = "招贤馆";
             this.cb_zhaoxianguan.UseVisualStyleBackColor = true;
+            this.cb_zhaoxianguan.CheckedChanged += new System.EventHandler(this.setAttr);
             // 
             // cb_mengqi
             // 
@@ -2527,6 +2610,7 @@
             this.cb_mengqi.TabIndex = 0;
             this.cb_mengqi.Text = "盟旗";
             this.cb_mengqi.UseVisualStyleBackColor = true;
+            this.cb_mengqi.CheckedChanged += new System.EventHandler(this.setAttr);
             // 
             // cb_hubenying
             // 
@@ -2537,6 +2621,7 @@
             this.cb_hubenying.TabIndex = 0;
             this.cb_hubenying.Text = "虎贲营";
             this.cb_hubenying.UseVisualStyleBackColor = true;
+            this.cb_hubenying.CheckedChanged += new System.EventHandler(this.setAttr);
             // 
             // cb_yetiejian
             // 
@@ -2547,6 +2632,7 @@
             this.cb_yetiejian.TabIndex = 0;
             this.cb_yetiejian.Text = "冶铁监";
             this.cb_yetiejian.UseVisualStyleBackColor = true;
+            this.cb_yetiejian.CheckedChanged += new System.EventHandler(this.setAttr);
             // 
             // cb_chengqiang
             // 
@@ -2557,6 +2643,7 @@
             this.cb_chengqiang.TabIndex = 0;
             this.cb_chengqiang.Text = "城墙";
             this.cb_chengqiang.UseVisualStyleBackColor = true;
+            this.cb_chengqiang.CheckedChanged += new System.EventHandler(this.setAttr);
             // 
             // cb_tumusi
             // 
@@ -2567,6 +2654,7 @@
             this.cb_tumusi.TabIndex = 0;
             this.cb_tumusi.Text = "土木司";
             this.cb_tumusi.UseVisualStyleBackColor = true;
+            this.cb_tumusi.CheckedChanged += new System.EventHandler(this.setAttr);
             // 
             // cb_gongjiangfang
             // 
@@ -2577,6 +2665,7 @@
             this.cb_gongjiangfang.TabIndex = 0;
             this.cb_gongjiangfang.Text = "工匠坊";
             this.cb_gongjiangfang.UseVisualStyleBackColor = true;
+            this.cb_gongjiangfang.CheckedChanged += new System.EventHandler(this.setAttr);
             // 
             // cb_jiaochang
             // 
@@ -2587,6 +2676,7 @@
             this.cb_jiaochang.TabIndex = 0;
             this.cb_jiaochang.Text = "校场";
             this.cb_jiaochang.UseVisualStyleBackColor = true;
+            this.cb_jiaochang.CheckedChanged += new System.EventHandler(this.setAttr);
             // 
             // cb_bingqisi
             // 
@@ -2597,6 +2687,7 @@
             this.cb_bingqisi.TabIndex = 0;
             this.cb_bingqisi.Text = "兵器司";
             this.cb_bingqisi.UseVisualStyleBackColor = true;
+            this.cb_bingqisi.CheckedChanged += new System.EventHandler(this.setAttr);
             // 
             // checkBox14
             // 
@@ -2607,6 +2698,7 @@
             this.checkBox14.TabIndex = 0;
             this.checkBox14.Text = "仓库";
             this.checkBox14.UseVisualStyleBackColor = true;
+            this.checkBox14.CheckedChanged += new System.EventHandler(this.setAttr);
             // 
             // cb_chihouying
             // 
@@ -2617,6 +2709,7 @@
             this.cb_chihouying.TabIndex = 0;
             this.cb_chihouying.Text = "斥候营";
             this.cb_chihouying.UseVisualStyleBackColor = true;
+            this.cb_chihouying.CheckedChanged += new System.EventHandler(this.setAttr);
             // 
             // checkBox13
             // 
@@ -2627,6 +2720,7 @@
             this.checkBox13.TabIndex = 0;
             this.checkBox13.Text = "太守府";
             this.checkBox13.UseVisualStyleBackColor = true;
+            this.checkBox13.CheckedChanged += new System.EventHandler(this.setAttr);
             // 
             // cb_zhongjunzhang
             // 
@@ -2637,6 +2731,7 @@
             this.cb_zhongjunzhang.TabIndex = 0;
             this.cb_zhongjunzhang.Text = "中军帐";
             this.cb_zhongjunzhang.UseVisualStyleBackColor = true;
+            this.cb_zhongjunzhang.CheckedChanged += new System.EventHandler(this.setAttr);
             // 
             // cb_machang
             // 
@@ -2647,6 +2742,7 @@
             this.cb_machang.TabIndex = 0;
             this.cb_machang.Text = "马场";
             this.cb_machang.UseVisualStyleBackColor = true;
+            this.cb_machang.CheckedChanged += new System.EventHandler(this.setAttr);
             // 
             // cb_bingying
             // 
@@ -2657,6 +2753,7 @@
             this.cb_bingying.TabIndex = 0;
             this.cb_bingying.Text = "兵营";
             this.cb_bingying.UseVisualStyleBackColor = true;
+            this.cb_bingying.CheckedChanged += new System.EventHandler(this.setAttr);
             // 
             // armyact
             // 
@@ -3133,6 +3230,8 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.TextBox DefenseLower;
+        private System.Windows.Forms.Label label32;
     }
 }
 

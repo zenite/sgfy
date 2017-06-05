@@ -102,6 +102,7 @@
     <Compile Include="entity\commonurl.cs" />
     <Compile Include="entity\Constant.cs" />
     <Compile Include="entity\General.cs" />
+    <Compile Include="entity\Node.cs" />
     <Compile Include="entity\TuntianInfo.cs" />
     <Compile Include="BLL\ExcelHelper.cs" />
     <Compile Include="entity\village.cs" />
@@ -145,6 +146,7 @@
     </Compile>
     <Compile Include="BLL\RegexHtml.cs" />
     <Compile Include="entity\SGEnum.cs" />
+    <Compile Include="Regular\SetConfig.cs" />
     <Compile Include="report.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -222,7 +224,6 @@
   <ItemGroup>
     <Folder Include="BIN\Release\" />
     <Folder Include="Bussiness\" />
-    <Folder Include="msscript\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="BIN\Debug\#B.BMP" />

@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<controls>
+  <Control name="cb_bingying" state="true" controlType="CheckBox" />
+  <Control name="cb_chihouying" state="false" controlType="CheckBox" />
+  <Control name="CreateBuildingName" state="1" controlType="ComboBox" />
+  <Control name="Trader_Target_X" state="12" controlType="TextBox" />
+  <Control name="Direct_city" state="false" controlType="RadioButton" />
+  <Control name="Direct_graincentre" state="true" controlType="RadioButton" />
+  <Control name="SoldiersType" state="0" controlType="ComboBox" />
+  <Control name="cb_machang" state="false" controlType="CheckBox" />
+</controls>

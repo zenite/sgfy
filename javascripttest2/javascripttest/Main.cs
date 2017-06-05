@@ -29,12 +29,16 @@ namespace javascripttest
 {
     public partial class Main : Form
     {       
+
         public Main()
         {
             InitializeComponent();
             InitReport();
             accoutDics = new Dictionary<string, AccountModel>();
+            mainConfig = new Regular.SetConfig(this.Name,"controls");
+            setControlState();
         }
+        private Regular.SetConfig mainConfig;
         private UrlCommand urlCommand;
         private bool? recruiteType;
         private MainLogic mainHelper;
@@ -781,7 +785,7 @@ namespace javascripttest
 
         private Queue<AccountModel> WarQueue;
         private bool defensePause=false;
-        private int defenseUpperAmount=0;
+        //private int battle.defenseUpperAmount  =0;
         private string[] soldierType;
         private string[] attackSoldierType;
 
@@ -821,10 +825,8 @@ namespace javascripttest
                     show("请输入y坐标");
                     return;
                 }
-                if (!string.IsNullOrEmpty(DefenseUpper.Text))
-                {
-                    defenseUpperAmount = Convert.ToInt32(DefenseUpper.Text);
-                }
+                battle.defenseUpperAmount = !string.IsNullOrEmpty(DefenseUpper.Text) ? Convert.ToInt32(DefenseUpper.Text) : 0;
+                battle.defenseLowerAmount = !string.IsNullOrEmpty(DefenseLower.Text) ? Convert.ToInt32(DefenseLower.Text) : 0;
                 battle.type = Battle_type.SelectedIndex;
             }
             else if (Direct_graincentre.Checked)
@@ -1105,19 +1107,19 @@ namespace javascripttest
                                     //double percent = Math.Round((float)Convert.ToInt32(battle.DefensePattern.Replace("%", "")) / 100, 2);
                                     //string soldiernum=(Convert.ToInt32(village.soldierss[i])*percent).ToString().Split(new char[]{'.'})[0];
                                     string soldiernum = mainHelper.doubleous(village.soldierss[i], battle.DefensePattern);
-                                    if (Convert.ToInt32(soldiernum) > 0 && Convert.ToInt32(soldiernum)<defenseUpperAmount)
+                                    if (Convert.ToInt32(soldiernum) > 0 && Convert.ToInt32(soldiernum)<battle.defenseUpperAmount  )
                                         soldierlist += "soldier[" + i + "]=" + Convert.ToInt32(soldiernum) + "&";
                                     else
-                                        soldierlist += "soldier[" + i + "]=" + defenseUpperAmount + "&";
+                                        soldierlist += "soldier[" + i + "]=" + battle.defenseUpperAmount   + "&";
                                 }
                                 else
                                 {
                                     string num = battle.BattleNum;
                                     if (Convert.ToInt32(num) > 0 && Convert.ToInt32(village.soldierss[i])>0)
                                     {
-                                        if ((Convert.ToInt32(village.soldierss[i]) > Convert.ToInt32(num) || Convert.ToInt32(village.soldierss[i]) > defenseUpperAmount))
+                                        if ((Convert.ToInt32(village.soldierss[i]) > Convert.ToInt32(num) || Convert.ToInt32(village.soldierss[i]) > battle.defenseUpperAmount  ))
                                         {
-                                            int plancount = Convert.ToInt32(num) > defenseUpperAmount ? defenseUpperAmount : Convert.ToInt32(num);
+                                            int plancount = Convert.ToInt32(num) > battle.defenseUpperAmount   ? battle.defenseUpperAmount   : Convert.ToInt32(num);
                                             soldierlist += "soldier[" + i + "]=" + plancount + "&";
                                         }
                                         else
@@ -1143,22 +1145,22 @@ namespace javascripttest
                                     //double percent = Math.Round((float)Convert.ToInt32(battle.DefensePattern.Replace("%", "")) / 100, 2);
                                     //string soldiernum=(Convert.ToInt32(village.soldierss[i])*percent).ToString().Split(new char[]{'.'})[0];
                                     string soldiernum = mainHelper.doubleous(village.soldierss[i], battle.DefensePattern);
-                                    if (Convert.ToInt32(soldiernum) >=0 && Convert.ToInt32(soldiernum) < defenseUpperAmount)
+                                    if (Convert.ToInt32(soldiernum) >=0 && Convert.ToInt32(soldiernum) < battle.defenseUpperAmount  )
                                         soldierlist += "soldier[" + i + "]=" + Convert.ToInt32(soldiernum) + "&";
                                     else
-                                        soldierlist += "soldier[" + i + "]=" + defenseUpperAmount+ "&";
+                                        soldierlist += "soldier[" + i + "]=" + battle.defenseUpperAmount  + "&";
                                 }
                                 else
                                 {
                                     string num = battle.BattleNum;
                                     if (Convert.ToInt32(num) > 0)
                                     {
-                                        if (Convert.ToInt32(village.soldierss[i]) > Convert.ToInt32(num) || (Convert.ToInt32(village.soldierss[i]) > defenseUpperAmount) && defenseUpperAmount > 0)
+                                        if (Convert.ToInt32(village.soldierss[i]) > Convert.ToInt32(num) || (Convert.ToInt32(village.soldierss[i]) > battle.defenseUpperAmount  ) && battle.defenseUpperAmount   > 0)
                                         {
-                                            if (Convert.ToInt32(num)<defenseUpperAmount)
+                                            if (Convert.ToInt32(num)<battle.defenseUpperAmount  )
                                                 soldierlist += "soldier[" + i + "]=" + Convert.ToInt32(num) + "&";
                                             else
-                                                soldierlist += "soldier[" + i + "]=" + defenseUpperAmount + "&";
+                                                soldierlist += "soldier[" + i + "]=" + battle.defenseUpperAmount   + "&";
                                         }
                                         else
                                         {
@@ -1756,8 +1758,15 @@ namespace javascripttest
         public void refreshLog(string log, int logindex=1)
         {
             //t = new Thread(delegate() { StartRefreshLog(log, logindex); });
-            CommonDelegate.recordLog HandleRef = new CommonDelegate.recordLog(StartRefreshLog);
-            HandleRef.Invoke(log, logindex);
+            if (logindex == 0)
+            {
+                CommonDelegate.recordLog HandleRef = new CommonDelegate.recordLog(StartRefreshLog);
+                HandleRef.Invoke(log, logindex);
+            }
+            else
+            {
+                StartRefreshLog(log, logindex);
+            }
             
             
         }
@@ -1781,13 +1790,13 @@ namespace javascripttest
                         //{
                             //pro.WaitOne();
                             logs[logindex - 1].Items.Add(log);
-                            if (logs[logindex - 1].Items.Count >= 1000)
-                            {
-                                Monitor.Enter(MonitorObj1);
-                                logs[logindex - 1].Items.Clear();
-                                logs[logindex - 1].Refresh();
-                                Monitor.Exit(MonitorObj1);
-                            }
+                            //if (logs[logindex - 1].Items.Count >= 1000)
+                            //{
+                            //    Monitor.Enter(MonitorObj1);
+                            //    logs[logindex - 1].Items.Clear();
+                            //    logs[logindex - 1].Refresh();
+                            //    Monitor.Exit(MonitorObj1);
+                            //}
                             logs[logindex - 1].Refresh();
                                 
                         //}
@@ -1807,8 +1816,8 @@ namespace javascripttest
                     //try
                     //{
                     //    pro.WaitOne();
-                    logs[logindex - 1].Invoke(new MethodInvoker(() =>
-                    {
+                    //logs[logindex - 1].Invoke(new MethodInvoker(() =>
+                    //{
                         int count = logs[logindex - 1].Items.Add(log);
                         if (count >= 1000)
                         {
@@ -1816,9 +1825,10 @@ namespace javascripttest
                             logs[logindex - 1].Items.Clear();
                             logs[logindex - 1].Refresh();
                             Monitor.Exit(MonitorObj1);
+                            logs[logindex - 1].Refresh();
                         }
-                        logs[logindex - 1].Refresh();
-                    }));
+                      
+                    //}));
                         
                     //}
                     //finally
@@ -2937,6 +2947,62 @@ namespace javascripttest
                 return;  
             }
                 
+        }
+
+        public void setAttr(object sender ,EventArgs e)
+        { 
+             mainConfig.setAttribute( sender , e);
+        }
+        public void setControlState()
+        {
+            List<entity.Node> nodes = new List<Node>();
+            nodes = mainConfig.getMainXml();
+            if (nodes != null && nodes.Count() > 0)
+            {
+                foreach (var item in nodes)
+                { 
+                    if(this.Controls.Count>0)
+                    {
+                        foreach (Control control in this.Controls)
+                        {
+                            if(item.name.Equals(control.Name))
+                            {
+                                setControl(control, item);
+                            }
+                            else if (control.Controls != null && control.Controls.Count > 0)
+                            {
+                                foreach (Control sonControl in control.Controls)
+                                {
+                                    if (item.name.Equals(sonControl.Name))
+                                    {
+                                        setControl(sonControl, item);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        public void setControl(Control control, entity.Node node)
+        {
+            if (control is CheckBox)
+            {
+                (control as CheckBox).Checked = node.state == "true" ? true : false;
+            }
+            else if (control is TextBox)
+            {
+                (control as TextBox).Text = node.state;
+            }
+            else if (control is RadioButton)
+            {
+                (control as RadioButton).Checked = node.state == "true" ? true : false;
+            }
+            else if (control is ComboBox)
+            {
+                (control as ComboBox).SelectedIndex = Convert.ToInt32(node.state);
+            }
         }
     }
 }

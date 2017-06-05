@@ -38,6 +38,9 @@ namespace javascripttest.entity
         public string attackBuilding { get; set; }
 
         public string attackRepeatTime { get; set; }
+        public int defenseUpperAmount { get; set; }
+        public int defenseLowerAmount { get; set; }
+
 
         //攻击连接车段字符串
         public string ArrayChe { get; set; }
