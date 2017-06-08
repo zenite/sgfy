@@ -11,11 +11,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace javascripttest
 {
     public partial class AutoAttack : Form
     {
-        
+        private Regular.AttackSetConfig mainConfig;
         public MainLogic mainHelper;
         private DBUti dbHelper;
         public AccountModel account;
@@ -23,12 +24,19 @@ namespace javascripttest
         public string VillageId;
         public string[] villageSoldier;
         public DataTable dSource=null;
+        private Control[] ActiveControl;
+        private string[] nodeList;
         public AutoAttack(AccountModel account, string user_id, MainLogic mainHelper)
         {
             this.account = account;
             this.user_id = user_id;
+            this.nodeList = new string[] { "Controls", "Attacks" };
             this.mainHelper = mainHelper;
             InitializeComponent();
+            mainConfig = new Regular.AttackSetConfig("Attack/" + this.account.chief + "/offense","AutoAttack", nodeList);
+            mainConfig = new Regular.AttackSetConfig("Attack/" + this.account.chief + "/destroy", "AutoAttack", nodeList);
+            ActiveControl = new Control[] { Setting, this, groupBox1 };
+            setControlState();
         }
         
         private void importCoor_Click(object sender, EventArgs e)
@@ -52,15 +60,12 @@ namespace javascripttest
                         MessageBox.Show("当前城镇出兵数量错误");
                         return;
                     }
-                    DataTable datasource = makeDataSource(ds.Tables[0]);
-                    new Thread(delegate() {                       
-                        if (!saveAttackTarget(datasource))
-                        {
-                            MessageBox.Show("攻击坐标保存失败");
-                            return;
-                        }
-
-                        this.AttackTarget.BeginInvoke(new Action(() => { this.AttackTarget.DataSource = getAttackTargets(user_id, VillageId); }));    
+                    //DataTable datasource = makeDataSource(ds.Tables[0]);
+                    new Thread(delegate() {
+                        this.AttackTarget.BeginInvoke(new Action(() => {
+                            this.AttackTarget.DataSource = ds.Tables[0]; 
+                            mainConfig.
+                        }));    
                     }).Start();
                          
                 }
@@ -362,50 +367,33 @@ namespace javascripttest
         }
         private DataTable makeDataSource(DataTable coor)
         {
-            coor.Columns.Add(new DataColumn("Aindex", typeof(string)));
-            coor.Columns.Add(new DataColumn("T_general1", typeof(string)));
-            coor.Columns.Add(new DataColumn("T_general2", typeof(string)));
-            coor.Columns.Add(new DataColumn("T_general3", typeof(string)));
-            coor.Columns.Add(new DataColumn("T_general4", typeof(string)));
-            coor.Columns.Add(new DataColumn("T_general5", typeof(string)));
-            coor.Columns.Add(new DataColumn("T_soldier_0", typeof(string)));
-            coor.Columns.Add(new DataColumn("T_soldier_1", typeof(string)));
-            coor.Columns.Add(new DataColumn("T_soldier_2", typeof(string)));
-            coor.Columns.Add(new DataColumn("T_soldier_4", typeof(string)));
-            coor.Columns.Add(new DataColumn("T_soldier_11", typeof(string)));
-            coor.Columns.Add(new DataColumn("T_soldier_5", typeof(string)));
-            coor.Columns.Add(new DataColumn("T_soldier_6", typeof(string)));           
-            coor.Columns.Add(new DataColumn("T_general1_ID", typeof(string)));
-            coor.Columns.Add(new DataColumn("T_general2_ID", typeof(string)));
-            coor.Columns.Add(new DataColumn("T_general3_ID", typeof(string)));
-            coor.Columns.Add(new DataColumn("T_general4_ID", typeof(string)));
-            coor.Columns.Add(new DataColumn("T_general5_ID", typeof(string)));
-            coor.Columns.Add(new DataColumn("recentGo", typeof(string)));
-            coor.Columns.Add(new DataColumn("Atype", typeof(string)));
-            coor.Columns.Add(new DataColumn("target1", typeof(string)));
-            coor.Columns.Add(new DataColumn("target2", typeof(string)));
+
+            //coor.Columns.Add(new DataColumn("recentGo", typeof(string)));
+            //coor.Columns.Add(new DataColumn("Atype", typeof(string)));
+            //coor.Columns.Add(new DataColumn("target1", typeof(string)));
+            //coor.Columns.Add(new DataColumn("target2", typeof(string)));
             
-            int initialIndex = getMaxIndex(user_id,VillageId);
+            //int initialIndex = getMaxIndex(user_id,VillageId);
             for (var i = 0; i < coor.Rows.Count;i++)
             {
-                coor.Rows[i][5] = initialIndex+i + 1;
-                coor.Rows[i][6] = general1.Text;
-                coor.Rows[i][7] = general2.Text;
-                coor.Rows[i][8] = general3.Text;
-                coor.Rows[i][9] = general4.Text;
-                coor.Rows[i][10] = general5.Text;
-                coor.Rows[i][11] = cText(soldier_0.Text);
-                coor.Rows[i][12] = cText(soldier_1.Text);
-                coor.Rows[i][13] = cText(soldier_2.Text);
-                coor.Rows[i][14] = cText(soldier_4.Text);
-                coor.Rows[i][15] = cText(soldier_11.Text);
-                coor.Rows[i][16] = cText(soldier_5.Text);
-                coor.Rows[i][17] = cText(soldier_6.Text);
-                coor.Rows[i][18] = general1.SelectedValue;
-                coor.Rows[i][19] = general2.SelectedValue;
-                coor.Rows[i][20] = general3.SelectedValue;
-                coor.Rows[i][21] = general4.SelectedValue;
-                coor.Rows[i][22] = general5.SelectedValue;
+                //coor.Rows[i][5] = initialIndex+i + 1;
+                //coor.Rows[i][6] = general1.Text;
+                //coor.Rows[i][7] = general2.Text;
+                //coor.Rows[i][8] = general3.Text;
+                //coor.Rows[i][9] = general4.Text;
+                //coor.Rows[i][10] = general5.Text;
+                //coor.Rows[i][11] = cText(soldier_0.Text);
+                //coor.Rows[i][12] = cText(soldier_1.Text);
+                //coor.Rows[i][13] = cText(soldier_2.Text);
+                //coor.Rows[i][14] = cText(soldier_4.Text);
+                //coor.Rows[i][15] = cText(soldier_11.Text);
+                //coor.Rows[i][16] = cText(soldier_5.Text);
+                //coor.Rows[i][17] = cText(soldier_6.Text);
+                //coor.Rows[i][18] = general1.SelectedValue;
+                //coor.Rows[i][19] = general2.SelectedValue;
+                //coor.Rows[i][20] = general3.SelectedValue;
+                //coor.Rows[i][21] = general4.SelectedValue;
+                //coor.Rows[i][22] = general5.SelectedValue;
                 coor.Rows[i][24] = type.SelectedIndex;
                 coor.Rows[i][25] = T_target1.SelectedValue.ToString() == "-1" ? T_target1.SelectedValue.ToString() : "0";
                 coor.Rows[i][26] = T_target2.SelectedValue.ToString() == "-1" ? T_target2.SelectedValue.ToString() : "0";
@@ -459,8 +447,6 @@ namespace javascripttest
              this.AttackTarget.Sort(AttackTarget.Columns[0], ListSortDirection.Ascending);
              }));    
             }).Start();
-           
-
         }
 
         private void BindTarget()
@@ -565,8 +551,84 @@ namespace javascripttest
 
         }
 
-     
-        
+        public void setAttr(object sender, EventArgs e)
+        {
+            mainConfig.setAttribute(sender, e, nodeList[0],"Control");
+        }
+        public void setControlState()
+        {
+            List<entity.Node> nodes = new List<Node>();
+            nodes = mainConfig.getMainXml();
+            try
+            {
+                if (nodes != null && nodes.Count() > 0)
+                {
+                    foreach (var item in ActiveControl)
+                    {
+                        var controls = item.Controls;
+                        if (controls.Count > 0)
+                        {
+                            foreach (Control control in controls)
+                            {
+                                var relativeitem = (from node in nodes where node.name == control.Name select node).FirstOrDefault();
+                                if (relativeitem != null)
+                                {
+                                    setControl(control, relativeitem);
+                                }
+                            }
+
+                        }
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public void setControl(Control control, entity.Node node)
+        {
+            if (control is CheckBox)
+            {
+                (control as CheckBox).Checked = node.state == "true" ? true : false;
+            }
+            else if (control is TextBox)
+            {
+                (control as TextBox).Text = node.state;
+            }
+            else if (control is RadioButton)
+            {
+                (control as RadioButton).Checked = node.state == "true" ? true : false;
+            }
+            else if (control is ComboBox)
+            {
+                (control as ComboBox).SelectedIndex = Convert.ToInt32(node.state);
+            }
+        }
+
+        private void checkAttackModel_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox control = sender as CheckBox;
+            Control.ControlCollection controls = Setting.Controls;
+            if (control.Checked)
+            {
+                foreach (Control item in controls)
+                {
+                    item.Enabled = false;  
+                }
+            }
+            else
+            {
+                foreach (Control item in controls)
+                {
+                    item.Enabled = true;
+                }
+            }
+        }
+
+
     }
 }
 

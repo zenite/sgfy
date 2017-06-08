@@ -1,11 +1,55 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <controls>
-  <Control name="cb_bingying" state="true" controlType="CheckBox" />
+  <Control name="cb_bingying" state="false" controlType="CheckBox" />
   <Control name="cb_chihouying" state="false" controlType="CheckBox" />
   <Control name="CreateBuildingName" state="1" controlType="ComboBox" />
   <Control name="Trader_Target_X" state="12" controlType="TextBox" />
-  <Control name="Direct_city" state="false" controlType="RadioButton" />
-  <Control name="Direct_graincentre" state="true" controlType="RadioButton" />
-  <Control name="SoldiersType" state="0" controlType="ComboBox" />
+  <Control name="Direct_city" state="true" controlType="RadioButton" />
+  <Control name="Direct_graincentre" state="false" controlType="RadioButton" />
+  <Control name="SoldiersType" state="1" controlType="ComboBox" />
   <Control name="cb_machang" state="false" controlType="CheckBox" />
+  <Control name="ch_piaodao" state="true" controlType="CheckBox" />
+  <Control name="ch_zhongbu" state="false" controlType="CheckBox" />
+  <Control name="Soldier_g" state="true" controlType="CheckBox" />
+  <Control name="Soldier_jwq" state="false" controlType="CheckBox" />
+  <Control name="Soldier_zq" state="false" controlType="CheckBox" />
+  <Control name="Soldier_cq" state="true" controlType="CheckBox" />
+  <Control name="Soldier_qq" state="false" controlType="CheckBox" />
+  <Control name="ch_kenhuang" state="false" controlType="CheckBox" />
+  <Control name="ch_shuike" state="false" controlType="CheckBox" />
+  <Control name="ch_jinweibing" state="false" controlType="CheckBox" />
+  <Control name="Soldier_gj_qz" state="true" controlType="CheckBox" />
+  <Control name="Soldier_gj_gq" state="true" controlType="CheckBox" />
+  <Control name="Soldier_gj_ylw" state="false" controlType="CheckBox" />
+  <Control name="Soldier_gj_jwq" state="true" controlType="CheckBox" />
+  <Control name="Soldier_gj_sbg" state="false" controlType="CheckBox" />
+  <Control name="Soldier_gj_ln" state="false" controlType="CheckBox" />
+  <Control name="Soldier_gj_dd" state="false" controlType="CheckBox" />
+  <Control name="Soldier_gj_j" state="true" controlType="CheckBox" />
+  <Control name="ch_pili" state="false" controlType="CheckBox" />
+  <Control name="ch_chongche" state="false" controlType="CheckBox" />
+  <Control name="SoldiersAmount" state="2000" controlType="TextBox" />
+  <Control name="Battle_type" state="3" controlType="ComboBox" />
+  <Control name="wei_piaodao" state="true" controlType="CheckBox" />
+  <Control name="wu_zhongqi" state="false" controlType="CheckBox" />
+  <Control name="chihou" state="false" controlType="CheckBox" />
+  <Control name="shu_qiangqi" state="false" controlType="CheckBox" />
+  <Control name="wu_jinweiqi" state="false" controlType="CheckBox" />
+  <Control name="shu_changqiang" state="false" controlType="CheckBox" />
+  <Control name="wu_gebing" state="false" controlType="CheckBox" />
+  <Control name="wei_zhongbu" state="true" controlType="CheckBox" />
+  <Control name="DefenseUpper" state="1000" controlType="TextBox" />
+  <Control name="DefenseLower" state="010" controlType="TextBox" />
+  <Control name="DefensePattern" state="1" controlType="ComboBox" />
+  <Control name="Trader_Target_Y" state="12" controlType="TextBox" />
+  <Control name="Trader_Resource_Lumber" state="10" controlType="TextBox" />
+  <Control name="Trader_Resource_Clay" state="10" controlType="TextBox" />
+  <Control name="Trader_Resource_Iron" state="10" controlType="TextBox" />
+  <Control name="Trader_Resource_Crop" state="10" controlType="TextBox" />
+  <Control name="Tran_Timespan" state="10" controlType="TextBox" />
+  <Control name="restrictTime" state="10" controlType="TextBox" />
+  <Control name="checkBox13" state="false" controlType="CheckBox" />
+  <Control name="cb_hubenying" state="false" controlType="CheckBox" />
+  <Control name="DefenseNum" state="1" controlType="TextBox" />
+  <Control name="cityFilter" state="0" controlType="ComboBox" />
 </controls>

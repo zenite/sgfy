@@ -1503,8 +1503,9 @@ namespace javascripttest
             int count = 0;
             defense_go:
             string str = httpHelper.Html_get(this.commonUrl.url_head + "act=build.act&do=start_war&bid=" + zhongjun + "&btid=9&target_general_level=0&type=" + type + " &battlearray=0&" + soldierlist + "x=" + x + "&y=" + y + "&userid=" + account.user_id + "&keep=all&villageid=" + village.VillageID + "&rand=" + this.Rand().ToString(), commonUrl.url, account);
-            str = this.getParaValue("(?<=(<locat act.*?>)).+?(?=</locat)", str);            
-            if (str.Contains("传令兵"))
+            var strmsg = string.Empty;
+            strmsg = this.getParaValue("(?<=(<locat act.*?>)).+?(?=</locat)", str);
+            if (strmsg.Contains("传令兵"))
             {
                 string message=(string) ExtBatman(village.VillageID, account);
                 if(!string.IsNullOrEmpty(message))
@@ -1515,19 +1516,19 @@ namespace javascripttest
                     goto defense_go;
                 }              
             }
-
-            if((str.Contains("目标不正确") || str.Contains("不可以发兵攻打")) || str.Contains("搬迁24小时内不允许出兵")||str.Contains("不允许增援"))
+            if ((strmsg.Contains("目标不正确") || strmsg.Contains("不可以发兵攻打")) || strmsg.Contains("搬迁24小时内不允许出兵") || strmsg.Contains("不允许增援"))
             {
-                 recorder(str, logIndex);
+                recorder(strmsg, logIndex);
                 return str;
             }
+           
             string str3 = this.getParaValue("(?<=(需时.*?<strong>)).+?(?=<)", str);
             string str4 = this.getParaValue("(?<=(=\"需时\"> <strong>.*?'>)).+?(?=</strong>到达)", str);
 
             str = httpHelper.Html_get(this.commonUrl.url_head + "act=build.act&do=start_war&btid=9&start=1&target_general_level=0&type="+type+" &battlearray=0&" + soldierlist + "x=" + x + "&y=" + y + "&userid="+account.user_id+"&keep=all&villageid=" + village.VillageID + "&rand=" + this.Rand().ToString(), commonUrl.url, account);
             str = this.getParaValue("(?<=(<locat act=.*?>)).*?(?=(</locat>))", str);
                      
-            if (str != "")
+            if (str == "")
             {
                 logger = account.chief+"    "+village.VillageName+"出兵：   前往 X:" + x + " Y:" + y + " 需时 " + str3 + " 于 " + str4 + " 到达";
                 recorder(logger, logIndex);

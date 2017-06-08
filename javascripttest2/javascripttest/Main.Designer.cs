@@ -192,9 +192,6 @@
             this.filterrecruit = new System.Windows.Forms.ComboBox();
             this.SoldiersType = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.defenseSetting = new System.Windows.Forms.GroupBox();
-            this.ch_shuike = new System.Windows.Forms.CheckBox();
-            this.ch_kenhuang = new System.Windows.Forms.CheckBox();
             this.attackSetting = new System.Windows.Forms.GroupBox();
             this.ch_chongche = new System.Windows.Forms.CheckBox();
             this.ch_pili = new System.Windows.Forms.CheckBox();
@@ -207,6 +204,9 @@
             this.Soldier_gj_j = new System.Windows.Forms.CheckBox();
             this.Soldier_gj_qz = new System.Windows.Forms.CheckBox();
             this.ch_jinweibing = new System.Windows.Forms.CheckBox();
+            this.defenseSetting = new System.Windows.Forms.GroupBox();
+            this.ch_shuike = new System.Windows.Forms.CheckBox();
+            this.ch_kenhuang = new System.Windows.Forms.CheckBox();
             this.Soldier_jwq = new System.Windows.Forms.CheckBox();
             this.Soldier_zq = new System.Windows.Forms.CheckBox();
             this.Soldier_qq = new System.Windows.Forms.CheckBox();
@@ -256,12 +256,8 @@
             this.button1 = new System.Windows.Forms.Button();
             this.attack_start1 = new System.Windows.Forms.Button();
             this.attack_start2 = new System.Windows.Forms.Button();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel5 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.soldierShow = new System.Windows.Forms.StatusStrip();
+            this.soldierNum = new System.Windows.Forms.ToolStripStatusLabel();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.button2 = new System.Windows.Forms.Button();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
@@ -298,14 +294,14 @@
             this.recr_Soldier.SuspendLayout();
             this.groupBox14.SuspendLayout();
             this.groupBox5.SuspendLayout();
-            this.defenseSetting.SuspendLayout();
             this.attackSetting.SuspendLayout();
+            this.defenseSetting.SuspendLayout();
             this.construction.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.resourseCollection.SuspendLayout();
             this.buildingsCollection.SuspendLayout();
             this.armyact.SuspendLayout();
-            this.statusStrip1.SuspendLayout();
+            this.soldierShow.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -1940,7 +1936,7 @@
             // 
             // RecruitStart
             // 
-            this.RecruitStart.Location = new System.Drawing.Point(454, 25);
+            this.RecruitStart.Location = new System.Drawing.Point(454, 27);
             this.RecruitStart.Name = "RecruitStart";
             this.RecruitStart.Size = new System.Drawing.Size(75, 23);
             this.RecruitStart.TabIndex = 5;
@@ -2008,61 +2004,18 @@
             this.SoldiersType.Name = "SoldiersType";
             this.SoldiersType.Size = new System.Drawing.Size(94, 23);
             this.SoldiersType.TabIndex = 1;
-            this.SoldiersType.SelectedIndexChanged += new System.EventHandler(this.SoldiersType_SelectedIndexChanged);
+            this.SoldiersType.SelectedIndexChanged += new System.EventHandler(this.setAttr);
             // 
             // label11
             // 
             this.label11.AllowDrop = true;
             this.label11.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label11.Location = new System.Drawing.Point(557, 33);
+            this.label11.Location = new System.Drawing.Point(557, 30);
             this.label11.Name = "label11";
             this.label11.Padding = new System.Windows.Forms.Padding(3);
             this.label11.Size = new System.Drawing.Size(136, 78);
             this.label11.TabIndex = 6;
             this.label11.Text = "注意：请先输入招兵数量，并选择招募类型勾选在开始招兵";
-            // 
-            // defenseSetting
-            // 
-            this.defenseSetting.AutoSize = true;
-            this.defenseSetting.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.defenseSetting.Controls.Add(this.ch_shuike);
-            this.defenseSetting.Controls.Add(this.ch_kenhuang);
-            this.defenseSetting.Controls.Add(this.Soldier_jwq);
-            this.defenseSetting.Controls.Add(this.Soldier_zq);
-            this.defenseSetting.Controls.Add(this.Soldier_qq);
-            this.defenseSetting.Controls.Add(this.Soldier_cq);
-            this.defenseSetting.Controls.Add(this.Soldier_g);
-            this.defenseSetting.Controls.Add(this.ch_zhongbu);
-            this.defenseSetting.Controls.Add(this.ch_piaodao);
-            this.defenseSetting.Location = new System.Drawing.Point(785, 17);
-            this.defenseSetting.Name = "defenseSetting";
-            this.defenseSetting.Size = new System.Drawing.Size(221, 132);
-            this.defenseSetting.TabIndex = 0;
-            this.defenseSetting.TabStop = false;
-            this.defenseSetting.Text = "募兵选项（防御）";
-            this.defenseSetting.Visible = false;
-            // 
-            // ch_shuike
-            // 
-            this.ch_shuike.AutoSize = true;
-            this.ch_shuike.Location = new System.Drawing.Point(86, 88);
-            this.ch_shuike.Name = "ch_shuike";
-            this.ch_shuike.Size = new System.Drawing.Size(59, 19);
-            this.ch_shuike.TabIndex = 22;
-            this.ch_shuike.Text = "说客";
-            this.ch_shuike.UseVisualStyleBackColor = true;
-            this.ch_shuike.CheckedChanged += new System.EventHandler(this.setAttr);
-            // 
-            // ch_kenhuang
-            // 
-            this.ch_kenhuang.AutoSize = true;
-            this.ch_kenhuang.Location = new System.Drawing.Point(13, 89);
-            this.ch_kenhuang.Name = "ch_kenhuang";
-            this.ch_kenhuang.Size = new System.Drawing.Size(59, 19);
-            this.ch_kenhuang.TabIndex = 23;
-            this.ch_kenhuang.Text = "垦荒";
-            this.ch_kenhuang.UseVisualStyleBackColor = true;
-            this.ch_kenhuang.CheckedChanged += new System.EventHandler(this.setAttr);
             // 
             // attackSetting
             // 
@@ -2206,6 +2159,49 @@
             this.ch_jinweibing.Text = "近卫兵";
             this.ch_jinweibing.UseVisualStyleBackColor = true;
             this.ch_jinweibing.CheckedChanged += new System.EventHandler(this.setAttr);
+            // 
+            // defenseSetting
+            // 
+            this.defenseSetting.AutoSize = true;
+            this.defenseSetting.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.defenseSetting.Controls.Add(this.ch_shuike);
+            this.defenseSetting.Controls.Add(this.ch_kenhuang);
+            this.defenseSetting.Controls.Add(this.Soldier_jwq);
+            this.defenseSetting.Controls.Add(this.Soldier_zq);
+            this.defenseSetting.Controls.Add(this.Soldier_qq);
+            this.defenseSetting.Controls.Add(this.Soldier_cq);
+            this.defenseSetting.Controls.Add(this.Soldier_g);
+            this.defenseSetting.Controls.Add(this.ch_zhongbu);
+            this.defenseSetting.Controls.Add(this.ch_piaodao);
+            this.defenseSetting.Location = new System.Drawing.Point(785, 17);
+            this.defenseSetting.Name = "defenseSetting";
+            this.defenseSetting.Size = new System.Drawing.Size(221, 132);
+            this.defenseSetting.TabIndex = 0;
+            this.defenseSetting.TabStop = false;
+            this.defenseSetting.Text = "募兵选项（防御）";
+            this.defenseSetting.Visible = false;
+            // 
+            // ch_shuike
+            // 
+            this.ch_shuike.AutoSize = true;
+            this.ch_shuike.Location = new System.Drawing.Point(86, 88);
+            this.ch_shuike.Name = "ch_shuike";
+            this.ch_shuike.Size = new System.Drawing.Size(59, 19);
+            this.ch_shuike.TabIndex = 22;
+            this.ch_shuike.Text = "说客";
+            this.ch_shuike.UseVisualStyleBackColor = true;
+            this.ch_shuike.CheckedChanged += new System.EventHandler(this.setAttr);
+            // 
+            // ch_kenhuang
+            // 
+            this.ch_kenhuang.AutoSize = true;
+            this.ch_kenhuang.Location = new System.Drawing.Point(13, 89);
+            this.ch_kenhuang.Name = "ch_kenhuang";
+            this.ch_kenhuang.Size = new System.Drawing.Size(59, 19);
+            this.ch_kenhuang.TabIndex = 23;
+            this.ch_kenhuang.Text = "垦荒";
+            this.ch_kenhuang.UseVisualStyleBackColor = true;
+            this.ch_kenhuang.CheckedChanged += new System.EventHandler(this.setAttr);
             // 
             // Soldier_jwq
             // 
@@ -2805,50 +2801,21 @@
             this.attack_start2.UseVisualStyleBackColor = true;
             this.attack_start2.Click += new System.EventHandler(this.attack_suspend_Click);
             // 
-            // statusStrip1
+            // soldierShow
             // 
-            this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel1,
-            this.toolStripStatusLabel2,
-            this.toolStripStatusLabel3,
-            this.toolStripStatusLabel4,
-            this.toolStripStatusLabel5});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 587);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1207, 25);
-            this.statusStrip1.TabIndex = 12;
-            this.statusStrip1.Text = "statusStrip1";
+            this.soldierShow.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.soldierShow.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.soldierNum});
+            this.soldierShow.Location = new System.Drawing.Point(0, 590);
+            this.soldierShow.Name = "soldierShow";
+            this.soldierShow.Size = new System.Drawing.Size(1207, 22);
+            this.soldierShow.TabIndex = 12;
+            this.soldierShow.Text = "statusStrip1";
             // 
-            // toolStripStatusLabel1
+            // soldierNum
             // 
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(167, 20);
-            this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
-            // 
-            // toolStripStatusLabel2
-            // 
-            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(167, 20);
-            this.toolStripStatusLabel2.Text = "toolStripStatusLabel2";
-            // 
-            // toolStripStatusLabel3
-            // 
-            this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
-            this.toolStripStatusLabel3.Size = new System.Drawing.Size(167, 20);
-            this.toolStripStatusLabel3.Text = "toolStripStatusLabel3";
-            // 
-            // toolStripStatusLabel4
-            // 
-            this.toolStripStatusLabel4.Name = "toolStripStatusLabel4";
-            this.toolStripStatusLabel4.Size = new System.Drawing.Size(167, 20);
-            this.toolStripStatusLabel4.Text = "toolStripStatusLabel4";
-            // 
-            // toolStripStatusLabel5
-            // 
-            this.toolStripStatusLabel5.Name = "toolStripStatusLabel5";
-            this.toolStripStatusLabel5.Size = new System.Drawing.Size(167, 20);
-            this.toolStripStatusLabel5.Text = "toolStripStatusLabel5";
+            this.soldierNum.Name = "soldierNum";
+            this.soldierNum.Size = new System.Drawing.Size(0, 17);
             // 
             // button2
             // 
@@ -2918,7 +2885,7 @@
             this.Controls.Add(this.button3);
             this.Controls.Add(this.getCoin);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.soldierShow);
             this.Controls.Add(this.rapidLoginBtn);
             this.Controls.Add(this.armyact);
             this.Controls.Add(this.btn_Start);
@@ -2970,10 +2937,10 @@
             this.groupBox14.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
-            this.defenseSetting.ResumeLayout(false);
-            this.defenseSetting.PerformLayout();
             this.attackSetting.ResumeLayout(false);
             this.attackSetting.PerformLayout();
+            this.defenseSetting.ResumeLayout(false);
+            this.defenseSetting.PerformLayout();
             this.construction.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.resourseCollection.ResumeLayout(false);
@@ -2981,8 +2948,8 @@
             this.buildingsCollection.ResumeLayout(false);
             this.buildingsCollection.PerformLayout();
             this.armyact.ResumeLayout(false);
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
+            this.soldierShow.ResumeLayout(false);
+            this.soldierShow.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -3211,12 +3178,8 @@
         private System.Windows.Forms.Button attack_start2;
         private System.Windows.Forms.Button pearlBegin;
         private System.Windows.Forms.Button changname;
-        private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel4;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel5;
+        private System.Windows.Forms.StatusStrip soldierShow;
+        private System.Windows.Forms.ToolStripStatusLabel soldierNum;
         private System.Windows.Forms.BindingSource bindingSource1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;

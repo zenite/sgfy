@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace javascripttest.entity
 {
-    public class Node
+    public class Node : AbstractNode
     {
-        public string name { get; set; }
+        
         public string state { get; set; }
         public string controlType { get; set; }
         public string text { get; set; }

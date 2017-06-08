@@ -35,7 +35,8 @@ namespace javascripttest
             InitializeComponent();
             InitReport();
             accoutDics = new Dictionary<string, AccountModel>();
-            mainConfig = new Regular.SetConfig(this.Name,"controls");
+            mainConfig = new Regular.SetConfig(this.Name,"controls");            
+            ActiveControl = new Control[] { buildingsCollection, resourseCollection, groupBox5, attackSetting, defenseSetting, groupBox2, groupBox3, defensePanel, groupBox15, groupBox4, bing, che };
             setControlState();
         }
         private Regular.SetConfig mainConfig;
@@ -68,6 +69,7 @@ namespace javascripttest
         private static object MonitorObj1 = new object();
         private int threadCount = 0;
         private accountants form;
+        private Control[] ActiveControl;
         private void Main_Load(object sender, EventArgs e)
         {
             Initial_urlBox();
@@ -796,6 +798,7 @@ namespace javascripttest
         /// <param name="e"></param>
         private void defenseBattleStart_Click(object sender, EventArgs e)
         {
+            soldiers = new Dictionary<string, int>();//初始化兵力显示列表
             soldierType=new string[3];
             Battle battle = new Battle();
             if (WarQueue == null || WarQueue.Count == 0)
@@ -896,19 +899,25 @@ namespace javascripttest
                 }
             }
             battle.DefensePattern = DefensePattern.Text;
-
-            while (!defensePause)
+            StartBattle(battle);
+        }
+        private void StartBattle(Battle battle)
+        {
+            new Thread(delegate()
             {
-                AccountModel account = WarQueue.Dequeue();
-                Battle(account, battle); 
-                //Thread BattleThr = new Thread(delegate() {});
-                //BattleThr.Start();               
-                if (WarQueue == null || WarQueue.Count() == 0)
+                while (!defensePause)
                 {
-                    show("出征完毕");
-                    return;
+                    AccountModel account = WarQueue.Dequeue();
+                    Battle(account, battle);
+                    //Thread BattleThr = new Thread(delegate() {});
+                    //BattleThr.Start();               
+                    if (WarQueue == null || WarQueue.Count() == 0)
+                    {
+                        show("出征完毕");
+                        return;
+                    }
                 }
-            }               
+            }).Start();
         }
 
         private void Battle(AccountModel account,Battle battle)        
@@ -1102,30 +1111,31 @@ namespace javascripttest
                             string soldierlist = string.Empty;
                             for (var i = 0; i < soldierTypes.Length; i++)
                             {
+                                int soldierT = Convert.ToInt32(soldierTypes[i]);
                                 if (battle.Pattern != 4)
-                                {
+                                {                                  
                                     //double percent = Math.Round((float)Convert.ToInt32(battle.DefensePattern.Replace("%", "")) / 100, 2);
                                     //string soldiernum=(Convert.ToInt32(village.soldierss[i])*percent).ToString().Split(new char[]{'.'})[0];
-                                    string soldiernum = mainHelper.doubleous(village.soldierss[i], battle.DefensePattern);
-                                    if (Convert.ToInt32(soldiernum) > 0 && Convert.ToInt32(soldiernum)<battle.defenseUpperAmount  )
-                                        soldierlist += "soldier[" + i + "]=" + Convert.ToInt32(soldiernum) + "&";
+                                    string soldiernum = mainHelper.doubleous(village.soldierss[soldierT], battle.DefensePattern);
+                                    if (Convert.ToInt32(soldiernum) > 0 && Convert.ToInt32(soldiernum)<battle.defenseUpperAmount)
+                                        soldierlist += "soldier[" + soldierT + "]=" + Convert.ToInt32(soldiernum) + "&";
                                     else
-                                        soldierlist += "soldier[" + i + "]=" + battle.defenseUpperAmount   + "&";
+                                        soldierlist += "soldier[" + soldierT + "]=" + battle.defenseUpperAmount + "&";
                                 }
                                 else
                                 {
                                     string num = battle.BattleNum;
-                                    if (Convert.ToInt32(num) > 0 && Convert.ToInt32(village.soldierss[i])>0)
+                                    if (Convert.ToInt32(num) > 0 && Convert.ToInt32(village.soldierss[soldierT]) > 0)
                                     {
-                                        if ((Convert.ToInt32(village.soldierss[i]) > Convert.ToInt32(num) || Convert.ToInt32(village.soldierss[i]) > battle.defenseUpperAmount  ))
+                                        if ((Convert.ToInt32(village.soldierss[soldierT]) > Convert.ToInt32(num) || Convert.ToInt32(village.soldierss[soldierT]) > battle.defenseUpperAmount))
                                         {
                                             int plancount = Convert.ToInt32(num) > battle.defenseUpperAmount   ? battle.defenseUpperAmount   : Convert.ToInt32(num);
-                                            soldierlist += "soldier[" + i + "]=" + plancount + "&";
+                                            soldierlist += "soldier[" + soldierTypes[soldierT] + "]=" + plancount + "&";
                                         }
                                         else
                                         {
-                                            if (Convert.ToInt32(Convert.ToInt32(village.soldierss[i])) > 0)
-                                                soldierlist += "soldier[" + i + "]=" + Convert.ToInt32(village.soldierss[i]) + "&";
+                                            if (Convert.ToInt32(Convert.ToInt32(village.soldierss[soldierT])) > 0)
+                                                soldierlist += "soldier[" + soldierTypes[soldierT] + "]=" + Convert.ToInt32(village.soldierss[soldierT]) + "&";
                                         }
                                     }
                                 }
@@ -1136,41 +1146,90 @@ namespace javascripttest
                         }
                         else if (battle.type == 3)//支援模式
                         {
+                            int v_soldierCount = 0;
                             string[] soldierTypes = soldierType[countryId].Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
                             string soldierlist = string.Empty;
                             for (var i = 0; i < soldierTypes.Length; i++)
                             {
+                                int soldierT = Convert.ToInt32(soldierTypes[i]);
+                                int v_TsoldierCount = 0;
                                 if (battle.Pattern != 4)
                                 {
                                     //double percent = Math.Round((float)Convert.ToInt32(battle.DefensePattern.Replace("%", "")) / 100, 2);
                                     //string soldiernum=(Convert.ToInt32(village.soldierss[i])*percent).ToString().Split(new char[]{'.'})[0];
-                                    string soldiernum = mainHelper.doubleous(village.soldierss[i], battle.DefensePattern);
-                                    if (Convert.ToInt32(soldiernum) >=0 && Convert.ToInt32(soldiernum) < battle.defenseUpperAmount  )
-                                        soldierlist += "soldier[" + i + "]=" + Convert.ToInt32(soldiernum) + "&";
+                                    string soldiernum = mainHelper.doubleous(village.soldierss[soldierT], battle.DefensePattern);
+                                    if (Convert.ToInt32(soldiernum) >= 0 && Convert.ToInt32(soldiernum) < battle.defenseUpperAmount)
+                                        v_TsoldierCount = Convert.ToInt32(soldiernum);
                                     else
-                                        soldierlist += "soldier[" + i + "]=" + battle.defenseUpperAmount  + "&";
+                                    {
+                                        if (v_soldierCount != 0)
+                                            v_TsoldierCount = battle.defenseUpperAmount -v_soldierCount;
+                                        else
+                                            v_TsoldierCount = battle.defenseUpperAmount;
+                                    }                                        
+                                    soldierlist += "soldier[" + soldierT + "]=" + v_TsoldierCount + "&";                                
+                                    v_soldierCount += v_TsoldierCount;
+                                    pushSoldierCount(Constant.m_strSoldierNames[countryId, soldierT], v_TsoldierCount);//显示兵力
+                                    if (!checkUpplerSoldier(v_soldierCount, battle))
+                                        break;
                                 }
                                 else
                                 {
                                     string num = battle.BattleNum;
                                     if (Convert.ToInt32(num) > 0)
                                     {
-                                        if (Convert.ToInt32(village.soldierss[i]) > Convert.ToInt32(num) || (Convert.ToInt32(village.soldierss[i]) > battle.defenseUpperAmount  ) && battle.defenseUpperAmount   > 0)
+                                        if (Convert.ToInt32(village.soldierss[soldierT]) > Convert.ToInt32(num) || (Convert.ToInt32(village.soldierss[soldierT]) > battle.defenseUpperAmount) && battle.defenseUpperAmount > 0)
                                         {
-                                            if (Convert.ToInt32(num)<battle.defenseUpperAmount  )
-                                                soldierlist += "soldier[" + i + "]=" + Convert.ToInt32(num) + "&";
+                                            if (Convert.ToInt32(num) < battle.defenseUpperAmount)
+                                            {
+                                                if (v_soldierCount > 0)
+                                                {
+                                                    if (Convert.ToInt32(num) + v_soldierCount >= battle.defenseUpperAmount)
+                                                        v_TsoldierCount = battle.defenseUpperAmount - Convert.ToInt32(num);
+                                                    else
+                                                        v_TsoldierCount = Convert.ToInt32(num);
+                                                }
+                                                else
+                                                    v_TsoldierCount = Convert.ToInt32(num);
+                                            }
                                             else
-                                                soldierlist += "soldier[" + i + "]=" + battle.defenseUpperAmount   + "&";
+                                            {
+                                                if (v_soldierCount > 0)
+                                                {
+                                                    v_TsoldierCount = battle.defenseUpperAmount - v_soldierCount;
+                                                }
+                                                else
+                                                {
+                                                    v_TsoldierCount = battle.defenseUpperAmount;
+                                                }
+                                            }
+                                           
                                         }
                                         else
                                         {
-                                            if (Convert.ToInt32(Convert.ToInt32(village.soldierss[i])) > 0)
-                                                soldierlist += "soldier[" + i + "]=" + Convert.ToInt32(village.soldierss[i]) + "&";
+                                            if (Convert.ToInt32(Convert.ToInt32(village.soldierss[soldierT])) > 0)
+                                            {
+                                                if (v_soldierCount > 0 && v_soldierCount + Convert.ToInt32(village.soldierss[soldierT]) > battle.defenseUpperAmount)
+                                                {
+                                                    v_TsoldierCount = battle.defenseUpperAmount - Convert.ToInt32(village.soldierss[soldierT]);
+                                                }
+                                                else
+                                                {
+                                                    v_TsoldierCount = Convert.ToInt32(village.soldierss[soldierT]);
+                                                }
+                                            }
                                         }
+                                        soldierlist += "soldier[" + soldierT + "]=" + v_TsoldierCount + "&";                                        
+                                        v_soldierCount += v_TsoldierCount;
+                                        pushSoldierCount(Constant.m_strSoldierNames[countryId, soldierT], v_TsoldierCount);//显示兵力
+                                        if (!checkUpplerSoldier(v_soldierCount, battle))
+                                            break;
                                     }
                                 }
                             }
-                            string str = mainHelper.defensebattle(battle.x, battle.y, village, account, soldierlist, Constant.defenseIndex, battle.type.ToString());
+                            string str =string.Empty;
+                            if(checklowerSoldier(v_soldierCount,battle))
+                                str = mainHelper.defensebattle(battle.x, battle.y, village, account, soldierlist, Constant.defenseIndex, battle.type.ToString());
                             if (str.Contains("目标不正确") || str.Contains("不可以发兵攻打") || str.Contains("不允许增援")) return;
                             if (str.Contains("搬迁24小时内不允许出兵")) continue;
                         }                       
@@ -1191,6 +1250,70 @@ namespace javascripttest
                     }
                 } 
             }            
+        }
+
+        private Dictionary<string, int> soldiers;
+        private void pushSoldierCount(string soldier,int count)
+        {
+            if (soldiers.Count > 0)
+            {
+                if (!soldiers.ContainsKey(soldier))
+                    soldiers.Add(soldier, count);
+                else
+                { 
+                    soldiers[soldier] = soldiers[soldier] + count;
+                }             
+            }
+            else
+                soldiers.Add(soldier, count);
+            showSoldier();
+        }
+
+        private void showSoldier()
+        {
+            string totalSoldier = "总兵力：";
+            StringBuilder showText = new StringBuilder();
+            int totalCount = 0;
+            foreach (var item in soldiers)
+            {
+                totalCount += item.Value;
+                showText.Append(" " + item.Key + ":" + item.Value);
+            }
+            totalSoldier += totalCount;
+
+            soldierShow.BeginInvoke(new Action(() =>
+            {soldierNum.Text = totalSoldier + showText.ToString(); }));
+            
+            //this.BeginInvoke(new Action(() => {
+                
+            //}));
+        }
+        /// <summary>
+        /// 检查上限
+        /// </summary>
+        /// <param name="count"></param>
+        /// <param name="battle"></param>
+        /// <returns></returns>
+        private bool checkUpplerSoldier(int count, Battle battle)
+        {
+            if (battle.defenseUpperAmount != 0)
+            {
+                if (battle.defenseUpperAmount <= count)
+                    return false;
+            }
+           return true;
+        }
+        /// <summary>
+        /// 检查下限
+        /// </summary>
+        /// <param name="count"></param>
+        /// <param name="battle"></param>
+        /// <returns></returns>
+        private bool checklowerSoldier(int count, Battle battle)
+        {
+            if (battle.defenseLowerAmount != 0 && battle.defenseLowerAmount > count)
+                return false;
+            return true;
         }
         /// <summary>
         /// 召回驻军
@@ -2957,31 +3080,32 @@ namespace javascripttest
         {
             List<entity.Node> nodes = new List<Node>();
             nodes = mainConfig.getMainXml();
-            if (nodes != null && nodes.Count() > 0)
+            try
             {
-                foreach (var item in nodes)
-                { 
-                    if(this.Controls.Count>0)
+                if (nodes != null && nodes.Count() > 0)
+                {
+                    foreach (var item in ActiveControl)
                     {
-                        foreach (Control control in this.Controls)
+                        var controls = item.Controls;
+                        if (controls.Count > 0)
                         {
-                            if(item.name.Equals(control.Name))
+                            foreach (Control control in controls)
                             {
-                                setControl(control, item);
-                            }
-                            else if (control.Controls != null && control.Controls.Count > 0)
-                            {
-                                foreach (Control sonControl in control.Controls)
+                                var relativeitem = (from node in nodes where node.name == control.Name select node).FirstOrDefault();
+                                if (relativeitem != null)
                                 {
-                                    if (item.name.Equals(sonControl.Name))
-                                    {
-                                        setControl(sonControl, item);
-                                    }
+                                    setControl(control, relativeitem);
                                 }
                             }
+
                         }
                     }
                 }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
         
