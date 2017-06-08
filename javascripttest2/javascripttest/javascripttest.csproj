@@ -90,11 +90,13 @@
     </Compile>
     <Compile Include="BLL\ControlValueXmlConstruction.cs" />
     <Compile Include="BLL\Extra.cs" />
+    <Compile Include="BLL\HandlerAttack.cs" />
     <Compile Include="BLL\Migration.cs" />
     <Compile Include="BLL\SoftReg.cs" />
     <Compile Include="BLL\winApiHelper.cs" />
     <Compile Include="DbHelper\ComGeneric.cs" />
     <Compile Include="DbHelper\SqlHelper.cs" />
+    <Compile Include="entity\AbstractNode.cs" />
     <Compile Include="entity\AccountModel.cs" />
     <Compile Include="entity\Attack.cs" />
     <Compile Include="entity\Battle.cs" />
@@ -103,6 +105,7 @@
     <Compile Include="entity\Constant.cs" />
     <Compile Include="entity\General.cs" />
     <Compile Include="entity\Node.cs" />
+    <Compile Include="entity\NodeAttack.cs" />
     <Compile Include="entity\TuntianInfo.cs" />
     <Compile Include="BLL\ExcelHelper.cs" />
     <Compile Include="entity\village.cs" />
@@ -146,6 +149,7 @@
     </Compile>
     <Compile Include="BLL\RegexHtml.cs" />
     <Compile Include="entity\SGEnum.cs" />
+    <Compile Include="Regular\AttackSetConfig.cs" />
     <Compile Include="Regular\SetConfig.cs" />
     <Compile Include="report.cs">
       <SubType>UserControl</SubType>
