@@ -42,6 +42,14 @@
             this.import = new System.Windows.Forms.Button();
             this.export = new System.Windows.Forms.Button();
             this.chief = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.typeOfCountry = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rankOfNobility = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.user_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.username = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.password = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Server_url = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.city_num = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.operation = new System.Windows.Forms.DataGridViewButtonColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -115,7 +123,15 @@
             this.dataGridView1.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.chief});
+            this.chief,
+            this.typeOfCountry,
+            this.rankOfNobility,
+            this.user_id,
+            this.username,
+            this.password,
+            this.Server_url,
+            this.city_num,
+            this.operation});
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -194,6 +210,62 @@
             this.chief.ReadOnly = true;
             this.chief.Width = 81;
             // 
+            // typeOfCountry
+            // 
+            this.typeOfCountry.HeaderText = "国别";
+            this.typeOfCountry.Name = "typeOfCountry";
+            this.typeOfCountry.ReadOnly = true;
+            this.typeOfCountry.Width = 66;
+            // 
+            // rankOfNobility
+            // 
+            this.rankOfNobility.HeaderText = "爵位";
+            this.rankOfNobility.Name = "rankOfNobility";
+            this.rankOfNobility.ReadOnly = true;
+            this.rankOfNobility.Width = 66;
+            // 
+            // user_id
+            // 
+            this.user_id.HeaderText = "用户id";
+            this.user_id.Name = "user_id";
+            this.user_id.ReadOnly = true;
+            this.user_id.Width = 82;
+            // 
+            // username
+            // 
+            this.username.HeaderText = "用户名";
+            this.username.Name = "username";
+            this.username.ReadOnly = true;
+            this.username.Width = 81;
+            // 
+            // password
+            // 
+            this.password.HeaderText = "密码";
+            this.password.Name = "password";
+            this.password.ReadOnly = true;
+            this.password.Width = 66;
+            // 
+            // Server_url
+            // 
+            this.Server_url.HeaderText = "所属服务器";
+            this.Server_url.Name = "Server_url";
+            this.Server_url.ReadOnly = true;
+            this.Server_url.Width = 111;
+            // 
+            // city_num
+            // 
+            this.city_num.HeaderText = "城镇个数";
+            this.city_num.Name = "city_num";
+            this.city_num.ReadOnly = true;
+            this.city_num.Width = 96;
+            // 
+            // operation
+            // 
+            this.operation.HeaderText = "操作";
+            this.operation.Name = "operation";
+            this.operation.ReadOnly = true;
+            this.operation.Width = 43;
+            // 
             // accountants
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -237,5 +309,13 @@
         private System.Windows.Forms.Button import;
         private System.Windows.Forms.Button export;
         private System.Windows.Forms.DataGridViewTextBoxColumn chief;
+        private System.Windows.Forms.DataGridViewTextBoxColumn typeOfCountry;
+        private System.Windows.Forms.DataGridViewTextBoxColumn rankOfNobility;
+        private System.Windows.Forms.DataGridViewTextBoxColumn user_id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn username;
+        private System.Windows.Forms.DataGridViewTextBoxColumn password;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Server_url;
+        private System.Windows.Forms.DataGridViewTextBoxColumn city_num;
+        private System.Windows.Forms.DataGridViewButtonColumn operation;
     }
 }

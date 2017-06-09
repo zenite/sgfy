@@ -100,46 +100,46 @@ namespace javascripttest
         private void showGridView(DataSet ds)
         {
             this.dataGridView1.DataSource = ds.Tables[0].DefaultView.ToTable(false, "chief", "typeOfCountry", "rankOfNobility", "user_id", "username", "password", "Server_url","city_num");
-            try
-            {
-                this.dataGridView1.Columns[0].Name = "chief";
-                this.dataGridView1.Columns[0].HeaderText = "君主名";
-                this.dataGridView1.Columns[0].Visible = true;
-                this.dataGridView1.Columns[1].Name = "typeOfCountry";
-                this.dataGridView1.Columns[1].HeaderText = "国别";
-                this.dataGridView1.Columns[1].Visible = true;
-                this.dataGridView1.Columns[2].Name = "rankOfNobility";
-                this.dataGridView1.Columns[2].HeaderText = "爵位";
-                this.dataGridView1.Columns[2].Visible = true;
-                this.dataGridView1.Columns[3].Name = "user_id";
-                this.dataGridView1.Columns[3].HeaderText = "用户id";
-                this.dataGridView1.Columns[3].Visible = true;
-                this.dataGridView1.Columns[4].Name = "username";
-                this.dataGridView1.Columns[4].HeaderText = "用户名";
-                this.dataGridView1.Columns[4].Visible = true;
-                this.dataGridView1.Columns[5].Name = "password";
-                this.dataGridView1.Columns[5].HeaderText = "密码";
-                this.dataGridView1.Columns[5].Visible = true;
-                this.dataGridView1.Columns[6].Name = "Server_url";
-                this.dataGridView1.Columns[6].HeaderText = "所属服务器";
-                this.dataGridView1.Columns[6].Visible = true;
-                this.dataGridView1.Columns[7].Name = "city_num";
-                this.dataGridView1.Columns[7].HeaderText = "城镇个数";
-                this.dataGridView1.Columns[7].Visible = true;
-                DataGridViewButtonColumn button = new DataGridViewButtonColumn();
-                button.HeaderText = "操作";
-                button.UseColumnTextForButtonValue = true;
-                button.Text = "战斗任务";
-                this.dataGridView1.Columns[8].Name = "operation";
-                this.dataGridView1.Columns[8].HeaderText = "操作";
-                this.dataGridView1.Columns[8].Visible = true;
-                this.dataGridView1.Columns.Add(button);
+            //try
+            //{
+            //    this.dataGridView1.Columns[0].Name = "chief";
+            //    this.dataGridView1.Columns[0].HeaderText = "君主名";
+            //    this.dataGridView1.Columns[0].Visible = true;
+            //    this.dataGridView1.Columns[1].Name = "typeOfCountry";
+            //    this.dataGridView1.Columns[1].HeaderText = "国别";
+            //    this.dataGridView1.Columns[1].Visible = true;
+            //    this.dataGridView1.Columns[2].Name = "rankOfNobility";
+            //    this.dataGridView1.Columns[2].HeaderText = "爵位";
+            //    this.dataGridView1.Columns[2].Visible = true;
+            //    this.dataGridView1.Columns[3].Name = "user_id";
+            //    this.dataGridView1.Columns[3].HeaderText = "用户id";
+            //    this.dataGridView1.Columns[3].Visible = true;
+            //    this.dataGridView1.Columns[4].Name = "username";
+            //    this.dataGridView1.Columns[4].HeaderText = "用户名";
+            //    this.dataGridView1.Columns[4].Visible = true;
+            //    this.dataGridView1.Columns[5].Name = "password";
+            //    this.dataGridView1.Columns[5].HeaderText = "密码";
+            //    this.dataGridView1.Columns[5].Visible = true;
+            //    this.dataGridView1.Columns[6].Name = "Server_url";
+            //    this.dataGridView1.Columns[6].HeaderText = "所属服务器";
+            //    this.dataGridView1.Columns[6].Visible = true;
+            //    this.dataGridView1.Columns[7].Name = "city_num";
+            //    this.dataGridView1.Columns[7].HeaderText = "城镇个数";
+            //    this.dataGridView1.Columns[7].Visible = true;
+            //    DataGridViewButtonColumn button = new DataGridViewButtonColumn();
+            //    button.HeaderText = "操作";
+            //    button.UseColumnTextForButtonValue = true;
+            //    button.Text = "战斗任务";
+            //    this.dataGridView1.Columns[8].Name = "operation";
+            //    this.dataGridView1.Columns[8].HeaderText = "操作";
+            //    this.dataGridView1.Columns[8].Visible = true;
+            //    this.dataGridView1.Columns.Add(button);
 
-            }
-            catch (Exception ex)
-            {
+            //}
+            //catch (Exception ex)
+            //{
 
-            }
+            //}
         }
 
         private void dataGridView1_RowEnter(object sender, DataGridViewCellEventArgs e)
