@@ -16,7 +16,7 @@ namespace javascripttest
 {
     public partial class AutoAttack : Form
     {
-        private Regular.AttackSetConfig mainConfig;
+        private BLL.HandlerAttack mainConfig;
         public MainLogic mainHelper;
         private DBUti dbHelper;
         public AccountModel account;
@@ -26,6 +26,8 @@ namespace javascripttest
         public DataTable dSource=null;
         private Control[] ActiveControl;
         private string[] nodeList;
+        private List<entity.NodeAttack> offense;
+        private List<entity.NodeAttack> destroy;
         public AutoAttack(AccountModel account, string user_id, MainLogic mainHelper)
         {
             this.account = account;
@@ -33,8 +35,10 @@ namespace javascripttest
             this.nodeList = new string[] { "Controls", "Attacks" };
             this.mainHelper = mainHelper;
             InitializeComponent();
-            mainConfig = new Regular.AttackSetConfig("Attack/" + this.account.chief + "/offense","AutoAttack", nodeList);
-            mainConfig = new Regular.AttackSetConfig("Attack/" + this.account.chief + "/destroy", "AutoAttack", nodeList);
+            mainConfig = new BLL.HandlerAttack("Attack/" + this.account.chief + "/offense","AutoAttack", nodeList);
+            mainConfig = new BLL.HandlerAttack("Attack/" + this.account.chief + "/destroy", "AutoAttack", nodeList);
+            offense = new List<NodeAttack>();
+            destroy = new List<NodeAttack>();
             ActiveControl = new Control[] { Setting, this, groupBox1 };
             setControlState();
         }
@@ -60,13 +64,12 @@ namespace javascripttest
                         MessageBox.Show("当前城镇出兵数量错误");
                         return;
                     }
+                    
                     //DataTable datasource = makeDataSource(ds.Tables[0]);
                     new Thread(delegate() {
-                        this.AttackTarget.BeginInvoke(new Action(() => {
-                            this.AttackTarget.DataSource = ds.Tables[0]; 
-                            mainConfig.
-                        }));    
+                        mainConfig.AttackAttribute(ds, "Attacks", "Attack");
                     }).Start();
+                    ReBindGrid();
                          
                 }
                 catch (Exception ex)
@@ -208,11 +211,14 @@ namespace javascripttest
                 MessageBox.Show("请选择攻击模式");
                 return;
             }
-            Attack attack = getCurrentAttack();
-            if (dbHelper.insertAttack(attack))
-            {
-                ReBindGrid();
-            }
+            //Attack attack = getCurrentAttack();
+            //if (dbHelper.insertAttack(attack))
+            //{
+            //    ReBindGrid();
+            //}
+            entity.NodeAttack attack = mainHelper.GetCityInfo(this.x_cor.Text, this.y_cor.Text, account);
+            mainConfig.setAttribute(attack, "Attacks");
+            
         }
 
         private Attack getCurrentAttack() {
@@ -275,7 +281,6 @@ namespace javascripttest
             getSodliers(villageId);
             VillageId = villageId;
             ReBindGrid();
-
 
         }
         private void bindGeneral(string villageId)
@@ -442,9 +447,10 @@ namespace javascripttest
         }
         private void ReBindGrid()
         {
-            new Thread(delegate() { 
-             this.AttackTarget.BeginInvoke(new Action(() => { this.AttackTarget.DataSource = getAttackTargets(user_id, VillageId);
-             this.AttackTarget.Sort(AttackTarget.Columns[0], ListSortDirection.Ascending);
+            new Thread(delegate() {
+             offense = mainConfig.getAttackXml();
+             this.AttackTarget.BeginInvoke(new Action(() => { this.AttackTarget.DataSource = new BindingList<entity.NodeAttack>(offense);
+             //this.AttackTarget.Sort(AttackTarget.Columns[0], ListSortDirection.Ascending);
              }));    
             }).Start();
         }
@@ -486,36 +492,36 @@ namespace javascripttest
             this.timer1.Start();
         }
      
-        public string getSoldierStr(out string x,out string y,out string type,out string Aindex,out string general1)
+        public string getSoldierStr(out string x,out string y,out string type,out string general1)
         {
             StringBuilder urlStr = new StringBuilder();
-            DataTable dt = AttackTarget.DataSource as DataTable;            
-            DataRow dr = dt.Select("", "Aindex Asc")[0];
+            entity.NodeAttack node=offense.FirstOrDefault();
+            
             try {
-                if (Convert.ToInt32(dr["T_general1_ID"]) != 0) urlStr.Append("general1=" + dr["T_general1_ID"] + "&");
-                if (Convert.ToInt32(dr["T_general2_ID"]) != 0) urlStr.Append("general2=" + dr["T_general2_ID"] + "&");
-                if (Convert.ToInt32(dr["T_general3_ID"]) != 0) urlStr.Append("general3=" + dr["T_general3_ID"] + "&");
-                if (Convert.ToInt32(dr["T_general4_ID"]) != 0) urlStr.Append("general4=" + dr["T_general4_ID"] + "&");
-                if (Convert.ToInt32(dr["T_general5_ID"]) != 0) urlStr.Append("general5=" + dr["T_general5_ID"] + "&");
-                if (Convert.ToInt32(dr["T_soldier_0"]) != 0) urlStr.Append("soldier[0]=" + dr["T_soldier_0"] + "&");
-                if (Convert.ToInt32(dr["T_soldier_1"]) != 0) urlStr.Append("soldier[1]=" + dr["T_soldier_1"] + "&");
-                if (Convert.ToInt32(dr["T_soldier_2"]) != 0) urlStr.Append("soldier[2]=" + dr["T_soldier_2"] + "&");
-                if (Convert.ToInt32(dr["T_soldier_4"]) != 0) urlStr.Append("soldier[4]=" + dr["T_soldier_4"] + "&");
-                if (Convert.ToInt32(dr["T_soldier_11"]) != 0) urlStr.Append("soldier[11]=" + dr["T_soldier_11"] + "&");
-                if (Convert.ToInt32(dr["T_soldier_5"]) != 0) urlStr.Append("soldier[5]=" + dr["T_soldier_5"] + "&");
-                if (Convert.ToInt32(dr["T_soldier_6"]) != 0) urlStr.Append("soldier[6]=" + dr["T_soldier_6"] + "&");
-                if (Convert.ToInt32(dr["target1"]) != 0) urlStr.Append("target[0]=" + dr["target1"] + "&");
-                if (Convert.ToInt32(dr["target2"]) != 0) urlStr.Append("target[1]=" + dr["target2"] + "&");               
+                if (Convert.ToInt32(this.general1.SelectedValue) != 0) urlStr.Append("general1=" + this.general1.SelectedValue + "&");
+                if (Convert.ToInt32(this.general2.SelectedValue) != 0) urlStr.Append("general2=" + this.general2.SelectedValue + "&");
+                if (Convert.ToInt32(this.general3.SelectedValue) != 0) urlStr.Append("general3=" + this.general3.SelectedValue + "&");
+                if (Convert.ToInt32(this.general4.SelectedValue) != 0) urlStr.Append("general4=" + this.general4.SelectedValue + "&");
+                if (Convert.ToInt32(this.general5.SelectedValue) != 0) urlStr.Append("general5=" + this.general5.SelectedValue + "&");
+                if (Convert.ToInt32(this.soldier_0.Text) != 0) urlStr.Append("soldier[0]=" + soldier_0.Text + "&");
+                if (Convert.ToInt32(this.soldier_1.Text) != 0) urlStr.Append("soldier[1]=" + soldier_1.Text + "&");
+                if (Convert.ToInt32(this.soldier_2.Text) != 0) urlStr.Append("soldier[2]=" + soldier_2.Text + "&");
+                if (Convert.ToInt32(this.soldier_4.Text) != 0) urlStr.Append("soldier[4]=" + soldier_4.Text + "&");
+                if (Convert.ToInt32(this.soldier_11.Text) != 0) urlStr.Append("soldier[11]="+soldier_11.Text + "&");
+                if (Convert.ToInt32(this.soldier_5.Text) != 0) urlStr.Append("soldier[5]=" + soldier_5.Text + "&");
+                if (Convert.ToInt32(this.soldier_6.Text) != 0) urlStr.Append("soldier[6]=" + soldier_6.Text + "&");
+                if (Convert.ToInt32(this.T_target1.SelectedValue) != 0) urlStr.Append("target[0]=" + T_target1.SelectedValue + "&");
+                if (Convert.ToInt32(this.T_target2.SelectedValue) != 0) urlStr.Append("target[1]=" + T_target2.SelectedValue + "&");               
             }
             catch (Exception ex)
             { 
                 
             }
-            x = dr["x"].ToString();
-            y = dr["y"].ToString();
-            type = dr["Atype"].ToString();
-            Aindex = dr["Aindex"].ToString();
-            general1 = dr["T_general1_ID"].ToString();
+            x = node.x;
+            y = node.y;
+            type = this.type.SelectedIndex.ToString(); ;
+            //Aindex = dr["Aindex"].ToString();
+            general1 = this.general1.SelectedValue.ToString();
             return urlStr.ToString();
         }
 
@@ -524,16 +530,16 @@ namespace javascripttest
             string x = string.Empty;
             string y = string.Empty;
             string type = string.Empty;
-            string Aindex = string.Empty;
             string general1 = string.Empty;
             village village = account.village.Find(item => item.VillageID == VillageId);
-            string urlstr = getSoldierStr(out x, out y, out type, out Aindex, out general1);            
+            string urlstr = getSoldierStr(out x, out y, out type,  out general1);            
             List<General> list = mainHelper.GetVillageGenerals(account,VillageId);
             string newAindex=(getMaxIndex(user_id,VillageId)+1).ToString();
             if (list.Find(item => item.Gid == general1 && item.Status == "待命") != null)
             {
                 recordMsg(mainHelper.attack(x, y, village, account, urlstr, type));
-                dbHelper.updateAttack(user_id, VillageId, Aindex, newAindex);
+                //dbHelper.updateAttack(user_id, VillageId, Aindex, newAindex);
+                mainConfig.removeNode(x, y);
                 ReBindGrid();
             }            
         }
@@ -553,12 +559,12 @@ namespace javascripttest
 
         public void setAttr(object sender, EventArgs e)
         {
-            mainConfig.setAttribute(sender, e, nodeList[0],"Control");
+            mainConfig.ControlAttribute(sender, e, nodeList[0],"Control");
         }
         public void setControlState()
         {
             List<entity.Node> nodes = new List<Node>();
-            nodes = mainConfig.getMainXml();
+            nodes = mainConfig.getControlXml();
             try
             {
                 if (nodes != null && nodes.Count() > 0)

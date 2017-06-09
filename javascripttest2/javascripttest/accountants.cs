@@ -57,8 +57,8 @@ namespace javascripttest
         private void btnAddAccount_Click(object sender, EventArgs e)
         {
             AccountModel account = new AccountModel();            
-            account.username = this.username.Text.Trim() ;
-            account.password = this.password.Text.Trim();
+            account.username = this.T_username.Text.Trim() ;
+            account.password = this.T_password.Text.Trim();
             if (string.IsNullOrEmpty(account.username) || string.IsNullOrEmpty(account.password))
                 MessageBox.Show("请确认您的账号密码正确");
             account.Server_url = Constant.Server_Url;
@@ -130,9 +130,9 @@ namespace javascripttest
                 button.HeaderText = "操作";
                 button.UseColumnTextForButtonValue = true;
                 button.Text = "战斗任务";
-                //this.dataGridView1.Columns[7].Name = "operation";
-                this.dataGridView1.Columns[7].HeaderText = "操作";
-                this.dataGridView1.Columns[7].Visible = true;
+                this.dataGridView1.Columns[8].Name = "operation";
+                this.dataGridView1.Columns[8].HeaderText = "操作";
+                this.dataGridView1.Columns[8].Visible = true;
                 this.dataGridView1.Columns.Add(button);
 
             }

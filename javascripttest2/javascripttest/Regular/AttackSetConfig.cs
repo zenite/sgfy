@@ -4,6 +4,8 @@ using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
 using System.IO;
+using System.Data;
+
 using System.Text;
 using System.Reflection;
 using System.Windows.Forms;
@@ -77,18 +79,41 @@ namespace javascripttest.Regular
                 node.state = control.Checked ? "true" : "false";
                 node.controlType = "RadioButton";
             }
-            xmlSetNode(node, parentNode, sonName);
+            xmlSetNode(node, parentNode);
         }
-        public void xmlSetNode<T>(T node, string parentNode, string sonName)
+
+        public void setAttribute(DataSet ds,string parentNode,string sonName)
+        {            
+            entity.NodeAttack attack = new entity.NodeAttack();
+            PropertyInfo[] properties = attack.GetType().GetProperties();
+            if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    foreach (var item in properties)
+                    {
+                        item.SetValue(attack, dr[item.Name]);
+                    }
+                }
+            }
+            xmlSetNode(attack, parentNode);
+        }
+
+        public void setAttribute(entity.NodeAttack node, string parentNode)
+        {
+            xmlSetNode(node, parentNode);
+        }
+        public void xmlSetNode<T>(T node, string parentNode)
         {
             try
             {
                 XElement rootele = XElement.Load(filePath);
+                var nodename = (node as entity.AbstractNode).name;
                 var PNode = rootele.Descendants(parentNode).FirstOrDefault();
-                IEnumerable<XElement> xmleles = from target in rootele.Descendants(sonName) where target.Attribute("name").Value.Equals((node as entity.AbstractNode).name) select target;
+                IEnumerable<XElement> xmleles = from target in rootele.Descendants(nodename) where target.Attribute("name").Value.Equals((node as entity.AbstractNode).name) select target;
                 if (xmleles == null || xmleles.Count() == 0)
                 {
-                    CreateNode(node, rootele, PNode, sonName);
+                    CreateNode(node, rootele, PNode);
                 }
                 else
                     updateNode(node, rootele, xmleles.FirstOrDefault());
@@ -106,11 +131,12 @@ namespace javascripttest.Regular
         /// <param name="rootele"></param>
         /// <param name="PNode"></param>
         /// <param name="sonName"></param>
-        public void CreateNode<T>(T node, XElement rootele, XElement PNode,string sonName)
+        public void CreateNode<T>(T node, XElement rootele, XElement PNode)
         {
-            XElement xele = new XElement(sonName);
+            var nodename = (node as entity.AbstractNode).name;
+            XElement xele = new XElement(nodename);
             PropertyInfo[] properties = new PropertyInfo[] { };
-            if ((node as entity.AbstractNode).name.Equals("Control"))
+            if (nodename.Equals("Control"))
             {
                 entity.Node control = node  as entity.Node;
                 properties = control.GetType().GetProperties();
@@ -161,19 +187,40 @@ namespace javascripttest.Regular
         public void removeNode(string x, string y)
         {
             var rootxele = XElement.Load(filePath);
-            var xele= from target in   rootxele.Descendants("attack") where target.Attribute("x").Equals(x)&&target.Attribute("y").Equals(y) select target;
+            var xele= from target in   rootxele.Descendants("Attack") where target.Attribute("x").Equals(x)&&target.Attribute("y").Equals(y) select target;
             if(xele!=null)
             xele.Remove();
             rootxele.Save(filePath);            
         }
 
-        public List<entity.Node> getMainXml()
+        public List<entity.Node> getControlXml()
         {
             var xele = XElement.Load(filePath).Descendants("Control");
             if (xele.Count() > 0)
                 return (from target in xele select new entity.Node() { name = target.Attribute("name").Value, state = target.Attribute("state").Value, controlType = target.Attribute("controlType").Value }).ToList();
             return null;
         }
+        public List<entity.NodeAttack> getAttackXml()
+        {
+            var xele = XElement.Load(filePath).Descendants("Attack");
+            if (xele.Count() > 0)
+                return (from target in xele
+                        select new entity.NodeAttack()
+                        {
+                            name = target.Attribute("name").Value,
+                            x=target.Attribute("x").Value,
+                            y=target.Attribute("y").Value,
+                            chief=target.Attribute("chief").Value,
+                            hand=target.Attribute("hand").Value,
+                            city=target.Attribute("city").Value
+                        }).ToList();
+            return null;
+        }
+        public string x { get; set; }
+        public string y { get; set; }
+        public string chief { get; set; }
+        public string hand { get; set; }
+        public string city { get; set; }
     }
    
 }

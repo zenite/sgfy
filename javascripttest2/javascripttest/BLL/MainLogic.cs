@@ -1144,8 +1144,33 @@ namespace javascripttest
         //    }
         //}
       
-
-        
+        /// <summary>
+        /// 获取城镇信息
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="account"></param>
+        /// <returns></returns>
+        public NodeAttack GetCityInfo(string x,string y ,AccountModel account)
+        {
+            
+            string str = httpHelper.Html_get(commonUrl.url_head + "?act=map.detail&uitx=" + x + "&uity=" + y + "&villageid=" + account.villageid + "&rand=" + this.Rand().ToString(), Constant.Server_Url, account);
+            MatchCollection matchs = new Regex("class=\"nowposition\"><strong>(?<city>.*)</strong>.*strong class=\"dark_monarch\">(?<chief>.*)</strong>.*class=\"dark_normalgeneral\">(?<hand>.*)</strong", RegexOptions.None).Matches(str);
+            entity.NodeAttack node = new NodeAttack();
+            if(matchs.Count>0)
+            {
+                foreach(Match match in matchs)
+                {
+                    node.name = "Attack";
+                    node.x = x;
+                    node.y = y;
+                    node.chief = match.Groups["chief"].Value;
+                    node.city = match.Groups["city"].Value;
+                    node.hand = match.Groups["hand"].Value;
+                }
+            }
+            return node;
+        }
         
         //城镇搬迁
         public object MoveCity(AccountModel account)
