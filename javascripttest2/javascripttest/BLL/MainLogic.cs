@@ -1154,13 +1154,14 @@ namespace javascripttest
         public NodeAttack GetCityInfo(string x,string y ,AccountModel account)
         {
             
-            string str = httpHelper.Html_get(commonUrl.url_head + "?act=map.detail&uitx=" + x + "&uity=" + y + "&villageid=" + account.villageid + "&rand=" + this.Rand().ToString(), Constant.Server_Url, account);
-            MatchCollection matchs = new Regex("class=\"nowposition\"><strong>(?<city>.*)</strong>.*strong class=\"dark_monarch\">(?<chief>.*)</strong>.*class=\"dark_normalgeneral\">(?<hand>.*)</strong", RegexOptions.None).Matches(str);
+            string str = httpHelper.Html_get(commonUrl.url_head + "act=map.detail&uitx=" + x + "&uity=" + y + "&userid="+account.user_id+"&villageid=" + account.villageid + "&rand=" + this.Rand().ToString(), Constant.Server_Url, account);
+            MatchCollection matchs = new Regex("class=\"nowposition\"><strong>(?<city>\\S+)</strong>.*strong class=\"dark_monarch\">(?<chief>\\S+)</strong>.*class=\"dark_normalgeneral\">(?<hand>\\S+)</strong", RegexOptions.Singleline).Matches(str);
             entity.NodeAttack node = new NodeAttack();
             if(matchs.Count>0)
             {
                 foreach(Match match in matchs)
                 {
+                    node.NodeName="Attack";
                     node.name = "Attack";
                     node.x = x;
                     node.y = y;
@@ -1175,9 +1176,9 @@ namespace javascripttest
         //城镇搬迁
         public object MoveCity(AccountModel account)
         {
-            string str = httpHelper.Html_get(commonUrl.url_head + "?act=task.main&type_id=30&subtype_id=3003&villageid=" + account.villageid + "&rand=" + this.Rand().ToString(), Constant.Server_Url, account);
+            string str = httpHelper.Html_get(commonUrl.url_head + "act=task.main&type_id=30&subtype_id=3003&villageid=" + account.villageid + "&rand=" + this.Rand().ToString(), Constant.Server_Url, account);
             str = this.getParaValue("(?<=(ut_id=)).*?(?=('))", str);
-            str = httpHelper.Html_get(commonUrl.url_head + "?act=task.rewardTaskOther&ut_id=" + str + "&villageid=" + account.villageid + "&rand=" + this.Rand().ToString(), Constant.Server_Url, account);
+            str = httpHelper.Html_get(commonUrl.url_head + "act=task.rewardTaskOther&ut_id=" + str + "&villageid=" + account.villageid + "&rand=" + this.Rand().ToString(), Constant.Server_Url, account);
             str = this.getParaValue("(?<=(<locat act=.*?>)).*?(?=(</locat>))", str);            
             return str;
         }

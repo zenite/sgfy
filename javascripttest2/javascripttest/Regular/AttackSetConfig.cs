@@ -20,14 +20,29 @@ namespace javascripttest.Regular
         private string filePath;
         public AttackSetConfig(string name,string rootname,string[] rootList)
         {
-            string dir = System.Windows.Forms.Application.StartupPath;
+            string AppPath = System.Windows.Forms.Application.StartupPath;
             this.rootname = rootname;
-            if (!Directory.Exists(Path.Combine(dir, this.rootname)))
-                Directory.CreateDirectory(Path.Combine(dir, this.rootname));
-            filePath = Path.Combine(dir, name + ".xml");
+            CreateDir(AppPath, name);
+            filePath = Path.Combine(AppPath, name + ".xml");
             if (!File.Exists(filePath))
             {
                 CreateBasicXml(rootList);
+            }
+        }
+        public void CreateDir(string AppPath,string rootname)
+        { 
+            string[] dirArray=rootname.Split('\\');
+            if (dirArray.Length > 0)
+            {
+                
+                for (var i = 0; i < dirArray.Length-1; i++)
+                {
+                    AppPath = Path.Combine(AppPath, dirArray[i]);
+                    if (!Directory.Exists(AppPath))
+                    {
+                        Directory.CreateDirectory(AppPath);
+                    }
+                }
             }
         }
         public void CreateBasicXml(string[] rootList)
@@ -55,6 +70,7 @@ namespace javascripttest.Regular
             {
                 CheckBox control = (CheckBox)sender;
                 node.name = control.Name;
+                node.NodeName = "Control";
                 node.state = control.Checked ? "true" : "false";
                 node.controlType = "CheckBox";
             }
@@ -62,12 +78,14 @@ namespace javascripttest.Regular
             {
                 TextBox control = (TextBox)sender;
                 node.name = control.Name;
+                node.NodeName = "Control";
                 node.state = control.Text;
                 node.controlType = "TextBox";
             }
             else if (sender is ComboBox)
             {
                 ComboBox control = (ComboBox)sender;
+                node.NodeName = "Control";
                 node.name = control.Name;
                 node.state = control.SelectedIndex.ToString();
                 node.controlType = "ComboBox";
@@ -76,6 +94,7 @@ namespace javascripttest.Regular
             {
                 RadioButton control = (RadioButton)sender;
                 node.name = control.Name;
+                node.NodeName = "Control";
                 node.state = control.Checked ? "true" : "false";
                 node.controlType = "RadioButton";
             }
@@ -84,19 +103,21 @@ namespace javascripttest.Regular
 
         public void setAttribute(DataSet ds,string parentNode,string sonName)
         {            
-            entity.NodeAttack attack = new entity.NodeAttack();
-            PropertyInfo[] properties = attack.GetType().GetProperties();
+          
             if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
                 foreach (DataRow dr in ds.Tables[0].Rows)
                 {
+                    entity.NodeAttack attack = new entity.NodeAttack();
+                    PropertyInfo[] properties = attack.GetType().GetProperties();
                     foreach (var item in properties)
                     {
                         item.SetValue(attack, dr[item.Name]);
                     }
+                    xmlSetNode(attack, parentNode);
                 }
             }
-            xmlSetNode(attack, parentNode);
+            
         }
 
         public void setAttribute(entity.NodeAttack node, string parentNode)
@@ -108,9 +129,13 @@ namespace javascripttest.Regular
             try
             {
                 XElement rootele = XElement.Load(filePath);
-                var nodename = (node as entity.AbstractNode).name;
+                var nodename = (node as entity.AbstractNode).NodeName;
                 var PNode = rootele.Descendants(parentNode).FirstOrDefault();
-                IEnumerable<XElement> xmleles = from target in rootele.Descendants(nodename) where target.Attribute("name").Value.Equals((node as entity.AbstractNode).name) select target;
+                IEnumerable<XElement> xmleles;
+                if (nodename == "Control")
+                    xmleles = from target in rootele.Descendants(nodename) where target.Attribute("name").Value.Equals((node as entity.AbstractNode).name) select target;
+                else
+                    xmleles = from target in rootele.Descendants(nodename) where target.Attribute("x").Value.Equals((node as entity.NodeAttack).x) && target.Attribute("y").Value.Equals((node as entity.NodeAttack).y) select target;
                 if (xmleles == null || xmleles.Count() == 0)
                 {
                     CreateNode(node, rootele, PNode);
@@ -133,7 +158,7 @@ namespace javascripttest.Regular
         /// <param name="sonName"></param>
         public void CreateNode<T>(T node, XElement rootele, XElement PNode)
         {
-            var nodename = (node as entity.AbstractNode).name;
+            var nodename = (node as entity.AbstractNode).NodeName;
             XElement xele = new XElement(nodename);
             PropertyInfo[] properties = new PropertyInfo[] { };
             if (nodename.Equals("Control"))
@@ -163,7 +188,7 @@ namespace javascripttest.Regular
         {
             var check = true;
             PropertyInfo[] properties = new PropertyInfo[] { };
-            if ((node as entity.AbstractNode).name.Equals("Control"))
+            if ((node as entity.AbstractNode).NodeName.Equals("Control"))
             {
                 entity.Node control = node as entity.Node;
                 properties = control.GetType().GetProperties();

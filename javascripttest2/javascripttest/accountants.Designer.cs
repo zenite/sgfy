@@ -55,10 +55,9 @@
             // 
             // btnAddAccount
             // 
-            this.btnAddAccount.Location = new System.Drawing.Point(501, 25);
-            this.btnAddAccount.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.btnAddAccount.Location = new System.Drawing.Point(376, 22);
             this.btnAddAccount.Name = "btnAddAccount";
-            this.btnAddAccount.Size = new System.Drawing.Size(100, 29);
+            this.btnAddAccount.Size = new System.Drawing.Size(75, 25);
             this.btnAddAccount.TabIndex = 8;
             this.btnAddAccount.Text = "添加";
             this.btnAddAccount.UseVisualStyleBackColor = false;
@@ -67,46 +66,41 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(21, 31);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(16, 27);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(67, 15);
+            this.label1.Size = new System.Drawing.Size(55, 13);
             this.label1.TabIndex = 1;
             this.label1.Text = "用户名：";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(285, 31);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(214, 27);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(52, 15);
+            this.label2.Size = new System.Drawing.Size(43, 13);
             this.label2.TabIndex = 2;
             this.label2.Text = "密码：";
             // 
             // T_username
             // 
             this.T_username.AllowDrop = true;
-            this.T_username.Location = new System.Drawing.Point(100, 28);
-            this.T_username.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.T_username.Location = new System.Drawing.Point(75, 24);
             this.T_username.Name = "T_username";
-            this.T_username.Size = new System.Drawing.Size(132, 25);
+            this.T_username.Size = new System.Drawing.Size(100, 20);
             this.T_username.TabIndex = 3;
             // 
             // T_password
             // 
-            this.T_password.Location = new System.Drawing.Point(348, 28);
-            this.T_password.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.T_password.Location = new System.Drawing.Point(261, 24);
             this.T_password.Name = "T_password";
-            this.T_password.Size = new System.Drawing.Size(132, 25);
+            this.T_password.Size = new System.Drawing.Size(100, 20);
             this.T_password.TabIndex = 4;
             // 
             // delete_account
             // 
-            this.delete_account.Location = new System.Drawing.Point(1453, 25);
-            this.delete_account.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.delete_account.Location = new System.Drawing.Point(1090, 22);
             this.delete_account.Name = "delete_account";
-            this.delete_account.Size = new System.Drawing.Size(100, 29);
+            this.delete_account.Size = new System.Drawing.Size(75, 25);
             this.delete_account.TabIndex = 7;
             this.delete_account.Text = "删除";
             this.delete_account.UseVisualStyleBackColor = false;
@@ -134,19 +128,18 @@
             this.operation});
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Green;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle1;
-            this.dataGridView1.Location = new System.Drawing.Point(20, 81);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.dataGridView1.Location = new System.Drawing.Point(15, 70);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowTemplate.Height = 23;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(1533, 654);
+            this.dataGridView1.Size = new System.Drawing.Size(1150, 567);
             this.dataGridView1.TabIndex = 5;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView1.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentDoubleClick);
@@ -154,18 +147,16 @@
             // 
             // EmpireName
             // 
-            this.EmpireName.Location = new System.Drawing.Point(1132, 28);
-            this.EmpireName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.EmpireName.Location = new System.Drawing.Point(849, 24);
             this.EmpireName.Name = "EmpireName";
-            this.EmpireName.Size = new System.Drawing.Size(132, 25);
+            this.EmpireName.Size = new System.Drawing.Size(100, 20);
             this.EmpireName.TabIndex = 9;
             // 
             // search
             // 
-            this.search.Location = new System.Drawing.Point(1299, 25);
-            this.search.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.search.Location = new System.Drawing.Point(974, 22);
             this.search.Name = "search";
-            this.search.Size = new System.Drawing.Size(100, 29);
+            this.search.Size = new System.Drawing.Size(75, 25);
             this.search.TabIndex = 10;
             this.search.Text = "查询";
             this.search.UseVisualStyleBackColor = true;
@@ -174,19 +165,17 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(1039, 31);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Location = new System.Drawing.Point(779, 27);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(67, 15);
+            this.label3.Size = new System.Drawing.Size(55, 13);
             this.label3.TabIndex = 11;
             this.label3.Text = "君主名：";
             // 
             // import
             // 
-            this.import.Location = new System.Drawing.Point(625, 28);
-            this.import.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.import.Location = new System.Drawing.Point(469, 24);
             this.import.Name = "import";
-            this.import.Size = new System.Drawing.Size(100, 27);
+            this.import.Size = new System.Drawing.Size(75, 23);
             this.import.TabIndex = 13;
             this.import.Text = "导入";
             this.import.UseVisualStyleBackColor = true;
@@ -194,10 +183,9 @@
             // 
             // export
             // 
-            this.export.Location = new System.Drawing.Point(752, 28);
-            this.export.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.export.Location = new System.Drawing.Point(564, 24);
             this.export.Name = "export";
-            this.export.Size = new System.Drawing.Size(100, 27);
+            this.export.Size = new System.Drawing.Size(75, 23);
             this.export.TabIndex = 14;
             this.export.Text = "导出";
             this.export.UseVisualStyleBackColor = true;
@@ -205,73 +193,83 @@
             // 
             // chief
             // 
+            this.chief.DataPropertyName = "chief";
             this.chief.HeaderText = "君主名";
             this.chief.Name = "chief";
             this.chief.ReadOnly = true;
-            this.chief.Width = 81;
+            this.chief.Width = 68;
             // 
             // typeOfCountry
             // 
+            this.typeOfCountry.DataPropertyName = "typeOfCountry";
             this.typeOfCountry.HeaderText = "国别";
             this.typeOfCountry.Name = "typeOfCountry";
             this.typeOfCountry.ReadOnly = true;
-            this.typeOfCountry.Width = 66;
+            this.typeOfCountry.Width = 56;
             // 
             // rankOfNobility
             // 
+            this.rankOfNobility.DataPropertyName = "rankOfNobility";
             this.rankOfNobility.HeaderText = "爵位";
             this.rankOfNobility.Name = "rankOfNobility";
             this.rankOfNobility.ReadOnly = true;
-            this.rankOfNobility.Width = 66;
+            this.rankOfNobility.Width = 56;
             // 
             // user_id
             // 
+            this.user_id.DataPropertyName = "user_id";
             this.user_id.HeaderText = "用户id";
             this.user_id.Name = "user_id";
             this.user_id.ReadOnly = true;
-            this.user_id.Width = 82;
+            this.user_id.Width = 64;
             // 
             // username
             // 
+            this.username.DataPropertyName = "username";
             this.username.HeaderText = "用户名";
             this.username.Name = "username";
             this.username.ReadOnly = true;
-            this.username.Width = 81;
+            this.username.Width = 68;
             // 
             // password
             // 
+            this.password.DataPropertyName = "password";
             this.password.HeaderText = "密码";
             this.password.Name = "password";
             this.password.ReadOnly = true;
-            this.password.Width = 66;
+            this.password.Width = 56;
             // 
             // Server_url
             // 
+            this.Server_url.DataPropertyName = "Server_url";
             this.Server_url.HeaderText = "所属服务器";
             this.Server_url.Name = "Server_url";
             this.Server_url.ReadOnly = true;
-            this.Server_url.Width = 111;
+            this.Server_url.Width = 92;
             // 
             // city_num
             // 
+            this.city_num.DataPropertyName = "city_num";
             this.city_num.HeaderText = "城镇个数";
             this.city_num.Name = "city_num";
             this.city_num.ReadOnly = true;
-            this.city_num.Width = 96;
+            this.city_num.Width = 80;
             // 
             // operation
             // 
             this.operation.HeaderText = "操作";
             this.operation.Name = "operation";
             this.operation.ReadOnly = true;
-            this.operation.Width = 43;
+            this.operation.Text = "战斗任务";
+            this.operation.UseColumnTextForButtonValue = true;
+            this.operation.Width = 37;
             // 
             // accountants
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(1600, 750);
+            this.ClientSize = new System.Drawing.Size(1028, 650);
             this.Controls.Add(this.export);
             this.Controls.Add(this.import);
             this.Controls.Add(this.label3);
@@ -284,7 +282,6 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnAddAccount);
-            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "accountants";
             this.Text = "accountants";
             this.Load += new System.EventHandler(this.accountants_Load);

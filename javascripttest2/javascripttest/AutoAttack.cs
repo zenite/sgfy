@@ -16,7 +16,8 @@ namespace javascripttest
 {
     public partial class AutoAttack : Form
     {
-        private BLL.HandlerAttack mainConfig;
+        private BLL.HandlerAttack offenseConfig;
+        private BLL.HandlerAttack destroyConfig;
         public MainLogic mainHelper;
         private DBUti dbHelper;
         public AccountModel account;
@@ -35,12 +36,12 @@ namespace javascripttest
             this.nodeList = new string[] { "Controls", "Attacks" };
             this.mainHelper = mainHelper;
             InitializeComponent();
-            mainConfig = new BLL.HandlerAttack("Attack/" + this.account.chief + "/offense","AutoAttack", nodeList);
-            mainConfig = new BLL.HandlerAttack("Attack/" + this.account.chief + "/destroy", "AutoAttack", nodeList);
+            offenseConfig = new BLL.HandlerAttack("Attack\\" + this.account.chief + "\\offense","AutoAttack", nodeList);
+            destroyConfig = new BLL.HandlerAttack("Attack\\" + this.account.chief + "\\destroy", "AutoAttack", nodeList);
             offense = new List<NodeAttack>();
             destroy = new List<NodeAttack>();
             ActiveControl = new Control[] { Setting, this, groupBox1 };
-            setControlState();
+            
         }
         
         private void importCoor_Click(object sender, EventArgs e)
@@ -67,7 +68,7 @@ namespace javascripttest
                     
                     //DataTable datasource = makeDataSource(ds.Tables[0]);
                     new Thread(delegate() {
-                        mainConfig.AttackAttribute(ds, "Attacks", "Attack");
+                        offenseConfig.AttackAttribute(ds, "Attacks", "Attack");
                     }).Start();
                     ReBindGrid();
                          
@@ -140,6 +141,7 @@ namespace javascripttest
             this.villegelist.SelectedIndexChanged += new System.EventHandler(this.villegelist_SelectedIndexChanged);
             BindTarget();
             Bind(Villages[0].VillageID);
+            setControlState();
             
         }
 
@@ -217,7 +219,12 @@ namespace javascripttest
             //    ReBindGrid();
             //}
             entity.NodeAttack attack = mainHelper.GetCityInfo(this.x_cor.Text, this.y_cor.Text, account);
-            mainConfig.setAttribute(attack, "Attacks");
+            if (attack.name != null)
+            {
+                offenseConfig.setAttribute(attack, "Attacks");
+                ReBindGrid();
+            }
+          
             
         }
 
@@ -448,10 +455,13 @@ namespace javascripttest
         private void ReBindGrid()
         {
             new Thread(delegate() {
-             offense = mainConfig.getAttackXml();
-             this.AttackTarget.BeginInvoke(new Action(() => { this.AttackTarget.DataSource = new BindingList<entity.NodeAttack>(offense);
-             //this.AttackTarget.Sort(AttackTarget.Columns[0], ListSortDirection.Ascending);
-             }));    
+             offense = offenseConfig.getAttackXml();
+             if (offense != null)
+                 this.AttackTarget.BeginInvoke(new Action(() =>
+                 {
+                     this.AttackTarget.DataSource = new BindingList<entity.NodeAttack>(offense);
+                     //this.AttackTarget.Sort(AttackTarget.Columns[0], ListSortDirection.Ascending);
+                 }));
             }).Start();
         }
 
@@ -539,7 +549,7 @@ namespace javascripttest
             {
                 recordMsg(mainHelper.attack(x, y, village, account, urlstr, type));
                 //dbHelper.updateAttack(user_id, VillageId, Aindex, newAindex);
-                mainConfig.removeNode(x, y);
+                offenseConfig.removeNode(x, y);
                 ReBindGrid();
             }            
         }
@@ -559,12 +569,12 @@ namespace javascripttest
 
         public void setAttr(object sender, EventArgs e)
         {
-            mainConfig.ControlAttribute(sender, e, nodeList[0],"Control");
+            offenseConfig.ControlAttribute(sender, e, nodeList[0],"Control");
         }
         public void setControlState()
         {
             List<entity.Node> nodes = new List<Node>();
-            nodes = mainConfig.getControlXml();
+            nodes = offenseConfig.getControlXml();
             try
             {
                 if (nodes != null && nodes.Count() > 0)
