@@ -63,3 +63,25 @@ E:\GitsShares\New folder\sgfy\javascripttest2\javascripttest\obj\Debug\javascrip
 E:\GitsShares\New folder\sgfy\javascripttest2\javascripttest\obj\Debug\javascripttest.SgRapidLogin.RapidLogin.resources
 E:\GitsShares\New folder\sgfy\javascripttest2\javascripttest\obj\Debug\javascripttest.test.resources
 E:\GitsShares\New folder\sgfy\javascripttest2\javascripttest\obj\Debug\javascripttest.csproj.GenerateResource.Cache
+E:\gitFolder\111\sgfy\javascripttest2\javascripttest\bin\Debug\javascripttest.exe
+E:\gitFolder\111\sgfy\javascripttest2\javascripttest\bin\Debug\System.Data.SQLite.dll
+E:\gitFolder\111\sgfy\javascripttest2\javascripttest\bin\Debug\javascripttest.exe.config
+E:\gitFolder\111\sgfy\javascripttest2\javascripttest\bin\Debug\System.Data.SQLite.xml
+E:\gitFolder\111\sgfy\javascripttest2\javascripttest\obj\Debug\Interop.MSScriptControl.dll
+E:\gitFolder\111\sgfy\javascripttest2\javascripttest\obj\Debug\javascripttest.csproj.ResolveComReference.cache
+E:\gitFolder\111\sgfy\javascripttest2\javascripttest\obj\Debug\javascripttest.accountants.resources
+E:\gitFolder\111\sgfy\javascripttest2\javascripttest\obj\Debug\javascripttest.AutoAttack.resources
+E:\gitFolder\111\sgfy\javascripttest2\javascripttest\obj\Debug\javascripttest.dialogbox.resources
+E:\gitFolder\111\sgfy\javascripttest2\javascripttest\obj\Debug\javascripttest.fform.resources
+E:\gitFolder\111\sgfy\javascripttest2\javascripttest\obj\Debug\javascripttest.Main.resources
+E:\gitFolder\111\sgfy\javascripttest2\javascripttest\obj\Debug\javascripttest.Properties.Resources.resources
+E:\gitFolder\111\sgfy\javascripttest2\javascripttest\obj\Debug\javascripttest.RapidLogin.resources
+E:\gitFolder\111\sgfy\javascripttest2\javascripttest\obj\Debug\javascripttest.report.resources
+E:\gitFolder\111\sgfy\javascripttest2\javascripttest\obj\Debug\javascripttest.SgRapidLogin.RapidLogin.resources
+E:\gitFolder\111\sgfy\javascripttest2\javascripttest\obj\Debug\javascripttest.test.resources
+E:\gitFolder\111\sgfy\javascripttest2\javascripttest\obj\Debug\javascripttest.csproj.GenerateResource.Cache
+E:\gitFolder\111\sgfy\javascripttest2\javascripttest\obj\Debug\javascripttest.exe
+E:\gitFolder\111\sgfy\javascripttest2\javascripttest\obj\Debug\javascripttest.pdb
+E:\gitFolder\111\sgfy\javascripttest2\javascripttest\bin\Debug\javascripttest.pdb
+E:\gitFolder\111\sgfy\javascripttest2\javascripttest\bin\Debug\Interop.MSScriptControl.dll
+E:\gitFolder\111\sgfy\javascripttest2\javascripttest\obj\Debug\javascripttest.csprojResolveAssemblyReference.cache

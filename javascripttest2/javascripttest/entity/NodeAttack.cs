@@ -14,5 +14,6 @@ namespace javascripttest.entity
         public string chief { get; set; }
         public string hand { get; set; }
         public string city { get; set; }
+        
     }
 }

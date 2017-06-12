@@ -137,8 +137,7 @@ namespace javascripttest
             villegelist.DataSource = toDataSource_V(Villages);
             villegelist.DisplayMember = "Name";
             villegelist.ValueMember = "Value";
-            villegelist.Refresh();
-            this.villegelist.SelectedIndexChanged += new System.EventHandler(this.villegelist_SelectedIndexChanged);
+            
             BindTarget();
             Bind(Villages[0].VillageID);
             setControlState();
@@ -219,6 +218,7 @@ namespace javascripttest
             //    ReBindGrid();
             //}
             entity.NodeAttack attack = mainHelper.GetCityInfo(this.x_cor.Text, this.y_cor.Text, account);
+            attack.VillageId = VillageId;
             if (attack.name != null)
             {
                 offenseConfig.setAttribute(attack, "Attacks");
@@ -279,7 +279,10 @@ namespace javascripttest
         /// <param name="e"></param>
         private void villegelist_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Bind((sender as ComboBox).SelectedValue.ToString());//重新绑定武将
+            ComboBox com = (sender as ComboBox);
+            VillageId = (com.SelectedItem as DataRowView)[0].ToString();
+            Bind(VillageId);//重新绑定武将
+            setAttr(sender, e);
         }
 
         private void Bind(string villageId)
@@ -288,7 +291,6 @@ namespace javascripttest
             getSodliers(villageId);
             VillageId = villageId;
             ReBindGrid();
-
         }
         private void bindGeneral(string villageId)
         {
@@ -455,7 +457,7 @@ namespace javascripttest
         private void ReBindGrid()
         {
             new Thread(delegate() {
-             offense = offenseConfig.getAttackXml();
+                offense = offenseConfig.getAttackXml(VillageId);
              if (offense != null)
                  this.AttackTarget.BeginInvoke(new Action(() =>
                  {
@@ -549,7 +551,7 @@ namespace javascripttest
             {
                 recordMsg(mainHelper.attack(x, y, village, account, urlstr, type));
                 //dbHelper.updateAttack(user_id, VillageId, Aindex, newAindex);
-                offenseConfig.removeNode(x, y);
+                offenseConfig.removeNode(x, y, VillageId);
                 ReBindGrid();
             }            
         }
@@ -569,7 +571,7 @@ namespace javascripttest
 
         public void setAttr(object sender, EventArgs e)
         {
-            offenseConfig.ControlAttribute(sender, e, nodeList[0],"Control");
+            offenseConfig.ControlAttribute(sender, e, nodeList[0], "Control", VillageId);
         }
         public void setControlState()
         {
@@ -642,7 +644,7 @@ namespace javascripttest
                     item.Enabled = true;
                 }
             }
-        }
+        }   
 
 
     }

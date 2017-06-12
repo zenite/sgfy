@@ -12,6 +12,7 @@ namespace javascripttest.entity
         public string state { get; set; }
         public string controlType { get; set; }
         public string text { get; set; }
+        
 
     }
 }

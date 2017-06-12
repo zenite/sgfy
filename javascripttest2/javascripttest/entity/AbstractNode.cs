@@ -10,5 +10,6 @@ namespace javascripttest.entity
     {
         public string name { get; set; }
         public string NodeName { get; set; }
+        public string VillageId { get; set; }
     }
 }

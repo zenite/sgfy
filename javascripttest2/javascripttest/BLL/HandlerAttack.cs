@@ -24,9 +24,9 @@ namespace javascripttest.BLL
         /// <param name="e"></param>
         /// <param name="parentNode"></param>
         /// <param name="sonName"></param>
-        public void ControlAttribute(object sender, EventArgs e, string parentNode, string sonName)
+        public void ControlAttribute(object sender, EventArgs e, string parentNode, string sonName, string VillageId)
         {
-            setConfig.setAttribute(sender,e,parentNode,sonName);
+            setConfig.setAttribute(sender, e, parentNode, sonName, VillageId);
         }
        /// <summary>
        /// 设置攻击图节点
@@ -43,13 +43,13 @@ namespace javascripttest.BLL
             return setConfig.getControlXml();
         }
 
-        public List<entity.NodeAttack> getAttackXml()
+        public List<entity.NodeAttack> getAttackXml(string VillageId)
         {
-            return setConfig.getAttackXml();
+            return setConfig.getAttackXml(VillageId);
         }
-        public void removeNode(string x,string y)
+        public void removeNode(string x, string y, string VillageId)
         {
-             setConfig.removeNode(x, y);
+            setConfig.removeNode(x, y, VillageId);
         }
         public void setAttribute(entity.NodeAttack node, string parentNode)
         {

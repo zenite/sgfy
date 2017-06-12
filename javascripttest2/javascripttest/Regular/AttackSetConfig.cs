@@ -62,10 +62,10 @@ namespace javascripttest.Regular
             }
             xmlDoc.Save(filePath);
         }
-        public void setAttribute(object sender, EventArgs e,string parentNode,string sonName)
+        public void setAttribute(object sender, EventArgs e, string parentNode, string sonName, string VillageId)
         {
             entity.Node node = new entity.Node();
-            
+            node.VillageId = VillageId;
             if (sender is CheckBox)
             {
                 CheckBox control = (CheckBox)sender;
@@ -126,26 +126,26 @@ namespace javascripttest.Regular
         }
         public void xmlSetNode<T>(T node, string parentNode)
         {
+            XElement rootele = XElement.Load(filePath);
+            var nodename = (node as entity.AbstractNode).NodeName;
+            var PNode = rootele.Descendants(parentNode).FirstOrDefault();
             try
-            {
-                XElement rootele = XElement.Load(filePath);
-                var nodename = (node as entity.AbstractNode).NodeName;
-                var PNode = rootele.Descendants(parentNode).FirstOrDefault();
-                IEnumerable<XElement> xmleles;
+            {             
+                IEnumerable<XElement> xmleles=null;
                 if (nodename == "Control")
-                    xmleles = from target in rootele.Descendants(nodename) where target.Attribute("name").Value.Equals((node as entity.AbstractNode).name) select target;
+                    xmleles = from target in rootele.Descendants(nodename) where target.Attribute("name").Value.Equals((node as entity.AbstractNode).name) && target.Attribute("VillageId").Value.Equals((node as entity.AbstractNode).VillageId) select target;
                 else
-                    xmleles = from target in rootele.Descendants(nodename) where target.Attribute("x").Value.Equals((node as entity.NodeAttack).x) && target.Attribute("y").Value.Equals((node as entity.NodeAttack).y) select target;
-                if (xmleles == null || xmleles.Count() == 0)
+                    xmleles = from target in rootele.Descendants(nodename) where target.Attribute("x").Value.Equals((node as entity.NodeAttack).x) && target.Attribute("y").Value.Equals((node as entity.NodeAttack).y) && target.Attribute("VillageId").Value.Equals((node as entity.AbstractNode).VillageId) select target;
+                if (xmleles!= null&&xmleles.Count()>0)
                 {
-                    CreateNode(node, rootele, PNode);
+                    updateNode(node, rootele, xmleles.FirstOrDefault());
                 }
                 else
-                    updateNode(node, rootele, xmleles.FirstOrDefault());
+                    CreateNode(node, rootele, PNode);
             }
             catch (Exception ex)
             {
-                throw ex;
+                CreateNode(node, rootele, PNode);
             }
         }
         /// <summary>
@@ -209,10 +209,10 @@ namespace javascripttest.Regular
                }
             rootele.Save(filePath);
         }
-        public void removeNode(string x, string y)
+        public void removeNode(string x, string y, string VillageId)
         {
             var rootxele = XElement.Load(filePath);
-            var xele= from target in   rootxele.Descendants("Attack") where target.Attribute("x").Equals(x)&&target.Attribute("y").Equals(y) select target;
+            var xele = from target in rootxele.Descendants("Attack") where target.Attribute("x").Equals(x) && target.Attribute("y").Equals(y) && target.Attribute("VillageId").Value.Equals(VillageId) select target;
             if(xele!=null)
             xele.Remove();
             rootxele.Save(filePath);            
@@ -222,10 +222,10 @@ namespace javascripttest.Regular
         {
             var xele = XElement.Load(filePath).Descendants("Control");
             if (xele.Count() > 0)
-                return (from target in xele select new entity.Node() { name = target.Attribute("name").Value, state = target.Attribute("state").Value, controlType = target.Attribute("controlType").Value }).ToList();
+                return (from target in xele select new entity.Node() { name = target.Attribute("name").Value, state = target.Attribute("state").Value, controlType = target.Attribute("controlType").Value, VillageId = target.Attribute("VillageId").Value }).ToList();
             return null;
         }
-        public List<entity.NodeAttack> getAttackXml()
+        public List<entity.NodeAttack> getAttackXml(string VillageId)
         {
             var xele = XElement.Load(filePath).Descendants("Attack");
             if (xele.Count() > 0)
@@ -233,6 +233,7 @@ namespace javascripttest.Regular
                         select new entity.NodeAttack()
                         {
                             name = target.Attribute("name").Value,
+                            VillageId=target.Attribute("VillageId").Value,
                             x=target.Attribute("x").Value,
                             y=target.Attribute("y").Value,
                             chief=target.Attribute("chief").Value,
@@ -241,11 +242,6 @@ namespace javascripttest.Regular
                         }).ToList();
             return null;
         }
-        public string x { get; set; }
-        public string y { get; set; }
-        public string chief { get; set; }
-        public string hand { get; set; }
-        public string city { get; set; }
     }
    
 }
