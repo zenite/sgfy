@@ -25,7 +25,8 @@ namespace javascripttest
         public string VillageId;
         public string[] villageSoldier;
         public DataTable dSource=null;
-        private Control[] ActiveControl;
+        private Control[] ActiveOffenseControl;
+        private Control[] ActiveDestroyControl;
         private string[] nodeList;
         private List<entity.NodeAttack> offense;
         private List<entity.NodeAttack> destroy;
@@ -40,8 +41,8 @@ namespace javascripttest
             destroyConfig = new BLL.HandlerAttack("Attack\\" + this.account.chief + "\\destroy", "AutoAttack", nodeList);
             offense = new List<NodeAttack>();
             destroy = new List<NodeAttack>();
-            ActiveControl = new Control[] { Setting, this, groupBox1 };
-            
+            ActiveOffenseControl = new Control[] { Setting, this};
+            ActiveDestroyControl = new Control[] { destroySettings };
         }
         
         private void importCoor_Click(object sender, EventArgs e)
@@ -70,7 +71,7 @@ namespace javascripttest
                     new Thread(delegate() {
                         offenseConfig.AttackAttribute(ds, "Attacks", "Attack");
                     }).Start();
-                    ReBindGrid();
+                    ReBindOffense();
                          
                 }
                 catch (Exception ex)
@@ -140,8 +141,8 @@ namespace javascripttest
             
             BindTarget();
             Bind(Villages[0].VillageID);
-            setControlState();
-            
+            setOffenseControlState();
+            setDestroyControlState();
         }
 
         private bool CheckSetting()
@@ -222,7 +223,8 @@ namespace javascripttest
             if (attack.name != null)
             {
                 offenseConfig.setAttribute(attack, "Attacks");
-                ReBindGrid();
+                ReBindOffense();
+                
             }
           
             
@@ -282,7 +284,9 @@ namespace javascripttest
             ComboBox com = (sender as ComboBox);
             VillageId = (com.SelectedItem as DataRowView)[0].ToString();
             Bind(VillageId);//重新绑定武将
-            setAttr(sender, e);
+            setOffenseAttr(sender, e);
+            setOffenseControlState();
+            setDestroyControlState();
         }
 
         private void Bind(string villageId)
@@ -359,6 +363,13 @@ namespace javascripttest
             soldier5.Text = villageSoldier[5];
             soldier6.Text = villageSoldier[6];
             soldier11.Text = villageSoldier[11];
+            C_soldier0.Text = villageSoldier[0];
+            C_soldier1.Text = villageSoldier[1];
+            C_soldier2.Text = villageSoldier[2];
+            C_soldier4.Text = villageSoldier[4];
+            C_soldier5.Text = villageSoldier[5];
+            C_soldier6.Text = villageSoldier[6];
+            C_soldier11.Text = villageSoldier[11];
         }
         private DataTable toDataSource_G( string villageId)
         {
@@ -456,17 +467,36 @@ namespace javascripttest
         }
         private void ReBindGrid()
         {
-            new Thread(delegate() {
-                offense = offenseConfig.getAttackXml(VillageId);
-             if (offense != null)
-                 this.AttackTarget.BeginInvoke(new Action(() =>
-                 {
-                     this.AttackTarget.DataSource = new BindingList<entity.NodeAttack>(offense);
-                     //this.AttackTarget.Sort(AttackTarget.Columns[0], ListSortDirection.Ascending);
-                 }));
+            ReBindOffense();
+            ReBindDestroy();
+        }
+
+        private void ReBindOffense()
+        {
+            offense = offenseConfig.getAttackXml(VillageId);
+            new Thread(delegate()
+            {                
+                if (offense != null)
+                    this.AttackTarget.BeginInvoke(new Action(() =>
+                    {
+                        this.AttackTarget.DataSource = new BindingList<entity.NodeAttack>(offense);
+                        //this.AttackTarget.Sort(AttackTarget.Columns[0], ListSortDirection.Ascending);
+                    }));
             }).Start();
         }
 
+        private void ReBindDestroy()
+        {
+            destroy = destroyConfig.getAttackXml(VillageId);
+            new Thread(delegate()
+            {
+                if (destroy != null)
+                    this.DestroyTarget.BeginInvoke(new Action(() =>
+                    {
+                        this.DestroyTarget.DataSource = new BindingList<entity.NodeAttack>(destroy);
+                    }));
+            }).Start();
+        }
         private void BindTarget()
         {
             DataTable dSource = getTargetSource();
@@ -552,7 +582,7 @@ namespace javascripttest
                 recordMsg(mainHelper.attack(x, y, village, account, urlstr, type));
                 //dbHelper.updateAttack(user_id, VillageId, Aindex, newAindex);
                 offenseConfig.removeNode(x, y, VillageId);
-                ReBindGrid();
+                ReBindOffense();                
             }            
         }
 
@@ -569,19 +599,27 @@ namespace javascripttest
 
         }
 
-        public void setAttr(object sender, EventArgs e)
+        public void setOffenseAttr(object sender, EventArgs e)
         {
             offenseConfig.ControlAttribute(sender, e, nodeList[0], "Control", VillageId);
         }
-        public void setControlState()
+        public void setDestroyAttr(object sender, EventArgs e)
+        {
+            destroyConfig.ControlAttribute(sender, e, nodeList[0], "Control", VillageId);
+        }
+        public void setDestroyAttr1(object sender, EventArgs e)
+        {
+            destroyConfig.ControlAttribute1(sender, e, nodeList[0], "Control", VillageId);
+        }
+        public void setOffenseControlState()
         {
             List<entity.Node> nodes = new List<Node>();
-            nodes = offenseConfig.getControlXml();
+            nodes = offenseConfig.getControlXml(VillageId);
             try
             {
                 if (nodes != null && nodes.Count() > 0)
                 {
-                    foreach (var item in ActiveControl)
+                    foreach (var item in ActiveOffenseControl)
                     {
                         var controls = item.Controls;
                         if (controls.Count > 0)
@@ -605,7 +643,64 @@ namespace javascripttest
                 throw ex;
             }
         }
+        public void setDestroyControlState()
+        {
+            List<entity.Node> nodes = new List<Node>();
+            nodes = destroyConfig.getControlXml(VillageId);
+            try
+            {
+                if (nodes != null && nodes.Count() > 0)
+                {
+                    foreach (var item in ActiveDestroyControl)
+                    {
+                        var controls = item.Controls;
+                        if (controls.Count > 0)
+                        {
+                            foreach (Control control in controls)
+                            {
+                                var relativeitem = (from node in nodes where node.name == control.Name select node).FirstOrDefault();
+                                if (relativeitem != null)
+                                {
+                                    setControl(control, relativeitem);
+                                }
+                            }
 
+                        }
+                    }
+                    setGeneralList(nodes);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+           
+          //  ActiveDestroyControl
+        }
+        public void setGeneralList(List<entity.Node> nodes)
+        {
+            var relativeitem = from node in nodes where node.name == "GeneralList"&&node.state=="true" select node;
+            if (relativeitem != null&&relativeitem.Count()>0)
+            {
+                if (GeneralList.Items.Count > 0)
+                {
+                    for (int i = 0; i < GeneralList.Items.Count; i++)
+                    {
+                        string name=(GeneralList.Items[i] as DataRowView).Row["Name"].ToString();
+                        var pointItem = (from t in relativeitem where t.name == name select t).FirstOrDefault();
+                        if (pointItem != null)
+                        {
+                            GeneralList.SetItemChecked(i, true);
+                        }
+                        else
+                        {
+                            GeneralList.SetItemChecked(i,false);
+                        }
+                    }
+                }
+            }
+        }
         public void setControl(Control control, entity.Node node)
         {
             if (control is CheckBox)
@@ -644,9 +739,31 @@ namespace javascripttest
                     item.Enabled = true;
                 }
             }
-        }   
+        }
 
+        private void checkAll_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox checkbox = sender as CheckBox;
+            if (GeneralList.Items.Count > 0)
+            {
+                for (int i = 0; i < GeneralList.Items.Count; i++)
+                {
+                    GeneralList.SetItemChecked(i, checkbox.Checked);
+                }
+            }
+        }
 
+        private void GeneralList_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            CheckBox check = new CheckBox();
+            check.Name = "GeneralList";
+            check.Text= (GeneralList.Items[e.Index] as DataRowView).Row["Value"].ToString();
+            check.Checked = GeneralList.GetItemChecked(e.Index);
+            setDestroyAttr1(check, e);
+            
+        }
+
+  
     }
 }
 

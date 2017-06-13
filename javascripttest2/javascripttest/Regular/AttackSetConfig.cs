@@ -62,16 +62,19 @@ namespace javascripttest.Regular
             }
             xmlDoc.Save(filePath);
         }
+
         public void setAttribute(object sender, EventArgs e, string parentNode, string sonName, string VillageId)
         {
             entity.Node node = new entity.Node();
             node.VillageId = VillageId;
+          
             if (sender is CheckBox)
             {
                 CheckBox control = (CheckBox)sender;
                 node.name = control.Name;
                 node.NodeName = "Control";
                 node.state = control.Checked ? "true" : "false";
+                node.text = control.Text;
                 node.controlType = "CheckBox";
             }
             else if (sender is TextBox)
@@ -80,6 +83,7 @@ namespace javascripttest.Regular
                 node.name = control.Name;
                 node.NodeName = "Control";
                 node.state = control.Text;
+                node.text = control.Text;
                 node.controlType = "TextBox";
             }
             else if (sender is ComboBox)
@@ -87,6 +91,7 @@ namespace javascripttest.Regular
                 ComboBox control = (ComboBox)sender;
                 node.NodeName = "Control";
                 node.name = control.Name;
+                node.text = control.Text;
                 node.state = control.SelectedIndex.ToString();
                 node.controlType = "ComboBox";
             }
@@ -95,6 +100,7 @@ namespace javascripttest.Regular
                 RadioButton control = (RadioButton)sender;
                 node.name = control.Name;
                 node.NodeName = "Control";
+                node.text = control.Text;
                 node.state = control.Checked ? "true" : "false";
                 node.controlType = "RadioButton";
             }
@@ -218,18 +224,20 @@ namespace javascripttest.Regular
             rootxele.Save(filePath);            
         }
 
-        public List<entity.Node> getControlXml()
+        public List<entity.Node> getControlXml(string VillageId)
         {
             var xele = XElement.Load(filePath).Descendants("Control");
             if (xele.Count() > 0)
-                return (from target in xele select new entity.Node() { name = target.Attribute("name").Value, state = target.Attribute("state").Value, controlType = target.Attribute("controlType").Value, VillageId = target.Attribute("VillageId").Value }).ToList();
+                return (from target in xele where target.Attribute("VillageId").Value.ToString().Equals(VillageId) select new entity.Node() { name = target.Attribute("name").Value, state = target.Attribute("state").Value, controlType = target.Attribute("controlType").Value, VillageId = target.Attribute("VillageId").Value,text=target.Attribute("text").Value }).ToList();
             return null;
         }
         public List<entity.NodeAttack> getAttackXml(string VillageId)
         {
             var xele = XElement.Load(filePath).Descendants("Attack");
+
             if (xele.Count() > 0)
                 return (from target in xele
+                        where target.Attribute("VillageId").Value.ToString().Equals(VillageId)
                         select new entity.NodeAttack()
                         {
                             name = target.Attribute("name").Value,

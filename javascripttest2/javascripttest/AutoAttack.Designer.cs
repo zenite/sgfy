@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle42 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle41 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.listView1 = new System.Windows.Forms.ListView();
@@ -86,10 +86,11 @@
             this.soldier0 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.checkAll = new System.Windows.Forms.CheckBox();
             this.listView2 = new System.Windows.Forms.ListView();
             this.C_AttackStart = new System.Windows.Forms.Button();
             this.GeneralList = new System.Windows.Forms.CheckedListBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.DestroyTarget = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -97,15 +98,22 @@
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.C_importCoor = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.destroySettings = new System.Windows.Forms.GroupBox();
+            this.C_soldier6 = new System.Windows.Forms.Label();
+            this.C_soldier5 = new System.Windows.Forms.Label();
+            this.C_soldier11 = new System.Windows.Forms.Label();
+            this.C_soldier4 = new System.Windows.Forms.Label();
+            this.C_soldier2 = new System.Windows.Forms.Label();
+            this.C_soldier1 = new System.Windows.Forms.Label();
+            this.C_soldier0 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            this.textBox7 = new System.Windows.Forms.TextBox();
+            this.H_soldier_6 = new System.Windows.Forms.TextBox();
+            this.H_soldier_5 = new System.Windows.Forms.TextBox();
+            this.H_soldier_11 = new System.Windows.Forms.TextBox();
+            this.H_soldier_4 = new System.Windows.Forms.TextBox();
+            this.H_soldier_2 = new System.Windows.Forms.TextBox();
+            this.H_soldier_1 = new System.Windows.Forms.TextBox();
+            this.H_soldier_0 = new System.Windows.Forms.TextBox();
             this.label41 = new System.Windows.Forms.Label();
             this.label42 = new System.Windows.Forms.Label();
             this.label43 = new System.Windows.Forms.Label();
@@ -113,7 +121,6 @@
             this.label45 = new System.Windows.Forms.Label();
             this.label46 = new System.Windows.Forms.Label();
             this.label47 = new System.Windows.Forms.Label();
-            this.save_CSetting = new System.Windows.Forms.Button();
             this.C_AddCoor = new System.Windows.Forms.Button();
             this.C_T_target2 = new System.Windows.Forms.ComboBox();
             this.C_T_target1 = new System.Windows.Forms.ComboBox();
@@ -160,21 +167,14 @@
             this.villegelist = new System.Windows.Forms.ComboBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.C_soldier0 = new System.Windows.Forms.Label();
-            this.C_soldier1 = new System.Windows.Forms.Label();
-            this.C_soldier2 = new System.Windows.Forms.Label();
-            this.C_soldier4 = new System.Windows.Forms.Label();
-            this.C_soldier11 = new System.Windows.Forms.Label();
-            this.C_soldier5 = new System.Windows.Forms.Label();
-            this.C_soldier6 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.AttackTarget)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.Setting.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DestroyTarget)).BeginInit();
+            this.destroySettings.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -217,14 +217,14 @@
             // 
             // AttackTarget
             // 
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.AttackTarget.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle42.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle42.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle42.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle42.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle42.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle42.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle42.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.AttackTarget.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle42;
             this.AttackTarget.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.city,
             this.chief,
@@ -382,7 +382,7 @@
             this.checkAttackModel.TabIndex = 109;
             this.checkAttackModel.Text = "全军出征";
             this.checkAttackModel.UseVisualStyleBackColor = true;
-            this.checkAttackModel.CheckedChanged += new System.EventHandler(this.setAttr);
+            this.checkAttackModel.CheckedChanged += new System.EventHandler(this.setOffenseAttr);
             // 
             // addCor
             // 
@@ -424,7 +424,7 @@
             this.general5.Name = "general5";
             this.general5.Size = new System.Drawing.Size(63, 23);
             this.general5.TabIndex = 5;
-            this.general5.SelectedIndexChanged += new System.EventHandler(this.setAttr);
+            this.general5.SelectedIndexChanged += new System.EventHandler(this.setOffenseAttr);
             // 
             // general4
             // 
@@ -435,7 +435,7 @@
             this.general4.Name = "general4";
             this.general4.Size = new System.Drawing.Size(63, 23);
             this.general4.TabIndex = 4;
-            this.general4.SelectedIndexChanged += new System.EventHandler(this.setAttr);
+            this.general4.SelectedIndexChanged += new System.EventHandler(this.setOffenseAttr);
             // 
             // general3
             // 
@@ -446,7 +446,7 @@
             this.general3.Name = "general3";
             this.general3.Size = new System.Drawing.Size(63, 23);
             this.general3.TabIndex = 3;
-            this.general3.SelectedIndexChanged += new System.EventHandler(this.setAttr);
+            this.general3.SelectedIndexChanged += new System.EventHandler(this.setOffenseAttr);
             // 
             // general2
             // 
@@ -457,7 +457,7 @@
             this.general2.Name = "general2";
             this.general2.Size = new System.Drawing.Size(63, 23);
             this.general2.TabIndex = 2;
-            this.general2.SelectedIndexChanged += new System.EventHandler(this.setAttr);
+            this.general2.SelectedIndexChanged += new System.EventHandler(this.setOffenseAttr);
             // 
             // general1
             // 
@@ -468,7 +468,7 @@
             this.general1.Name = "general1";
             this.general1.Size = new System.Drawing.Size(63, 23);
             this.general1.TabIndex = 1;
-            this.general1.SelectedIndexChanged += new System.EventHandler(this.setAttr);
+            this.general1.SelectedIndexChanged += new System.EventHandler(this.setOffenseAttr);
             // 
             // label16
             // 
@@ -487,7 +487,7 @@
             this.soldier_6.Name = "soldier_6";
             this.soldier_6.Size = new System.Drawing.Size(57, 25);
             this.soldier_6.TabIndex = 107;
-            this.soldier_6.TextChanged += new System.EventHandler(this.setAttr);
+            this.soldier_6.TextChanged += new System.EventHandler(this.setOffenseAttr);
             // 
             // 主将
             // 
@@ -506,7 +506,7 @@
             this.soldier_5.Name = "soldier_5";
             this.soldier_5.Size = new System.Drawing.Size(63, 25);
             this.soldier_5.TabIndex = 106;
-            this.soldier_5.TextChanged += new System.EventHandler(this.setAttr);
+            this.soldier_5.TextChanged += new System.EventHandler(this.setOffenseAttr);
             // 
             // soldier_11
             // 
@@ -515,7 +515,7 @@
             this.soldier_11.Name = "soldier_11";
             this.soldier_11.Size = new System.Drawing.Size(63, 25);
             this.soldier_11.TabIndex = 105;
-            this.soldier_11.TextChanged += new System.EventHandler(this.setAttr);
+            this.soldier_11.TextChanged += new System.EventHandler(this.setOffenseAttr);
             // 
             // soldier_4
             // 
@@ -524,7 +524,7 @@
             this.soldier_4.Name = "soldier_4";
             this.soldier_4.Size = new System.Drawing.Size(63, 25);
             this.soldier_4.TabIndex = 104;
-            this.soldier_4.TextChanged += new System.EventHandler(this.setAttr);
+            this.soldier_4.TextChanged += new System.EventHandler(this.setOffenseAttr);
             // 
             // soldier_2
             // 
@@ -533,7 +533,7 @@
             this.soldier_2.Name = "soldier_2";
             this.soldier_2.Size = new System.Drawing.Size(63, 25);
             this.soldier_2.TabIndex = 103;
-            this.soldier_2.TextChanged += new System.EventHandler(this.setAttr);
+            this.soldier_2.TextChanged += new System.EventHandler(this.setOffenseAttr);
             // 
             // soldier_1
             // 
@@ -542,7 +542,7 @@
             this.soldier_1.Name = "soldier_1";
             this.soldier_1.Size = new System.Drawing.Size(63, 25);
             this.soldier_1.TabIndex = 102;
-            this.soldier_1.TextChanged += new System.EventHandler(this.setAttr);
+            this.soldier_1.TextChanged += new System.EventHandler(this.setOffenseAttr);
             // 
             // soldier_0
             // 
@@ -551,7 +551,7 @@
             this.soldier_0.Name = "soldier_0";
             this.soldier_0.Size = new System.Drawing.Size(63, 25);
             this.soldier_0.TabIndex = 101;
-            this.soldier_0.TextChanged += new System.EventHandler(this.setAttr);
+            this.soldier_0.TextChanged += new System.EventHandler(this.setOffenseAttr);
             // 
             // y_cor
             // 
@@ -560,7 +560,7 @@
             this.y_cor.Name = "y_cor";
             this.y_cor.Size = new System.Drawing.Size(44, 25);
             this.y_cor.TabIndex = 9;
-            this.y_cor.TextChanged += new System.EventHandler(this.setAttr);
+            this.y_cor.TextChanged += new System.EventHandler(this.setOffenseAttr);
             // 
             // x_cor
             // 
@@ -569,7 +569,7 @@
             this.x_cor.Name = "x_cor";
             this.x_cor.Size = new System.Drawing.Size(44, 25);
             this.x_cor.TabIndex = 8;
-            this.x_cor.TextChanged += new System.EventHandler(this.setAttr);
+            this.x_cor.TextChanged += new System.EventHandler(this.setOffenseAttr);
             // 
             // label8
             // 
@@ -777,12 +777,13 @@
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.Color.Linen;
+            this.tabPage2.Controls.Add(this.checkAll);
             this.tabPage2.Controls.Add(this.listView2);
             this.tabPage2.Controls.Add(this.C_AttackStart);
             this.tabPage2.Controls.Add(this.GeneralList);
-            this.tabPage2.Controls.Add(this.dataGridView1);
+            this.tabPage2.Controls.Add(this.DestroyTarget);
             this.tabPage2.Controls.Add(this.C_importCoor);
-            this.tabPage2.Controls.Add(this.groupBox1);
+            this.tabPage2.Controls.Add(this.destroySettings);
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.tabPage2.Name = "tabPage2";
@@ -790,6 +791,17 @@
             this.tabPage2.Size = new System.Drawing.Size(1584, 604);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "飞车小号";
+            // 
+            // checkAll
+            // 
+            this.checkAll.AutoSize = true;
+            this.checkAll.Location = new System.Drawing.Point(499, 252);
+            this.checkAll.Name = "checkAll";
+            this.checkAll.Size = new System.Drawing.Size(59, 19);
+            this.checkAll.TabIndex = 8;
+            this.checkAll.Text = "全选";
+            this.checkAll.UseVisualStyleBackColor = true;
+            this.checkAll.CheckedChanged += new System.EventHandler(this.checkAll_CheckedChanged);
             // 
             // listView2
             // 
@@ -817,29 +829,30 @@
             this.GeneralList.Name = "GeneralList";
             this.GeneralList.Size = new System.Drawing.Size(1055, 104);
             this.GeneralList.TabIndex = 5;
+            this.GeneralList.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.GeneralList_ItemCheck);
             // 
-            // dataGridView1
+            // DestroyTarget
             // 
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            dataGridViewCellStyle41.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle41.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle41.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle41.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle41.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle41.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle41.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DestroyTarget.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle41;
+            this.DestroyTarget.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn1,
             this.dataGridViewTextBoxColumn2,
             this.dataGridViewTextBoxColumn3,
             this.dataGridViewTextBoxColumn4,
             this.dataGridViewTextBoxColumn5,
             this.dataGridViewTextBoxColumn6});
-            this.dataGridView1.Location = new System.Drawing.Point(24, 274);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(0);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(472, 323);
-            this.dataGridView1.TabIndex = 4;
+            this.DestroyTarget.Location = new System.Drawing.Point(24, 274);
+            this.DestroyTarget.Margin = new System.Windows.Forms.Padding(0);
+            this.DestroyTarget.Name = "DestroyTarget";
+            this.DestroyTarget.Size = new System.Drawing.Size(472, 323);
+            this.DestroyTarget.TabIndex = 4;
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -905,76 +918,131 @@
             this.C_importCoor.Text = "导入坐标";
             this.C_importCoor.UseVisualStyleBackColor = true;
             // 
-            // groupBox1
+            // destroySettings
             // 
-            this.groupBox1.BackColor = System.Drawing.Color.LightGray;
-            this.groupBox1.Controls.Add(this.C_soldier6);
-            this.groupBox1.Controls.Add(this.C_soldier5);
-            this.groupBox1.Controls.Add(this.C_soldier11);
-            this.groupBox1.Controls.Add(this.C_soldier4);
-            this.groupBox1.Controls.Add(this.C_soldier2);
-            this.groupBox1.Controls.Add(this.C_soldier1);
-            this.groupBox1.Controls.Add(this.C_soldier0);
-            this.groupBox1.Controls.Add(this.groupBox3);
-            this.groupBox1.Controls.Add(this.save_CSetting);
-            this.groupBox1.Controls.Add(this.C_AddCoor);
-            this.groupBox1.Controls.Add(this.C_T_target2);
-            this.groupBox1.Controls.Add(this.C_T_target1);
-            this.groupBox1.Controls.Add(this.C_general5);
-            this.groupBox1.Controls.Add(this.C_general4);
-            this.groupBox1.Controls.Add(this.C_general3);
-            this.groupBox1.Controls.Add(this.C_general2);
-            this.groupBox1.Controls.Add(this.C_general1);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.C_soldier_6);
-            this.groupBox1.Controls.Add(this.label19);
-            this.groupBox1.Controls.Add(this.C_soldier_5);
-            this.groupBox1.Controls.Add(this.C_soldier_11);
-            this.groupBox1.Controls.Add(this.C_soldier_4);
-            this.groupBox1.Controls.Add(this.C_soldier_2);
-            this.groupBox1.Controls.Add(this.C_soldier_1);
-            this.groupBox1.Controls.Add(this.C_soldier_0);
-            this.groupBox1.Controls.Add(this.C_ycor);
-            this.groupBox1.Controls.Add(this.C_xcor);
-            this.groupBox1.Controls.Add(this.label20);
-            this.groupBox1.Controls.Add(this.label21);
-            this.groupBox1.Controls.Add(this.label22);
-            this.groupBox1.Controls.Add(this.label23);
-            this.groupBox1.Controls.Add(this.label24);
-            this.groupBox1.Controls.Add(this.label25);
-            this.groupBox1.Controls.Add(this.label26);
-            this.groupBox1.Controls.Add(this.label27);
-            this.groupBox1.Controls.Add(this.label28);
-            this.groupBox1.Controls.Add(this.label29);
-            this.groupBox1.Controls.Add(this.label30);
-            this.groupBox1.Controls.Add(this.label31);
-            this.groupBox1.Controls.Add(this.label32);
-            this.groupBox1.Controls.Add(this.label33);
-            this.groupBox1.Controls.Add(this.label34);
-            this.groupBox1.Controls.Add(this.label35);
-            this.groupBox1.Controls.Add(this.label36);
-            this.groupBox1.Controls.Add(this.label37);
-            this.groupBox1.Controls.Add(this.label38);
-            this.groupBox1.Controls.Add(this.label39);
-            this.groupBox1.Controls.Add(this.label40);
-            this.groupBox1.Location = new System.Drawing.Point(24, 24);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.groupBox1.Size = new System.Drawing.Size(1405, 214);
-            this.groupBox1.TabIndex = 3;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "设置";
+            this.destroySettings.BackColor = System.Drawing.Color.LightGray;
+            this.destroySettings.Controls.Add(this.C_soldier6);
+            this.destroySettings.Controls.Add(this.C_soldier5);
+            this.destroySettings.Controls.Add(this.C_soldier11);
+            this.destroySettings.Controls.Add(this.C_soldier4);
+            this.destroySettings.Controls.Add(this.C_soldier2);
+            this.destroySettings.Controls.Add(this.C_soldier1);
+            this.destroySettings.Controls.Add(this.C_soldier0);
+            this.destroySettings.Controls.Add(this.groupBox3);
+            this.destroySettings.Controls.Add(this.C_AddCoor);
+            this.destroySettings.Controls.Add(this.C_T_target2);
+            this.destroySettings.Controls.Add(this.C_T_target1);
+            this.destroySettings.Controls.Add(this.C_general5);
+            this.destroySettings.Controls.Add(this.C_general4);
+            this.destroySettings.Controls.Add(this.C_general3);
+            this.destroySettings.Controls.Add(this.C_general2);
+            this.destroySettings.Controls.Add(this.C_general1);
+            this.destroySettings.Controls.Add(this.label1);
+            this.destroySettings.Controls.Add(this.C_soldier_6);
+            this.destroySettings.Controls.Add(this.label19);
+            this.destroySettings.Controls.Add(this.C_soldier_5);
+            this.destroySettings.Controls.Add(this.C_soldier_11);
+            this.destroySettings.Controls.Add(this.C_soldier_4);
+            this.destroySettings.Controls.Add(this.C_soldier_2);
+            this.destroySettings.Controls.Add(this.C_soldier_1);
+            this.destroySettings.Controls.Add(this.C_soldier_0);
+            this.destroySettings.Controls.Add(this.C_ycor);
+            this.destroySettings.Controls.Add(this.C_xcor);
+            this.destroySettings.Controls.Add(this.label20);
+            this.destroySettings.Controls.Add(this.label21);
+            this.destroySettings.Controls.Add(this.label22);
+            this.destroySettings.Controls.Add(this.label23);
+            this.destroySettings.Controls.Add(this.label24);
+            this.destroySettings.Controls.Add(this.label25);
+            this.destroySettings.Controls.Add(this.label26);
+            this.destroySettings.Controls.Add(this.label27);
+            this.destroySettings.Controls.Add(this.label28);
+            this.destroySettings.Controls.Add(this.label29);
+            this.destroySettings.Controls.Add(this.label30);
+            this.destroySettings.Controls.Add(this.label31);
+            this.destroySettings.Controls.Add(this.label32);
+            this.destroySettings.Controls.Add(this.label33);
+            this.destroySettings.Controls.Add(this.label34);
+            this.destroySettings.Controls.Add(this.label35);
+            this.destroySettings.Controls.Add(this.label36);
+            this.destroySettings.Controls.Add(this.label37);
+            this.destroySettings.Controls.Add(this.label38);
+            this.destroySettings.Controls.Add(this.label39);
+            this.destroySettings.Controls.Add(this.label40);
+            this.destroySettings.Location = new System.Drawing.Point(24, 24);
+            this.destroySettings.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.destroySettings.Name = "destroySettings";
+            this.destroySettings.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.destroySettings.Size = new System.Drawing.Size(1405, 214);
+            this.destroySettings.TabIndex = 3;
+            this.destroySettings.TabStop = false;
+            this.destroySettings.Text = "设置";
+            // 
+            // C_soldier6
+            // 
+            this.C_soldier6.AutoSize = true;
+            this.C_soldier6.Location = new System.Drawing.Point(1183, 93);
+            this.C_soldier6.Name = "C_soldier6";
+            this.C_soldier6.Size = new System.Drawing.Size(0, 15);
+            this.C_soldier6.TabIndex = 111;
+            // 
+            // C_soldier5
+            // 
+            this.C_soldier5.AutoSize = true;
+            this.C_soldier5.Location = new System.Drawing.Point(1030, 93);
+            this.C_soldier5.Name = "C_soldier5";
+            this.C_soldier5.Size = new System.Drawing.Size(0, 15);
+            this.C_soldier5.TabIndex = 110;
+            // 
+            // C_soldier11
+            // 
+            this.C_soldier11.AutoSize = true;
+            this.C_soldier11.Location = new System.Drawing.Point(886, 91);
+            this.C_soldier11.Name = "C_soldier11";
+            this.C_soldier11.Size = new System.Drawing.Size(0, 15);
+            this.C_soldier11.TabIndex = 110;
+            // 
+            // C_soldier4
+            // 
+            this.C_soldier4.AutoSize = true;
+            this.C_soldier4.Location = new System.Drawing.Point(638, 91);
+            this.C_soldier4.Name = "C_soldier4";
+            this.C_soldier4.Size = new System.Drawing.Size(0, 15);
+            this.C_soldier4.TabIndex = 110;
+            // 
+            // C_soldier2
+            // 
+            this.C_soldier2.AutoSize = true;
+            this.C_soldier2.Location = new System.Drawing.Point(396, 91);
+            this.C_soldier2.Name = "C_soldier2";
+            this.C_soldier2.Size = new System.Drawing.Size(0, 15);
+            this.C_soldier2.TabIndex = 110;
+            // 
+            // C_soldier1
+            // 
+            this.C_soldier1.AutoSize = true;
+            this.C_soldier1.Location = new System.Drawing.Point(209, 93);
+            this.C_soldier1.Name = "C_soldier1";
+            this.C_soldier1.Size = new System.Drawing.Size(0, 15);
+            this.C_soldier1.TabIndex = 110;
+            // 
+            // C_soldier0
+            // 
+            this.C_soldier0.AutoSize = true;
+            this.C_soldier0.Location = new System.Drawing.Point(64, 93);
+            this.C_soldier0.Name = "C_soldier0";
+            this.C_soldier0.Size = new System.Drawing.Size(0, 15);
+            this.C_soldier0.TabIndex = 110;
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.textBox1);
-            this.groupBox3.Controls.Add(this.textBox2);
-            this.groupBox3.Controls.Add(this.textBox3);
-            this.groupBox3.Controls.Add(this.textBox4);
-            this.groupBox3.Controls.Add(this.textBox5);
-            this.groupBox3.Controls.Add(this.textBox6);
-            this.groupBox3.Controls.Add(this.textBox7);
+            this.groupBox3.Controls.Add(this.H_soldier_6);
+            this.groupBox3.Controls.Add(this.H_soldier_5);
+            this.groupBox3.Controls.Add(this.H_soldier_11);
+            this.groupBox3.Controls.Add(this.H_soldier_4);
+            this.groupBox3.Controls.Add(this.H_soldier_2);
+            this.groupBox3.Controls.Add(this.H_soldier_1);
+            this.groupBox3.Controls.Add(this.H_soldier_0);
             this.groupBox3.Controls.Add(this.label41);
             this.groupBox3.Controls.Add(this.label42);
             this.groupBox3.Controls.Add(this.label43);
@@ -989,68 +1057,68 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "压兵";
             // 
-            // textBox1
+            // H_soldier_6
             // 
-            this.textBox1.Location = new System.Drawing.Point(1200, 2);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(89, 25);
-            this.textBox1.TabIndex = 121;
-            this.textBox1.TextChanged += new System.EventHandler(this.setAttr);
+            this.H_soldier_6.Location = new System.Drawing.Point(1200, 2);
+            this.H_soldier_6.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.H_soldier_6.Name = "H_soldier_6";
+            this.H_soldier_6.Size = new System.Drawing.Size(89, 25);
+            this.H_soldier_6.TabIndex = 121;
+            this.H_soldier_6.TextChanged += new System.EventHandler(this.setDestroyAttr);
             // 
-            // textBox2
+            // H_soldier_5
             // 
-            this.textBox2.Location = new System.Drawing.Point(1048, 2);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(89, 25);
-            this.textBox2.TabIndex = 120;
-            this.textBox2.TextChanged += new System.EventHandler(this.setAttr);
+            this.H_soldier_5.Location = new System.Drawing.Point(1048, 2);
+            this.H_soldier_5.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.H_soldier_5.Name = "H_soldier_5";
+            this.H_soldier_5.Size = new System.Drawing.Size(89, 25);
+            this.H_soldier_5.TabIndex = 120;
+            this.H_soldier_5.TextChanged += new System.EventHandler(this.setDestroyAttr);
             // 
-            // textBox3
+            // H_soldier_11
             // 
-            this.textBox3.Location = new System.Drawing.Point(904, 2);
-            this.textBox3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(89, 25);
-            this.textBox3.TabIndex = 119;
-            this.textBox3.TextChanged += new System.EventHandler(this.setAttr);
+            this.H_soldier_11.Location = new System.Drawing.Point(904, 2);
+            this.H_soldier_11.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.H_soldier_11.Name = "H_soldier_11";
+            this.H_soldier_11.Size = new System.Drawing.Size(89, 25);
+            this.H_soldier_11.TabIndex = 119;
+            this.H_soldier_11.TextChanged += new System.EventHandler(this.setDestroyAttr);
             // 
-            // textBox4
+            // H_soldier_4
             // 
-            this.textBox4.Location = new System.Drawing.Point(656, 2);
-            this.textBox4.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(89, 25);
-            this.textBox4.TabIndex = 118;
-            this.textBox4.TextChanged += new System.EventHandler(this.setAttr);
+            this.H_soldier_4.Location = new System.Drawing.Point(656, 2);
+            this.H_soldier_4.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.H_soldier_4.Name = "H_soldier_4";
+            this.H_soldier_4.Size = new System.Drawing.Size(89, 25);
+            this.H_soldier_4.TabIndex = 118;
+            this.H_soldier_4.TextChanged += new System.EventHandler(this.setDestroyAttr);
             // 
-            // textBox5
+            // H_soldier_2
             // 
-            this.textBox5.Location = new System.Drawing.Point(420, 2);
-            this.textBox5.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(89, 25);
-            this.textBox5.TabIndex = 117;
-            this.textBox5.TextChanged += new System.EventHandler(this.setAttr);
+            this.H_soldier_2.Location = new System.Drawing.Point(420, 2);
+            this.H_soldier_2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.H_soldier_2.Name = "H_soldier_2";
+            this.H_soldier_2.Size = new System.Drawing.Size(89, 25);
+            this.H_soldier_2.TabIndex = 117;
+            this.H_soldier_2.TextChanged += new System.EventHandler(this.setDestroyAttr);
             // 
-            // textBox6
+            // H_soldier_1
             // 
-            this.textBox6.Location = new System.Drawing.Point(233, 2);
-            this.textBox6.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(89, 25);
-            this.textBox6.TabIndex = 116;
-            this.textBox6.TextChanged += new System.EventHandler(this.setAttr);
+            this.H_soldier_1.Location = new System.Drawing.Point(233, 2);
+            this.H_soldier_1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.H_soldier_1.Name = "H_soldier_1";
+            this.H_soldier_1.Size = new System.Drawing.Size(89, 25);
+            this.H_soldier_1.TabIndex = 116;
+            this.H_soldier_1.TextChanged += new System.EventHandler(this.setDestroyAttr);
             // 
-            // textBox7
+            // H_soldier_0
             // 
-            this.textBox7.Location = new System.Drawing.Point(83, 2);
-            this.textBox7.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(89, 25);
-            this.textBox7.TabIndex = 115;
-            this.textBox7.TextChanged += new System.EventHandler(this.setAttr);
+            this.H_soldier_0.Location = new System.Drawing.Point(83, 2);
+            this.H_soldier_0.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.H_soldier_0.Name = "H_soldier_0";
+            this.H_soldier_0.Size = new System.Drawing.Size(89, 25);
+            this.H_soldier_0.TabIndex = 115;
+            this.H_soldier_0.TextChanged += new System.EventHandler(this.setDestroyAttr);
             // 
             // label41
             // 
@@ -1122,17 +1190,6 @@
             this.label47.TabIndex = 114;
             this.label47.Text = "民兵";
             // 
-            // save_CSetting
-            // 
-            this.save_CSetting.Location = new System.Drawing.Point(1277, 67);
-            this.save_CSetting.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.save_CSetting.Name = "save_CSetting";
-            this.save_CSetting.Size = new System.Drawing.Size(100, 27);
-            this.save_CSetting.TabIndex = 108;
-            this.save_CSetting.Text = "保存配置";
-            this.save_CSetting.UseVisualStyleBackColor = true;
-            this.save_CSetting.Click += new System.EventHandler(this.save_CSetting_Click);
-            // 
             // C_AddCoor
             // 
             this.C_AddCoor.Location = new System.Drawing.Point(1321, 25);
@@ -1152,6 +1209,7 @@
             this.C_T_target2.Name = "C_T_target2";
             this.C_T_target2.Size = new System.Drawing.Size(89, 23);
             this.C_T_target2.TabIndex = 7;
+            this.C_T_target2.SelectedIndexChanged += new System.EventHandler(this.setDestroyAttr);
             // 
             // C_T_target1
             // 
@@ -1162,6 +1220,7 @@
             this.C_T_target1.Name = "C_T_target1";
             this.C_T_target1.Size = new System.Drawing.Size(89, 23);
             this.C_T_target1.TabIndex = 6;
+            this.C_T_target1.SelectedIndexChanged += new System.EventHandler(this.setDestroyAttr);
             // 
             // C_general5
             // 
@@ -1172,6 +1231,7 @@
             this.C_general5.Name = "C_general5";
             this.C_general5.Size = new System.Drawing.Size(89, 23);
             this.C_general5.TabIndex = 5;
+            this.C_general5.SelectedIndexChanged += new System.EventHandler(this.setDestroyAttr);
             // 
             // C_general4
             // 
@@ -1182,6 +1242,7 @@
             this.C_general4.Name = "C_general4";
             this.C_general4.Size = new System.Drawing.Size(89, 23);
             this.C_general4.TabIndex = 4;
+            this.C_general4.SelectedIndexChanged += new System.EventHandler(this.setDestroyAttr);
             // 
             // C_general3
             // 
@@ -1192,6 +1253,7 @@
             this.C_general3.Name = "C_general3";
             this.C_general3.Size = new System.Drawing.Size(89, 23);
             this.C_general3.TabIndex = 3;
+            this.C_general3.SelectedIndexChanged += new System.EventHandler(this.setDestroyAttr);
             // 
             // C_general2
             // 
@@ -1202,6 +1264,7 @@
             this.C_general2.Name = "C_general2";
             this.C_general2.Size = new System.Drawing.Size(89, 23);
             this.C_general2.TabIndex = 2;
+            this.C_general2.SelectedIndexChanged += new System.EventHandler(this.setDestroyAttr);
             // 
             // C_general1
             // 
@@ -1212,6 +1275,7 @@
             this.C_general1.Name = "C_general1";
             this.C_general1.Size = new System.Drawing.Size(89, 23);
             this.C_general1.TabIndex = 1;
+            this.C_general1.SelectedIndexChanged += new System.EventHandler(this.setDestroyAttr);
             // 
             // label1
             // 
@@ -1230,7 +1294,7 @@
             this.C_soldier_6.Name = "C_soldier_6";
             this.C_soldier_6.Size = new System.Drawing.Size(89, 25);
             this.C_soldier_6.TabIndex = 107;
-            this.C_soldier_6.TextChanged += new System.EventHandler(this.setAttr);
+            this.C_soldier_6.TextChanged += new System.EventHandler(this.setDestroyAttr);
             // 
             // label19
             // 
@@ -1249,7 +1313,7 @@
             this.C_soldier_5.Name = "C_soldier_5";
             this.C_soldier_5.Size = new System.Drawing.Size(89, 25);
             this.C_soldier_5.TabIndex = 106;
-            this.C_soldier_5.TextChanged += new System.EventHandler(this.setAttr);
+            this.C_soldier_5.TextChanged += new System.EventHandler(this.setDestroyAttr);
             // 
             // C_soldier_11
             // 
@@ -1258,7 +1322,7 @@
             this.C_soldier_11.Name = "C_soldier_11";
             this.C_soldier_11.Size = new System.Drawing.Size(89, 25);
             this.C_soldier_11.TabIndex = 105;
-            this.C_soldier_11.TextChanged += new System.EventHandler(this.setAttr);
+            this.C_soldier_11.TextChanged += new System.EventHandler(this.setDestroyAttr);
             // 
             // C_soldier_4
             // 
@@ -1267,7 +1331,7 @@
             this.C_soldier_4.Name = "C_soldier_4";
             this.C_soldier_4.Size = new System.Drawing.Size(89, 25);
             this.C_soldier_4.TabIndex = 104;
-            this.C_soldier_4.TextChanged += new System.EventHandler(this.setAttr);
+            this.C_soldier_4.TextChanged += new System.EventHandler(this.setDestroyAttr);
             // 
             // C_soldier_2
             // 
@@ -1276,7 +1340,7 @@
             this.C_soldier_2.Name = "C_soldier_2";
             this.C_soldier_2.Size = new System.Drawing.Size(89, 25);
             this.C_soldier_2.TabIndex = 103;
-            this.C_soldier_2.TextChanged += new System.EventHandler(this.setAttr);
+            this.C_soldier_2.TextChanged += new System.EventHandler(this.setDestroyAttr);
             // 
             // C_soldier_1
             // 
@@ -1285,7 +1349,7 @@
             this.C_soldier_1.Name = "C_soldier_1";
             this.C_soldier_1.Size = new System.Drawing.Size(89, 25);
             this.C_soldier_1.TabIndex = 102;
-            this.C_soldier_1.TextChanged += new System.EventHandler(this.setAttr);
+            this.C_soldier_1.TextChanged += new System.EventHandler(this.setDestroyAttr);
             // 
             // C_soldier_0
             // 
@@ -1294,7 +1358,7 @@
             this.C_soldier_0.Name = "C_soldier_0";
             this.C_soldier_0.Size = new System.Drawing.Size(89, 25);
             this.C_soldier_0.TabIndex = 101;
-            this.C_soldier_0.TextChanged += new System.EventHandler(this.setAttr);
+            this.C_soldier_0.TextChanged += new System.EventHandler(this.setDestroyAttr);
             // 
             // C_ycor
             // 
@@ -1303,7 +1367,7 @@
             this.C_ycor.Name = "C_ycor";
             this.C_ycor.Size = new System.Drawing.Size(44, 25);
             this.C_ycor.TabIndex = 9;
-            this.C_ycor.TextChanged += new System.EventHandler(this.setAttr);
+            this.C_ycor.TextChanged += new System.EventHandler(this.setOffenseAttr);
             // 
             // C_xcor
             // 
@@ -1312,7 +1376,7 @@
             this.C_xcor.Name = "C_xcor";
             this.C_xcor.Size = new System.Drawing.Size(44, 25);
             this.C_xcor.TabIndex = 8;
-            this.C_xcor.TextChanged += new System.EventHandler(this.setAttr);
+            this.C_xcor.TextChanged += new System.EventHandler(this.setOffenseAttr);
             // 
             // label20
             // 
@@ -1539,7 +1603,7 @@
             this.type.Name = "type";
             this.type.Size = new System.Drawing.Size(89, 23);
             this.type.TabIndex = 3;
-            this.type.SelectedIndexChanged += new System.EventHandler(this.setAttr);
+            this.type.SelectedIndexChanged += new System.EventHandler(this.setOffenseAttr);
             // 
             // label18
             // 
@@ -1566,62 +1630,6 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // C_soldier0
-            // 
-            this.C_soldier0.AutoSize = true;
-            this.C_soldier0.Location = new System.Drawing.Point(64, 93);
-            this.C_soldier0.Name = "C_soldier0";
-            this.C_soldier0.Size = new System.Drawing.Size(0, 15);
-            this.C_soldier0.TabIndex = 110;
-            // 
-            // C_soldier1
-            // 
-            this.C_soldier1.AutoSize = true;
-            this.C_soldier1.Location = new System.Drawing.Point(209, 93);
-            this.C_soldier1.Name = "C_soldier1";
-            this.C_soldier1.Size = new System.Drawing.Size(0, 15);
-            this.C_soldier1.TabIndex = 110;
-            // 
-            // C_soldier2
-            // 
-            this.C_soldier2.AutoSize = true;
-            this.C_soldier2.Location = new System.Drawing.Point(396, 91);
-            this.C_soldier2.Name = "C_soldier2";
-            this.C_soldier2.Size = new System.Drawing.Size(0, 15);
-            this.C_soldier2.TabIndex = 110;
-            // 
-            // C_soldier4
-            // 
-            this.C_soldier4.AutoSize = true;
-            this.C_soldier4.Location = new System.Drawing.Point(638, 91);
-            this.C_soldier4.Name = "C_soldier4";
-            this.C_soldier4.Size = new System.Drawing.Size(0, 15);
-            this.C_soldier4.TabIndex = 110;
-            // 
-            // C_soldier11
-            // 
-            this.C_soldier11.AutoSize = true;
-            this.C_soldier11.Location = new System.Drawing.Point(886, 91);
-            this.C_soldier11.Name = "C_soldier11";
-            this.C_soldier11.Size = new System.Drawing.Size(0, 15);
-            this.C_soldier11.TabIndex = 110;
-            // 
-            // C_soldier5
-            // 
-            this.C_soldier5.AutoSize = true;
-            this.C_soldier5.Location = new System.Drawing.Point(1030, 93);
-            this.C_soldier5.Name = "C_soldier5";
-            this.C_soldier5.Size = new System.Drawing.Size(0, 15);
-            this.C_soldier5.TabIndex = 110;
-            // 
-            // C_soldier6
-            // 
-            this.C_soldier6.AutoSize = true;
-            this.C_soldier6.Location = new System.Drawing.Point(1183, 93);
-            this.C_soldier6.Name = "C_soldier6";
-            this.C_soldier6.Size = new System.Drawing.Size(0, 15);
-            this.C_soldier6.TabIndex = 111;
-            // 
             // AutoAttack
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -1643,9 +1651,10 @@
             this.Setting.ResumeLayout(false);
             this.Setting.PerformLayout();
             this.tabPage2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.tabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DestroyTarget)).EndInit();
+            this.destroySettings.ResumeLayout(false);
+            this.destroySettings.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
@@ -1710,8 +1719,8 @@
         private System.Windows.Forms.Label soldier1;
         private System.Windows.Forms.Label soldier0;
         private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.DataGridView DestroyTarget;
+        private System.Windows.Forms.GroupBox destroySettings;
         private System.Windows.Forms.Button C_AddCoor;
         private System.Windows.Forms.Button C_importCoor;
         private System.Windows.Forms.ComboBox C_T_target2;
@@ -1760,7 +1769,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
         private System.Windows.Forms.CheckedListBox GeneralList;
-        private System.Windows.Forms.Button save_CSetting;
         private System.Windows.Forms.Button C_AttackStart;
         private System.Windows.Forms.CheckBox checkAttackModel;
         private System.Windows.Forms.DataGridViewTextBoxColumn city;
@@ -1770,13 +1778,13 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn hand;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.ListView listView2;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.TextBox textBox6;
-        private System.Windows.Forms.TextBox textBox7;
+        private System.Windows.Forms.TextBox H_soldier_6;
+        private System.Windows.Forms.TextBox H_soldier_5;
+        private System.Windows.Forms.TextBox H_soldier_11;
+        private System.Windows.Forms.TextBox H_soldier_4;
+        private System.Windows.Forms.TextBox H_soldier_2;
+        private System.Windows.Forms.TextBox H_soldier_1;
+        private System.Windows.Forms.TextBox H_soldier_0;
         private System.Windows.Forms.Label label41;
         private System.Windows.Forms.Label label42;
         private System.Windows.Forms.Label label43;
@@ -1791,5 +1799,6 @@
         private System.Windows.Forms.Label C_soldier1;
         private System.Windows.Forms.Label C_soldier0;
         private System.Windows.Forms.Label C_soldier6;
+        private System.Windows.Forms.CheckBox checkAll;
     }
 }

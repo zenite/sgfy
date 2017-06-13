@@ -28,6 +28,10 @@ namespace javascripttest.BLL
         {
             setConfig.setAttribute(sender, e, parentNode, sonName, VillageId);
         }
+        public void ControlAttribute1(object sender, EventArgs e, string parentNode, string sonName, string VillageId)
+        {
+            setConfig.setAttribute(sender, e, parentNode, sonName, VillageId);
+        }
        /// <summary>
        /// 设置攻击图节点
        /// </summary>
@@ -38,9 +42,9 @@ namespace javascripttest.BLL
         {
             setConfig.setAttribute(ds, parentNode, sonName);
         }
-        public List<entity.Node> getControlXml()
+        public List<entity.Node> getControlXml(string VillageId)
         {
-            return setConfig.getControlXml();
+            return setConfig.getControlXml(VillageId);
         }
 
         public List<entity.NodeAttack> getAttackXml(string VillageId)
