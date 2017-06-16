@@ -93,6 +93,8 @@ namespace javascripttest.Regular
                 node.name = control.Name;
                 node.text = control.Text;
                 node.state = control.SelectedIndex.ToString();
+                if (node.state == "0")
+                    return;
                 node.controlType = "ComboBox";
             }
             else if (sender is RadioButton)
@@ -139,7 +141,15 @@ namespace javascripttest.Regular
             {             
                 IEnumerable<XElement> xmleles=null;
                 if (nodename == "Control")
-                    xmleles = from target in rootele.Descendants(nodename) where target.Attribute("name").Value.Equals((node as entity.AbstractNode).name) && target.Attribute("VillageId").Value.Equals((node as entity.AbstractNode).VillageId) select target;
+                {
+                    if((node as entity.AbstractNode).name=="GeneralList")
+                    {
+                       xmleles= from target in rootele.Descendants(nodename) where target.Attribute("name").Value.Equals((node as entity.AbstractNode).name) && target.Attribute("VillageId").Value.Equals((node as entity.AbstractNode).VillageId)&&target.Attribute("text").Value.Equals((node as entity.Node).text) select target;
+                    }
+                    else
+                        xmleles = from target in rootele.Descendants(nodename) where target.Attribute("name").Value.Equals((node as entity.AbstractNode).name) && target.Attribute("VillageId").Value.Equals((node as entity.AbstractNode).VillageId) select target;
+                }
+                    
                 else
                     xmleles = from target in rootele.Descendants(nodename) where target.Attribute("x").Value.Equals((node as entity.NodeAttack).x) && target.Attribute("y").Value.Equals((node as entity.NodeAttack).y) && target.Attribute("VillageId").Value.Equals((node as entity.AbstractNode).VillageId) select target;
                 if (xmleles!= null&&xmleles.Count()>0)
@@ -227,6 +237,10 @@ namespace javascripttest.Regular
         public List<entity.Node> getControlXml(string VillageId)
         {
             var xele = XElement.Load(filePath).Descendants("Control");
+            foreach (var item in xele)
+            {
+                string vv = item.Attribute("VillageId").Value.ToString();
+            }
             if (xele.Count() > 0)
                 return (from target in xele where target.Attribute("VillageId").Value.ToString().Equals(VillageId) select new entity.Node() { name = target.Attribute("name").Value, state = target.Attribute("state").Value, controlType = target.Attribute("controlType").Value, VillageId = target.Attribute("VillageId").Value,text=target.Attribute("text").Value }).ToList();
             return null;

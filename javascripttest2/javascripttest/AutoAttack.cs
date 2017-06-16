@@ -687,8 +687,8 @@ namespace javascripttest
                 {
                     for (int i = 0; i < GeneralList.Items.Count; i++)
                     {
-                        string name=(GeneralList.Items[i] as DataRowView).Row["Name"].ToString();
-                        var pointItem = (from t in relativeitem where t.name == name select t).FirstOrDefault();
+                        string Value = (GeneralList.Items[i] as DataRowView).Row["Value"].ToString();
+                        var pointItem = (from t in relativeitem where t.text == Value select t).FirstOrDefault();
                         if (pointItem != null)
                         {
                             GeneralList.SetItemChecked(i, true);
@@ -758,9 +758,53 @@ namespace javascripttest
             CheckBox check = new CheckBox();
             check.Name = "GeneralList";
             check.Text= (GeneralList.Items[e.Index] as DataRowView).Row["Value"].ToString();
-            check.Checked = GeneralList.GetItemChecked(e.Index);
+            check.Checked =(int)e.NewValue == 1 ? true : false;
             setDestroyAttr1(check, e);
             
+        }
+
+        private void checkAttackModel_CheckedChanged_1(object sender, EventArgs e)
+        {
+            CheckBox check = sender as CheckBox;
+            if (check.Checked)
+            {
+                soldier_0.Text = soldier0.Text;
+                soldier_1.Text = soldier1.Text;
+                soldier_2.Text = soldier2.Text;
+                soldier_4.Text = soldier4.Text;
+                soldier_11.Text = soldier11.Text;
+            }
+            else
+            {
+                soldier_0.Text  = "";
+                soldier_1.Text  = "";
+                soldier_2.Text  = "";
+                soldier_4.Text  = "";
+                soldier_11.Text = "";   
+            }
+           
+            
+            setOffenseAttr(sender,e);
+        }
+
+        private void C_AddCoor_Click(object sender, EventArgs e)
+        {
+
+            if (!CheckSetting())
+                return;
+            if (type.SelectedIndex < 0)
+            {
+                MessageBox.Show("请选择攻击模式");
+                return;
+            }
+            entity.NodeAttack attack = mainHelper.GetCityInfo(this.x_cor.Text, this.y_cor.Text, account);
+            attack.VillageId = VillageId;
+            if (attack.name != null)
+            {
+                offenseConfig.setAttribute(attack, "Attacks");
+                ReBindOffense();
+            }
+          
         }
 
   
