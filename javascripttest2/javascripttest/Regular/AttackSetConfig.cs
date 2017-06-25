@@ -228,7 +228,7 @@ namespace javascripttest.Regular
         public void removeNode(string x, string y, string VillageId)
         {
             var rootxele = XElement.Load(filePath);
-            var xele = from target in rootxele.Descendants("Attack") where target.Attribute("x").Equals(x) && target.Attribute("y").Equals(y) && target.Attribute("VillageId").Value.Equals(VillageId) select target;
+            var xele = from target in rootxele.Descendants("Attack") where target.Attribute("x").Value.Equals(x) && target.Attribute("y").Value.Equals(y) && target.Attribute("VillageId").Value.Equals(VillageId) select target;
             if(xele!=null)
             xele.Remove();
             rootxele.Save(filePath);            

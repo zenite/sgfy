@@ -883,7 +883,7 @@ namespace javascripttest
                         string soldierName = (soldier as CheckBox).Text;
                         for (int i = 0; i < 3; i++)
                         {
-                            if (checkboxName.Contains(Constant.m_strCountryNames[i].ToLower()))
+                            if (checkboxName.StartsWith(Constant.m_strCountryNames[i].ToLower()))
                             {
                                 soldierType[i] += Constant.GetSldTypeByName(i, soldierName) + ",";
                             }

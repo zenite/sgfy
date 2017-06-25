@@ -348,6 +348,7 @@ namespace javascripttest
             C_general5.ValueMember = "Value";
             DataTable gen = dt.Copy();
             gen.Rows.RemoveAt(0);
+            GeneralList.DataSource = null;
             GeneralList.DataSource = gen;
             GeneralList.DisplayMember = "Name";
             GeneralList.ValueMember = "Value";
@@ -473,13 +474,16 @@ namespace javascripttest
 
         private void ReBindOffense()
         {
-            offense = offenseConfig.getAttackXml(VillageId);
+            offense = offenseConfig.getAttackXml(VillageId) == null ? new List<entity.NodeAttack>() : offenseConfig.getAttackXml(VillageId);
             new Thread(delegate()
             {                
                 if (offense != null)
                     this.AttackTarget.BeginInvoke(new Action(() =>
                     {
-                        this.AttackTarget.DataSource = new BindingList<entity.NodeAttack>(offense);
+                        if (offense.Count() > 0)
+                            this.AttackTarget.DataSource = new BindingList<entity.NodeAttack>(offense);
+                        else
+                            this.AttackTarget.DataSource = null;
                         //this.AttackTarget.Sort(AttackTarget.Columns[0], ListSortDirection.Ascending);
                     }));
             }).Start();
@@ -507,6 +511,14 @@ namespace javascripttest
             T_target2.DataSource = dSource.Copy();
             T_target2.DisplayMember = "Name";
             T_target2.ValueMember = "Value";
+
+            C_T_target1.DataSource = dSource.Copy();
+            C_T_target1.DisplayMember = "Name";
+            C_T_target1.ValueMember = "Value";
+            
+            C_T_target2.DataSource = dSource.Copy();
+            C_T_target2.DisplayMember = "Name";
+            C_T_target2.ValueMember = "Value";
         }
         private DataTable getTargetSource()
         {
@@ -579,10 +591,16 @@ namespace javascripttest
             string newAindex=(getMaxIndex(user_id,VillageId)+1).ToString();
             if (list.Find(item => item.Gid == general1 && item.Status == "待命") != null)
             {
-                recordMsg(mainHelper.attack(x, y, village, account, urlstr, type));
+                bool success = false;
+                string msg = mainHelper.attack(x, y, village, account, urlstr, type, out success);
+                if (success)
+                {
+                    offenseConfig.removeNode(x, y, VillageId);
+                    ReBindOffense();            
+                }
+                recordMsg(msg);
                 //dbHelper.updateAttack(user_id, VillageId, Aindex, newAindex);
-                offenseConfig.removeNode(x, y, VillageId);
-                ReBindOffense();                
+                   
             }            
         }
 

@@ -31,16 +31,16 @@
   <Control name="SoldiersAmount" state="2000" controlType="TextBox" />
   <Control name="Battle_type" state="3" controlType="ComboBox" />
   <Control name="wei_piaodao" state="true" controlType="CheckBox" />
-  <Control name="wu_zhongqi" state="false" controlType="CheckBox" />
+  <Control name="wu_zhongqi" state="true" controlType="CheckBox" />
   <Control name="chihou" state="false" controlType="CheckBox" />
-  <Control name="shu_qiangqi" state="false" controlType="CheckBox" />
-  <Control name="wu_jinweiqi" state="false" controlType="CheckBox" />
-  <Control name="shu_changqiang" state="false" controlType="CheckBox" />
-  <Control name="wu_gebing" state="false" controlType="CheckBox" />
+  <Control name="shu_qiangqi" state="true" controlType="CheckBox" />
+  <Control name="wu_jinweiqi" state="true" controlType="CheckBox" />
+  <Control name="shu_changqiang" state="true" controlType="CheckBox" />
+  <Control name="wu_gebing" state="true" controlType="CheckBox" />
   <Control name="wei_zhongbu" state="true" controlType="CheckBox" />
-  <Control name="DefenseUpper" state="1000" controlType="TextBox" />
-  <Control name="DefenseLower" state="010" controlType="TextBox" />
-  <Control name="DefensePattern" state="1" controlType="ComboBox" />
+  <Control name="DefenseUpper" state="6000" controlType="TextBox" />
+  <Control name="DefenseLower" state="01000" controlType="TextBox" />
+  <Control name="DefensePattern" state="0" controlType="ComboBox" />
   <Control name="Trader_Target_Y" state="12" controlType="TextBox" />
   <Control name="Trader_Resource_Lumber" state="10" controlType="TextBox" />
   <Control name="Trader_Resource_Clay" state="10" controlType="TextBox" />
@@ -52,4 +52,6 @@
   <Control name="cb_hubenying" state="false" controlType="CheckBox" />
   <Control name="DefenseNum" state="1" controlType="TextBox" />
   <Control name="cityFilter" state="0" controlType="ComboBox" />
+  <Control name="x_Coord" state="98" controlType="TextBox" />
+  <Control name="y_Coord" state="882" controlType="TextBox" />
 </controls>

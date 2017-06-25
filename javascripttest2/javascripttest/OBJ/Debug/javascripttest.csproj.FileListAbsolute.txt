@@ -85,3 +85,25 @@ E:\gitFolder\111\sgfy\javascripttest2\javascripttest\obj\Debug\javascripttest.pd
 E:\gitFolder\111\sgfy\javascripttest2\javascripttest\bin\Debug\javascripttest.pdb
 E:\gitFolder\111\sgfy\javascripttest2\javascripttest\bin\Debug\Interop.MSScriptControl.dll
 E:\gitFolder\111\sgfy\javascripttest2\javascripttest\obj\Debug\javascripttest.csprojResolveAssemblyReference.cache
+E:\GitsShares\New folder (2)\sgfy\javascripttest2\javascripttest\bin\Debug\javascripttest.exe.config
+E:\GitsShares\New folder (2)\sgfy\javascripttest2\javascripttest\obj\Debug\Interop.MSScriptControl.dll
+E:\GitsShares\New folder (2)\sgfy\javascripttest2\javascripttest\obj\Debug\javascripttest.csproj.ResolveComReference.cache
+E:\GitsShares\New folder (2)\sgfy\javascripttest2\javascripttest\obj\Debug\javascripttest.exe
+E:\GitsShares\New folder (2)\sgfy\javascripttest2\javascripttest\obj\Debug\javascripttest.pdb
+E:\GitsShares\New folder (2)\sgfy\javascripttest2\javascripttest\bin\Debug\javascripttest.exe
+E:\GitsShares\New folder (2)\sgfy\javascripttest2\javascripttest\bin\Debug\javascripttest.pdb
+E:\GitsShares\New folder (2)\sgfy\javascripttest2\javascripttest\bin\Debug\System.Data.SQLite.dll
+E:\GitsShares\New folder (2)\sgfy\javascripttest2\javascripttest\bin\Debug\System.Data.SQLite.xml
+E:\GitsShares\New folder (2)\sgfy\javascripttest2\javascripttest\bin\Debug\Interop.MSScriptControl.dll
+E:\GitsShares\New folder (2)\sgfy\javascripttest2\javascripttest\obj\Debug\javascripttest.csprojResolveAssemblyReference.cache
+E:\GitsShares\New folder (2)\sgfy\javascripttest2\javascripttest\obj\Debug\javascripttest.accountants.resources
+E:\GitsShares\New folder (2)\sgfy\javascripttest2\javascripttest\obj\Debug\javascripttest.AutoAttack.resources
+E:\GitsShares\New folder (2)\sgfy\javascripttest2\javascripttest\obj\Debug\javascripttest.dialogbox.resources
+E:\GitsShares\New folder (2)\sgfy\javascripttest2\javascripttest\obj\Debug\javascripttest.fform.resources
+E:\GitsShares\New folder (2)\sgfy\javascripttest2\javascripttest\obj\Debug\javascripttest.Main.resources
+E:\GitsShares\New folder (2)\sgfy\javascripttest2\javascripttest\obj\Debug\javascripttest.Properties.Resources.resources
+E:\GitsShares\New folder (2)\sgfy\javascripttest2\javascripttest\obj\Debug\javascripttest.RapidLogin.resources
+E:\GitsShares\New folder (2)\sgfy\javascripttest2\javascripttest\obj\Debug\javascripttest.report.resources
+E:\GitsShares\New folder (2)\sgfy\javascripttest2\javascripttest\obj\Debug\javascripttest.SgRapidLogin.RapidLogin.resources
+E:\GitsShares\New folder (2)\sgfy\javascripttest2\javascripttest\obj\Debug\javascripttest.test.resources
+E:\GitsShares\New folder (2)\sgfy\javascripttest2\javascripttest\obj\Debug\javascripttest.csproj.GenerateResource.Cache

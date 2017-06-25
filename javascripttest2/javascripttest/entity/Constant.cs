@@ -174,7 +174,7 @@ namespace javascripttest
         //获取兵种id
         public static int GetSldTypeByName(int nCountry, string strName)
         {
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 12; i++)
             {
                 if (m_strSoldierNames[nCountry, i].CompareTo(strName) == 0)
                 {

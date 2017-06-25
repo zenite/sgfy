@@ -1561,8 +1561,9 @@ namespace javascripttest
             }
             return str;           
         }
-        public string attack(string x, string y, village village, AccountModel account, string soldierlist,string type)
+        public string attack(string x, string y, village village, AccountModel account, string soldierlist,string type,out bool success)
         {
+            success = false;
             string str1 = string.Empty;
             string zhongjun = village.buildings.Find(item => item.buildingName.Contains("中军帐")).buildingId;
             if (string.IsNullOrEmpty(zhongjun))
@@ -1597,6 +1598,7 @@ namespace javascripttest
             if (str == "")
             {
                 str = account.chief + "    " + village.VillageName + "出兵：   前往 X:" + x + " Y:" + y + " 需时 " + str3 + " 于 " + str4 + " 到达";
+                success = true;
             }
             return str;
         }
