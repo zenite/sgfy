@@ -24,13 +24,13 @@ namespace javascripttest.BLL
         /// <param name="e"></param>
         /// <param name="parentNode"></param>
         /// <param name="sonName"></param>
-        public void ControlAttribute(object sender, EventArgs e, string parentNode, string sonName, string VillageId)
+        public void ControlAttribute(object sender, string parentNode, string sonName, string VillageId)
         {
-            setConfig.setAttribute(sender, e, parentNode, sonName, VillageId);
+            setConfig.setAttribute(sender,parentNode, sonName, VillageId);
         }
-        public void ControlAttribute1(object sender, EventArgs e, string parentNode, string sonName, string VillageId)
+        public void ControlAttribute1(object sender,  string parentNode, string sonName, string VillageId)
         {
-            setConfig.setAttribute(sender, e, parentNode, sonName, VillageId);
+            setConfig.setAttribute(sender, parentNode, sonName, VillageId);
         }
        /// <summary>
        /// 设置攻击图节点

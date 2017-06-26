@@ -63,7 +63,7 @@ namespace javascripttest.Regular
             xmlDoc.Save(filePath);
         }
 
-        public void setAttribute(object sender, EventArgs e, string parentNode, string sonName, string VillageId)
+        public void setAttribute(object sender,  string parentNode, string sonName, string VillageId)
         {
             entity.Node node = new entity.Node();
             node.VillageId = VillageId;

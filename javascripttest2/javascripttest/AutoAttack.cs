@@ -138,7 +138,8 @@ namespace javascripttest
             villegelist.DataSource = toDataSource_V(Villages);
             villegelist.DisplayMember = "Name";
             villegelist.ValueMember = "Value";
-            
+            this.villegelist.SelectedIndexChanged += new System.EventHandler(this.villegelist_SelectedIndexChanged);
+
             BindTarget();
             Bind(Villages[0].VillageID);
             setOffenseControlState();
@@ -251,7 +252,7 @@ namespace javascripttest
             attack.T_soldier_11 =  cText(soldier_11.Text.Trim());
             attack.T_soldier_5 =  cText(soldier_5.Text.Trim());
             attack.T_soldier_6 =  cText(soldier_6.Text.Trim());
-            attack.Aindex = getMaxIndex(user_id, VillageId).ToString()+1;
+           // attack.Aindex = getMaxIndex(user_id, VillageId).ToString()+1;
             attack.user_id = user_id;
             attack.villageId = VillageId;
             attack.Atype = type.SelectedIndex.ToString();
@@ -462,10 +463,10 @@ namespace javascripttest
             }
             return null;
         }
-        private int getMaxIndex(string user_id, string villageId)
-        {
-            return dbHelper.getMaxIndex(user_id, villageId);
-        }
+        //private int getMaxIndex(string user_id, string villageId)
+        //{
+        //    return dbHelper.getMaxIndex(user_id, villageId);
+        //}
         private void ReBindGrid()
         {
             ReBindOffense();
@@ -541,7 +542,7 @@ namespace javascripttest
 
         private void AttackStart_Click(object sender, EventArgs e)
         {
-            this.timer1.Interval = 10000;
+            this.timer1.Interval = Convert.ToInt32(Offense_Interval)*60000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             this.timer1.Start();
         }
@@ -552,6 +553,8 @@ namespace javascripttest
             entity.NodeAttack node=offense.FirstOrDefault();
             
             try {
+                getSodliers(VillageId);
+                CheckAllSoldiers(checkAttackModel);
                 if (Convert.ToInt32(this.general1.SelectedValue) != 0) urlStr.Append("general1=" + this.general1.SelectedValue + "&");
                 if (Convert.ToInt32(this.general2.SelectedValue) != 0) urlStr.Append("general2=" + this.general2.SelectedValue + "&");
                 if (Convert.ToInt32(this.general3.SelectedValue) != 0) urlStr.Append("general3=" + this.general3.SelectedValue + "&");
@@ -578,6 +581,66 @@ namespace javascripttest
             general1 = this.general1.SelectedValue.ToString();
             return urlStr.ToString();
         }
+        public string getSoldierStr1(out string x, out string y, out string type, out string general1, out string general5)
+        {
+            StringBuilder urlStr = new StringBuilder();
+            entity.NodeAttack node =destroy.FirstOrDefault();
+            try
+            {
+                getSodliers(VillageId);
+                if (Convert.ToInt32(this.C_general1.SelectedValue) != 0)    urlStr.Append("general1=" + this.C_general1.SelectedValue + "&");
+                if (Convert.ToInt32(this.C_general2.SelectedValue) != 0)    urlStr.Append("general2=" + this.C_general2.SelectedValue + "&");
+                if (Convert.ToInt32(this.C_general3.SelectedValue) != 0)    urlStr.Append("general3=" + this.C_general3.SelectedValue + "&");
+                if (Convert.ToInt32(this.C_general4.SelectedValue) != 0)    urlStr.Append("general4=" + this.C_general4.SelectedValue + "&");
+                if (Convert.ToInt32(this.C_general5.SelectedValue) != 0)    urlStr.Append("general5=" + this.C_general5.SelectedValue + "&");
+                if (Convert.ToInt32(this.C_soldier_0.Text) != 0)             urlStr.Append("soldier[0]=" +  C_soldier_0.Text + "&");
+                if (Convert.ToInt32(this.C_soldier_1.Text) != 0)             urlStr.Append("soldier[1]=" +  C_soldier_1.Text + "&");
+                if (Convert.ToInt32(this.C_soldier_2.Text) != 0)             urlStr.Append("soldier[2]=" +  C_soldier_2.Text + "&");
+                if (Convert.ToInt32(this.C_soldier_4.Text) != 0)             urlStr.Append("soldier[4]=" +  C_soldier_4.Text + "&");
+                if (Convert.ToInt32(this.C_soldier_11.Text) != 0)            urlStr.Append("soldier[11]=" + C_soldier_11.Text + "&");
+                if (Convert.ToInt32(this.C_soldier_5.Text) != 0)             urlStr.Append("soldier[5]=" +  C_soldier_5.Text + "&");
+                if (Convert.ToInt32(this.C_soldier_6.Text) != 0)             urlStr.Append("soldier[6]=" +  C_soldier_6.Text + "&");
+                if (Convert.ToInt32(this.C_T_target1.SelectedValue) != 0)    urlStr.Append("target[0]=" +   C_T_target1.SelectedValue + "&");
+                if (Convert.ToInt32(this.C_T_target2.SelectedValue) != 0)    urlStr.Append("target[1]=" +   C_T_target2.SelectedValue + "&");
+            }
+            catch (Exception ex)
+            {
+
+            }
+            x = node.x;
+            y = node.y;
+            type = this.type.SelectedIndex.ToString(); ;
+            //Aindex = dr["Aindex"].ToString();
+            general1 = this.C_general1.SelectedValue.ToString();
+            general5 = this.C_general5.SelectedValue.ToString();
+            return urlStr.ToString();
+        }
+        public string getDestroyStr( string gid, string general5)
+        {
+            StringBuilder urlStr = new StringBuilder();
+
+            try
+            {
+                getSodliers(VillageId);
+                if (Convert.ToInt32(gid) != 0) urlStr.Append("general1=" + gid + "&");
+                if (Convert.ToInt32(general5) != 0) urlStr.Append("general5=" + general5 + "&");
+                if (Convert.ToInt32(this.H_soldier_0.Text) != 0) urlStr.Append("soldier[0]=" + H_soldier_0.Text + "&");
+                if (Convert.ToInt32(this.H_soldier_1.Text) != 0) urlStr.Append("soldier[1]=" + H_soldier_1.Text + "&");
+                if (Convert.ToInt32(this.H_soldier_2.Text) != 0) urlStr.Append("soldier[2]=" + H_soldier_2.Text + "&");
+                if (Convert.ToInt32(this.H_soldier_4.Text) != 0) urlStr.Append("soldier[4]=" + H_soldier_4.Text + "&");
+                if (Convert.ToInt32(this.H_soldier_11.Text) != 0) urlStr.Append("soldier[11]=" + H_soldier_11.Text + "&");
+                if (Convert.ToInt32(this.H_soldier_5.Text) != 0) urlStr.Append("soldier[5]=" + H_soldier_5.Text + "&");
+                if (Convert.ToInt32(this.H_soldier_6.Text) != 0) urlStr.Append("soldier[6]=" + H_soldier_6.Text + "&");
+                //if (Convert.ToInt32(this.C_T_target1.SelectedValue) != 0) urlStr.Append("target[0]=" + C_T_target1.SelectedValue + "&");
+                //if (Convert.ToInt32(this.C_T_target2.SelectedValue) != 0) urlStr.Append("target[1]=" + C_T_target2.SelectedValue + "&");
+            }
+            catch (Exception ex)
+            {
+
+            }
+            //Aindex = dr["Aindex"].ToString();
+            return urlStr.ToString();
+        }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
@@ -588,7 +651,7 @@ namespace javascripttest
             village village = account.village.Find(item => item.VillageID == VillageId);
             string urlstr = getSoldierStr(out x, out y, out type,  out general1);            
             List<General> list = mainHelper.GetVillageGenerals(account,VillageId);
-            string newAindex=(getMaxIndex(user_id,VillageId)+1).ToString();
+           // string newAindex=(getMaxIndex(user_id,VillageId)+1).ToString();
             if (list.Find(item => item.Gid == general1 && item.Status == "待命") != null)
             {
                 bool success = false;
@@ -600,7 +663,6 @@ namespace javascripttest
                 }
                 recordMsg(msg);
                 //dbHelper.updateAttack(user_id, VillageId, Aindex, newAindex);
-                   
             }            
         }
 
@@ -619,15 +681,15 @@ namespace javascripttest
 
         public void setOffenseAttr(object sender, EventArgs e)
         {
-            offenseConfig.ControlAttribute(sender, e, nodeList[0], "Control", VillageId);
+            offenseConfig.ControlAttribute(sender,  nodeList[0], "Control", VillageId);
         }
         public void setDestroyAttr(object sender, EventArgs e)
         {
-            destroyConfig.ControlAttribute(sender, e, nodeList[0], "Control", VillageId);
+            destroyConfig.ControlAttribute(sender,  nodeList[0], "Control", VillageId);
         }
         public void setDestroyAttr1(object sender, EventArgs e)
         {
-            destroyConfig.ControlAttribute1(sender, e, nodeList[0], "Control", VillageId);
+            destroyConfig.ControlAttribute1(sender,  nodeList[0], "Control", VillageId);
         }
         public void setOffenseControlState()
         {
@@ -682,7 +744,6 @@ namespace javascripttest
                                     setControl(control, relativeitem);
                                 }
                             }
-
                         }
                     }
                     setGeneralList(nodes);
@@ -784,6 +845,12 @@ namespace javascripttest
         private void checkAttackModel_CheckedChanged_1(object sender, EventArgs e)
         {
             CheckBox check = sender as CheckBox;
+            CheckAllSoldiers(check);           
+            
+            setOffenseAttr(sender,e);
+        }
+        public void CheckAllSoldiers(CheckBox check)
+        {
             if (check.Checked)
             {
                 soldier_0.Text = soldier0.Text;
@@ -794,15 +861,12 @@ namespace javascripttest
             }
             else
             {
-                soldier_0.Text  = "";
-                soldier_1.Text  = "";
-                soldier_2.Text  = "";
-                soldier_4.Text  = "";
-                soldier_11.Text = "";   
+                soldier_0.Text = "";
+                soldier_1.Text = "";
+                soldier_2.Text = "";
+                soldier_4.Text = "";
+                soldier_11.Text = "";
             }
-           
-            
-            setOffenseAttr(sender,e);
         }
 
         private void C_AddCoor_Click(object sender, EventArgs e)
@@ -825,6 +889,78 @@ namespace javascripttest
           
         }
 
+        private void C_AttackStart_Click(object sender, EventArgs e)
+        {
+            timer2.Interval =Convert.ToInt32(Destroy_Interval)* 60000;//间隔10分钟
+            timer2.Tick += new EventHandler(Timer2Tick);
+            timer2.Start();
+        }
+
+        public void Timer2Tick(object sender, EventArgs e)
+        {
+            string x = string.Empty;
+            string y = string.Empty;
+            string type = string.Empty;
+            string general1 = string.Empty;
+            string general5 = string.Empty;
+            village village = account.village.Find(item => item.VillageID == VillageId);
+            string urlstr = getSoldierStr1(out x, out y, out type, out general1,out general5);
+            List<General> list = mainHelper.GetVillageGenerals(account, VillageId);
+            Queue<string> FollowGenerals = new Queue<string>();//跟车武将
+            if (GeneralList.Items.Count > 0)
+            {
+                for (var i = 0; i < GeneralList.Items.Count; i++)
+                {
+                    if(GeneralList.GetItemChecked(i))
+                    {
+                        FollowGenerals.Enqueue((GeneralList.Items[i] as DataRowView).Row["Value"].ToString());
+                    }
+                }
+            }
+            foreach (var f in FollowGenerals)
+            {
+                if (list.Find(item => item.Gid == f && item.Status == "待命") == null || list.Find(item => item.Gid == general1 && item.Status == "待命") == null)
+                    return;
+            }
+            bool success = false;
+            BeginDestroy(x, y, village, account, urlstr, type, out success, FollowGenerals, general5);
+            destroyConfig.removeNode(x, y, VillageId);
+            ReBindDestroy();
+        }
+
+        public void BeginDestroy(string x,string  y, village village, AccountModel account,string urlstr,string  type, out bool success,Queue<string> FollowGenerals,string general5)
+        {
+            bool success1 = false;
+            success = false;
+            string msg = mainHelper.attack(x, y, village, account, urlstr, type, out success1);
+            if (success1)
+            {
+                recordMsg(msg);
+                while (FollowGenerals.Count > 0)
+                {
+                    string f = FollowGenerals.Dequeue();
+                    int count = 0;
+                desBegin:
+                    string destroyStr=getDestroyStr(f, general5);
+                    bool desSuccess = false;
+                    string desMsg = mainHelper.attack(x, y, village, account, destroyStr, type, out desSuccess);
+                    recordMsg(desMsg);
+                    if (!desSuccess && count<4)
+                    {
+                        count++;
+                        Thread.Sleep(3000);
+                        goto desBegin;
+                    }                   
+                }
+                Thread.Sleep(3000);
+                success = true;
+            }
+        }
+        //召回行军将
+        public void CallBackGeneral(string gid,village village,AccountModel account)
+        { 
+            
+        }
   
     }
 }
