@@ -619,7 +619,7 @@ namespace javascripttest
         }
         public int TimeToMilesecond(string costTime)
         { 
-           string[] timer=  costTime.Split(',');
+           string[] timer=  costTime.Split(':');
            if (timer.Length > 0)
            {
                return (Convert.ToInt32(timer[0]) * 3600 + Convert.ToInt32(timer[1]) * 60 + Convert.ToInt32(timer[2])+2) * 1000;//延迟四秒攻击
@@ -1017,6 +1017,8 @@ namespace javascripttest
                         Thread.Sleep(3500);
                         goto desBegin;
                     }
+                    else
+                        Thread.Sleep(3500);
                 }
                 Thread.Sleep((TimeToMilesecond(costTime)-2) * 2);//暂停出征时间
                 success = true;
