@@ -42,7 +42,7 @@ namespace javascripttest
             offense = new List<NodeAttack>();
             destroy = new List<NodeAttack>();
             ActiveOffenseControl = new Control[] { Setting, this};
-            ActiveDestroyControl = new Control[] { destroySettings };
+            ActiveDestroyControl = new Control[] { destroySettings, groupBox3 };
         }
         
         private void importCoor_Click(object sender, EventArgs e)
@@ -60,18 +60,18 @@ namespace javascripttest
                 DataSet ds = new DataSet();
                 try
                 {
-                    ds = new ExcelHelper().getDataSource(filePath);
-                    if (!checkCurrentSolider())
+                    ds = new ExcelHelper().getDataSource(filePath, VillageId);
+                    if (!checkCurrentSolider(Setting))
                     {
                         MessageBox.Show("当前城镇出兵数量错误");
                         return;
-                    }
-                    
+                    }                    
                     //DataTable datasource = makeDataSource(ds.Tables[0]);
                     new Thread(delegate() {
                         offenseConfig.AttackAttribute(ds, "Attacks", "Attack");
+                        ReBindOffense();
                     }).Start();
-                    ReBindOffense();
+                   
                          
                 }
                 catch (Exception ex)
@@ -170,14 +170,38 @@ namespace javascripttest
             return result;
         }
 
+        private bool CheckSetting1()
+        {
+            bool result = true;
+            if (type.SelectedIndex == 0 && C_general1.SelectedIndex == 0)
+            {
+                MessageBox.Show("请选择主将（攻击模式下）");
+                result = false;
+            }
+            try
+            {
+                if (!(C(C_soldier_0) || C(C_soldier_1) || C(C_soldier_2) || C(C_soldier_4) || C(C_soldier_5) || C(C_soldier_6) || C(C_soldier_11)))
+                {
+                    MessageBox.Show("请填写兵力");
+                    result = false;
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return result;
+        }
+
         /// <summary>
         /// 检查当前出征的士兵数是否足够
         /// </summary>
         /// <returns></returns>
-        private bool checkCurrentSolider()
+        private bool checkCurrentSolider(GroupBox sett,int flag=0)
         {
             bool result = true;
-            Control.ControlCollection controls = Setting.Controls;
+            Control.ControlCollection controls = sett.Controls;
             foreach (Control control in controls)
             { 
                 if(control.Name.Contains("soldier") && control is TextBox)
@@ -185,7 +209,7 @@ namespace javascripttest
                     TextBox textbox = control as TextBox;
                     try 
                     {
-                        if (Convert.ToInt32(villageSoldier[Convert.ToInt32(textbox.Name.Split('_')[1])]) < Convert.ToInt32(string.IsNullOrEmpty(textbox.Text.Trim()) ? "0" : textbox.Text.Trim()))
+                        if (Convert.ToInt32(villageSoldier[Convert.ToInt32(textbox.Name.Split('_')[flag+1])]) < Convert.ToInt32(string.IsNullOrEmpty(textbox.Text.Trim()) ? "0" : textbox.Text.Trim()))
                         {
                             result = false;
                         }
@@ -198,10 +222,22 @@ namespace javascripttest
             }
             return result;
         }
+
         private bool C(TextBox textbox)
         {
             string value = string.IsNullOrEmpty(textbox.Text.Trim()) ? "0" : textbox.Text.Trim();       
             return Convert.ToInt32(value)>0?true:false;
+        }
+        public int M(string str)
+        {
+            try
+            {
+                return Convert.ToInt32(string.IsNullOrEmpty(str) ? "0" : str);
+            }
+            catch(Exception e)
+            {
+                return 0;
+            }
         }
 
         private void addCor_Click(object sender, EventArgs e)
@@ -357,21 +393,33 @@ namespace javascripttest
         }
         private void getSodliers(string villageId)
         {
-            villageSoldier = mainHelper.getSoldiers(account, villageId);
-            soldier0.Text = villageSoldier[0];
-            soldier1.Text = villageSoldier[1];
-            soldier2.Text = villageSoldier[2];
-            soldier4.Text = villageSoldier[4];
-            soldier5.Text = villageSoldier[5];
-            soldier6.Text = villageSoldier[6];
-            soldier11.Text = villageSoldier[11];
-            C_soldier0.Text = villageSoldier[0];
-            C_soldier1.Text = villageSoldier[1];
-            C_soldier2.Text = villageSoldier[2];
-            C_soldier4.Text = villageSoldier[4];
-            C_soldier5.Text = villageSoldier[5];
-            C_soldier6.Text = villageSoldier[6];
-            C_soldier11.Text = villageSoldier[11];
+            villageSoldier   = mainHelper.getSoldiers(account, villageId);
+            setTextbox(soldier0, villageSoldier[0]);
+            setTextbox(soldier1, villageSoldier[1]);
+            setTextbox(soldier2, villageSoldier[2]);
+            setTextbox(soldier4, villageSoldier[4]);
+            setTextbox(soldier5, villageSoldier[5]);
+            setTextbox(soldier6, villageSoldier[6]);
+            setTextbox(soldier11  , villageSoldier[11]);
+            setTextbox(C_soldier0 , villageSoldier[0]);
+            setTextbox(C_soldier1 , villageSoldier[1]);
+            setTextbox(C_soldier2 , villageSoldier[2]);
+            setTextbox(C_soldier4 , villageSoldier[4]);
+            setTextbox(C_soldier5 , villageSoldier[5]);
+            setTextbox(C_soldier6 , villageSoldier[6]);
+            setTextbox(C_soldier11 , villageSoldier[11]);
+        }
+        public void setTextbox(Label lable,string str)
+        {
+            if (lable.InvokeRequired)
+            {
+                lable.BeginInvoke(new Action(() =>
+                {
+                    lable.Text = str;
+                }));
+            }
+            else
+                lable.Text = str;
         }
         private DataTable toDataSource_G( string villageId)
         {
@@ -542,9 +590,41 @@ namespace javascripttest
 
         private void AttackStart_Click(object sender, EventArgs e)
         {
-            this.timer1.Interval = Convert.ToInt32(Offense_Interval)*60000;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            this.timer1.Start();
+            new Thread(delegate() {
+                string x = string.Empty;
+                string y = string.Empty;
+                string type = string.Empty;
+                string general1 = string.Empty;
+                while (offenseConfig.getAttackXml(VillageId).Count() > 0)
+                {
+                    village village = account.village.Find(item => item.VillageID == VillageId);
+                    string urlstr = getSoldierStr(out x, out y, out type, out general1);
+                    List<General> list = mainHelper.GetVillageGenerals(account, VillageId);
+                    if (list.Find(item => item.Gid == general1 && item.Status == "待命") != null)
+                    {
+                        bool success = false;
+                        string costTime = string.Empty;
+                        string msg = mainHelper.attack(x, y, village, account, urlstr, type, out costTime, out success);
+                        if (success)
+                        {
+                            offenseConfig.removeNode(x, y, VillageId);
+                            ReBindOffense();
+                        }
+                        recordMsg(msg);
+                        Thread.Sleep(TimeToMilesecond(costTime)*2);
+                    }            
+                }              
+            }).Start();
+           
+        }
+        public int TimeToMilesecond(string costTime)
+        { 
+           string[] timer=  costTime.Split(',');
+           if (timer.Length > 0)
+           {
+               return (Convert.ToInt32(timer[0]) * 3600 + Convert.ToInt32(timer[1]) * 60 + Convert.ToInt32(timer[2])+2) * 1000;//延迟四秒攻击
+           }
+           return 60000;//一分钟
         }
      
         public string getSoldierStr(out string x,out string y,out string type,out string general1)
@@ -560,13 +640,13 @@ namespace javascripttest
                 if (Convert.ToInt32(this.general3.SelectedValue) != 0) urlStr.Append("general3=" + this.general3.SelectedValue + "&");
                 if (Convert.ToInt32(this.general4.SelectedValue) != 0) urlStr.Append("general4=" + this.general4.SelectedValue + "&");
                 if (Convert.ToInt32(this.general5.SelectedValue) != 0) urlStr.Append("general5=" + this.general5.SelectedValue + "&");
-                if (Convert.ToInt32(this.soldier_0.Text) != 0) urlStr.Append("soldier[0]=" + soldier_0.Text + "&");
-                if (Convert.ToInt32(this.soldier_1.Text) != 0) urlStr.Append("soldier[1]=" + soldier_1.Text + "&");
-                if (Convert.ToInt32(this.soldier_2.Text) != 0) urlStr.Append("soldier[2]=" + soldier_2.Text + "&");
-                if (Convert.ToInt32(this.soldier_4.Text) != 0) urlStr.Append("soldier[4]=" + soldier_4.Text + "&");
-                if (Convert.ToInt32(this.soldier_11.Text) != 0) urlStr.Append("soldier[11]="+soldier_11.Text + "&");
-                if (Convert.ToInt32(this.soldier_5.Text) != 0) urlStr.Append("soldier[5]=" + soldier_5.Text + "&");
-                if (Convert.ToInt32(this.soldier_6.Text) != 0) urlStr.Append("soldier[6]=" + soldier_6.Text + "&");
+                if (M(this.soldier_0.Text) != 0) urlStr.Append("soldier[0]=" + M(soldier_0.Text) + "&");
+                if (M(this.soldier_1.Text) != 0) urlStr.Append("soldier[1]=" + M(soldier_1.Text) + "&");
+                if (M(this.soldier_2.Text) != 0) urlStr.Append("soldier[2]=" + M(soldier_2.Text) + "&");
+                if (M(this.soldier_4.Text) != 0) urlStr.Append("soldier[4]=" + M(soldier_4.Text) + "&");
+                if (M(this.soldier_11.Text) != 0) urlStr.Append("soldier[11]="+M(soldier_11.Text) + "&");
+                if (M(this.soldier_5.Text) != 0) urlStr.Append("soldier[5]=" + M(soldier_5.Text) + "&");
+                if (M(this.soldier_6.Text) != 0) urlStr.Append("soldier[6]=" + M(soldier_6.Text) + "&");
                 if (Convert.ToInt32(this.T_target1.SelectedValue) != 0) urlStr.Append("target[0]=" + T_target1.SelectedValue + "&");
                 if (Convert.ToInt32(this.T_target2.SelectedValue) != 0) urlStr.Append("target[1]=" + T_target2.SelectedValue + "&");               
             }
@@ -593,13 +673,13 @@ namespace javascripttest
                 if (Convert.ToInt32(this.C_general3.SelectedValue) != 0)    urlStr.Append("general3=" + this.C_general3.SelectedValue + "&");
                 if (Convert.ToInt32(this.C_general4.SelectedValue) != 0)    urlStr.Append("general4=" + this.C_general4.SelectedValue + "&");
                 if (Convert.ToInt32(this.C_general5.SelectedValue) != 0)    urlStr.Append("general5=" + this.C_general5.SelectedValue + "&");
-                if (Convert.ToInt32(this.C_soldier_0.Text) != 0)             urlStr.Append("soldier[0]=" +  C_soldier_0.Text + "&");
-                if (Convert.ToInt32(this.C_soldier_1.Text) != 0)             urlStr.Append("soldier[1]=" +  C_soldier_1.Text + "&");
-                if (Convert.ToInt32(this.C_soldier_2.Text) != 0)             urlStr.Append("soldier[2]=" +  C_soldier_2.Text + "&");
-                if (Convert.ToInt32(this.C_soldier_4.Text) != 0)             urlStr.Append("soldier[4]=" +  C_soldier_4.Text + "&");
-                if (Convert.ToInt32(this.C_soldier_11.Text) != 0)            urlStr.Append("soldier[11]=" + C_soldier_11.Text + "&");
-                if (Convert.ToInt32(this.C_soldier_5.Text) != 0)             urlStr.Append("soldier[5]=" +  C_soldier_5.Text + "&");
-                if (Convert.ToInt32(this.C_soldier_6.Text) != 0)             urlStr.Append("soldier[6]=" +  C_soldier_6.Text + "&");
+                if (M(this.C_soldier_0.Text) != 0)             urlStr.Append("soldier[0]=" + C_soldier_0.Text+ "&");
+                if (M(this.C_soldier_1.Text) != 0)             urlStr.Append("soldier[1]=" + C_soldier_1.Text+ "&");
+                if (M(this.C_soldier_2.Text) != 0)             urlStr.Append("soldier[2]=" + C_soldier_2.Text+ "&");
+                if (M(this.C_soldier_4.Text) != 0)             urlStr.Append("soldier[4]=" + C_soldier_4.Text+ "&");
+                if (M(this.C_soldier_11.Text) != 0)            urlStr.Append("soldier[11]=" +C_soldier_11.Text + "&");
+                if (M(this.C_soldier_5.Text) != 0)             urlStr.Append("soldier[5]=" + C_soldier_5.Text+ "&");
+                if (M(this.C_soldier_6.Text) != 0)             urlStr.Append("soldier[6]=" + C_soldier_6.Text + "&");
                 if (Convert.ToInt32(this.C_T_target1.SelectedValue) != 0)    urlStr.Append("target[0]=" +   C_T_target1.SelectedValue + "&");
                 if (Convert.ToInt32(this.C_T_target2.SelectedValue) != 0)    urlStr.Append("target[1]=" +   C_T_target2.SelectedValue + "&");
             }
@@ -624,13 +704,13 @@ namespace javascripttest
                 getSodliers(VillageId);
                 if (Convert.ToInt32(gid) != 0) urlStr.Append("general1=" + gid + "&");
                 if (Convert.ToInt32(general5) != 0) urlStr.Append("general5=" + general5 + "&");
-                if (Convert.ToInt32(this.H_soldier_0.Text) != 0) urlStr.Append("soldier[0]=" + H_soldier_0.Text + "&");
-                if (Convert.ToInt32(this.H_soldier_1.Text) != 0) urlStr.Append("soldier[1]=" + H_soldier_1.Text + "&");
-                if (Convert.ToInt32(this.H_soldier_2.Text) != 0) urlStr.Append("soldier[2]=" + H_soldier_2.Text + "&");
-                if (Convert.ToInt32(this.H_soldier_4.Text) != 0) urlStr.Append("soldier[4]=" + H_soldier_4.Text + "&");
-                if (Convert.ToInt32(this.H_soldier_11.Text) != 0) urlStr.Append("soldier[11]=" + H_soldier_11.Text + "&");
-                if (Convert.ToInt32(this.H_soldier_5.Text) != 0) urlStr.Append("soldier[5]=" + H_soldier_5.Text + "&");
-                if (Convert.ToInt32(this.H_soldier_6.Text) != 0) urlStr.Append("soldier[6]=" + H_soldier_6.Text + "&");
+                if (M(this.H_soldier_0.Text) != 0) urlStr.Append("soldier[0]=" + H_soldier_0.Text + "&");
+                if (M(this.H_soldier_1.Text) != 0) urlStr.Append("soldier[1]=" + H_soldier_1.Text + "&");
+                if (M(this.H_soldier_2.Text) != 0) urlStr.Append("soldier[2]=" + H_soldier_2.Text + "&");
+                if (M(this.H_soldier_4.Text) != 0) urlStr.Append("soldier[4]=" + H_soldier_4.Text + "&");
+                if (M(this.H_soldier_11.Text) != 0) urlStr.Append("soldier[11]=" + H_soldier_11.Text + "&");
+                if (M(this.H_soldier_5.Text) != 0) urlStr.Append("soldier[5]=" + H_soldier_5.Text + "&");
+                if (M(this.H_soldier_6.Text) != 0) urlStr.Append("soldier[6]=" + H_soldier_6.Text + "&");
                 //if (Convert.ToInt32(this.C_T_target1.SelectedValue) != 0) urlStr.Append("target[0]=" + C_T_target1.SelectedValue + "&");
                 //if (Convert.ToInt32(this.C_T_target2.SelectedValue) != 0) urlStr.Append("target[1]=" + C_T_target2.SelectedValue + "&");
             }
@@ -642,29 +722,7 @@ namespace javascripttest
             return urlStr.ToString();
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            string x = string.Empty;
-            string y = string.Empty;
-            string type = string.Empty;
-            string general1 = string.Empty;
-            village village = account.village.Find(item => item.VillageID == VillageId);
-            string urlstr = getSoldierStr(out x, out y, out type,  out general1);            
-            List<General> list = mainHelper.GetVillageGenerals(account,VillageId);
-           // string newAindex=(getMaxIndex(user_id,VillageId)+1).ToString();
-            if (list.Find(item => item.Gid == general1 && item.Status == "待命") != null)
-            {
-                bool success = false;
-                string msg = mainHelper.attack(x, y, village, account, urlstr, type, out success);
-                if (success)
-                {
-                    offenseConfig.removeNode(x, y, VillageId);
-                    ReBindOffense();            
-                }
-                recordMsg(msg);
-                //dbHelper.updateAttack(user_id, VillageId, Aindex, newAindex);
-            }            
-        }
+      
 
         private void recordMsg(string msg)
         {
@@ -891,77 +949,116 @@ namespace javascripttest
 
         private void C_AttackStart_Click(object sender, EventArgs e)
         {
-            timer2.Interval =Convert.ToInt32(Destroy_Interval)* 60000;//间隔10分钟
-            timer2.Tick += new EventHandler(Timer2Tick);
-            timer2.Start();
-        }
-
-        public void Timer2Tick(object sender, EventArgs e)
-        {
             string x = string.Empty;
             string y = string.Empty;
             string type = string.Empty;
             string general1 = string.Empty;
             string general5 = string.Empty;
             village village = account.village.Find(item => item.VillageID == VillageId);
-            string urlstr = getSoldierStr1(out x, out y, out type, out general1,out general5);
-            List<General> list = mainHelper.GetVillageGenerals(account, VillageId);
-            Queue<string> FollowGenerals = new Queue<string>();//跟车武将
-            if (GeneralList.Items.Count > 0)
-            {
-                for (var i = 0; i < GeneralList.Items.Count; i++)
+            string urlstr = getSoldierStr1(out x, out y, out type, out general1, out general5);
+            new Thread(delegate() {
+                while (destroyConfig.getAttackXml(VillageId).Count() > 0)
                 {
-                    if(GeneralList.GetItemChecked(i))
+                    List<General> list = mainHelper.GetVillageGenerals(account, VillageId);
+                    Queue<string> FollowGenerals = new Queue<string>();//跟车武将
+                    if (GeneralList.Items.Count > 0)
                     {
-                        FollowGenerals.Enqueue((GeneralList.Items[i] as DataRowView).Row["Value"].ToString());
+                        for (var i = 0; i < GeneralList.Items.Count; i++)
+                        {
+                            if (GeneralList.GetItemChecked(i))
+                            {
+                                FollowGenerals.Enqueue((GeneralList.Items[i] as DataRowView).Row["Value"].ToString());
+                            }
+                        }
+                    }
+                    foreach (var f in FollowGenerals)
+                    {
+                        if (list.Find(item => item.Gid == f && item.Status == "待命") == null || list.Find(item => item.Gid == general1 && item.Status == "待命") == null)
+                            return;
+                    }
+                    bool success = false;
+                    BeginDestroy(x, y, village, account, urlstr, type, out success, FollowGenerals, general5);
+                    if (success)
+                    {
+                        destroyConfig.removeNode(x, y, VillageId);
+                        ReBindDestroy();
                     }
                 }
-            }
-            foreach (var f in FollowGenerals)
-            {
-                if (list.Find(item => item.Gid == f && item.Status == "待命") == null || list.Find(item => item.Gid == general1 && item.Status == "待命") == null)
-                    return;
-            }
-            bool success = false;
-            BeginDestroy(x, y, village, account, urlstr, type, out success, FollowGenerals, general5);
-            destroyConfig.removeNode(x, y, VillageId);
-            ReBindDestroy();
+           
+            }).Start();
+           
         }
+
+    
 
         public void BeginDestroy(string x,string  y, village village, AccountModel account,string urlstr,string  type, out bool success,Queue<string> FollowGenerals,string general5)
         {
             bool success1 = false;
             success = false;
-            string msg = mainHelper.attack(x, y, village, account, urlstr, type, out success1);
+            string costTime = string.Empty;
+            string msg = mainHelper.attack(x, y, village, account, urlstr, type,out costTime, out success1);
             if (success1)
             {
                 recordMsg(msg);
+                Thread.Sleep(3500);
                 while (FollowGenerals.Count > 0)
                 {
                     string f = FollowGenerals.Dequeue();
                     int count = 0;
                 desBegin:
-                    string destroyStr=getDestroyStr(f, general5);
+                    string destroyStr = getDestroyStr(f, general5);
                     bool desSuccess = false;
-                    string desMsg = mainHelper.attack(x, y, village, account, destroyStr, type, out desSuccess);
+                    string costTime1 = string.Empty;
+                    string desMsg = mainHelper.attack(x, y, village, account, destroyStr, type, out costTime1, out desSuccess);
                     recordMsg(desMsg);
-                    if (!desSuccess && count<4)
+                    if (!desSuccess && count < 4)
                     {
                         count++;
-                        Thread.Sleep(3000);
+                        Thread.Sleep(3500);
                         goto desBegin;
-                    }                   
+                    }
                 }
-                Thread.Sleep(3000);
+                Thread.Sleep((TimeToMilesecond(costTime)-2) * 2);//暂停出征时间
                 success = true;
             }
+            else
+                return;
         }
-        //召回行军将
-        public void CallBackGeneral(string gid,village village,AccountModel account)
-        { 
-            
-        }
-  
+
+        private void C_importCoor_Click(object sender, EventArgs e)
+        {
+            if (!CheckSetting1())
+                return;
+            if (type.SelectedIndex < 0)
+            {
+                MessageBox.Show("请选择攻击模式");
+                return;
+            }
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                string filePath = openFileDialog1.FileName;
+                DataSet ds = new DataSet();
+                try
+                {
+                    ds = new ExcelHelper().getDataSource(filePath, VillageId);
+                    if (!checkCurrentSolider(destroySettings,1))
+                    {
+                        MessageBox.Show("当前城镇出兵数量错误");
+                        return;
+                    }
+                    new Thread(delegate()
+                    {
+                        destroyConfig.AttackAttribute(ds, "Attacks", "Attack");
+                        ReBindDestroy();
+                    }).Start();
+                }
+                catch (Exception ex)
+                {
+
+                }
+            }
+            return;
+        }   
     }
 }
 

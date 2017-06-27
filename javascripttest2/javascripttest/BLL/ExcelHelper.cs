@@ -55,13 +55,13 @@ namespace javascripttest
             return ds;
         }
 
-        public DataSet getDataSource(string filePath)
+        public DataSet getDataSource(string filePath, string VillageId)
         {
             DataSet ds = new DataSet();
             string extension = Path.GetExtension(filePath);
             if (extension.Contains("txt"))
             {
-                ds = getDataTxt(filePath);
+                ds = getDataTxt(filePath, VillageId);
             }
             else
             {
@@ -70,8 +70,9 @@ namespace javascripttest
             return ds;
         }
 
-        public DataSet getDataTxt(string filepath)
+        public DataSet getDataTxt(string filepath, string VillageId)
         {
+           
             DataSet ds = new DataSet();
             DataTable dt = new DataTable();
             dt.Columns.Add(new DataColumn("x",typeof(string)));
@@ -79,6 +80,9 @@ namespace javascripttest
             dt.Columns.Add(new DataColumn("city", typeof(string)));
             dt.Columns.Add(new DataColumn("chief", typeof(string)));
             dt.Columns.Add(new DataColumn("hand", typeof(string)));
+            dt.Columns.Add(new DataColumn("name", typeof(string)));
+            dt.Columns.Add(new DataColumn("NodeName", typeof(string)));
+            dt.Columns.Add(new DataColumn("VillageId", typeof(string)));
             DataRow dr;
             string[] list = File.ReadAllLines(filepath, Encoding.GetEncoding("gb2312"));
             bool mark = false;
@@ -94,6 +98,9 @@ namespace javascripttest
                     dr["city"] = str[2];
                     dr["chief"] = str[3];
                     dr["hand"] = str[4];
+                    dr["name"] = "Attack";
+                    dr["NodeName"] = "Attack";
+                    dr["VillageId"] = VillageId;
                     dt.Rows.Add(dr);
                 }
                 if (list[i] == "") mark = true;

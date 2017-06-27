@@ -1561,10 +1561,11 @@ namespace javascripttest
             }
             return str;           
         }
-        public string attack(string x, string y, village village, AccountModel account, string soldierlist,string type,out bool success)
+        public string attack(string x, string y, village village, AccountModel account, string soldierlist,string type,out string costTime,out bool success)
         {
             success = false;
             string str1 = string.Empty;
+            costTime = string.Empty;
             string zhongjun = village.buildings.Find(item => item.buildingName.Contains("中军帐")).buildingId;
             if (string.IsNullOrEmpty(zhongjun))
                 return "城镇内无中军帐";
@@ -1575,15 +1576,12 @@ namespace javascripttest
             if (str.Contains("传令兵"))
             {
                 string message = (string)ExtBatman(village.VillageID, account);
-                //if (!string.IsNullOrEmpty(message))
-                //    recorder(message, logIndex);
                 if (count < 3)
                 {
                     count++;
                     goto defense_go;
                 }
             }
-
             if ((str.Contains("目标不正确") || str.Contains("不可以发兵攻打")) || str.Contains("搬迁24小时内不允许出兵") || str.Contains("不允许增援"))
             {
                 //recorder(str, logIndex);
@@ -1598,6 +1596,7 @@ namespace javascripttest
             if (str == "")
             {
                 str = account.chief + "    " + village.VillageName + "出兵：   前往 X:" + x + " Y:" + y + " 需时 " + str3 + " 于 " + str4 + " 到达";
+                costTime = str3;
                 success = true;
             }
             return str;

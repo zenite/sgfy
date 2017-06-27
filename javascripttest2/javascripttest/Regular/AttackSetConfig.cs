@@ -122,6 +122,7 @@ namespace javascripttest.Regular
                     {
                         item.SetValue(attack, dr[item.Name]);
                     }
+                  
                     xmlSetNode(attack, parentNode);
                 }
             }

@@ -28,9 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.listView1 = new System.Windows.Forms.ListBox();
@@ -44,6 +43,9 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.AttackStart = new System.Windows.Forms.Button();
             this.Setting = new System.Windows.Forms.GroupBox();
+            this.label50 = new System.Windows.Forms.Label();
+            this.Offense_Interval = new System.Windows.Forms.TextBox();
+            this.label51 = new System.Windows.Forms.Label();
             this.checkAttackModel = new System.Windows.Forms.CheckBox();
             this.addCor = new System.Windows.Forms.Button();
             this.T_target2 = new System.Windows.Forms.ComboBox();
@@ -91,14 +93,11 @@
             this.C_AttackStart = new System.Windows.Forms.Button();
             this.GeneralList = new System.Windows.Forms.CheckedListBox();
             this.DestroyTarget = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.C_importCoor = new System.Windows.Forms.Button();
             this.destroySettings = new System.Windows.Forms.GroupBox();
+            this.label49 = new System.Windows.Forms.Label();
+            this.Destroy_Interval = new System.Windows.Forms.TextBox();
+            this.label48 = new System.Windows.Forms.Label();
             this.C_soldier6 = new System.Windows.Forms.Label();
             this.C_soldier5 = new System.Windows.Forms.Label();
             this.C_soldier11 = new System.Windows.Forms.Label();
@@ -166,14 +165,11 @@
             this.label18 = new System.Windows.Forms.Label();
             this.villegelist = new System.Windows.Forms.ComboBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.timer2 = new System.Windows.Forms.Timer(this.components);
-            this.label48 = new System.Windows.Forms.Label();
-            this.Destroy_Interval = new System.Windows.Forms.TextBox();
-            this.label49 = new System.Windows.Forms.Label();
-            this.label50 = new System.Windows.Forms.Label();
-            this.Offense_Interval = new System.Windows.Forms.TextBox();
-            this.label51 = new System.Windows.Forms.Label();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.AttackTarget)).BeginInit();
@@ -223,14 +219,14 @@
             // 
             // AttackTarget
             // 
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.AttackTarget.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.AttackTarget.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.AttackTarget.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.city,
             this.chief,
@@ -381,6 +377,32 @@
             this.Setting.TabIndex = 0;
             this.Setting.TabStop = false;
             this.Setting.Text = "设置";
+            // 
+            // label50
+            // 
+            this.label50.AutoSize = true;
+            this.label50.Location = new System.Drawing.Point(1271, 72);
+            this.label50.Name = "label50";
+            this.label50.Size = new System.Drawing.Size(37, 15);
+            this.label50.TabIndex = 117;
+            this.label50.Text = "分钟";
+            // 
+            // Offense_Interval
+            // 
+            this.Offense_Interval.Location = new System.Drawing.Point(1225, 65);
+            this.Offense_Interval.Name = "Offense_Interval";
+            this.Offense_Interval.Size = new System.Drawing.Size(44, 25);
+            this.Offense_Interval.TabIndex = 116;
+            this.Offense_Interval.TextChanged += new System.EventHandler(this.setOffenseAttr);
+            // 
+            // label51
+            // 
+            this.label51.AutoSize = true;
+            this.label51.Location = new System.Drawing.Point(1176, 73);
+            this.label51.Name = "label51";
+            this.label51.Size = new System.Drawing.Size(52, 15);
+            this.label51.TabIndex = 115;
+            this.label51.Text = "间隔：";
             // 
             // checkAttackModel
             // 
@@ -804,7 +826,7 @@
             // checkAll
             // 
             this.checkAll.AutoSize = true;
-            this.checkAll.Location = new System.Drawing.Point(499, 252);
+            this.checkAll.Location = new System.Drawing.Point(536, 251);
             this.checkAll.Name = "checkAll";
             this.checkAll.Size = new System.Drawing.Size(59, 19);
             this.checkAll.TabIndex = 8;
@@ -815,9 +837,9 @@
             // listView2
             // 
             this.listView2.ItemHeight = 15;
-            this.listView2.Location = new System.Drawing.Point(499, 359);
+            this.listView2.Location = new System.Drawing.Point(536, 404);
             this.listView2.Name = "listView2";
-            this.listView2.Size = new System.Drawing.Size(1056, 229);
+            this.listView2.Size = new System.Drawing.Size(1019, 184);
             this.listView2.TabIndex = 7;
             // 
             // C_AttackStart
@@ -833,26 +855,25 @@
             // 
             // GeneralList
             // 
-            this.GeneralList.Location = new System.Drawing.Point(500, 273);
+            this.GeneralList.Location = new System.Drawing.Point(536, 273);
             this.GeneralList.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.GeneralList.MultiColumn = true;
             this.GeneralList.Name = "GeneralList";
-            this.GeneralList.Size = new System.Drawing.Size(1055, 84);
+            this.GeneralList.Size = new System.Drawing.Size(1019, 124);
             this.GeneralList.TabIndex = 5;
             this.GeneralList.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.GeneralList_ItemCheck);
             // 
             // DestroyTarget
             // 
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DestroyTarget.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DestroyTarget.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.DestroyTarget.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn1,
             this.dataGridViewTextBoxColumn2,
             this.dataGridViewTextBoxColumn3,
             this.dataGridViewTextBoxColumn4,
@@ -861,62 +882,8 @@
             this.DestroyTarget.Location = new System.Drawing.Point(24, 273);
             this.DestroyTarget.Margin = new System.Windows.Forms.Padding(0);
             this.DestroyTarget.Name = "DestroyTarget";
-            this.DestroyTarget.Size = new System.Drawing.Size(472, 323);
+            this.DestroyTarget.Size = new System.Drawing.Size(509, 323);
             this.DestroyTarget.TabIndex = 4;
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.dataGridViewTextBoxColumn1.DataPropertyName = "Aindex";
-            this.dataGridViewTextBoxColumn1.FillWeight = 50F;
-            this.dataGridViewTextBoxColumn1.HeaderText = "批次";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.Width = 65;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.dataGridViewTextBoxColumn2.DataPropertyName = "city";
-            this.dataGridViewTextBoxColumn2.FillWeight = 50F;
-            this.dataGridViewTextBoxColumn2.HeaderText = "城镇";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.Width = 65;
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.dataGridViewTextBoxColumn3.DataPropertyName = "chief";
-            this.dataGridViewTextBoxColumn3.FillWeight = 50F;
-            this.dataGridViewTextBoxColumn3.HeaderText = "君主名";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.Width = 79;
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.dataGridViewTextBoxColumn4.DataPropertyName = "x";
-            this.dataGridViewTextBoxColumn4.FillWeight = 50F;
-            this.dataGridViewTextBoxColumn4.HeaderText = "x";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.Width = 43;
-            // 
-            // dataGridViewTextBoxColumn5
-            // 
-            this.dataGridViewTextBoxColumn5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.dataGridViewTextBoxColumn5.DataPropertyName = "y";
-            this.dataGridViewTextBoxColumn5.FillWeight = 50F;
-            this.dataGridViewTextBoxColumn5.HeaderText = "y";
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            this.dataGridViewTextBoxColumn5.Width = 44;
-            // 
-            // dataGridViewTextBoxColumn6
-            // 
-            this.dataGridViewTextBoxColumn6.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.dataGridViewTextBoxColumn6.DataPropertyName = "hand";
-            this.dataGridViewTextBoxColumn6.FillWeight = 50F;
-            this.dataGridViewTextBoxColumn6.HeaderText = "联盟";
-            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
-            this.dataGridViewTextBoxColumn6.Width = 65;
             // 
             // C_importCoor
             // 
@@ -927,6 +894,7 @@
             this.C_importCoor.TabIndex = 4;
             this.C_importCoor.Text = "导入坐标";
             this.C_importCoor.UseVisualStyleBackColor = true;
+            this.C_importCoor.Click += new System.EventHandler(this.C_importCoor_Click);
             // 
             // destroySettings
             // 
@@ -990,6 +958,32 @@
             this.destroySettings.TabIndex = 3;
             this.destroySettings.TabStop = false;
             this.destroySettings.Text = "设置";
+            // 
+            // label49
+            // 
+            this.label49.AutoSize = true;
+            this.label49.Location = new System.Drawing.Point(1367, 66);
+            this.label49.Name = "label49";
+            this.label49.Size = new System.Drawing.Size(37, 15);
+            this.label49.TabIndex = 114;
+            this.label49.Text = "分钟";
+            // 
+            // Destroy_Interval
+            // 
+            this.Destroy_Interval.Location = new System.Drawing.Point(1321, 59);
+            this.Destroy_Interval.Name = "Destroy_Interval";
+            this.Destroy_Interval.Size = new System.Drawing.Size(44, 25);
+            this.Destroy_Interval.TabIndex = 113;
+            this.Destroy_Interval.TextChanged += new System.EventHandler(this.setDestroyAttr);
+            // 
+            // label48
+            // 
+            this.label48.AutoSize = true;
+            this.label48.Location = new System.Drawing.Point(1272, 67);
+            this.label48.Name = "label48";
+            this.label48.Size = new System.Drawing.Size(52, 15);
+            this.label48.TabIndex = 112;
+            this.label48.Text = "间隔：";
             // 
             // C_soldier6
             // 
@@ -1643,57 +1637,50 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // label48
+            // dataGridViewTextBoxColumn2
             // 
-            this.label48.AutoSize = true;
-            this.label48.Location = new System.Drawing.Point(1272, 67);
-            this.label48.Name = "label48";
-            this.label48.Size = new System.Drawing.Size(52, 15);
-            this.label48.TabIndex = 112;
-            this.label48.Text = "间隔：";
+            this.dataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.dataGridViewTextBoxColumn2.DataPropertyName = "city";
+            this.dataGridViewTextBoxColumn2.FillWeight = 50F;
+            this.dataGridViewTextBoxColumn2.HeaderText = "城镇";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.Width = 65;
             // 
-            // Destroy_Interval
+            // dataGridViewTextBoxColumn3
             // 
-            this.Destroy_Interval.Location = new System.Drawing.Point(1321, 59);
-            this.Destroy_Interval.Name = "Destroy_Interval";
-            this.Destroy_Interval.Size = new System.Drawing.Size(44, 25);
-            this.Destroy_Interval.TabIndex = 113;
-            this.Destroy_Interval.TextChanged += new System.EventHandler(this.setDestroyAttr);
+            this.dataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.dataGridViewTextBoxColumn3.DataPropertyName = "chief";
+            this.dataGridViewTextBoxColumn3.FillWeight = 50F;
+            this.dataGridViewTextBoxColumn3.HeaderText = "君主名";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.Width = 79;
             // 
-            // label49
+            // dataGridViewTextBoxColumn4
             // 
-            this.label49.AutoSize = true;
-            this.label49.Location = new System.Drawing.Point(1367, 66);
-            this.label49.Name = "label49";
-            this.label49.Size = new System.Drawing.Size(37, 15);
-            this.label49.TabIndex = 114;
-            this.label49.Text = "分钟";
+            this.dataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.dataGridViewTextBoxColumn4.DataPropertyName = "x";
+            this.dataGridViewTextBoxColumn4.FillWeight = 50F;
+            this.dataGridViewTextBoxColumn4.HeaderText = "x";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.Width = 43;
             // 
-            // label50
+            // dataGridViewTextBoxColumn5
             // 
-            this.label50.AutoSize = true;
-            this.label50.Location = new System.Drawing.Point(1271, 72);
-            this.label50.Name = "label50";
-            this.label50.Size = new System.Drawing.Size(37, 15);
-            this.label50.TabIndex = 117;
-            this.label50.Text = "分钟";
+            this.dataGridViewTextBoxColumn5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.dataGridViewTextBoxColumn5.DataPropertyName = "y";
+            this.dataGridViewTextBoxColumn5.FillWeight = 50F;
+            this.dataGridViewTextBoxColumn5.HeaderText = "y";
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            this.dataGridViewTextBoxColumn5.Width = 44;
             // 
-            // Offense_Interval
+            // dataGridViewTextBoxColumn6
             // 
-            this.Offense_Interval.Location = new System.Drawing.Point(1225, 65);
-            this.Offense_Interval.Name = "Offense_Interval";
-            this.Offense_Interval.Size = new System.Drawing.Size(44, 25);
-            this.Offense_Interval.TabIndex = 116;
-            this.Offense_Interval.TextChanged += new System.EventHandler(this.setOffenseAttr);
-            // 
-            // label51
-            // 
-            this.label51.AutoSize = true;
-            this.label51.Location = new System.Drawing.Point(1176, 73);
-            this.label51.Name = "label51";
-            this.label51.Size = new System.Drawing.Size(52, 15);
-            this.label51.TabIndex = 115;
-            this.label51.Text = "间隔：";
+            this.dataGridViewTextBoxColumn6.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.dataGridViewTextBoxColumn6.DataPropertyName = "hand";
+            this.dataGridViewTextBoxColumn6.FillWeight = 50F;
+            this.dataGridViewTextBoxColumn6.HeaderText = "联盟";
+            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
+            this.dataGridViewTextBoxColumn6.Width = 65;
             // 
             // AutoAttack
             // 
@@ -1783,7 +1770,6 @@
         private System.Windows.Forms.Label soldier2;
         private System.Windows.Forms.Label soldier1;
         private System.Windows.Forms.Label soldier0;
-        private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.DataGridView DestroyTarget;
         private System.Windows.Forms.GroupBox destroySettings;
         private System.Windows.Forms.Button C_AddCoor;
@@ -1827,12 +1813,6 @@
         private System.Windows.Forms.Label label38;
         private System.Windows.Forms.Label label39;
         private System.Windows.Forms.Label label40;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
         private System.Windows.Forms.CheckedListBox GeneralList;
         private System.Windows.Forms.Button C_AttackStart;
         private System.Windows.Forms.CheckBox checkAttackModel;
@@ -1865,12 +1845,16 @@
         private System.Windows.Forms.Label C_soldier0;
         private System.Windows.Forms.Label C_soldier6;
         private System.Windows.Forms.CheckBox checkAll;
-        private System.Windows.Forms.Timer timer2;
         private System.Windows.Forms.Label label48;
         private System.Windows.Forms.Label label49;
         private System.Windows.Forms.TextBox Destroy_Interval;
         private System.Windows.Forms.Label label50;
         private System.Windows.Forms.TextBox Offense_Interval;
         private System.Windows.Forms.Label label51;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
     }
 }
