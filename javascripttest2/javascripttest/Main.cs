@@ -572,7 +572,14 @@ namespace javascripttest
             try
             {
                 lock (accountList)
-                    accountList.Add(account);
+                {
+                    var exsit=accountList.Find(item => { if (item.user_id == account.user_id)return false; else return true; });
+                    if (exsit != null)
+                    {
+                        accountList.Remove(exsit);
+                    }                    
+                        accountList.Add(account);
+                }                    
                 lock (accoutDics)
                 {
                     AccountModel outAccount;

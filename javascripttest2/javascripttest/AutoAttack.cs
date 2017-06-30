@@ -550,6 +550,8 @@ namespace javascripttest
                     }));
             }).Start();
         }
+      
+
         private void BindTarget()
         {
             DataTable dSource = getTargetSource();
@@ -610,7 +612,7 @@ namespace javascripttest
                             offenseConfig.removeNode(x, y, VillageId);
                             ReBindOffense();
                         }
-                        recordMsg(msg);
+                        recordMsg(msg, listView1);
                         Thread.Sleep(TimeToMilesecond(costTime)*2);
                     }            
                 }              
@@ -661,39 +663,63 @@ namespace javascripttest
             general1 = this.general1.SelectedValue.ToString();
             return urlStr.ToString();
         }
-        public string getSoldierStr1(out string x, out string y, out string type, out string general1, out string general5)
+        public string getSoldierStr1(out string x, out string y, out string outtype, out string general1, out string general5)
         {
             StringBuilder urlStr = new StringBuilder();
             entity.NodeAttack node =destroy.FirstOrDefault();
             try
             {
                 getSodliers(VillageId);
-                if (Convert.ToInt32(this.C_general1.SelectedValue) != 0)    urlStr.Append("general1=" + this.C_general1.SelectedValue + "&");
-                if (Convert.ToInt32(this.C_general2.SelectedValue) != 0)    urlStr.Append("general2=" + this.C_general2.SelectedValue + "&");
-                if (Convert.ToInt32(this.C_general3.SelectedValue) != 0)    urlStr.Append("general3=" + this.C_general3.SelectedValue + "&");
-                if (Convert.ToInt32(this.C_general4.SelectedValue) != 0)    urlStr.Append("general4=" + this.C_general4.SelectedValue + "&");
-                if (Convert.ToInt32(this.C_general5.SelectedValue) != 0)    urlStr.Append("general5=" + this.C_general5.SelectedValue + "&");
-                if (M(this.C_soldier_0.Text) != 0)             urlStr.Append("soldier[0]=" + C_soldier_0.Text+ "&");
-                if (M(this.C_soldier_1.Text) != 0)             urlStr.Append("soldier[1]=" + C_soldier_1.Text+ "&");
-                if (M(this.C_soldier_2.Text) != 0)             urlStr.Append("soldier[2]=" + C_soldier_2.Text+ "&");
-                if (M(this.C_soldier_4.Text) != 0)             urlStr.Append("soldier[4]=" + C_soldier_4.Text+ "&");
-                if (M(this.C_soldier_11.Text) != 0)            urlStr.Append("soldier[11]=" +C_soldier_11.Text + "&");
-                if (M(this.C_soldier_5.Text) != 0)             urlStr.Append("soldier[5]=" + C_soldier_5.Text+ "&");
-                if (M(this.C_soldier_6.Text) != 0)             urlStr.Append("soldier[6]=" + C_soldier_6.Text + "&");
-                if (Convert.ToInt32(this.C_T_target1.SelectedValue) != 0)    urlStr.Append("target[0]=" +   C_T_target1.SelectedValue + "&");
-                if (Convert.ToInt32(this.C_T_target2.SelectedValue) != 0)    urlStr.Append("target[1]=" +   C_T_target2.SelectedValue + "&");
+                if (Convert.ToInt32(croThrVal(C_general1)) != 0) urlStr.Append("general1=" + croThrVal(C_general1) + "&");
+                if (Convert.ToInt32(croThrVal(C_general2)) != 0) urlStr.Append("general2=" + croThrVal(C_general2) + "&");
+                if (Convert.ToInt32(croThrVal(C_general3)) != 0) urlStr.Append("general3=" + croThrVal(C_general3) + "&");
+                if (Convert.ToInt32(croThrVal(C_general4)) != 0) urlStr.Append("general4=" + croThrVal(C_general4) + "&");
+                if (Convert.ToInt32(croThrVal(C_general5)) != 0) urlStr.Append("general5=" + croThrVal(C_general5) + "&");
+                if (M(croThrVal(C_soldier_0)) != 0)             urlStr.Append("soldier[0]=" + croThrVal(C_soldier_0)+ "&");
+                if (M(croThrVal(C_soldier_1)) != 0)             urlStr.Append("soldier[1]=" + croThrVal(C_soldier_1)+ "&");
+                if (M(croThrVal(C_soldier_2)) != 0)             urlStr.Append("soldier[2]=" + croThrVal(C_soldier_2)+ "&");
+                if (M(croThrVal(C_soldier_4)) != 0)             urlStr.Append("soldier[4]=" + croThrVal(C_soldier_4)+ "&");
+                if (M(croThrVal(C_soldier_11)) != 0)            urlStr.Append("soldier[11]=" +croThrVal(C_soldier_11) + "&");
+                if (M(croThrVal(C_soldier_5)) != 0)             urlStr.Append("soldier[5]=" + croThrVal(C_soldier_5)+ "&");
+                if (M(croThrVal(C_soldier_6)) != 0)             urlStr.Append("soldier[6]=" + croThrVal(C_soldier_6) + "&");
+                if (Convert.ToInt32(croThrVal(this.C_T_target1)) != 0)    urlStr.Append("target[0]=" +   croThrVal(C_T_target1) + "&");
+                if (Convert.ToInt32(croThrVal(this.C_T_target2)) != 0)    urlStr.Append("target[1]=" +   croThrVal(C_T_target2) + "&");
             }
             catch (Exception ex)
             {
-
+                throw ex;
             }
             x = node.x;
             y = node.y;
-            type = this.type.SelectedIndex.ToString(); ;
+            string index = string.Empty;
+            this.type.Invoke(new Action(() => {
+                index = this.type.SelectedIndex.ToString();
+            }));
+            outtype = index;
             //Aindex = dr["Aindex"].ToString();
-            general1 = this.C_general1.SelectedValue.ToString();
-            general5 = this.C_general5.SelectedValue.ToString();
+            general1 = croThrVal(this.C_general1);
+            general5 = croThrVal(this.C_general5);
             return urlStr.ToString();
+        }
+
+        public string croThrVal(Control control)
+        {
+            string val = string.Empty;
+            if (control is TextBox)
+            {
+                if ((control as TextBox).InvokeRequired)
+                    (control as TextBox).Invoke(new Action(() => { val = (control as TextBox).Text; }));
+                else
+                    val = (control as TextBox).Text;
+            }
+            else if (control is ComboBox)
+            {
+                if ((control as ComboBox).InvokeRequired)
+                    (control as ComboBox).Invoke(new Action(() => { val = (control as ComboBox).SelectedValue.ToString(); }));
+                else
+                    val = (control as ComboBox).SelectedValue.ToString();
+            }
+            return val;
         }
         public string getDestroyStr( string gid, string general5)
         {
@@ -704,19 +730,19 @@ namespace javascripttest
                 getSodliers(VillageId);
                 if (Convert.ToInt32(gid) != 0) urlStr.Append("general1=" + gid + "&");
                 if (Convert.ToInt32(general5) != 0) urlStr.Append("general5=" + general5 + "&");
-                if (M(this.H_soldier_0.Text) != 0) urlStr.Append("soldier[0]=" + H_soldier_0.Text + "&");
-                if (M(this.H_soldier_1.Text) != 0) urlStr.Append("soldier[1]=" + H_soldier_1.Text + "&");
-                if (M(this.H_soldier_2.Text) != 0) urlStr.Append("soldier[2]=" + H_soldier_2.Text + "&");
-                if (M(this.H_soldier_4.Text) != 0) urlStr.Append("soldier[4]=" + H_soldier_4.Text + "&");
-                if (M(this.H_soldier_11.Text) != 0) urlStr.Append("soldier[11]=" + H_soldier_11.Text + "&");
-                if (M(this.H_soldier_5.Text) != 0) urlStr.Append("soldier[5]=" + H_soldier_5.Text + "&");
-                if (M(this.H_soldier_6.Text) != 0) urlStr.Append("soldier[6]=" + H_soldier_6.Text + "&");
+                if (M(croThrVal(this.H_soldier_0)) != 0) urlStr.Append("soldier[0]=" +  croThrVal(H_soldier_0) + "&");
+                if (M(croThrVal(this.H_soldier_1)) != 0) urlStr.Append("soldier[1]=" +  croThrVal(H_soldier_1) + "&");
+                if (M(croThrVal(this.H_soldier_2)) != 0) urlStr.Append("soldier[2]=" +  croThrVal(H_soldier_2) + "&");
+                if (M(croThrVal(this.H_soldier_4)) != 0) urlStr.Append("soldier[4]=" +  croThrVal(H_soldier_4) + "&");
+                if (M(croThrVal(this.H_soldier_1)) != 0) urlStr.Append("soldier[11]=" + croThrVal(H_soldier_11) + "&");
+                if (M(croThrVal(this.H_soldier_5)) != 0) urlStr.Append("soldier[5]=" +  croThrVal(H_soldier_5) + "&");
+                if (M(croThrVal(this.H_soldier_6)) != 0) urlStr.Append("soldier[6]=" +  croThrVal(H_soldier_6) + "&");
                 //if (Convert.ToInt32(this.C_T_target1.SelectedValue) != 0) urlStr.Append("target[0]=" + C_T_target1.SelectedValue + "&");
                 //if (Convert.ToInt32(this.C_T_target2.SelectedValue) != 0) urlStr.Append("target[1]=" + C_T_target2.SelectedValue + "&");
             }
             catch (Exception ex)
             {
-
+                throw ex;
             }
             //Aindex = dr["Aindex"].ToString();
             return urlStr.ToString();
@@ -724,11 +750,11 @@ namespace javascripttest
 
       
 
-        private void recordMsg(string msg)
+        private void recordMsg(string msg,ListBox box)
         {
-            this.listView1.BeginInvoke(new Action(() =>
+            box.BeginInvoke(new Action(() =>
             {
-                this.listView1.Items.Add(msg);
+                box.Items.Add(msg);
             }));          
         }
 
@@ -955,10 +981,10 @@ namespace javascripttest
             string general1 = string.Empty;
             string general5 = string.Empty;
             village village = account.village.Find(item => item.VillageID == VillageId);
-            string urlstr = getSoldierStr1(out x, out y, out type, out general1, out general5);
             new Thread(delegate() {
-                while (destroyConfig.getAttackXml(VillageId).Count() > 0)
+                while (destroyConfig.getAttackXml(VillageId) != null && destroyConfig.getAttackXml(VillageId).Count() > 0)
                 {
+                    string urlstr = getSoldierStr1(out x, out y, out type, out general1, out general5);
                     List<General> list = mainHelper.GetVillageGenerals(account, VillageId);
                     Queue<string> FollowGenerals = new Queue<string>();//跟车武将
                     if (GeneralList.Items.Count > 0)
@@ -973,8 +999,8 @@ namespace javascripttest
                     }
                     foreach (var f in FollowGenerals)
                     {
-                        if (list.Find(item => item.Gid == f && item.Status == "待命") == null || list.Find(item => item.Gid == general1 && item.Status == "待命") == null)
-                            return;
+                        if (list.Find(item => item.Gid == f && (item.Status == "待命" || item.Status == "流亡")) == null || list.Find(item => item.Gid == general1 && item.Status == "待命") == null)
+                            goto toNextQueue;
                     }
                     bool success = false;
                     BeginDestroy(x, y, village, account, urlstr, type, out success, FollowGenerals, general5);
@@ -983,10 +1009,10 @@ namespace javascripttest
                         destroyConfig.removeNode(x, y, VillageId);
                         ReBindDestroy();
                     }
-                }
-           
+                toNextQueue:
+                    continue;
+                }           
             }).Start();
-           
         }
 
     
@@ -999,7 +1025,7 @@ namespace javascripttest
             string msg = mainHelper.attack(x, y, village, account, urlstr, type,out costTime, out success1);
             if (success1)
             {
-                recordMsg(msg);
+                recordMsg(msg, listView2);
                 Thread.Sleep(3500);
                 while (FollowGenerals.Count > 0)
                 {
@@ -1010,7 +1036,7 @@ namespace javascripttest
                     bool desSuccess = false;
                     string costTime1 = string.Empty;
                     string desMsg = mainHelper.attack(x, y, village, account, destroyStr, type, out costTime1, out desSuccess);
-                    recordMsg(desMsg);
+                    recordMsg(desMsg, listView2);
                     if (!desSuccess && count < 4)
                     {
                         count++;
@@ -1021,6 +1047,10 @@ namespace javascripttest
                         Thread.Sleep(3500);
                 }
                 Thread.Sleep((TimeToMilesecond(costTime)-2) * 2);//暂停出征时间
+                success = true;
+            }
+            else if (msg.Contains("一片空地"))
+            {
                 success = true;
             }
             else

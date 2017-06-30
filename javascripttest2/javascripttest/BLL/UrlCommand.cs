@@ -151,7 +151,7 @@ namespace javascripttest
                 }
                 catch (Exception ex)
                 {
-
+                    throw ex;
                 }
                 finally { }
             }
@@ -183,10 +183,11 @@ namespace javascripttest
                 request.UserAgent = "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 2.0.50727; .NET CLR 1.1.4322)";
                 response = (HttpWebResponse)request.GetResponse();
                 try
-                {                  
-                    string str5 = new StreamReader(response.GetResponseStream(), Encoding.UTF8).ReadToEnd();
-                    request.Abort();
-                    return getGb2312(str5);
+                {
+                    string result = new StreamReader(response.GetResponseStream(), Encoding.UTF8).ReadToEnd();
+                    if (result.ToLower().Contains("login.logout"))
+                        relogin(account);
+                    return result;
                 }
                 finally
                 {
@@ -225,7 +226,19 @@ namespace javascripttest
                 {
                     string str5 = new StreamReader(response.GetResponseStream(), Encoding.UTF8).ReadToEnd();
                     request.Abort();
-                    return getGb2312(str5);
+                    try
+                    {
+                        string result = getGb2312(str5);
+                        if (result.ToLower().Contains("login.logout"))
+                            relogin(account);
+                        return result;
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
+                    finally { }
+                   
                 }
                 finally
                 {
