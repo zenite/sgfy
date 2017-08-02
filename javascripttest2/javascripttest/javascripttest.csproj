@@ -150,7 +150,6 @@
     <Compile Include="entity\SGEnum.cs" />
     <Compile Include="Regular\AttackSetConfig.cs" />
     <Compile Include="Regular\SetConfig.cs" />
-    <Compile Include="Regular\XmlOpr.cs" />
     <Compile Include="report.cs">
       <SubType>UserControl</SubType>
     </Compile>

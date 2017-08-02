@@ -409,7 +409,7 @@ namespace javascripttest
             setTextbox(C_soldier6 , villageSoldier[6]);
             setTextbox(C_soldier11 , villageSoldier[11]);
         }
-        public void setTextbox(Label lable,string str)
+        public void setTextbox(Control lable, string str)
         {
             if (lable.InvokeRequired)
             {
@@ -642,34 +642,37 @@ namespace javascripttest
             {
                 getSodliers(VillageId);
                 CheckAllSoldiers(checkAttackModel);
-                if (Convert.ToInt32(this.general1.SelectedValue) != 0) urlStr.Append("general1=" + this.general1.SelectedValue + "&");
-                if (Convert.ToInt32(this.general2.SelectedValue) != 0) urlStr.Append("general2=" + this.general2.SelectedValue + "&");
-                if (Convert.ToInt32(this.general3.SelectedValue) != 0) urlStr.Append("general3=" + this.general3.SelectedValue + "&");
-                if (Convert.ToInt32(this.general4.SelectedValue) != 0) urlStr.Append("general4=" + this.general4.SelectedValue + "&");
-                if (Convert.ToInt32(this.general5.SelectedValue) != 0) urlStr.Append("general5=" + this.general5.SelectedValue + "&");
-                if (M(this.soldier_0.Text) != 0) urlStr.Append("soldier[0]=" + M(soldier_0.Text) + "&");
-                if (M(this.soldier_1.Text) != 0) urlStr.Append("soldier[1]=" + M(soldier_1.Text) + "&");
-                if (M(this.soldier_2.Text) != 0) urlStr.Append("soldier[2]=" + M(soldier_2.Text) + "&");
-                if (M(this.soldier_4.Text) != 0) urlStr.Append("soldier[4]=" + M(soldier_4.Text) + "&");
-                if (M(this.soldier_11.Text) != 0) urlStr.Append("soldier[11]=" + M(soldier_11.Text) + "&");
-                if (M(this.soldier_5.Text) != 0) urlStr.Append("soldier[5]=" + M(soldier_5.Text) + "&");
-                if (M(this.soldier_6.Text) != 0) urlStr.Append("soldier[6]=" + M(soldier_6.Text) + "&");
-                if (Convert.ToInt32(this.T_target1.SelectedValue) != 0) urlStr.Append("target[0]=" + T_target1.SelectedValue + "&");
-                if (Convert.ToInt32(this.T_target2.SelectedValue) != 0) urlStr.Append("target[1]=" + T_target2.SelectedValue + "&");
-            }
-            catch (Exception ex)
-            {
+                if (Convert.ToInt32(croThrVal(this.general1)) != 0 && Convert.ToInt32(croThrVal(this.general1)) != -1) urlStr.Append("general1=" + croThrVal(this.general1) + "&");
+                if (Convert.ToInt32(croThrVal(this.general2)) != 0 && Convert.ToInt32(croThrVal(this.general2)) != -1) urlStr.Append("general2=" + croThrVal(this.general2) + "&");
+                if (Convert.ToInt32(croThrVal(this.general3)) != 0 && Convert.ToInt32(croThrVal(this.general3)) != -1) urlStr.Append("general3=" + croThrVal(this.general3) + "&");
+                if (Convert.ToInt32(croThrVal(this.general4)) != 0 && Convert.ToInt32(croThrVal(this.general4)) != -1) urlStr.Append("general4=" + croThrVal(this.general4) + "&");
+                if (Convert.ToInt32(croThrVal(this.general5)) != 0 && Convert.ToInt32(croThrVal(this.general5)) != -1) urlStr.Append("general5=" + croThrVal(this.general5) + "&");
+                if (M(croThrVal(this.soldier_0)) != 0) urlStr.Append("soldier[0]=" +   M(croThrVal(soldier_0))+ "&");
+                if (M(croThrVal(this.soldier_1)) != 0) urlStr.Append("soldier[1]=" +   M(croThrVal(soldier_1))+ "&");
+                if (M(croThrVal(this.soldier_2)) != 0) urlStr.Append("soldier[2]=" +   M(croThrVal(soldier_2))+ "&");
+                if (M(croThrVal(this.soldier_4)) != 0) urlStr.Append("soldier[4]=" +   M(croThrVal(soldier_4))+ "&");
+                if (M(croThrVal(this.soldier_11)) != 0) urlStr.Append("soldier[11]=" + M(croThrVal(soldier_11)) + "&");
+                if (M(croThrVal(this.soldier_5)) != 0) urlStr.Append("soldier[5]=" +   M(croThrVal(soldier_5))+ "&");
+                if (M(croThrVal(this.soldier_6)) != 0) urlStr.Append("soldier[6]=" +   M(croThrVal(soldier_6))+ "&");
+                if (Convert.ToInt32(croThrVal(this.T_target1)) != 0&&Convert.ToInt32(croThrVal(this.T_target1)) != -1) urlStr.Append("target[0]=" + croThrVal(T_target1) + "&");
+                if (Convert.ToInt32(croThrVal(this.T_target2)) != 0&&Convert.ToInt32(croThrVal(this.T_target2)) != -1) urlStr.Append("target[1]=" + croThrVal(T_target2) + "&");
+            }                       
+            catch (Exception ex)    
+            {                       
 
 
             }
             finally
             {
-                Repeat = this.Offense_Repeat.SelectedIndex.ToString() == "0";
+                if (getRepeat(this.Offense_Repeat) == "0")
+                Repeat = true;
+                else
+                Repeat = false;
                 x = node.x;
                 y = node.y;
-                type = this.type.SelectedIndex.ToString(); ;
+                type = getRepeat(this.type); ;
                 //Aindex = dr["Aindex"].ToString();
-                general1 = this.general1.SelectedValue.ToString();
+                general1 = croThrVal(this.general1);
             }          
             return urlStr.ToString();
         }
@@ -954,19 +957,19 @@ namespace javascripttest
         {
             if (check.Checked)
             {
-                soldier_0.Text = soldier0.Text;
-                soldier_1.Text = soldier1.Text;
-                soldier_2.Text = soldier2.Text;
-                soldier_4.Text = soldier4.Text;
-                soldier_11.Text = soldier11.Text;
+                setTextbox(soldier_0, soldier0.Text);
+                setTextbox(soldier_1,soldier1.Text);
+                setTextbox(soldier_2,soldier2.Text);
+                setTextbox(soldier_4,soldier4.Text);
+                setTextbox(soldier_11, soldier11.Text);
             }
             else
             {
-                soldier_0.Text = "";
-                soldier_1.Text = "";
-                soldier_2.Text = "";
-                soldier_4.Text = "";
-                soldier_11.Text = "";
+                setTextbox(soldier_0 , "");
+                setTextbox(soldier_1 , "");
+                setTextbox(soldier_2 , "");
+                setTextbox(soldier_4 , "");
+                setTextbox(soldier_11, "");
             }
         }
 
