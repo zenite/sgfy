@@ -55,6 +55,11 @@ namespace javascripttest.BLL
         {
             setConfig.removeNode(x, y, VillageId);
         }
+
+        public void updateTime(string x, string y, string VillageId)
+        {
+            setConfig.updateTime(x, y, VillageId);
+        }
         public void setAttribute(entity.NodeAttack node, string parentNode)
         {
             setConfig.setAttribute(node, parentNode);

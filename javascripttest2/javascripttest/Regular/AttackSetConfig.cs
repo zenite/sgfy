@@ -235,6 +235,20 @@ namespace javascripttest.Regular
             rootxele.Save(filePath);            
         }
 
+        public void updateTime(string x, string y, string VillageId)
+        {
+            updateProp(x, y, VillageId, "Time", System.DateTime.Now.ToString());
+
+        }
+        public void updateProp(string x, string y, string VillageId, string pro, string proValue)
+        {
+            var rootxele = XElement.Load(filePath);
+            XElement xele = (from target in rootxele.Descendants("Attack") where target.Attribute("x").Value.Equals(x) && target.Attribute("y").Value.Equals(y) && target.Attribute("VillageId").Value.Equals(VillageId) select target).FirstOrDefault();
+            if (xele != null)
+            {
+                xele.SetAttributeValue(pro, proValue);
+            }
+        }
         public List<entity.Node> getControlXml(string VillageId)
         {
             var xele = XElement.Load(filePath).Descendants("Control");
@@ -261,8 +275,9 @@ namespace javascripttest.Regular
                             y=target.Attribute("y").Value,
                             chief=target.Attribute("chief").Value,
                             hand=target.Attribute("hand").Value,
-                            city=target.Attribute("city").Value
-                        }).ToList();
+                            city=target.Attribute("city").Value,
+                            Time=target.Attribute("Time").Value
+                        }).OrderByDescending(item=>item.Time).ToList();
             return null;
         }
     }

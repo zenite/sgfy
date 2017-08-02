@@ -139,7 +139,6 @@
     <Compile Include="Main.Designer.cs">
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
-    <Compile Include="BLL\GetScript.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="RapidLogin.cs">
       <SubType>Form</SubType>
@@ -151,6 +150,7 @@
     <Compile Include="entity\SGEnum.cs" />
     <Compile Include="Regular\AttackSetConfig.cs" />
     <Compile Include="Regular\SetConfig.cs" />
+    <Compile Include="Regular\XmlOpr.cs" />
     <Compile Include="report.cs">
       <SubType>UserControl</SubType>
     </Compile>

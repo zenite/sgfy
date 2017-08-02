@@ -597,10 +597,11 @@ namespace javascripttest
                 string y = string.Empty;
                 string type = string.Empty;
                 string general1 = string.Empty;
+                bool Repeat =false;
                 while (offenseConfig.getAttackXml(VillageId).Count() > 0)
                 {
                     village village = account.village.Find(item => item.VillageID == VillageId);
-                    string urlstr = getSoldierStr(out x, out y, out type, out general1);
+                    string urlstr = getSoldierStr(out x, out y, out type, out general1,out Repeat);
                     List<General> list = mainHelper.GetVillageGenerals(account, VillageId);
                     if (list.Find(item => item.Gid == general1 && item.Status == "待命") != null)
                     {
@@ -609,7 +610,10 @@ namespace javascripttest
                         string msg = mainHelper.attack(x, y, village, account, urlstr, type, out costTime, out success);
                         if (success)
                         {
-                            offenseConfig.removeNode(x, y, VillageId);
+                            if (Repeat)
+                                offenseConfig.updateTime(x, y, VillageId);
+                            else
+                                offenseConfig.removeNode(x, y, VillageId);
                             ReBindOffense();
                         }
                         recordMsg(msg, listView1);
@@ -629,12 +633,13 @@ namespace javascripttest
            return 60000;//一分钟
         }
      
-        public string getSoldierStr(out string x,out string y,out string type,out string general1)
+        public string getSoldierStr(out string x,out string y,out string type,out string general1,out bool Repeat)
         {
             StringBuilder urlStr = new StringBuilder();
             entity.NodeAttack node=offense.FirstOrDefault();
-            
-            try {
+
+            try
+            {
                 getSodliers(VillageId);
                 CheckAllSoldiers(checkAttackModel);
                 if (Convert.ToInt32(this.general1.SelectedValue) != 0) urlStr.Append("general1=" + this.general1.SelectedValue + "&");
@@ -646,62 +651,74 @@ namespace javascripttest
                 if (M(this.soldier_1.Text) != 0) urlStr.Append("soldier[1]=" + M(soldier_1.Text) + "&");
                 if (M(this.soldier_2.Text) != 0) urlStr.Append("soldier[2]=" + M(soldier_2.Text) + "&");
                 if (M(this.soldier_4.Text) != 0) urlStr.Append("soldier[4]=" + M(soldier_4.Text) + "&");
-                if (M(this.soldier_11.Text) != 0) urlStr.Append("soldier[11]="+M(soldier_11.Text) + "&");
+                if (M(this.soldier_11.Text) != 0) urlStr.Append("soldier[11]=" + M(soldier_11.Text) + "&");
                 if (M(this.soldier_5.Text) != 0) urlStr.Append("soldier[5]=" + M(soldier_5.Text) + "&");
                 if (M(this.soldier_6.Text) != 0) urlStr.Append("soldier[6]=" + M(soldier_6.Text) + "&");
                 if (Convert.ToInt32(this.T_target1.SelectedValue) != 0) urlStr.Append("target[0]=" + T_target1.SelectedValue + "&");
-                if (Convert.ToInt32(this.T_target2.SelectedValue) != 0) urlStr.Append("target[1]=" + T_target2.SelectedValue + "&");               
+                if (Convert.ToInt32(this.T_target2.SelectedValue) != 0) urlStr.Append("target[1]=" + T_target2.SelectedValue + "&");
             }
             catch (Exception ex)
-            { 
-                
+            {
+
+
             }
-            x = node.x;
-            y = node.y;
-            type = this.type.SelectedIndex.ToString(); ;
-            //Aindex = dr["Aindex"].ToString();
-            general1 = this.general1.SelectedValue.ToString();
+            finally
+            {
+                Repeat = this.Offense_Repeat.SelectedIndex.ToString() == "0";
+                x = node.x;
+                y = node.y;
+                type = this.type.SelectedIndex.ToString(); ;
+                //Aindex = dr["Aindex"].ToString();
+                general1 = this.general1.SelectedValue.ToString();
+            }          
             return urlStr.ToString();
         }
-        public string getSoldierStr1(out string x, out string y, out string outtype, out string general1, out string general5)
+        public string getSoldierStr1(out string x, out string y, out string outtype, out string general1, out string general5,out bool Repeat)
         {
             StringBuilder urlStr = new StringBuilder();
             entity.NodeAttack node =destroy.FirstOrDefault();
             try
             {
                 getSodliers(VillageId);
-                if (Convert.ToInt32(croThrVal(C_general1)) != 0) urlStr.Append("general1=" + croThrVal(C_general1) + "&");
-                if (Convert.ToInt32(croThrVal(C_general2)) != 0) urlStr.Append("general2=" + croThrVal(C_general2) + "&");
-                if (Convert.ToInt32(croThrVal(C_general3)) != 0) urlStr.Append("general3=" + croThrVal(C_general3) + "&");
-                if (Convert.ToInt32(croThrVal(C_general4)) != 0) urlStr.Append("general4=" + croThrVal(C_general4) + "&");
-                if (Convert.ToInt32(croThrVal(C_general5)) != 0) urlStr.Append("general5=" + croThrVal(C_general5) + "&");
-                if (M(croThrVal(C_soldier_0)) != 0)             urlStr.Append("soldier[0]=" + croThrVal(C_soldier_0)+ "&");
-                if (M(croThrVal(C_soldier_1)) != 0)             urlStr.Append("soldier[1]=" + croThrVal(C_soldier_1)+ "&");
-                if (M(croThrVal(C_soldier_2)) != 0)             urlStr.Append("soldier[2]=" + croThrVal(C_soldier_2)+ "&");
-                if (M(croThrVal(C_soldier_4)) != 0)             urlStr.Append("soldier[4]=" + croThrVal(C_soldier_4)+ "&");
-                if (M(croThrVal(C_soldier_11)) != 0)            urlStr.Append("soldier[11]=" +croThrVal(C_soldier_11) + "&");
-                if (M(croThrVal(C_soldier_5)) != 0)             urlStr.Append("soldier[5]=" + croThrVal(C_soldier_5)+ "&");
-                if (M(croThrVal(C_soldier_6)) != 0)             urlStr.Append("soldier[6]=" + croThrVal(C_soldier_6) + "&");
-                if (Convert.ToInt32(croThrVal(this.C_T_target1)) != 0)    urlStr.Append("target[0]=" +   croThrVal(C_T_target1) + "&");
-                if (Convert.ToInt32(croThrVal(this.C_T_target2)) != 0)    urlStr.Append("target[1]=" +   croThrVal(C_T_target2) + "&");
+                if (Convert.ToInt32(croThrVal(C_general1)) != 0 && Convert.ToInt32(croThrVal(C_general1)) != -1) urlStr.Append("general1=" + croThrVal(C_general1) + "&");
+                if (Convert.ToInt32(croThrVal(C_general2)) != 0 && Convert.ToInt32(croThrVal(C_general2)) != -1) urlStr.Append("general2=" + croThrVal(C_general2) + "&");
+                if (Convert.ToInt32(croThrVal(C_general3)) != 0 && Convert.ToInt32(croThrVal(C_general3)) != -1) urlStr.Append("general3=" + croThrVal(C_general3) + "&");
+                if (Convert.ToInt32(croThrVal(C_general4)) != 0&& Convert.ToInt32(croThrVal(C_general4)) != -1) urlStr.Append("general4=" + croThrVal(C_general4) + "&");
+                if (Convert.ToInt32(croThrVal(C_general5)) != 0 && Convert.ToInt32(croThrVal(C_general5)) != -1) urlStr.Append("general5=" + croThrVal(C_general5) + "&");
+                if (M(croThrVal(C_soldier_0)) != 0) urlStr.Append("soldier[0]=" + croThrVal(C_soldier_0) + "&");
+                if (M(croThrVal(C_soldier_1)) != 0) urlStr.Append("soldier[1]=" + croThrVal(C_soldier_1) + "&");
+                if (M(croThrVal(C_soldier_2)) != 0) urlStr.Append("soldier[2]=" + croThrVal(C_soldier_2) + "&");
+                if (M(croThrVal(C_soldier_4)) != 0) urlStr.Append("soldier[4]=" + croThrVal(C_soldier_4) + "&");
+                if (M(croThrVal(C_soldier_11)) != 0) urlStr.Append("soldier[11]=" + croThrVal(C_soldier_11) + "&");
+                if (M(croThrVal(C_soldier_5)) != 0) urlStr.Append("soldier[5]=" + croThrVal(C_soldier_5) + "&");
+                if (M(croThrVal(C_soldier_6)) != 0) urlStr.Append("soldier[6]=" + croThrVal(C_soldier_6) + "&");
+                if (Convert.ToInt32(croThrVal(this.C_T_target1)) != 0&& Convert.ToInt32(croThrVal(this.C_T_target1)) != -1) urlStr.Append("target[0]=" + croThrVal(C_T_target1) + "&");
+                if (Convert.ToInt32(croThrVal(this.C_T_target2)) != 0&& Convert.ToInt32(croThrVal(this.C_T_target2)) != -1) urlStr.Append("target[1]=" + croThrVal(C_T_target2) + "&");
             }
             catch (Exception ex)
             {
                 throw ex;
             }
+            finally
+            {
+                
+                Repeat = getRepeat( this.Destory_Repeat)== "0";
+            }
             x = node.x;
             y = node.y;
-            string index = string.Empty;
-            this.type.Invoke(new Action(() => {
-                index = this.type.SelectedIndex.ToString();
-            }));
-            outtype = index;
+            outtype = "0";
             //Aindex = dr["Aindex"].ToString();
             general1 = croThrVal(this.C_general1);
             general5 = croThrVal(this.C_general5);
             return urlStr.ToString();
         }
 
+        public string getRepeat(ComboBox repeat)
+        {
+            string re = string.Empty;
+            this.Invoke(new Action(() => { re = repeat.SelectedIndex.ToString(); }));
+            return re;
+        }
         public string croThrVal(Control control)
         {
             string val = string.Empty;
@@ -980,11 +997,12 @@ namespace javascripttest
             string type = string.Empty;
             string general1 = string.Empty;
             string general5 = string.Empty;
+            bool Repeat = false;
             village village = account.village.Find(item => item.VillageID == VillageId);
             new Thread(delegate() {
                 while (destroyConfig.getAttackXml(VillageId) != null && destroyConfig.getAttackXml(VillageId).Count() > 0)
                 {
-                    string urlstr = getSoldierStr1(out x, out y, out type, out general1, out general5);
+                    string urlstr = getSoldierStr1(out x, out y, out type, out general1, out general5,out Repeat);
                     List<General> list = mainHelper.GetVillageGenerals(account, VillageId);
                     Queue<string> FollowGenerals = new Queue<string>();//跟车武将
                     if (GeneralList.Items.Count > 0)
@@ -1006,7 +1024,10 @@ namespace javascripttest
                     BeginDestroy(x, y, village, account, urlstr, type, out success, FollowGenerals, general5);
                     if (success)
                     {
-                        destroyConfig.removeNode(x, y, VillageId);
+                        if (Repeat)
+                            destroyConfig.updateTime(x, y, VillageId);
+                        else
+                            destroyConfig.removeNode(x, y, VillageId);
                         ReBindDestroy();
                     }
                 toNextQueue:

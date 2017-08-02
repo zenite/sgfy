@@ -83,6 +83,7 @@ namespace javascripttest
             dt.Columns.Add(new DataColumn("name", typeof(string)));
             dt.Columns.Add(new DataColumn("NodeName", typeof(string)));
             dt.Columns.Add(new DataColumn("VillageId", typeof(string)));
+            dt.Columns.Add(new DataColumn("Time", typeof(string)));
             DataRow dr;
             string[] list = File.ReadAllLines(filepath, Encoding.GetEncoding("gb2312"));
             bool mark = false;
@@ -101,6 +102,7 @@ namespace javascripttest
                     dr["name"] = "Attack";
                     dr["NodeName"] = "Attack";
                     dr["VillageId"] = VillageId;
+                    dr["Time"] = System.DateTime.Now.ToString();
                     dt.Rows.Add(dr);
                 }
                 if (list[i] == "") mark = true;

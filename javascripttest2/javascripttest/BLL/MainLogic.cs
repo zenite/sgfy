@@ -1168,6 +1168,7 @@ namespace javascripttest
                     node.chief = match.Groups["chief"].Value;
                     node.city = match.Groups["city"].Value;
                     node.hand = match.Groups["hand"].Value;
+                    node.Time = System.DateTime.Now.ToString();
                 }
             }
             return node;

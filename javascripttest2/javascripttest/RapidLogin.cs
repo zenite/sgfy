@@ -99,19 +99,20 @@ namespace javascripttest
         {
             new Thread(delegate() 
                 {
-                    updateTips.ForeColor = Color.OrangeRed;
-                    updateTips.Text = "资源田正在升级，请稍等";
-                    upperCap_btn.Enabled = false;
+                    this.BeginInvoke(new Action(() =>{
+                        updateTips.ForeColor = Color.OrangeRed;
+                        updateTips.Text = "资源田正在升级，请稍等";
+                        upperCap_btn.Enabled = false;
+                    }) );
                     mainHelper.repeatClick(currentAccount, village_id);
-                    upperCap_btn.Enabled = true;
-                    updateTips.ForeColor = Color.Black;
-                    updateTips.Text = "本城资源田升级完毕";
-
+                    this.BeginInvoke(new Action(() => {
+                        upperCap_btn.Enabled = true;
+                        updateTips.ForeColor = Color.Black;
+                        updateTips.Text = "本城资源田升级完毕";
+                    }));
                     MessageBox.Show("本城资源田升级完毕");
                 }
-                );
-           
-          
+                ).Start();
         }
 
         private void attackinTime_Click(object sender, EventArgs e)
