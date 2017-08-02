@@ -248,6 +248,7 @@ namespace javascripttest.Regular
             {
                 xele.SetAttributeValue(pro, proValue);
             }
+            rootxele.Save(filePath);
         }
         public List<entity.Node> getControlXml(string VillageId)
         {
@@ -277,7 +278,7 @@ namespace javascripttest.Regular
                             hand=target.Attribute("hand").Value,
                             city=target.Attribute("city").Value,
                             Time=target.Attribute("Time").Value
-                        }).OrderByDescending(item=>item.Time).ToList();
+                        }).OrderBy(item=>item.Time).ToList();
             return null;
         }
     }
