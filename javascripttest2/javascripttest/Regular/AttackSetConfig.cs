@@ -93,7 +93,7 @@ namespace javascripttest.Regular
                 node.name = control.Name;
                 node.text = control.Text;
                 node.state = control.SelectedIndex.ToString();
-                if (node.state == "0")
+                if (node.state == "0"&& node.name!="type")
                     return;
                 node.controlType = "ComboBox";
             }
@@ -278,7 +278,7 @@ namespace javascripttest.Regular
                             hand=target.Attribute("hand").Value,
                             city=target.Attribute("city").Value,
                             Time=target.Attribute("Time").Value
-                        }).OrderBy(item=>item.Time).ToList();
+                        }).OrderBy(item=>Convert.ToDateTime(item.Time)).ToList();
             return null;
         }
     }

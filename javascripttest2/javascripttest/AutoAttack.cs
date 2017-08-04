@@ -664,7 +664,7 @@ namespace javascripttest
             }
             finally
             {
-                if (getRepeat(this.Offense_Repeat) == "0")
+                if (getRepeat(this.Offense_Repeat) == "1")
                 Repeat = true;
                 else
                 Repeat = false;
@@ -705,7 +705,7 @@ namespace javascripttest
             finally
             {
                 
-                Repeat = getRepeat( this.Destory_Repeat)== "0";
+                Repeat = getRepeat( this.Destory_Repeat)== "1";
             }
             x = node.x;
             y = node.y;
@@ -1020,7 +1020,7 @@ namespace javascripttest
                     }
                     foreach (var f in FollowGenerals)
                     {
-                        if (list.Find(item => item.Gid == f && (item.Status == "待命" || item.Status == "流亡")) == null || list.Find(item => item.Gid == general1 && item.Status == "待命") == null)
+                        if (list.Find(item => item.Gid == f && (item.Status == "待命" || item.Status == "流亡"||item.Status.Trim()=="太守")) == null || list.Find(item => item.Gid == general1 && item.Status == "待命") == null)
                             goto toNextQueue;
                     }
                     bool success = false;
