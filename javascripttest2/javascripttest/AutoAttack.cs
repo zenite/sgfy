@@ -655,7 +655,11 @@ namespace javascripttest
                 if (M(croThrVal(this.soldier_5)) != 0) urlStr.Append("soldier[5]=" +   M(croThrVal(soldier_5))+ "&");
                 if (M(croThrVal(this.soldier_6)) != 0) urlStr.Append("soldier[6]=" +   M(croThrVal(soldier_6))+ "&");
                 if (Convert.ToInt32(croThrVal(this.T_target1)) != 0&&Convert.ToInt32(croThrVal(this.T_target1)) != -1) urlStr.Append("target[0]=" + croThrVal(T_target1) + "&");
+                else
+                    urlStr.Append("target[0]=99&");
                 if (Convert.ToInt32(croThrVal(this.T_target2)) != 0&&Convert.ToInt32(croThrVal(this.T_target2)) != -1) urlStr.Append("target[1]=" + croThrVal(T_target2) + "&");
+                else
+                    urlStr.Append("target[1]=99&");
             }                       
             catch (Exception ex)    
             {                       
@@ -696,7 +700,9 @@ namespace javascripttest
                 if (M(croThrVal(C_soldier_5)) != 0) urlStr.Append("soldier[5]=" + croThrVal(C_soldier_5) + "&");
                 if (M(croThrVal(C_soldier_6)) != 0) urlStr.Append("soldier[6]=" + croThrVal(C_soldier_6) + "&");
                 if (Convert.ToInt32(croThrVal(this.C_T_target1)) != 0&& Convert.ToInt32(croThrVal(this.C_T_target1)) != -1) urlStr.Append("target[0]=" + croThrVal(C_T_target1) + "&");
+                else urlStr.Append("target[0]=99&");
                 if (Convert.ToInt32(croThrVal(this.C_T_target2)) != 0&& Convert.ToInt32(croThrVal(this.C_T_target2)) != -1) urlStr.Append("target[1]=" + croThrVal(C_T_target2) + "&");
+                else urlStr.Append("target[1]=99&");
             }
             catch (Exception ex)
             {
@@ -757,8 +763,8 @@ namespace javascripttest
                 if (M(croThrVal(this.H_soldier_1)) != 0) urlStr.Append("soldier[11]=" + croThrVal(H_soldier_11) + "&");
                 if (M(croThrVal(this.H_soldier_5)) != 0) urlStr.Append("soldier[5]=" +  croThrVal(H_soldier_5) + "&");
                 if (M(croThrVal(this.H_soldier_6)) != 0) urlStr.Append("soldier[6]=" +  croThrVal(H_soldier_6) + "&");
-                //if (Convert.ToInt32(this.C_T_target1.SelectedValue) != 0) urlStr.Append("target[0]=" + C_T_target1.SelectedValue + "&");
-                //if (Convert.ToInt32(this.C_T_target2.SelectedValue) != 0) urlStr.Append("target[1]=" + C_T_target2.SelectedValue + "&");
+                urlStr.Append("target[0]=99&");
+                urlStr.Append("target[1]=99&");
             }
             catch (Exception ex)
             {
