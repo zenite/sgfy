@@ -13,6 +13,6 @@ namespace javascripttest.entity
     {
         public delegate void recordLog(string log, int logindex);
         public delegate void refreshForm(string chief,string city,string x,string y,string corp);
-        public delegate void reLogin(object o);
+        public delegate void reLogin(AccountModel account);
     }
 }

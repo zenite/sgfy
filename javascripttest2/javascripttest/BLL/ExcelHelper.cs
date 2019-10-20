@@ -43,7 +43,7 @@ namespace javascripttest
                     strCom = " SELECT * FROM [Sheet1$] ";
                 else
                     strCom = "select * from " + new FileInfo(path).Name;
-                myConn.Open();
+                myConn.Open(); 
                 OleDbDataAdapter myCommand = new OleDbDataAdapter(strCom, myConn);
                 myCommand.Fill(ds, "Sheet1");
                 myConn.Close();

@@ -35,6 +35,16 @@
             this.rapidLoginBtn = new System.Windows.Forms.Button();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.other = new System.Windows.Forms.TabPage();
+            this.groupbox111 = new System.Windows.Forms.GroupBox();
+            this.delleague = new System.Windows.Forms.Button();
+            this.addleague = new System.Windows.Forms.Button();
+            this.handSelected = new System.Windows.Forms.ComboBox();
+            this.alliance = new System.Windows.Forms.TextBox();
+            this.label60 = new System.Windows.Forms.Label();
+            this.label59 = new System.Windows.Forms.Label();
+            this.label58 = new System.Windows.Forms.Label();
+            this.enemyleague = new System.Windows.Forms.ListView();
+            this.umeng = new System.Windows.Forms.ListView();
             this.groupBox18 = new System.Windows.Forms.GroupBox();
             this.enabledAuto = new System.Windows.Forms.CheckBox();
             this.txtqPwd = new System.Windows.Forms.TextBox();
@@ -178,7 +188,6 @@
             this.label32 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.defenseBattlePause = new System.Windows.Forms.Button();
-            this.DefenseBattleStop = new System.Windows.Forms.Button();
             this.defenseBattleStart = new System.Windows.Forms.Button();
             this.log2 = new System.Windows.Forms.ListBox();
             this.recr_Soldier = new System.Windows.Forms.TabPage();
@@ -254,6 +263,11 @@
             this.cb_bingying = new System.Windows.Forms.CheckBox();
             this.report = new javascripttest.report();
             this.armyact = new System.Windows.Forms.TabControl();
+            this.changePwd = new System.Windows.Forms.TabPage();
+            this.log6 = new System.Windows.Forms.ListBox();
+            this.label33 = new System.Windows.Forms.Label();
+            this.changeBtn = new System.Windows.Forms.Button();
+            this.pwdTxt = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.attack_start1 = new System.Windows.Forms.Button();
             this.attack_start2 = new System.Windows.Forms.Button();
@@ -267,6 +281,7 @@
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.other.SuspendLayout();
+            this.groupbox111.SuspendLayout();
             this.groupBox18.SuspendLayout();
             this.groupBox7.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -301,6 +316,7 @@
             this.resourseCollection.SuspendLayout();
             this.buildingsCollection.SuspendLayout();
             this.armyact.SuspendLayout();
+            this.changePwd.SuspendLayout();
             this.soldierShow.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.SuspendLayout();
@@ -311,7 +327,7 @@
             this.account_manager.Cursor = System.Windows.Forms.Cursors.Hand;
             this.account_manager.Location = new System.Drawing.Point(111, 10);
             this.account_manager.Name = "account_manager";
-            this.account_manager.Size = new System.Drawing.Size(77, 25);
+            this.account_manager.Size = new System.Drawing.Size(90, 28);
             this.account_manager.TabIndex = 4;
             this.account_manager.Text = "账号管理";
             this.account_manager.UseVisualStyleBackColor = true;
@@ -323,7 +339,7 @@
             this.btn_Start.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_Start.Location = new System.Drawing.Point(19, 10);
             this.btn_Start.Name = "btn_Start";
-            this.btn_Start.Size = new System.Drawing.Size(77, 25);
+            this.btn_Start.Size = new System.Drawing.Size(90, 28);
             this.btn_Start.TabIndex = 7;
             this.btn_Start.Text = "打码登陆";
             this.btn_Start.UseVisualStyleBackColor = true;
@@ -338,7 +354,7 @@
             this.rapidLoginBtn.AutoSize = true;
             this.rapidLoginBtn.Location = new System.Drawing.Point(202, 10);
             this.rapidLoginBtn.Name = "rapidLoginBtn";
-            this.rapidLoginBtn.Size = new System.Drawing.Size(77, 25);
+            this.rapidLoginBtn.Size = new System.Drawing.Size(90, 28);
             this.rapidLoginBtn.TabIndex = 11;
             this.rapidLoginBtn.Text = "快速登录";
             this.rapidLoginBtn.UseVisualStyleBackColor = true;
@@ -351,6 +367,7 @@
             // 
             // other
             // 
+            this.other.Controls.Add(this.groupbox111);
             this.other.Controls.Add(this.groupBox18);
             this.other.Controls.Add(this.groupBox7);
             this.other.Controls.Add(this.groupBox6);
@@ -359,8 +376,113 @@
             this.other.Padding = new System.Windows.Forms.Padding(3);
             this.other.Size = new System.Drawing.Size(1186, 523);
             this.other.TabIndex = 2;
-            this.other.Text = "注册";
+            this.other.Text = "设置";
             this.other.UseVisualStyleBackColor = true;
+            // 
+            // groupbox111
+            // 
+            this.groupbox111.Controls.Add(this.delleague);
+            this.groupbox111.Controls.Add(this.addleague);
+            this.groupbox111.Controls.Add(this.handSelected);
+            this.groupbox111.Controls.Add(this.alliance);
+            this.groupbox111.Controls.Add(this.label60);
+            this.groupbox111.Controls.Add(this.label59);
+            this.groupbox111.Controls.Add(this.label58);
+            this.groupbox111.Controls.Add(this.enemyleague);
+            this.groupbox111.Controls.Add(this.umeng);
+            this.groupbox111.Location = new System.Drawing.Point(499, 36);
+            this.groupbox111.Name = "groupbox111";
+            this.groupbox111.Size = new System.Drawing.Size(357, 491);
+            this.groupbox111.TabIndex = 4;
+            this.groupbox111.TabStop = false;
+            this.groupbox111.Text = "联盟设置";
+            // 
+            // delleague
+            // 
+            this.delleague.Location = new System.Drawing.Point(110, 50);
+            this.delleague.Name = "delleague";
+            this.delleague.Size = new System.Drawing.Size(75, 23);
+            this.delleague.TabIndex = 12;
+            this.delleague.Text = "删除";
+            this.delleague.UseVisualStyleBackColor = true;
+            this.delleague.Click += new System.EventHandler(this.delleague_Click);
+            // 
+            // addleague
+            // 
+            this.addleague.Location = new System.Drawing.Point(29, 49);
+            this.addleague.Name = "addleague";
+            this.addleague.Size = new System.Drawing.Size(75, 23);
+            this.addleague.TabIndex = 13;
+            this.addleague.Text = "添加";
+            this.addleague.UseVisualStyleBackColor = true;
+            this.addleague.Click += new System.EventHandler(this.addleague_Click);
+            // 
+            // handSelected
+            // 
+            this.handSelected.AutoCompleteCustomSource.AddRange(new string[] {
+            "友盟",
+            "敌盟"});
+            this.handSelected.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.handSelected.FormattingEnabled = true;
+            this.handSelected.Items.AddRange(new object[] {
+            "友盟",
+            "敌盟"});
+            this.handSelected.Location = new System.Drawing.Point(194, 22);
+            this.handSelected.Name = "handSelected";
+            this.handSelected.Size = new System.Drawing.Size(106, 21);
+            this.handSelected.TabIndex = 11;
+            // 
+            // alliance
+            // 
+            this.alliance.Location = new System.Drawing.Point(87, 22);
+            this.alliance.Name = "alliance";
+            this.alliance.Size = new System.Drawing.Size(100, 20);
+            this.alliance.TabIndex = 10;
+            // 
+            // label60
+            // 
+            this.label60.AutoSize = true;
+            this.label60.Location = new System.Drawing.Point(180, 91);
+            this.label60.Name = "label60";
+            this.label60.Size = new System.Drawing.Size(43, 13);
+            this.label60.TabIndex = 7;
+            this.label60.Text = "敌盟：";
+            // 
+            // label59
+            // 
+            this.label59.AutoSize = true;
+            this.label59.Location = new System.Drawing.Point(27, 91);
+            this.label59.Name = "label59";
+            this.label59.Size = new System.Drawing.Size(43, 13);
+            this.label59.TabIndex = 8;
+            this.label59.Text = "友盟：";
+            // 
+            // label58
+            // 
+            this.label58.AutoSize = true;
+            this.label58.Location = new System.Drawing.Point(27, 23);
+            this.label58.Name = "label58";
+            this.label58.Size = new System.Drawing.Size(67, 13);
+            this.label58.TabIndex = 9;
+            this.label58.Text = "输入联盟：";
+            // 
+            // enemyleague
+            // 
+            this.enemyleague.Location = new System.Drawing.Point(183, 106);
+            this.enemyleague.Name = "enemyleague";
+            this.enemyleague.Size = new System.Drawing.Size(145, 359);
+            this.enemyleague.TabIndex = 5;
+            this.enemyleague.UseCompatibleStateImageBehavior = false;
+            this.enemyleague.View = System.Windows.Forms.View.List;
+            // 
+            // umeng
+            // 
+            this.umeng.Location = new System.Drawing.Point(27, 106);
+            this.umeng.Name = "umeng";
+            this.umeng.Size = new System.Drawing.Size(140, 359);
+            this.umeng.TabIndex = 6;
+            this.umeng.UseCompatibleStateImageBehavior = false;
+            this.umeng.View = System.Windows.Forms.View.List;
             // 
             // groupBox18
             // 
@@ -369,9 +491,9 @@
             this.groupBox18.Controls.Add(this.txtqUser);
             this.groupBox18.Controls.Add(this.label31);
             this.groupBox18.Controls.Add(this.label30);
-            this.groupBox18.Location = new System.Drawing.Point(597, 199);
+            this.groupBox18.Location = new System.Drawing.Point(14, 382);
             this.groupBox18.Name = "groupBox18";
-            this.groupBox18.Size = new System.Drawing.Size(359, 145);
+            this.groupBox18.Size = new System.Drawing.Size(452, 135);
             this.groupBox18.TabIndex = 3;
             this.groupBox18.TabStop = false;
             this.groupBox18.Text = "自动登录账号密码";
@@ -381,7 +503,7 @@
             this.enabledAuto.AutoSize = true;
             this.enabledAuto.Location = new System.Drawing.Point(25, 26);
             this.enabledAuto.Name = "enabledAuto";
-            this.enabledAuto.Size = new System.Drawing.Size(74, 17);
+            this.enabledAuto.Size = new System.Drawing.Size(77, 17);
             this.enabledAuto.TabIndex = 6;
             this.enabledAuto.Text = "启用自动";
             this.enabledAuto.UseVisualStyleBackColor = true;
@@ -389,14 +511,14 @@
             // 
             // txtqPwd
             // 
-            this.txtqPwd.Location = new System.Drawing.Point(201, 97);
+            this.txtqPwd.Location = new System.Drawing.Point(140, 88);
             this.txtqPwd.Name = "txtqPwd";
             this.txtqPwd.Size = new System.Drawing.Size(100, 20);
             this.txtqPwd.TabIndex = 4;
             // 
             // txtqUser
             // 
-            this.txtqUser.Location = new System.Drawing.Point(201, 65);
+            this.txtqUser.Location = new System.Drawing.Point(140, 56);
             this.txtqUser.Name = "txtqUser";
             this.txtqUser.Size = new System.Drawing.Size(100, 20);
             this.txtqUser.TabIndex = 5;
@@ -404,7 +526,7 @@
             // label31
             // 
             this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(126, 100);
+            this.label31.Location = new System.Drawing.Point(65, 91);
             this.label31.Name = "label31";
             this.label31.Size = new System.Drawing.Size(43, 13);
             this.label31.TabIndex = 2;
@@ -413,7 +535,7 @@
             // label30
             // 
             this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(126, 68);
+            this.label30.Location = new System.Drawing.Point(65, 59);
             this.label30.Name = "label30";
             this.label30.Size = new System.Drawing.Size(55, 13);
             this.label30.TabIndex = 3;
@@ -478,7 +600,7 @@
             this.groupBox6.Controls.Add(this.register);
             this.groupBox6.Controls.Add(this.label9);
             this.groupBox6.Controls.Add(this.label7);
-            this.groupBox6.Location = new System.Drawing.Point(18, 199);
+            this.groupBox6.Location = new System.Drawing.Point(14, 142);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(452, 239);
             this.groupBox6.TabIndex = 0;
@@ -559,9 +681,9 @@
             // 
             this.log5.BackColor = System.Drawing.Color.White;
             this.log5.FormattingEnabled = true;
-            this.log5.Location = new System.Drawing.Point(15, 193);
+            this.log5.Location = new System.Drawing.Point(13, 193);
             this.log5.Name = "log5";
-            this.log5.Size = new System.Drawing.Size(1161, 303);
+            this.log5.Size = new System.Drawing.Size(1161, 290);
             this.log5.TabIndex = 12;
             // 
             // common_setting
@@ -857,7 +979,7 @@
             this.yamiao.AutoSize = true;
             this.yamiao.Location = new System.Drawing.Point(228, 17);
             this.yamiao.Name = "yamiao";
-            this.yamiao.Size = new System.Drawing.Size(50, 17);
+            this.yamiao.Size = new System.Drawing.Size(53, 17);
             this.yamiao.TabIndex = 18;
             this.yamiao.Text = "压秒";
             this.yamiao.UseVisualStyleBackColor = true;
@@ -891,7 +1013,7 @@
             this.wei_piao.AutoSize = true;
             this.wei_piao.Location = new System.Drawing.Point(13, 11);
             this.wei_piao.Name = "wei_piao";
-            this.wei_piao.Size = new System.Drawing.Size(50, 17);
+            this.wei_piao.Size = new System.Drawing.Size(53, 17);
             this.wei_piao.TabIndex = 6;
             this.wei_piao.Text = "朴刀";
             this.wei_piao.UseVisualStyleBackColor = true;
@@ -901,7 +1023,7 @@
             this.wei_zhong.AutoSize = true;
             this.wei_zhong.Location = new System.Drawing.Point(75, 11);
             this.wei_zhong.Name = "wei_zhong";
-            this.wei_zhong.Size = new System.Drawing.Size(62, 17);
+            this.wei_zhong.Size = new System.Drawing.Size(65, 17);
             this.wei_zhong.TabIndex = 7;
             this.wei_zhong.Text = "重步兵";
             this.wei_zhong.UseVisualStyleBackColor = true;
@@ -911,7 +1033,7 @@
             this.wu_zhongq.AutoSize = true;
             this.wu_zhongq.Location = new System.Drawing.Point(216, 33);
             this.wu_zhongq.Name = "wu_zhongq";
-            this.wu_zhongq.Size = new System.Drawing.Size(62, 17);
+            this.wu_zhongq.Size = new System.Drawing.Size(65, 17);
             this.wu_zhongq.TabIndex = 10;
             this.wu_zhongq.Text = "重骑兵";
             this.wu_zhongq.UseVisualStyleBackColor = true;
@@ -921,7 +1043,7 @@
             this.wu_geb.AutoSize = true;
             this.wu_geb.Location = new System.Drawing.Point(74, 35);
             this.wu_geb.Name = "wu_geb";
-            this.wu_geb.Size = new System.Drawing.Size(50, 17);
+            this.wu_geb.Size = new System.Drawing.Size(53, 17);
             this.wu_geb.TabIndex = 8;
             this.wu_geb.Text = "戈兵";
             this.wu_geb.UseVisualStyleBackColor = true;
@@ -931,7 +1053,7 @@
             this.shu_yulinw.AutoSize = true;
             this.shu_yulinw.Location = new System.Drawing.Point(214, 55);
             this.shu_yulinw.Name = "shu_yulinw";
-            this.shu_yulinw.Size = new System.Drawing.Size(62, 17);
+            this.shu_yulinw.Size = new System.Drawing.Size(65, 17);
             this.shu_yulinw.TabIndex = 10;
             this.shu_yulinw.Text = "羽林卫";
             this.shu_yulinw.UseVisualStyleBackColor = true;
@@ -941,7 +1063,7 @@
             this.shu_changqb.AutoSize = true;
             this.shu_changqb.Location = new System.Drawing.Point(13, 56);
             this.shu_changqb.Name = "shu_changqb";
-            this.shu_changqb.Size = new System.Drawing.Size(62, 17);
+            this.shu_changqb.Size = new System.Drawing.Size(65, 17);
             this.shu_changqb.TabIndex = 9;
             this.shu_changqb.Text = "长枪兵";
             this.shu_changqb.UseVisualStyleBackColor = true;
@@ -951,7 +1073,7 @@
             this.wei_qingz.AutoSize = true;
             this.wei_qingz.Location = new System.Drawing.Point(280, 12);
             this.wei_qingz.Name = "wei_qingz";
-            this.wei_qingz.Size = new System.Drawing.Size(74, 17);
+            this.wei_qingz.Size = new System.Drawing.Size(77, 17);
             this.wei_qingz.TabIndex = 9;
             this.wei_qingz.Text = "青州骑兵";
             this.wei_qingz.UseVisualStyleBackColor = true;
@@ -961,7 +1083,7 @@
             this.wei_gongqi.AutoSize = true;
             this.wei_gongqi.Location = new System.Drawing.Point(216, 12);
             this.wei_gongqi.Name = "wei_gongqi";
-            this.wei_gongqi.Size = new System.Drawing.Size(62, 17);
+            this.wei_gongqi.Size = new System.Drawing.Size(65, 17);
             this.wei_gongqi.TabIndex = 10;
             this.wei_gongqi.Text = "弓骑兵";
             this.wei_gongqi.UseVisualStyleBackColor = true;
@@ -971,7 +1093,7 @@
             this.wu_jinweiq.AutoSize = true;
             this.wu_jinweiq.Location = new System.Drawing.Point(280, 34);
             this.wu_jinweiq.Name = "wu_jinweiq";
-            this.wu_jinweiq.Size = new System.Drawing.Size(74, 17);
+            this.wu_jinweiq.Size = new System.Drawing.Size(77, 17);
             this.wu_jinweiq.TabIndex = 10;
             this.wu_jinweiq.Text = "近卫骑兵";
             this.wu_jinweiq.UseVisualStyleBackColor = true;
@@ -981,7 +1103,7 @@
             this.wu_jianb.AutoSize = true;
             this.wu_jianb.Location = new System.Drawing.Point(13, 35);
             this.wu_jianb.Name = "wu_jianb";
-            this.wu_jianb.Size = new System.Drawing.Size(50, 17);
+            this.wu_jianb.Size = new System.Drawing.Size(53, 17);
             this.wu_jianb.TabIndex = 9;
             this.wu_jianb.Text = "剑兵";
             this.wu_jianb.UseVisualStyleBackColor = true;
@@ -991,7 +1113,7 @@
             this.shu_liannub.AutoSize = true;
             this.shu_liannub.Location = new System.Drawing.Point(278, 56);
             this.shu_liannub.Name = "shu_liannub";
-            this.shu_liannub.Size = new System.Drawing.Size(62, 17);
+            this.shu_liannub.Size = new System.Drawing.Size(65, 17);
             this.shu_liannub.TabIndex = 10;
             this.shu_liannub.Text = "连弩兵";
             this.shu_liannub.UseVisualStyleBackColor = true;
@@ -1001,7 +1123,7 @@
             this.shu_mingb.AutoSize = true;
             this.shu_mingb.Location = new System.Drawing.Point(74, 56);
             this.shu_mingb.Name = "shu_mingb";
-            this.shu_mingb.Size = new System.Drawing.Size(50, 17);
+            this.shu_mingb.Size = new System.Drawing.Size(53, 17);
             this.shu_mingb.TabIndex = 10;
             this.shu_mingb.Text = "民兵";
             this.shu_mingb.UseVisualStyleBackColor = true;
@@ -1011,7 +1133,7 @@
             this.shu_dadaob.AutoSize = true;
             this.shu_dadaob.Location = new System.Drawing.Point(139, 55);
             this.shu_dadaob.Name = "shu_dadaob";
-            this.shu_dadaob.Size = new System.Drawing.Size(62, 17);
+            this.shu_dadaob.Size = new System.Drawing.Size(65, 17);
             this.shu_dadaob.TabIndex = 9;
             this.shu_dadaob.Text = "大刀兵";
             this.shu_dadaob.UseVisualStyleBackColor = true;
@@ -1021,7 +1143,7 @@
             this.wu_shenb.AutoSize = true;
             this.wu_shenb.Location = new System.Drawing.Point(139, 33);
             this.wu_shenb.Name = "wu_shenb";
-            this.wu_shenb.Size = new System.Drawing.Size(74, 17);
+            this.wu_shenb.Size = new System.Drawing.Size(77, 17);
             this.wu_shenb.TabIndex = 10;
             this.wu_shenb.Text = "神臂弓兵";
             this.wu_shenb.UseVisualStyleBackColor = true;
@@ -1031,7 +1153,7 @@
             this.wei_jinwei.AutoSize = true;
             this.wei_jinwei.Location = new System.Drawing.Point(139, 11);
             this.wei_jinwei.Name = "wei_jinwei";
-            this.wei_jinwei.Size = new System.Drawing.Size(62, 17);
+            this.wei_jinwei.Size = new System.Drawing.Size(65, 17);
             this.wei_jinwei.TabIndex = 10;
             this.wei_jinwei.Text = "近卫兵";
             this.wei_jinwei.UseVisualStyleBackColor = true;
@@ -1068,7 +1190,7 @@
             this.piliche.AutoSize = true;
             this.piliche.Location = new System.Drawing.Point(6, 19);
             this.piliche.Name = "piliche";
-            this.piliche.Size = new System.Drawing.Size(62, 17);
+            this.piliche.Size = new System.Drawing.Size(65, 17);
             this.piliche.TabIndex = 9;
             this.piliche.Text = "霹雳车";
             this.piliche.UseVisualStyleBackColor = true;
@@ -1078,7 +1200,7 @@
             this.chongche.AutoSize = true;
             this.chongche.Location = new System.Drawing.Point(6, 41);
             this.chongche.Name = "chongche";
-            this.chongche.Size = new System.Drawing.Size(50, 17);
+            this.chongche.Size = new System.Drawing.Size(53, 17);
             this.chongche.TabIndex = 10;
             this.chongche.Text = "冲车";
             this.chongche.UseVisualStyleBackColor = true;
@@ -1258,7 +1380,7 @@
             this.log4.FormattingEnabled = true;
             this.log4.Location = new System.Drawing.Point(15, 241);
             this.log4.Name = "log4";
-            this.log4.Size = new System.Drawing.Size(1161, 264);
+            this.log4.Size = new System.Drawing.Size(1161, 251);
             this.log4.TabIndex = 11;
             // 
             // transport
@@ -1338,7 +1460,7 @@
             this.restrictTime.Location = new System.Drawing.Point(444, 52);
             this.restrictTime.Name = "restrictTime";
             this.restrictTime.Size = new System.Drawing.Size(61, 20);
-            this.restrictTime.TabIndex = 5;
+            this.restrictTime.TabIndex = 118;
             this.restrictTime.TextChanged += new System.EventHandler(this.setAttr);
             // 
             // Trader_Target_X
@@ -1346,7 +1468,7 @@
             this.Trader_Target_X.Location = new System.Drawing.Point(89, 29);
             this.Trader_Target_X.Name = "Trader_Target_X";
             this.Trader_Target_X.Size = new System.Drawing.Size(64, 20);
-            this.Trader_Target_X.TabIndex = 1;
+            this.Trader_Target_X.TabIndex = 111;
             this.Trader_Target_X.TextChanged += new System.EventHandler(this.setAttr);
             // 
             // Tran_Timespan
@@ -1354,7 +1476,7 @@
             this.Tran_Timespan.Location = new System.Drawing.Point(405, 29);
             this.Tran_Timespan.Name = "Tran_Timespan";
             this.Tran_Timespan.Size = new System.Drawing.Size(100, 20);
-            this.Tran_Timespan.TabIndex = 5;
+            this.Tran_Timespan.TabIndex = 117;
             this.Tran_Timespan.TextChanged += new System.EventHandler(this.setAttr);
             // 
             // Trader_Resource_Lumber
@@ -1362,7 +1484,7 @@
             this.Trader_Resource_Lumber.Location = new System.Drawing.Point(89, 58);
             this.Trader_Resource_Lumber.Name = "Trader_Resource_Lumber";
             this.Trader_Resource_Lumber.Size = new System.Drawing.Size(30, 20);
-            this.Trader_Resource_Lumber.TabIndex = 1;
+            this.Trader_Resource_Lumber.TabIndex = 113;
             this.Trader_Resource_Lumber.TextChanged += new System.EventHandler(this.setAttr);
             // 
             // label18
@@ -1379,7 +1501,7 @@
             this.Trader_Resource_Clay.Location = new System.Drawing.Point(125, 58);
             this.Trader_Resource_Clay.Name = "Trader_Resource_Clay";
             this.Trader_Resource_Clay.Size = new System.Drawing.Size(30, 20);
-            this.Trader_Resource_Clay.TabIndex = 1;
+            this.Trader_Resource_Clay.TabIndex = 114;
             this.Trader_Resource_Clay.TextChanged += new System.EventHandler(this.setAttr);
             // 
             // TranPause
@@ -1390,13 +1512,14 @@
             this.TranPause.TabIndex = 3;
             this.TranPause.Text = "暂停";
             this.TranPause.UseVisualStyleBackColor = true;
+            this.TranPause.Click += new System.EventHandler(this.TranPause_Click);
             // 
             // Trader_Resource_Crop
             // 
             this.Trader_Resource_Crop.Location = new System.Drawing.Point(199, 58);
             this.Trader_Resource_Crop.Name = "Trader_Resource_Crop";
             this.Trader_Resource_Crop.Size = new System.Drawing.Size(30, 20);
-            this.Trader_Resource_Crop.TabIndex = 1;
+            this.Trader_Resource_Crop.TabIndex = 116;
             this.Trader_Resource_Crop.TextChanged += new System.EventHandler(this.setAttr);
             // 
             // TranStart
@@ -1414,7 +1537,7 @@
             this.Trader_Resource_Iron.Location = new System.Drawing.Point(161, 58);
             this.Trader_Resource_Iron.Name = "Trader_Resource_Iron";
             this.Trader_Resource_Iron.Size = new System.Drawing.Size(30, 20);
-            this.Trader_Resource_Iron.TabIndex = 1;
+            this.Trader_Resource_Iron.TabIndex = 115;
             this.Trader_Resource_Iron.TextChanged += new System.EventHandler(this.setAttr);
             // 
             // label17
@@ -1431,7 +1554,7 @@
             this.Trader_Target_Y.Location = new System.Drawing.Point(168, 29);
             this.Trader_Target_Y.Name = "Trader_Target_Y";
             this.Trader_Target_Y.Size = new System.Drawing.Size(64, 20);
-            this.Trader_Target_Y.TabIndex = 1;
+            this.Trader_Target_Y.TabIndex = 112;
             this.Trader_Target_Y.TextChanged += new System.EventHandler(this.setAttr);
             // 
             // label16
@@ -1449,7 +1572,7 @@
             this.log3.FormattingEnabled = true;
             this.log3.Location = new System.Drawing.Point(15, 193);
             this.log3.Name = "log3";
-            this.log3.Size = new System.Drawing.Size(1161, 303);
+            this.log3.Size = new System.Drawing.Size(1161, 290);
             this.log3.TabIndex = 6;
             // 
             // defense
@@ -1469,7 +1592,6 @@
             this.groupBox16.Controls.Add(this.groupBox2);
             this.groupBox16.Controls.Add(this.groupBox3);
             this.groupBox16.Controls.Add(this.defenseBattlePause);
-            this.groupBox16.Controls.Add(this.DefenseBattleStop);
             this.groupBox16.Controls.Add(this.defenseBattleStart);
             this.groupBox16.Location = new System.Drawing.Point(14, 7);
             this.groupBox16.Name = "groupBox16";
@@ -1574,7 +1696,7 @@
             this.Direct_graincentre.AutoSize = true;
             this.Direct_graincentre.Location = new System.Drawing.Point(16, 97);
             this.Direct_graincentre.Name = "Direct_graincentre";
-            this.Direct_graincentre.Size = new System.Drawing.Size(61, 17);
+            this.Direct_graincentre.Size = new System.Drawing.Size(64, 17);
             this.Direct_graincentre.TabIndex = 0;
             this.Direct_graincentre.TabStop = true;
             this.Direct_graincentre.Text = "屯田所";
@@ -1586,7 +1708,7 @@
             this.Direct_stronghold.AutoSize = true;
             this.Direct_stronghold.Location = new System.Drawing.Point(16, 60);
             this.Direct_stronghold.Name = "Direct_stronghold";
-            this.Direct_stronghold.Size = new System.Drawing.Size(49, 17);
+            this.Direct_stronghold.Size = new System.Drawing.Size(52, 17);
             this.Direct_stronghold.TabIndex = 0;
             this.Direct_stronghold.TabStop = true;
             this.Direct_stronghold.Text = "据点";
@@ -1599,7 +1721,7 @@
             this.Direct_city.AutoSize = true;
             this.Direct_city.Location = new System.Drawing.Point(16, 20);
             this.Direct_city.Name = "Direct_city";
-            this.Direct_city.Size = new System.Drawing.Size(49, 17);
+            this.Direct_city.Size = new System.Drawing.Size(52, 17);
             this.Direct_city.TabIndex = 0;
             this.Direct_city.TabStop = true;
             this.Direct_city.Text = "城镇";
@@ -1648,7 +1770,7 @@
             this.chihou.AutoSize = true;
             this.chihou.Location = new System.Drawing.Point(152, 14);
             this.chihou.Name = "chihou";
-            this.chihou.Size = new System.Drawing.Size(50, 17);
+            this.chihou.Size = new System.Drawing.Size(53, 17);
             this.chihou.TabIndex = 11;
             this.chihou.Text = "斥候";
             this.chihou.UseVisualStyleBackColor = true;
@@ -1659,7 +1781,7 @@
             this.wei_piaodao.AutoSize = true;
             this.wei_piaodao.Location = new System.Drawing.Point(3, 14);
             this.wei_piaodao.Name = "wei_piaodao";
-            this.wei_piaodao.Size = new System.Drawing.Size(62, 17);
+            this.wei_piaodao.Size = new System.Drawing.Size(65, 17);
             this.wei_piaodao.TabIndex = 6;
             this.wei_piaodao.Text = "朴刀兵";
             this.wei_piaodao.UseVisualStyleBackColor = true;
@@ -1670,7 +1792,7 @@
             this.wei_zhongbu.AutoSize = true;
             this.wei_zhongbu.Location = new System.Drawing.Point(3, 35);
             this.wei_zhongbu.Name = "wei_zhongbu";
-            this.wei_zhongbu.Size = new System.Drawing.Size(62, 17);
+            this.wei_zhongbu.Size = new System.Drawing.Size(65, 17);
             this.wei_zhongbu.TabIndex = 7;
             this.wei_zhongbu.Text = "重步兵";
             this.wei_zhongbu.UseVisualStyleBackColor = true;
@@ -1681,7 +1803,7 @@
             this.wu_gebing.AutoSize = true;
             this.wu_gebing.Location = new System.Drawing.Point(3, 56);
             this.wu_gebing.Name = "wu_gebing";
-            this.wu_gebing.Size = new System.Drawing.Size(50, 17);
+            this.wu_gebing.Size = new System.Drawing.Size(53, 17);
             this.wu_gebing.TabIndex = 8;
             this.wu_gebing.Text = "戈兵";
             this.wu_gebing.UseVisualStyleBackColor = true;
@@ -1692,7 +1814,7 @@
             this.shu_changqiang.AutoSize = true;
             this.shu_changqiang.Location = new System.Drawing.Point(78, 57);
             this.shu_changqiang.Name = "shu_changqiang";
-            this.shu_changqiang.Size = new System.Drawing.Size(62, 17);
+            this.shu_changqiang.Size = new System.Drawing.Size(65, 17);
             this.shu_changqiang.TabIndex = 9;
             this.shu_changqiang.Text = "长枪兵";
             this.shu_changqiang.UseVisualStyleBackColor = true;
@@ -1703,7 +1825,7 @@
             this.shu_qiangqi.AutoSize = true;
             this.shu_qiangqi.Location = new System.Drawing.Point(152, 38);
             this.shu_qiangqi.Name = "shu_qiangqi";
-            this.shu_qiangqi.Size = new System.Drawing.Size(62, 17);
+            this.shu_qiangqi.Size = new System.Drawing.Size(65, 17);
             this.shu_qiangqi.TabIndex = 9;
             this.shu_qiangqi.Text = "枪骑兵";
             this.shu_qiangqi.UseVisualStyleBackColor = true;
@@ -1714,7 +1836,7 @@
             this.wu_jinweiqi.AutoSize = true;
             this.wu_jinweiqi.Location = new System.Drawing.Point(78, 37);
             this.wu_jinweiqi.Name = "wu_jinweiqi";
-            this.wu_jinweiqi.Size = new System.Drawing.Size(74, 17);
+            this.wu_jinweiqi.Size = new System.Drawing.Size(77, 17);
             this.wu_jinweiqi.TabIndex = 10;
             this.wu_jinweiqi.Text = "近卫骑兵";
             this.wu_jinweiqi.UseVisualStyleBackColor = true;
@@ -1725,7 +1847,7 @@
             this.wu_zhongqi.AutoSize = true;
             this.wu_zhongqi.Location = new System.Drawing.Point(78, 16);
             this.wu_zhongqi.Name = "wu_zhongqi";
-            this.wu_zhongqi.Size = new System.Drawing.Size(74, 17);
+            this.wu_zhongqi.Size = new System.Drawing.Size(77, 17);
             this.wu_zhongqi.TabIndex = 10;
             this.wu_zhongqi.Text = "重装骑兵";
             this.wu_zhongqi.UseVisualStyleBackColor = true;
@@ -1753,7 +1875,7 @@
             this.checkBox9.AutoSize = true;
             this.checkBox9.Location = new System.Drawing.Point(552, 90);
             this.checkBox9.Name = "checkBox9";
-            this.checkBox9.Size = new System.Drawing.Size(74, 17);
+            this.checkBox9.Size = new System.Drawing.Size(77, 17);
             this.checkBox9.TabIndex = 12;
             this.checkBox9.Text = "不求压秒";
             this.checkBox9.UseVisualStyleBackColor = true;
@@ -1859,16 +1981,6 @@
             this.defenseBattlePause.UseVisualStyleBackColor = true;
             this.defenseBattlePause.Click += new System.EventHandler(this.defenseBattlePause_Click);
             // 
-            // DefenseBattleStop
-            // 
-            this.DefenseBattleStop.Location = new System.Drawing.Point(1080, 118);
-            this.DefenseBattleStop.Name = "DefenseBattleStop";
-            this.DefenseBattleStop.Size = new System.Drawing.Size(61, 23);
-            this.DefenseBattleStop.TabIndex = 1;
-            this.DefenseBattleStop.Text = "终止";
-            this.DefenseBattleStop.UseVisualStyleBackColor = true;
-            this.DefenseBattleStop.Click += new System.EventHandler(this.DefenseBattleStop_Click);
-            // 
             // defenseBattleStart
             // 
             this.defenseBattleStart.Location = new System.Drawing.Point(1080, 29);
@@ -1885,7 +1997,7 @@
             this.log2.FormattingEnabled = true;
             this.log2.Location = new System.Drawing.Point(15, 193);
             this.log2.Name = "log2";
-            this.log2.Size = new System.Drawing.Size(1161, 303);
+            this.log2.Size = new System.Drawing.Size(1161, 290);
             this.log2.TabIndex = 5;
             // 
             // recr_Soldier
@@ -2002,12 +2114,12 @@
             this.SoldiersType.Name = "SoldiersType";
             this.SoldiersType.Size = new System.Drawing.Size(94, 21);
             this.SoldiersType.TabIndex = 1;
-            this.SoldiersType.SelectedIndexChanged += new System.EventHandler(this.setAttr);
+            this.SoldiersType.SelectedIndexChanged += new System.EventHandler(this.SoldiersType_SelectedIndexChanged);
             // 
             // label11
             // 
             this.label11.AllowDrop = true;
-            this.label11.Font = new System.Drawing.Font("SimSun", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label11.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label11.Location = new System.Drawing.Point(557, 30);
             this.label11.Name = "label11";
             this.label11.Padding = new System.Windows.Forms.Padding(3);
@@ -2029,9 +2141,9 @@
             this.attackSetting.Controls.Add(this.Soldier_gj_j);
             this.attackSetting.Controls.Add(this.Soldier_gj_qz);
             this.attackSetting.Controls.Add(this.ch_jinweibing);
-            this.attackSetting.Location = new System.Drawing.Point(767, 24);
+            this.attackSetting.Location = new System.Drawing.Point(794, 17);
             this.attackSetting.Name = "attackSetting";
-            this.attackSetting.Size = new System.Drawing.Size(258, 134);
+            this.attackSetting.Size = new System.Drawing.Size(275, 140);
             this.attackSetting.TabIndex = 0;
             this.attackSetting.TabStop = false;
             this.attackSetting.Text = "募兵选项（攻击）";
@@ -2042,7 +2154,7 @@
             this.ch_chongche.AutoSize = true;
             this.ch_chongche.Location = new System.Drawing.Point(85, 91);
             this.ch_chongche.Name = "ch_chongche";
-            this.ch_chongche.Size = new System.Drawing.Size(50, 17);
+            this.ch_chongche.Size = new System.Drawing.Size(53, 17);
             this.ch_chongche.TabIndex = 21;
             this.ch_chongche.Text = "冲车";
             this.ch_chongche.UseVisualStyleBackColor = true;
@@ -2053,7 +2165,7 @@
             this.ch_pili.AutoSize = true;
             this.ch_pili.Location = new System.Drawing.Point(20, 91);
             this.ch_pili.Name = "ch_pili";
-            this.ch_pili.Size = new System.Drawing.Size(62, 17);
+            this.ch_pili.Size = new System.Drawing.Size(65, 17);
             this.ch_pili.TabIndex = 21;
             this.ch_pili.Text = "霹雳车";
             this.ch_pili.UseVisualStyleBackColor = true;
@@ -2064,7 +2176,7 @@
             this.Soldier_gj_jwq.AutoSize = true;
             this.Soldier_gj_jwq.Location = new System.Drawing.Point(163, 42);
             this.Soldier_gj_jwq.Name = "Soldier_gj_jwq";
-            this.Soldier_gj_jwq.Size = new System.Drawing.Size(74, 17);
+            this.Soldier_gj_jwq.Size = new System.Drawing.Size(77, 17);
             this.Soldier_gj_jwq.TabIndex = 19;
             this.Soldier_gj_jwq.Text = "近卫骑兵";
             this.Soldier_gj_jwq.UseVisualStyleBackColor = true;
@@ -2075,7 +2187,7 @@
             this.Soldier_gj_sbg.AutoSize = true;
             this.Soldier_gj_sbg.Location = new System.Drawing.Point(85, 42);
             this.Soldier_gj_sbg.Name = "Soldier_gj_sbg";
-            this.Soldier_gj_sbg.Size = new System.Drawing.Size(74, 17);
+            this.Soldier_gj_sbg.Size = new System.Drawing.Size(77, 17);
             this.Soldier_gj_sbg.TabIndex = 20;
             this.Soldier_gj_sbg.Text = "神臂弓兵";
             this.Soldier_gj_sbg.UseVisualStyleBackColor = true;
@@ -2086,7 +2198,7 @@
             this.Soldier_gj_gq.AutoSize = true;
             this.Soldier_gj_gq.Location = new System.Drawing.Point(164, 20);
             this.Soldier_gj_gq.Name = "Soldier_gj_gq";
-            this.Soldier_gj_gq.Size = new System.Drawing.Size(62, 17);
+            this.Soldier_gj_gq.Size = new System.Drawing.Size(65, 17);
             this.Soldier_gj_gq.TabIndex = 16;
             this.Soldier_gj_gq.Text = "弓骑兵";
             this.Soldier_gj_gq.UseVisualStyleBackColor = true;
@@ -2097,7 +2209,7 @@
             this.Soldier_gj_ln.AutoSize = true;
             this.Soldier_gj_ln.Location = new System.Drawing.Point(85, 66);
             this.Soldier_gj_ln.Name = "Soldier_gj_ln";
-            this.Soldier_gj_ln.Size = new System.Drawing.Size(62, 17);
+            this.Soldier_gj_ln.Size = new System.Drawing.Size(65, 17);
             this.Soldier_gj_ln.TabIndex = 17;
             this.Soldier_gj_ln.Text = "连弩兵";
             this.Soldier_gj_ln.UseVisualStyleBackColor = true;
@@ -2108,7 +2220,7 @@
             this.Soldier_gj_ylw.AutoSize = true;
             this.Soldier_gj_ylw.Location = new System.Drawing.Point(162, 67);
             this.Soldier_gj_ylw.Name = "Soldier_gj_ylw";
-            this.Soldier_gj_ylw.Size = new System.Drawing.Size(62, 17);
+            this.Soldier_gj_ylw.Size = new System.Drawing.Size(65, 17);
             this.Soldier_gj_ylw.TabIndex = 17;
             this.Soldier_gj_ylw.Text = "羽林卫";
             this.Soldier_gj_ylw.UseVisualStyleBackColor = true;
@@ -2119,7 +2231,7 @@
             this.Soldier_gj_dd.AutoSize = true;
             this.Soldier_gj_dd.Location = new System.Drawing.Point(20, 66);
             this.Soldier_gj_dd.Name = "Soldier_gj_dd";
-            this.Soldier_gj_dd.Size = new System.Drawing.Size(62, 17);
+            this.Soldier_gj_dd.Size = new System.Drawing.Size(65, 17);
             this.Soldier_gj_dd.TabIndex = 18;
             this.Soldier_gj_dd.Text = "大刀兵";
             this.Soldier_gj_dd.UseVisualStyleBackColor = true;
@@ -2130,7 +2242,7 @@
             this.Soldier_gj_j.AutoSize = true;
             this.Soldier_gj_j.Location = new System.Drawing.Point(20, 42);
             this.Soldier_gj_j.Name = "Soldier_gj_j";
-            this.Soldier_gj_j.Size = new System.Drawing.Size(50, 17);
+            this.Soldier_gj_j.Size = new System.Drawing.Size(53, 17);
             this.Soldier_gj_j.TabIndex = 15;
             this.Soldier_gj_j.Text = "剑兵";
             this.Soldier_gj_j.UseVisualStyleBackColor = true;
@@ -2141,7 +2253,7 @@
             this.Soldier_gj_qz.AutoSize = true;
             this.Soldier_gj_qz.Location = new System.Drawing.Point(85, 20);
             this.Soldier_gj_qz.Name = "Soldier_gj_qz";
-            this.Soldier_gj_qz.Size = new System.Drawing.Size(74, 17);
+            this.Soldier_gj_qz.Size = new System.Drawing.Size(77, 17);
             this.Soldier_gj_qz.TabIndex = 14;
             this.Soldier_gj_qz.Text = "青州骑兵";
             this.Soldier_gj_qz.UseVisualStyleBackColor = true;
@@ -2152,7 +2264,7 @@
             this.ch_jinweibing.AutoSize = true;
             this.ch_jinweibing.Location = new System.Drawing.Point(21, 20);
             this.ch_jinweibing.Name = "ch_jinweibing";
-            this.ch_jinweibing.Size = new System.Drawing.Size(62, 17);
+            this.ch_jinweibing.Size = new System.Drawing.Size(65, 17);
             this.ch_jinweibing.TabIndex = 13;
             this.ch_jinweibing.Text = "近卫兵";
             this.ch_jinweibing.UseVisualStyleBackColor = true;
@@ -2173,7 +2285,7 @@
             this.defenseSetting.Controls.Add(this.ch_piaodao);
             this.defenseSetting.Location = new System.Drawing.Point(785, 17);
             this.defenseSetting.Name = "defenseSetting";
-            this.defenseSetting.Size = new System.Drawing.Size(212, 125);
+            this.defenseSetting.Size = new System.Drawing.Size(215, 125);
             this.defenseSetting.TabIndex = 0;
             this.defenseSetting.TabStop = false;
             this.defenseSetting.Text = "募兵选项（防御）";
@@ -2184,7 +2296,7 @@
             this.ch_shuike.AutoSize = true;
             this.ch_shuike.Location = new System.Drawing.Point(86, 88);
             this.ch_shuike.Name = "ch_shuike";
-            this.ch_shuike.Size = new System.Drawing.Size(50, 17);
+            this.ch_shuike.Size = new System.Drawing.Size(53, 17);
             this.ch_shuike.TabIndex = 22;
             this.ch_shuike.Text = "说客";
             this.ch_shuike.UseVisualStyleBackColor = true;
@@ -2195,7 +2307,7 @@
             this.ch_kenhuang.AutoSize = true;
             this.ch_kenhuang.Location = new System.Drawing.Point(13, 89);
             this.ch_kenhuang.Name = "ch_kenhuang";
-            this.ch_kenhuang.Size = new System.Drawing.Size(50, 17);
+            this.ch_kenhuang.Size = new System.Drawing.Size(53, 17);
             this.ch_kenhuang.TabIndex = 23;
             this.ch_kenhuang.Text = "垦荒";
             this.ch_kenhuang.UseVisualStyleBackColor = true;
@@ -2206,7 +2318,7 @@
             this.Soldier_jwq.AutoSize = true;
             this.Soldier_jwq.Location = new System.Drawing.Point(117, 44);
             this.Soldier_jwq.Name = "Soldier_jwq";
-            this.Soldier_jwq.Size = new System.Drawing.Size(74, 17);
+            this.Soldier_jwq.Size = new System.Drawing.Size(77, 17);
             this.Soldier_jwq.TabIndex = 19;
             this.Soldier_jwq.Text = "近卫骑兵";
             this.Soldier_jwq.UseVisualStyleBackColor = true;
@@ -2217,7 +2329,7 @@
             this.Soldier_zq.AutoSize = true;
             this.Soldier_zq.Location = new System.Drawing.Point(13, 44);
             this.Soldier_zq.Name = "Soldier_zq";
-            this.Soldier_zq.Size = new System.Drawing.Size(74, 17);
+            this.Soldier_zq.Size = new System.Drawing.Size(77, 17);
             this.Soldier_zq.TabIndex = 20;
             this.Soldier_zq.Text = "重装骑兵";
             this.Soldier_zq.UseVisualStyleBackColor = true;
@@ -2228,7 +2340,7 @@
             this.Soldier_qq.AutoSize = true;
             this.Soldier_qq.Location = new System.Drawing.Point(86, 66);
             this.Soldier_qq.Name = "Soldier_qq";
-            this.Soldier_qq.Size = new System.Drawing.Size(62, 17);
+            this.Soldier_qq.Size = new System.Drawing.Size(65, 17);
             this.Soldier_qq.TabIndex = 17;
             this.Soldier_qq.Text = "枪骑兵";
             this.Soldier_qq.UseVisualStyleBackColor = true;
@@ -2239,7 +2351,7 @@
             this.Soldier_cq.AutoSize = true;
             this.Soldier_cq.Location = new System.Drawing.Point(14, 66);
             this.Soldier_cq.Name = "Soldier_cq";
-            this.Soldier_cq.Size = new System.Drawing.Size(62, 17);
+            this.Soldier_cq.Size = new System.Drawing.Size(65, 17);
             this.Soldier_cq.TabIndex = 18;
             this.Soldier_cq.Text = "长枪兵";
             this.Soldier_cq.UseVisualStyleBackColor = true;
@@ -2250,7 +2362,7 @@
             this.Soldier_g.AutoSize = true;
             this.Soldier_g.Location = new System.Drawing.Point(156, 19);
             this.Soldier_g.Name = "Soldier_g";
-            this.Soldier_g.Size = new System.Drawing.Size(50, 17);
+            this.Soldier_g.Size = new System.Drawing.Size(53, 17);
             this.Soldier_g.TabIndex = 15;
             this.Soldier_g.Text = "戈兵";
             this.Soldier_g.UseVisualStyleBackColor = true;
@@ -2261,7 +2373,7 @@
             this.ch_zhongbu.AutoSize = true;
             this.ch_zhongbu.Location = new System.Drawing.Point(86, 19);
             this.ch_zhongbu.Name = "ch_zhongbu";
-            this.ch_zhongbu.Size = new System.Drawing.Size(62, 17);
+            this.ch_zhongbu.Size = new System.Drawing.Size(65, 17);
             this.ch_zhongbu.TabIndex = 14;
             this.ch_zhongbu.Text = "重步兵";
             this.ch_zhongbu.UseVisualStyleBackColor = true;
@@ -2272,7 +2384,7 @@
             this.ch_piaodao.AutoSize = true;
             this.ch_piaodao.Location = new System.Drawing.Point(15, 19);
             this.ch_piaodao.Name = "ch_piaodao";
-            this.ch_piaodao.Size = new System.Drawing.Size(62, 17);
+            this.ch_piaodao.Size = new System.Drawing.Size(65, 17);
             this.ch_piaodao.TabIndex = 13;
             this.ch_piaodao.Text = "朴刀兵";
             this.ch_piaodao.UseVisualStyleBackColor = true;
@@ -2284,7 +2396,7 @@
             this.log1.FormattingEnabled = true;
             this.log1.Location = new System.Drawing.Point(15, 193);
             this.log1.Name = "log1";
-            this.log1.Size = new System.Drawing.Size(1161, 303);
+            this.log1.Size = new System.Drawing.Size(1161, 290);
             this.log1.TabIndex = 4;
             // 
             // construction
@@ -2332,7 +2444,7 @@
             this.cb_caitiechang.AutoSize = true;
             this.cb_caitiechang.Location = new System.Drawing.Point(345, 26);
             this.cb_caitiechang.Name = "cb_caitiechang";
-            this.cb_caitiechang.Size = new System.Drawing.Size(62, 17);
+            this.cb_caitiechang.Size = new System.Drawing.Size(65, 17);
             this.cb_caitiechang.TabIndex = 0;
             this.cb_caitiechang.Text = "采铁厂";
             this.cb_caitiechang.UseVisualStyleBackColor = true;
@@ -2344,7 +2456,7 @@
             this.cb_tiekuang.AutoSize = true;
             this.cb_tiekuang.Location = new System.Drawing.Point(113, 26);
             this.cb_tiekuang.Name = "cb_tiekuang";
-            this.cb_tiekuang.Size = new System.Drawing.Size(50, 17);
+            this.cb_tiekuang.Size = new System.Drawing.Size(53, 17);
             this.cb_tiekuang.TabIndex = 0;
             this.cb_tiekuang.Text = "铁矿";
             this.cb_tiekuang.UseVisualStyleBackColor = true;
@@ -2355,7 +2467,7 @@
             this.cb_famuchang.AutoSize = true;
             this.cb_famuchang.Location = new System.Drawing.Point(215, 26);
             this.cb_famuchang.Name = "cb_famuchang";
-            this.cb_famuchang.Size = new System.Drawing.Size(62, 17);
+            this.cb_famuchang.Size = new System.Drawing.Size(65, 17);
             this.cb_famuchang.TabIndex = 0;
             this.cb_famuchang.Text = "伐木场";
             this.cb_famuchang.UseVisualStyleBackColor = true;
@@ -2367,7 +2479,7 @@
             this.cb_linchang.AutoSize = true;
             this.cb_linchang.Location = new System.Drawing.Point(6, 26);
             this.cb_linchang.Name = "cb_linchang";
-            this.cb_linchang.Size = new System.Drawing.Size(50, 17);
+            this.cb_linchang.Size = new System.Drawing.Size(53, 17);
             this.cb_linchang.TabIndex = 0;
             this.cb_linchang.Text = "林场";
             this.cb_linchang.UseVisualStyleBackColor = true;
@@ -2378,7 +2490,7 @@
             this.cb_mofang.AutoSize = true;
             this.cb_mofang.Location = new System.Drawing.Point(405, 26);
             this.cb_mofang.Name = "cb_mofang";
-            this.cb_mofang.Size = new System.Drawing.Size(50, 17);
+            this.cb_mofang.Size = new System.Drawing.Size(53, 17);
             this.cb_mofang.TabIndex = 0;
             this.cb_mofang.Text = "磨坊";
             this.cb_mofang.UseVisualStyleBackColor = true;
@@ -2390,7 +2502,7 @@
             this.cb_caishichang.AutoSize = true;
             this.cb_caishichang.Location = new System.Drawing.Point(280, 26);
             this.cb_caishichang.Name = "cb_caishichang";
-            this.cb_caishichang.Size = new System.Drawing.Size(62, 17);
+            this.cb_caishichang.Size = new System.Drawing.Size(65, 17);
             this.cb_caishichang.TabIndex = 0;
             this.cb_caishichang.Text = "采石场";
             this.cb_caishichang.UseVisualStyleBackColor = true;
@@ -2402,7 +2514,7 @@
             this.cb_nongtian.AutoSize = true;
             this.cb_nongtian.Location = new System.Drawing.Point(167, 26);
             this.cb_nongtian.Name = "cb_nongtian";
-            this.cb_nongtian.Size = new System.Drawing.Size(50, 17);
+            this.cb_nongtian.Size = new System.Drawing.Size(53, 17);
             this.cb_nongtian.TabIndex = 0;
             this.cb_nongtian.Text = "农田";
             this.cb_nongtian.UseVisualStyleBackColor = true;
@@ -2413,7 +2525,7 @@
             this.cb_shikuang.AutoSize = true;
             this.cb_shikuang.Location = new System.Drawing.Point(56, 26);
             this.cb_shikuang.Name = "cb_shikuang";
-            this.cb_shikuang.Size = new System.Drawing.Size(50, 17);
+            this.cb_shikuang.Size = new System.Drawing.Size(53, 17);
             this.cb_shikuang.TabIndex = 0;
             this.cb_shikuang.Text = "石矿";
             this.cb_shikuang.UseVisualStyleBackColor = true;
@@ -2511,7 +2623,7 @@
             this.cb_bieyuan.AutoSize = true;
             this.cb_bieyuan.Location = new System.Drawing.Point(224, 39);
             this.cb_bieyuan.Name = "cb_bieyuan";
-            this.cb_bieyuan.Size = new System.Drawing.Size(50, 17);
+            this.cb_bieyuan.Size = new System.Drawing.Size(53, 17);
             this.cb_bieyuan.TabIndex = 0;
             this.cb_bieyuan.Text = "别院";
             this.cb_bieyuan.UseVisualStyleBackColor = true;
@@ -2522,7 +2634,7 @@
             this.cb_xueguan.AutoSize = true;
             this.cb_xueguan.Location = new System.Drawing.Point(784, 14);
             this.cb_xueguan.Name = "cb_xueguan";
-            this.cb_xueguan.Size = new System.Drawing.Size(50, 17);
+            this.cb_xueguan.Size = new System.Drawing.Size(53, 17);
             this.cb_xueguan.TabIndex = 0;
             this.cb_xueguan.Text = "学馆";
             this.cb_xueguan.UseVisualStyleBackColor = true;
@@ -2533,7 +2645,7 @@
             this.cb_jishi.AutoSize = true;
             this.cb_jishi.Location = new System.Drawing.Point(504, 14);
             this.cb_jishi.Name = "cb_jishi";
-            this.cb_jishi.Size = new System.Drawing.Size(50, 17);
+            this.cb_jishi.Size = new System.Drawing.Size(53, 17);
             this.cb_jishi.TabIndex = 0;
             this.cb_jishi.Text = "集市";
             this.cb_jishi.UseVisualStyleBackColor = true;
@@ -2544,7 +2656,7 @@
             this.checkBox15.AutoSize = true;
             this.checkBox15.Location = new System.Drawing.Point(574, 39);
             this.checkBox15.Name = "checkBox15";
-            this.checkBox15.Size = new System.Drawing.Size(50, 17);
+            this.checkBox15.Size = new System.Drawing.Size(53, 17);
             this.checkBox15.TabIndex = 0;
             this.checkBox15.Text = "粮仓";
             this.checkBox15.UseVisualStyleBackColor = true;
@@ -2555,7 +2667,7 @@
             this.cb_shangbingying.AutoSize = true;
             this.cb_shangbingying.Location = new System.Drawing.Point(224, 14);
             this.cb_shangbingying.Name = "cb_shangbingying";
-            this.cb_shangbingying.Size = new System.Drawing.Size(62, 17);
+            this.cb_shangbingying.Size = new System.Drawing.Size(65, 17);
             this.cb_shangbingying.TabIndex = 0;
             this.cb_shangbingying.Text = "伤兵营";
             this.cb_shangbingying.UseVisualStyleBackColor = true;
@@ -2566,7 +2678,7 @@
             this.cb_gewufang.AutoSize = true;
             this.cb_gewufang.Location = new System.Drawing.Point(434, 39);
             this.cb_gewufang.Name = "cb_gewufang";
-            this.cb_gewufang.Size = new System.Drawing.Size(62, 17);
+            this.cb_gewufang.Size = new System.Drawing.Size(65, 17);
             this.cb_gewufang.TabIndex = 0;
             this.cb_gewufang.Text = "歌舞坊";
             this.cb_gewufang.UseVisualStyleBackColor = true;
@@ -2577,7 +2689,7 @@
             this.cb_jianta.AutoSize = true;
             this.cb_jianta.Location = new System.Drawing.Point(364, 39);
             this.cb_jianta.Name = "cb_jianta";
-            this.cb_jianta.Size = new System.Drawing.Size(50, 17);
+            this.cb_jianta.Size = new System.Drawing.Size(53, 17);
             this.cb_jianta.TabIndex = 0;
             this.cb_jianta.Text = "箭塔";
             this.cb_jianta.UseVisualStyleBackColor = true;
@@ -2588,7 +2700,7 @@
             this.cb_zhaoxianguan.AutoSize = true;
             this.cb_zhaoxianguan.Location = new System.Drawing.Point(154, 39);
             this.cb_zhaoxianguan.Name = "cb_zhaoxianguan";
-            this.cb_zhaoxianguan.Size = new System.Drawing.Size(62, 17);
+            this.cb_zhaoxianguan.Size = new System.Drawing.Size(65, 17);
             this.cb_zhaoxianguan.TabIndex = 0;
             this.cb_zhaoxianguan.Text = "招贤馆";
             this.cb_zhaoxianguan.UseVisualStyleBackColor = true;
@@ -2599,7 +2711,7 @@
             this.cb_mengqi.AutoSize = true;
             this.cb_mengqi.Location = new System.Drawing.Point(84, 36);
             this.cb_mengqi.Name = "cb_mengqi";
-            this.cb_mengqi.Size = new System.Drawing.Size(50, 17);
+            this.cb_mengqi.Size = new System.Drawing.Size(53, 17);
             this.cb_mengqi.TabIndex = 0;
             this.cb_mengqi.Text = "盟旗";
             this.cb_mengqi.UseVisualStyleBackColor = true;
@@ -2610,7 +2722,7 @@
             this.cb_hubenying.AutoSize = true;
             this.cb_hubenying.Location = new System.Drawing.Point(714, 14);
             this.cb_hubenying.Name = "cb_hubenying";
-            this.cb_hubenying.Size = new System.Drawing.Size(62, 17);
+            this.cb_hubenying.Size = new System.Drawing.Size(65, 17);
             this.cb_hubenying.TabIndex = 0;
             this.cb_hubenying.Text = "虎贲营";
             this.cb_hubenying.UseVisualStyleBackColor = true;
@@ -2621,7 +2733,7 @@
             this.cb_yetiejian.AutoSize = true;
             this.cb_yetiejian.Location = new System.Drawing.Point(644, 14);
             this.cb_yetiejian.Name = "cb_yetiejian";
-            this.cb_yetiejian.Size = new System.Drawing.Size(62, 17);
+            this.cb_yetiejian.Size = new System.Drawing.Size(65, 17);
             this.cb_yetiejian.TabIndex = 0;
             this.cb_yetiejian.Text = "冶铁监";
             this.cb_yetiejian.UseVisualStyleBackColor = true;
@@ -2632,7 +2744,7 @@
             this.cb_chengqiang.AutoSize = true;
             this.cb_chengqiang.Location = new System.Drawing.Point(294, 39);
             this.cb_chengqiang.Name = "cb_chengqiang";
-            this.cb_chengqiang.Size = new System.Drawing.Size(50, 17);
+            this.cb_chengqiang.Size = new System.Drawing.Size(53, 17);
             this.cb_chengqiang.TabIndex = 0;
             this.cb_chengqiang.Text = "城墙";
             this.cb_chengqiang.UseVisualStyleBackColor = true;
@@ -2643,7 +2755,7 @@
             this.cb_tumusi.AutoSize = true;
             this.cb_tumusi.Location = new System.Drawing.Point(434, 14);
             this.cb_tumusi.Name = "cb_tumusi";
-            this.cb_tumusi.Size = new System.Drawing.Size(62, 17);
+            this.cb_tumusi.Size = new System.Drawing.Size(65, 17);
             this.cb_tumusi.TabIndex = 0;
             this.cb_tumusi.Text = "土木司";
             this.cb_tumusi.UseVisualStyleBackColor = true;
@@ -2654,7 +2766,7 @@
             this.cb_gongjiangfang.AutoSize = true;
             this.cb_gongjiangfang.Location = new System.Drawing.Point(14, 39);
             this.cb_gongjiangfang.Name = "cb_gongjiangfang";
-            this.cb_gongjiangfang.Size = new System.Drawing.Size(62, 17);
+            this.cb_gongjiangfang.Size = new System.Drawing.Size(65, 17);
             this.cb_gongjiangfang.TabIndex = 0;
             this.cb_gongjiangfang.Text = "工匠坊";
             this.cb_gongjiangfang.UseVisualStyleBackColor = true;
@@ -2665,7 +2777,7 @@
             this.cb_jiaochang.AutoSize = true;
             this.cb_jiaochang.Location = new System.Drawing.Point(364, 14);
             this.cb_jiaochang.Name = "cb_jiaochang";
-            this.cb_jiaochang.Size = new System.Drawing.Size(50, 17);
+            this.cb_jiaochang.Size = new System.Drawing.Size(53, 17);
             this.cb_jiaochang.TabIndex = 0;
             this.cb_jiaochang.Text = "校场";
             this.cb_jiaochang.UseVisualStyleBackColor = true;
@@ -2676,7 +2788,7 @@
             this.cb_bingqisi.AutoSize = true;
             this.cb_bingqisi.Location = new System.Drawing.Point(574, 14);
             this.cb_bingqisi.Name = "cb_bingqisi";
-            this.cb_bingqisi.Size = new System.Drawing.Size(62, 17);
+            this.cb_bingqisi.Size = new System.Drawing.Size(65, 17);
             this.cb_bingqisi.TabIndex = 0;
             this.cb_bingqisi.Text = "兵器司";
             this.cb_bingqisi.UseVisualStyleBackColor = true;
@@ -2687,7 +2799,7 @@
             this.checkBox14.AutoSize = true;
             this.checkBox14.Location = new System.Drawing.Point(504, 39);
             this.checkBox14.Name = "checkBox14";
-            this.checkBox14.Size = new System.Drawing.Size(50, 17);
+            this.checkBox14.Size = new System.Drawing.Size(53, 17);
             this.checkBox14.TabIndex = 0;
             this.checkBox14.Text = "仓库";
             this.checkBox14.UseVisualStyleBackColor = true;
@@ -2698,7 +2810,7 @@
             this.cb_chihouying.AutoSize = true;
             this.cb_chihouying.Location = new System.Drawing.Point(154, 14);
             this.cb_chihouying.Name = "cb_chihouying";
-            this.cb_chihouying.Size = new System.Drawing.Size(62, 17);
+            this.cb_chihouying.Size = new System.Drawing.Size(65, 17);
             this.cb_chihouying.TabIndex = 0;
             this.cb_chihouying.Text = "斥候营";
             this.cb_chihouying.UseVisualStyleBackColor = true;
@@ -2709,7 +2821,7 @@
             this.checkBox13.AutoSize = true;
             this.checkBox13.Location = new System.Drawing.Point(644, 39);
             this.checkBox13.Name = "checkBox13";
-            this.checkBox13.Size = new System.Drawing.Size(62, 17);
+            this.checkBox13.Size = new System.Drawing.Size(65, 17);
             this.checkBox13.TabIndex = 0;
             this.checkBox13.Text = "太守府";
             this.checkBox13.UseVisualStyleBackColor = true;
@@ -2720,7 +2832,7 @@
             this.cb_zhongjunzhang.AutoSize = true;
             this.cb_zhongjunzhang.Location = new System.Drawing.Point(294, 14);
             this.cb_zhongjunzhang.Name = "cb_zhongjunzhang";
-            this.cb_zhongjunzhang.Size = new System.Drawing.Size(62, 17);
+            this.cb_zhongjunzhang.Size = new System.Drawing.Size(65, 17);
             this.cb_zhongjunzhang.TabIndex = 0;
             this.cb_zhongjunzhang.Text = "中军帐";
             this.cb_zhongjunzhang.UseVisualStyleBackColor = true;
@@ -2731,7 +2843,7 @@
             this.cb_machang.AutoSize = true;
             this.cb_machang.Location = new System.Drawing.Point(84, 14);
             this.cb_machang.Name = "cb_machang";
-            this.cb_machang.Size = new System.Drawing.Size(50, 17);
+            this.cb_machang.Size = new System.Drawing.Size(53, 17);
             this.cb_machang.TabIndex = 0;
             this.cb_machang.Text = "马场";
             this.cb_machang.UseVisualStyleBackColor = true;
@@ -2742,18 +2854,18 @@
             this.cb_bingying.AutoSize = true;
             this.cb_bingying.Location = new System.Drawing.Point(14, 14);
             this.cb_bingying.Name = "cb_bingying";
-            this.cb_bingying.Size = new System.Drawing.Size(50, 17);
+            this.cb_bingying.Size = new System.Drawing.Size(53, 17);
             this.cb_bingying.TabIndex = 0;
-            this.cb_bingying.Text = "兵营";
+            this.cb_bingying.Text = "兵舍";
             this.cb_bingying.UseVisualStyleBackColor = true;
             this.cb_bingying.CheckedChanged += new System.EventHandler(this.setAttr);
             // 
             // report
             // 
-            this.report.Location = new System.Drawing.Point(15, 193);
-            this.report.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.report.Location = new System.Drawing.Point(14, 185);
+            this.report.Margin = new System.Windows.Forms.Padding(1);
             this.report.Name = "report";
-            this.report.Size = new System.Drawing.Size(1161, 316);
+            this.report.Size = new System.Drawing.Size(1162, 343);
             this.report.TabIndex = 9;
             // 
             // armyact
@@ -2765,6 +2877,7 @@
             this.armyact.Controls.Add(this.attackMilitary);
             this.armyact.Controls.Add(this.General_task);
             this.armyact.Controls.Add(this.other);
+            this.armyact.Controls.Add(this.changePwd);
             this.armyact.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.armyact.ItemSize = new System.Drawing.Size(70, 18);
             this.armyact.Location = new System.Drawing.Point(1, 39);
@@ -2772,6 +2885,55 @@
             this.armyact.SelectedIndex = 0;
             this.armyact.Size = new System.Drawing.Size(1194, 549);
             this.armyact.TabIndex = 10;
+            // 
+            // changePwd
+            // 
+            this.changePwd.Controls.Add(this.log6);
+            this.changePwd.Controls.Add(this.label33);
+            this.changePwd.Controls.Add(this.changeBtn);
+            this.changePwd.Controls.Add(this.pwdTxt);
+            this.changePwd.Location = new System.Drawing.Point(4, 22);
+            this.changePwd.Name = "changePwd";
+            this.changePwd.Padding = new System.Windows.Forms.Padding(3);
+            this.changePwd.Size = new System.Drawing.Size(1186, 523);
+            this.changePwd.TabIndex = 8;
+            this.changePwd.Text = "修改密码";
+            this.changePwd.UseVisualStyleBackColor = true;
+            // 
+            // log6
+            // 
+            this.log6.BackColor = System.Drawing.Color.White;
+            this.log6.FormattingEnabled = true;
+            this.log6.Location = new System.Drawing.Point(13, 116);
+            this.log6.Name = "log6";
+            this.log6.Size = new System.Drawing.Size(1161, 394);
+            this.log6.TabIndex = 13;
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(28, 24);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(55, 13);
+            this.label33.TabIndex = 2;
+            this.label33.Text = "新密码：";
+            // 
+            // changeBtn
+            // 
+            this.changeBtn.Location = new System.Drawing.Point(212, 18);
+            this.changeBtn.Name = "changeBtn";
+            this.changeBtn.Size = new System.Drawing.Size(75, 23);
+            this.changeBtn.TabIndex = 1;
+            this.changeBtn.Text = "开始改密";
+            this.changeBtn.UseVisualStyleBackColor = true;
+            this.changeBtn.Click += new System.EventHandler(this.changeBtn_Click);
+            // 
+            // pwdTxt
+            // 
+            this.pwdTxt.Location = new System.Drawing.Point(95, 21);
+            this.pwdTxt.Name = "pwdTxt";
+            this.pwdTxt.Size = new System.Drawing.Size(100, 20);
+            this.pwdTxt.TabIndex = 0;
             // 
             // button1
             // 
@@ -2875,6 +3037,8 @@
             // 
             // Main
             // 
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.AutoSize = true;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1207, 612);
             this.Controls.Add(this.button5);
@@ -2887,11 +3051,15 @@
             this.Controls.Add(this.armyact);
             this.Controls.Add(this.btn_Start);
             this.Controls.Add(this.account_manager);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(134)));
             this.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.MaximizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(22, 56);
             this.Name = "Main";
             this.Load += new System.EventHandler(this.Main_Load);
             this.other.ResumeLayout(false);
+            this.groupbox111.ResumeLayout(false);
+            this.groupbox111.PerformLayout();
             this.groupBox18.ResumeLayout(false);
             this.groupBox18.PerformLayout();
             this.groupBox7.ResumeLayout(false);
@@ -2945,6 +3113,8 @@
             this.buildingsCollection.ResumeLayout(false);
             this.buildingsCollection.PerformLayout();
             this.armyact.ResumeLayout(false);
+            this.changePwd.ResumeLayout(false);
+            this.changePwd.PerformLayout();
             this.soldierShow.ResumeLayout(false);
             this.soldierShow.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
@@ -3093,7 +3263,6 @@
         private System.Windows.Forms.TextBox DefenseUpper;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button defenseBattlePause;
-        private System.Windows.Forms.Button DefenseBattleStop;
         private System.Windows.Forms.Button defenseBattleStart;
         private System.Windows.Forms.ListBox log2;
         private System.Windows.Forms.TabPage recr_Soldier;
@@ -3192,6 +3361,21 @@
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.TextBox DefenseLower;
         private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.GroupBox groupbox111;
+        private System.Windows.Forms.Button delleague;
+        private System.Windows.Forms.Button addleague;
+        private System.Windows.Forms.ComboBox handSelected;
+        private System.Windows.Forms.TextBox alliance;
+        private System.Windows.Forms.Label label60;
+        private System.Windows.Forms.Label label59;
+        private System.Windows.Forms.Label label58;
+        private System.Windows.Forms.ListView enemyleague;
+        private System.Windows.Forms.ListView umeng;
+        private System.Windows.Forms.TabPage changePwd;
+        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.Button changeBtn;
+        private System.Windows.Forms.TextBox pwdTxt;
+        private System.Windows.Forms.ListBox log6;
     }
 }
 

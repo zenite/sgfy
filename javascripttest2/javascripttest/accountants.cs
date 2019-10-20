@@ -22,6 +22,7 @@ namespace javascripttest
         private DBUti dbHelper ;
         private RapidLogin rapidForm;
         public MainLogic mainHelper;
+        public Regular.SetConfig mainConfig;
         public Dictionary<string, AccountModel> accoutDics;
         private List<AutoAttack> autoAttacks;
         public void refreshAccounts(AccountModel refreshAccount)
@@ -100,6 +101,13 @@ namespace javascripttest
         private void showGridView(DataSet ds)
         {
             this.dataGridView1.DataSource = ds.Tables[0].DefaultView.ToTable(false, "chief", "typeOfCountry", "rankOfNobility", "user_id", "username", "password", "Server_url","city_num");
+            for(var i=0;i< ds.Tables[0].Rows.Count;i++)
+            {
+                DataRow row = ds.Tables[0].Rows[i];
+                if (row["AccountName"].ToString() == "1") {
+                    this.dataGridView1.Rows[i].DefaultCellStyle.BackColor= Color.Red;
+                }
+            }
             //try
             //{
             //    this.dataGridView1.Columns[0].Name = "chief";
@@ -177,6 +185,7 @@ namespace javascripttest
             AccountModel account = new AccountModel();
             accoutDics.TryGetValue(user_id, out account);
             AutoAttack attack = new AutoAttack(account, user_id, mainHelper);
+            attack.mainConfig = mainConfig;
             autoAttacks.Add(attack);
             attack.Show();      
         }

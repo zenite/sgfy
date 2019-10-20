@@ -8,6 +8,7 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Xml.XPath;
 using System.Threading.Tasks;
+using static System.Windows.Forms.ListView;
 
 namespace javascripttest.Regular
 {
@@ -67,6 +68,18 @@ namespace javascripttest.Regular
                 node.name = control.Name;
                 node.state = control.Checked ? "true" : "false";
                 node.controlType = "RadioButton";
+            }
+            else if(sender is ListView)
+            {
+                ListView control = (ListView)sender;
+                node.name = control.Name;
+                List<string> dd = new List<string>();
+                foreach (ListViewItem item in control.Items)
+                {
+                    dd.Add("'"+item.Text+ "'");
+                }
+                node.state = dd.Count>0? string.Join(",", dd.ToArray()):"";
+                node.controlType = "ListView";
             }
             xmlSetNode(node);
         }

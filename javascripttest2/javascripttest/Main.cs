@@ -23,6 +23,9 @@ using javascripttest.DbHelper;
 using javascripttest.entity;
 using javascripttest.BLL;
 using System.Runtime.InteropServices;
+using System.Diagnostics;
+using System.Collections;
+using Newtonsoft.Json;
 //using javascripttest.msscript;
 
 namespace javascripttest
@@ -33,10 +36,10 @@ namespace javascripttest
         public Main()
         {
             InitializeComponent();
-            InitReport();
+            InitValues();
             accoutDics = new Dictionary<string, AccountModel>();
             mainConfig = new Regular.SetConfig(this.Name,"controls");            
-            ActiveControl = new Control[] { buildingsCollection, resourseCollection, groupBox5, attackSetting, defenseSetting, groupBox2, groupBox3, defensePanel, groupBox15, groupBox4, bing, che };
+            ActiveControl = new Control[] { buildingsCollection, resourseCollection, groupBox5, attackSetting, defenseSetting, groupBox2, groupBox3, defensePanel, groupBox15, groupBox4, bing, che,groupbox111 };
             setControlState();
         }
         private Regular.SetConfig mainConfig;
@@ -51,19 +54,22 @@ namespace javascripttest
         private int accountId;
         //private Dictionary<string, AccountTask> tickAccountList;
         private Queue<target> targets;
-        private Thread TraderThr;
+        private ThreadWorkers TraderThr;
+        private ThreadWorkers defenseThr;
         private Thread HeavenThr;
         private Thread SearchItemThr;
         private Thread PearlThr;
         private Thread depotItemThr;
         Thread t;
+        private int traderAccountIndex;
+        private int defenseAccountIndex;
         private Thread AttackThr;
         private SoftReg softReg;
         private EventRegular eventregular;
         private commonurl commonUrl;
         private string Imgusername;
         private string Imgpwd;
-        //private static Mutex corMutex;
+        
         private object obj = new object();
         private static object MonitorObj=new object();
         private static object MonitorObj1 = new object();
@@ -74,18 +80,21 @@ namespace javascripttest
         {
             Initial_urlBox();
             Initial_EnableAuto();
+            Initial_Control();
+
+            ThreadPool.SetMaxThreads(8, 1000);
             urlCommand = new UrlCommand();
             urlCommand.relogin += new CommonDelegate.reLogin(relogin);
             cookieHelper = new cookieHelper();
             DbHelper = new DBUti();
             commonUrl = new commonurl();
             //ListBox li=(ListBox)((TabPage)this.report.Controls[0]).Controls[0];
-            logs = new List<ListBox> { log1, log2, log3, log4,log5};
+            logs = new List<ListBox> { log1, log2, log3, log4,log5,log6};
             mainHelper = new MainLogic(commonUrl, urlCommand, refreshLog, refreshgrid);            
             softReg=new SoftReg();
             eventregular = new EventRegular();                
             checkRegister();
-            WarQueue = new Queue<AccountModel>();
+       
             if (!DbHelper.autoUpdateDatabase())
             {
                 show("数据库初始化失败");
@@ -102,15 +111,21 @@ namespace javascripttest
             {
                 form = new accountants(accoutDics);
                 form.mainHelper = this.mainHelper;
+                form.mainConfig = this.mainConfig;
                 form.Show();
             }
             else
             {
                 form.accoutDics = accoutDics;
                 form.mainHelper = this.mainHelper;
+                form.mainConfig = this.mainConfig;
                 form.Show();
             }
           
+        }
+        public void Initial_Control()
+        {
+            handSelected.SelectedIndex = 0;
         }
 
         /// <summary>
@@ -120,18 +135,18 @@ namespace javascripttest
         /// <param name="e"></param>
         private void btn_Start_Click(object sender, EventArgs e)
         {
-            Imgusername = this.txtqUser.Text.Trim();
-            Imgpwd = this.txtqPwd.Text.Trim();
-            if (string.IsNullOrEmpty(Imgusername) || string.IsNullOrEmpty(Imgpwd))
-            {
-                MessageBox.Show("请填写您自动验证的用户名和密码");
-                return;
-            }
-            if (!ImgValid())
-            {
-                MessageBox.Show("请确保您的自动验证用户名和密码是正确的");
-                return;
-            }
+            //Imgusername = this.txtqUser.Text.Trim();
+            //Imgpwd = this.txtqPwd.Text.Trim();
+            //if (string.IsNullOrEmpty(Imgusername) || string.IsNullOrEmpty(Imgpwd))
+            //{
+            //    MessageBox.Show("请填写您自动验证的用户名和密码");
+            //    return;
+            //}
+            //if (!ImgValid())
+            //{
+            //    MessageBox.Show("请确保您的自动验证用户名和密码是正确的");
+            //    return;
+            //}
             DataSet ds = DbHelper.getAllAccount();
             if (ds == null || ds.Tables.Count == 0 || ds.Tables[0].Rows.Count == 0)
             {
@@ -278,15 +293,16 @@ namespace javascripttest
                 this.attackSetting.Visible = false;
                 recruiteType = false;
             }
+            setAttr(sender, e);
         }
 
 
-        private void relogin(object o)
+        private void relogin(AccountModel account)
         {
             new Thread(delegate() {
-                loginKunLunServer(o);
+                loginKunLunServer(account);
                 AccountModel outAccount=new AccountModel();
-                accoutDics.TryGetValue((o as AccountModel).user_id,out outAccount);
+                accoutDics.TryGetValue(account.user_id,out outAccount);
                 if (outAccount != null)
                     refreshFormsAccount(outAccount);
             }).Start();
@@ -296,182 +312,228 @@ namespace javascripttest
             if (form!=null&&form.IsDisposed)
                 form.refreshAccounts(account);
         }
-        public void loginKunLunServer(object obj)
+        public void loginEntrance(object obj)
         {
-            AccountModel account = obj as AccountModel;       
-            string destination_url = string.Empty;
-            string userid = account.user_id;
-            //int countBlank = 0;            
-            string login_serverurl = account.Server_url;
-            string server_url = "http://" + login_serverurl;
-            //登陆官网，获取相应cookie
-            string serverurl = server_url + "/index.php?act=login.form";
-            account.hasMulti = "0";
-            if (!string.IsNullOrEmpty(account.user_id))
-            {
-                goto login_into;
-            }
-        //获取验证码图片                
-        Login_Start:
-            AccountModel newaccount = new AccountModel();
-            newaccount.username = account.username;
-            newaccount.password = account.password;
-            newaccount.Server_url = account.Server_url;
-            newaccount.Initial_Status = account.Initial_Status;
-            account = newaccount;
-            
-            //Mutex corMutex = new Mutex(false, "login");
+            AccountModel account = obj as AccountModel;
+            loginKunLunServer(account);
+        }
+        public void loginKunLunServer(AccountModel account)
+        {
             try
             {
-                Monitor.Enter(MonitorObj);
-                string code = string.Empty;
-                string image_path = (string)urlCommand.getImage(ref account, "login.kunlun.com", "http://sg.kunlun.com/");
-
-                dialogbox dialog = new dialogbox();
-                Image tmp_img = Image.FromFile(image_path);
-                Image img_copy = new Bitmap(tmp_img);
-                dialog.CodePicture.Image = img_copy;
-                tmp_img.Dispose();
-                dialog.StartPosition = FormStartPosition.CenterScreen;
-                if (dialog.ShowDialog() == DialogResult.OK)
+                string destination_url = string.Empty;
+                string userid = account.user_id;
+                //int countBlank = 0;            
+                string login_serverurl = account.Server_url;
+                string server_url = "http://" + login_serverurl;
+                //登陆官网，获取相应cookie
+                string serverurl = server_url + "/index.php?act=login.form";
+                account.hasMulti = "0";
+                if (!string.IsNullOrEmpty(account.user_id))
                 {
-                    code = dialog.CodeTextBox.Text;
-                    if (string.IsNullOrEmpty(code) || code.Length != 4)
+                    goto login_into;
+                }
+                //获取验证码图片                
+                Login_Start:
+                AccountModel newaccount = new AccountModel();
+                newaccount.username = account.username;
+                newaccount.password = account.password;
+                newaccount.Server_url = account.Server_url;
+                newaccount.Initial_Status = account.Initial_Status;
+                account = newaccount;
+
+                
+                try
+                {
+                    Monitor.Enter(MonitorObj);
+                    string code = string.Empty;
+                    //string image_path = (string)urlCommand.getImage(ref account, "login.kunlun.com", "http://sg.kunlun.com/");
+
+                    //dialogbox dialog = new dialogbox();
+                    //Image tmp_img = Image.FromFile(image_path);
+                    //Image img_copy = new Bitmap(tmp_img);
+                    //dialog.CodePicture.Image = img_copy;
+                    //tmp_img.Dispose();
+                    //dialog.StartPosition = FormStartPosition.CenterScreen;
+                    //if (dialog.ShowDialog() == DialogResult.OK)
+                    //{
+                    //    code = dialog.CodeTextBox.Text;
+                    //    if (string.IsNullOrEmpty(code) || code.Length != 4)
+                    //    {
+                    //        Monitor.Exit(MonitorObj);
+                    //        goto Login_Start;
+                    //    }
+                    //}
+                    //else//record error
+                    //{
+                    //    Monitor.Exit(MonitorObj);
+                    //    goto Login_Start;
+                    //}
+                    printCookie(ref account);
+                    HttpCodeEntity codeentity = new HttpCodeEntity();
+                    using (Mutex corMutex = new Mutex(false, "getPicPython"))
+                    {
+                        byte[] imageBytes = urlCommand.getImage(ref account, "login.kunlun.com", "http://sg.kunlun.com/");
+                        var base64str = Convert.ToBase64String(imageBytes);
+                        corMutex.WaitOne();
+                        var coderesult = urlCommand.PostData("http://localhost:8021/b", "1.jpg", imageBytes, null);
+                        codeentity = (HttpCodeEntity)JsonConvert.DeserializeObject(coderesult, typeof(HttpCodeEntity));
+                        corMutex.ReleaseMutex();
+                    }
+                    code = codeentity.value;
+                    //code = recognise(image_path);
+                    if (code.Length != 4)
                     {
                         Monitor.Exit(MonitorObj);
                         goto Login_Start;
                     }
+                    string form_str = "username=" + account.username + "&userpass=" + account.password + "&returl=" + HttpUtility.UrlEncode("http://static.kunlun.com/v3/login_sso_js_v1/callback.html") + "&usercode=" + code;
+                    string hostUrl = "login.kunlun.com";
+                    string referenceUrl = "http://sg.kunlun.com/";
+                    string OriginUrl = "http://sg.kunlun.com";
+                    string login_url = "http://login.kunlun.com/index.php?act=user.webLogin";
+                    string result = urlCommand.PostForm(login_url, hostUrl, referenceUrl, OriginUrl, ref account, form_str);
+                    if (result.Contains("密码有误"))
+                    {
+                        refreshLog("账号：" + account.username + "密码有误，请确认", 0);
+                        DbHelper.UpdateError(account, "1");//账号密码错误
+                        Monitor.Exit(MonitorObj);
+                        Interlocked.Decrement(ref threadCount);
+                        return;
+                    }
+                    else if (result.Contains("用户不存在"))
+                    {
+                        refreshLog("账号:" + account.username + "用户不存在", 0);
+                        DbHelper.UpdateError(account, "2");//用户不存在
+                        Monitor.Exit(MonitorObj);
+                        Interlocked.Decrement(ref threadCount);
+                        return;
+                    }
+                    else if (!result.Contains("success"))
+                    {
+                        Monitor.Exit(MonitorObj);
+                        goto Login_Start;
+                    }
+                    else
+                    {
+                        //saveImag(image_path, code);
+                        Monitor.Exit(MonitorObj);                      
+                    }
                 }
-                else//record error
+                catch (Exception ex)
                 {
-                    Monitor.Exit(MonitorObj);
+                    try
+                    {
+                        Monitor.Exit(MonitorObj);
+                    }
+                    catch
+                    { }
                     goto Login_Start;
                 }
-
-                //code = recognise(image_path);
-                if (code.Length != 4)
+               
+                urlCommand.urlPost(serverurl, ref account, login_serverurl, server_url);
+                //登陆相应服务器，判断路程
+                urlCommand.urlPost(server_url, ref account, login_serverurl, "http://game.sg.kunlun.com/?sid=" + Constant.Server_Url.Split(new char[] { '.' })[0]);
+                login_into:
+                string dddd = urlCommand.urlPost(serverurl, ref account, login_serverurl, server_url);
+                string returnhtml = urlCommand.Html_get("http://" + Constant.Server_Url + "/", "http://" + Constant.Server_Url + "/", account, true);
+                if (mainHelper.checkLoginout(ref account))
                 {
-                    Monitor.Exit(MonitorObj);
-                    goto Login_Start;
-                }                    
-                string form_str = "username=" + account.username + "&userpass=" + account.password + "&returl=" + HttpUtility.UrlEncode("http://static.kunlun.com/v3/login_sso_js_v1/callback.html") + "&usercode=" + code;
-                string hostUrl = "login.kunlun.com";
-                string referenceUrl = "http://sg.kunlun.com/";
-                string OriginUrl = "http://sg.kunlun.com";
-                string login_url = "http://login.kunlun.com/index.php?act=user.webLogin";
-                string result = urlCommand.PostForm(login_url, hostUrl, referenceUrl, OriginUrl, ref account, form_str);
-                if (result.Contains("密码有误"))
-                {
-                    refreshLog("账号：" + account.username + "密码有误，请确认", 0);
-                    DbHelper.UpdateError(account, "1");//账号密码错误
-                    Monitor.Exit(MonitorObj);
-                    Interlocked.Decrement(ref threadCount);
-                    return;
-                }
-                else if (result.Contains("用户不存在"))
-                {
-                    refreshLog("账号:" + account.username + "用户不存在", 0);
-                    DbHelper.UpdateError(account, "2");//用户不存在
-                    Monitor.Exit(MonitorObj);
-                    Interlocked.Decrement(ref threadCount);
-                    return;
-                }
-                else if (!result.Contains("success"))
-                {
-                    Monitor.Exit(MonitorObj);
+                    account.cookieStr = null;
                     goto Login_Start;
                 }
-                else {
-                    Monitor.Exit(MonitorObj);
+                
+                string refreshhtml = string.Empty;
+                if (returnhtml.Contains("Loading...") && !string.IsNullOrEmpty(account.user_id))
+                    goto Login_Start;
+                else if (returnhtml.Contains("Loading...") && string.IsNullOrEmpty(account.user_id))
+                    refreshhtml = refreshLogin(returnhtml, ref account, login_serverurl, serverurl, server_url);
+                else
+                    refreshhtml = returnhtml;
+                if (!refreshhtml.Contains("login.rolelist"))
+                {
+                    // if (mainHelper.checkAccountLoginOut(account))     
+                    cookieHelper.GetSsid(ref account, server_url);
+                    if (string.IsNullOrEmpty(account.user_id))
+                    {
+                        refreshLogin(refreshhtml, ref account, login_serverurl, serverurl, server_url);
+                        goto Login_Start;
+                    }
+                    if (mainHelper.checkLoginout(ref account))
+                    {
+                        account.cookieStr = null;
+                        goto Login_Start;
+                    }
+                    refreshLog(string.Format("0,userID:{0},userName:{1}",account.user_id,account.username), 0);
+                    StoreAccount(account);
+                }
+                else
+                {
+                    List<string> user_ids = new List<string>();
+                    getrole:
+                    destination_url = server_url + "/index.php?act=login.rolelist";
+                    urlCommand.urlPost(destination_url, ref account, login_serverurl, serverurl, true);
+                    if (account.extreHtml.Contains("Loading..."))
+                    {
+                        if (account.extreHtml.Contains("Loading..."))
+                            goto getrole;
+                    }
+                    RegexHtml.getList(SGEnum.RegexType.User_id, account.extreHtml, out user_ids);
+                    List<string> LoginInList = DbHelper.checkAccount(account);
+                    if (string.IsNullOrEmpty(account.user_id) && string.IsNullOrEmpty(userid))
+                    {
+                        foreach (var user_id in user_ids)
+                        {
+                            if ((from item in LoginInList where item == user_id select item).Count() == 0)
+                            {
+                                account.user_id = user_id;
+                                goto Login_Server;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (!string.IsNullOrEmpty(userid))
+                            account.user_id = userid;
+                        goto Login_Server;
+                    }
+                    Login_Server:
+                    refreshLog(string.Format("1,userID:{0}", account.user_id), 0);
+                    string role_loginUrl = server_url + "/index.php?act=login.role&user_id=" + account.user_id;
+                    string role_loginrefernce = destination_url;
+                    urlCommand.urlPost(role_loginUrl, ref account, login_serverurl, role_loginrefernce, true);
+                    cookieHelper.GetSsid(ref account, server_url);
+                    if (mainHelper.checkLoginout(ref account))
+                    {
+                        account.cookieStr = null;
+                        goto Login_Start;
+                    }
+                    refreshLog(string.Format("2,userID:{0},userName:{1}", account.user_id, account.username), 0);
+                    StoreAccount(account);
+                    LoginInList = DbHelper.checkAccount(account);
+                    if (LoginInList.Count < user_ids.Count())
+                    {
+                        userid = string.Empty;
+                        goto Login_Start;
+                    }
                 }
             }
             catch (Exception ex)
             {
-                try
-                {
-                    Monitor.Exit(MonitorObj);
-                }
-                catch
-                { }
-                goto Login_Start;
+                refreshLog(ex.Message,0);
             }
+            finally
+            {
+                Interlocked.Decrement(ref threadCount);
+            }  
+        }
 
-            //finally
-            //{
-            //    corMutex.ReleaseMutex();
-            //}
-            urlCommand.urlPost(serverurl, ref account, login_serverurl, server_url);
-            //登陆相应服务器，判断路程
-            urlCommand.urlPost(server_url, ref account, login_serverurl, "http://game.sg.kunlun.com/?sid=" + Constant.Server_Url.Split(new char[] { '.' })[0]);
-        login_into:
-            string dddd=urlCommand.urlPost(serverurl, ref account, login_serverurl, server_url);
-            string returnhtml = urlCommand.Html_get("http://" + Constant.Server_Url + "/", "http://" + Constant.Server_Url + "/", account);
-            string refreshhtml = string.Empty;
-            if (returnhtml.Contains("Loading...") && !string.IsNullOrEmpty(account.user_id))
-                goto Login_Start;
-            else if (returnhtml.Contains("Loading...") && string.IsNullOrEmpty(account.user_id))
-                refreshhtml = refreshLogin(returnhtml, ref account, login_serverurl, serverurl, server_url);
-            else
-                refreshhtml = returnhtml;
-            if (!refreshhtml.Contains("login.rolelist"))
-            {
-                //if (mainHelper.checkAccountLoginOut(account))     
-                cookieHelper.GetSsid(ref account, server_url);
-                if (string.IsNullOrEmpty(account.user_id))
-                {
-                    refreshLogin(refreshhtml, ref account, login_serverurl, serverurl, server_url);
-                }
-                if (mainHelper.checkLoginout(ref account))
-                    goto Login_Start;
-                StoreAccount(account);
-            }
-            else
-            {
-                List<string> user_ids = new List<string>();
-            getrole:
-                destination_url = server_url + "/index.php?act=login.rolelist";
-                urlCommand.urlPost(destination_url, ref account, login_serverurl, serverurl, true);
-                if (account.extreHtml.Contains("Loading..."))
-                {
-                    if (account.extreHtml.Contains("Loading..."))
-                        goto getrole;
-                }
-                RegexHtml.getList(SGEnum.RegexType.User_id, account.extreHtml, out user_ids);
-                List<string> LoginInList = DbHelper.checkAccount(account);
-                if (string.IsNullOrEmpty(account.user_id) && string.IsNullOrEmpty(userid))
-                {
-                    foreach (var user_id in user_ids)
-                    {
-                        if ((from item in LoginInList where item == user_id select item).Count() == 0)
-                        {
-                            account.user_id = user_id;
-                            //countBlank++;
-                            goto Login_Server;
-                        }
-                    }
-                }
-                else
-                {
-                    if (!string.IsNullOrEmpty(userid))
-                        account.user_id = userid;
-                    goto Login_Server;
-                }
-            Login_Server:
-                string role_loginUrl = server_url + "/index.php?act=login.role&user_id=" + account.user_id;
-                string role_loginrefernce = destination_url;
-                urlCommand.urlPost(role_loginUrl, ref account, login_serverurl, role_loginrefernce, true);
-                cookieHelper.GetSsid(ref account, server_url);
-                if (mainHelper.checkLoginout(ref account))
-                    goto Login_Start;
-                StoreAccount(account);
-                LoginInList = DbHelper.checkAccount(account);
-                if (LoginInList.Count < user_ids.Count())
-                {
-                    userid = string.Empty;
-                    goto Login_Start;
-                }                
-            }
-            Interlocked.Decrement(ref threadCount);
+        public void saveImag(string path,string code)
+        {
+            string filename = string.Format("{0}_{1}.jpg",Guid.NewGuid().ToString(), code);
+            string filepath = Path.Combine(@"E:\captcha\6",filename);
+            Image image = new Bitmap(path);
+            image.Save(filepath);
         }
 
         
@@ -482,7 +544,7 @@ namespace javascripttest
         /// <param name="account"></param>
         private void StoreAccount(AccountModel account)
         {
-            string html = urlCommand.Html_get("http://" + Constant.Server_Url, "http://" + Constant.Server_Url + "/", account);            
+            string html = urlCommand.Html_get("http://" + Constant.Server_Url, "http://" + Constant.Server_Url + "/", account,true);
             if (!string.IsNullOrEmpty(html))
             {
                 if (html.Contains("Loading..."))
@@ -491,14 +553,14 @@ namespace javascripttest
                     if (html.Contains("Loading..."))
                     {
                         html = refreshLogin(html, ref account, Constant.Server_Url, "http://" + Constant.Server_Url, "http://" + Constant.Server_Url);
-                        if(html.Contains("Loading..."))
+                        if (html.Contains("Loading..."))
                             html = refreshLogin(html, ref account, Constant.Server_Url, "http://" + Constant.Server_Url, "http://" + Constant.Server_Url);
                     }
                 }
                 if (html.Contains("createmonarch"))
                 {
-                    string logger = "   账号："+account.username+"  在 "+Constant.Server_Url+"  中没有账号";
-                    DbHelper.UpdateError(account,"2");
+                    string logger = "   账号：" + account.username + "  在 " + Constant.Server_Url + "  中没有账号";
+                    DbHelper.UpdateError(account, "2");
                     refreshLog(logger, 0);
                     return;
                 }
@@ -509,7 +571,7 @@ namespace javascripttest
                 try
                 {
                     if (DbHelper.InsertOrUpdate(account))
-                        DbHelper.insertAccount(account,"insert");
+                        DbHelper.insertAccount(account, "insert");
                     else
                         DbHelper.updateAccount(account);
                 }
@@ -519,8 +581,12 @@ namespace javascripttest
                 }
                 //Thread t = new Thread(delegate() { });
                 //t.Start();                            
-                InitialThread(account); 
-            }          
+                InitialThread(account);
+            }
+            else
+            {
+
+            }
         }
 
         
@@ -573,7 +639,7 @@ namespace javascripttest
             {
                 lock (accountList)
                 {
-                    var exsit=accountList.Find(item => { if (item.user_id == account.user_id)return false; else return true; });
+                    var exsit=accountList.Find(item => { if (item.user_id == account.user_id)return true; else return false; });
                     if (exsit != null)
                     {
                         accountList.Remove(exsit);
@@ -620,107 +686,182 @@ namespace javascripttest
         /// <param name="e"></param>
         private void RecruitStart_Click(object sender, EventArgs e)
         {
-            int nCountry = 0;
-            List<string> recruite = new List<string>();
-            int soldierAmount =0;
-            int.TryParse(SoldiersAmount.Text.Trim(), out soldierAmount);
-            if (soldierAmount > 0)
+            try
             {
-                if (recruiteType != null)
+                int nCountry = 0;
+                string cityFilter = string.Empty;
+                List<string> recruite = new List<string>();
+                int soldierAmount = 0;
+                int.TryParse(SoldiersAmount.Text.Trim(), out soldierAmount);
+                if (soldierAmount > 0)
                 {
-                    if (recruiteType == true)
+                    if (recruiteType != null)
                     {
-                        foreach (var item in attackSetting.Controls)
-                        {                            
-                            if ((item as CheckBox).Checked)
-                            {
-                                recruite.Add((item as CheckBox).Text);
-                                
-                            }
-                        }
-                        if (recruite.Count == 0)
+                        if (recruiteType == true)
                         {
-                            show("请勾选");
-                            return;
-                        }
-                        else
-                        {
-                            foreach (var item in accountList)
+                            foreach (var item in attackSetting.Controls)
                             {
-                                nCountry = Constant.getNCountry(item.typeOfCountry);
-                                foreach (var village in item.village)
+                                if ((item as CheckBox).Checked)
                                 {
-                                    string cityFilter = filterrecruit.Text;
-                                    Thread recruiteThr = new Thread(delegate() { recrite(item, nCountry, recruite, soldierAmount, cityFilter); });
-                                    recruiteThr.Start();   
+                                    recruite.Add((item as CheckBox).Text);
+
+                                }
+                            }
+                            if (recruite.Count == 0)
+                            {
+                                show("请勾选");
+                                return;
+                            }
+                            else
+                            {
+                                foreach (var item in accountList)
+                                {
+                                    nCountry = Constant.getNCountry(item.typeOfCountry);
+                                    foreach (var village in item.village)
+                                    {
+                                        cityFilter = filterrecruit.Text.ToString();
+                                        Delay();
+                                        ThreadPool.QueueUserWorkItem(new WaitCallback(recruit), new RecruitEntity() { account = item, nCountry = nCountry, recruite = recruite, soldierAmount = soldierAmount, cityFilter = cityFilter });
+                                    }
                                 }
                             }
                         }
+                        else
+                        {
+                            //defenseSetting
+                            foreach (var item in defenseSetting.Controls)
+                            {
+                                if ((item as CheckBox).Checked)
+                                {
+                                    recruite.Add((item as CheckBox).Text);
+
+                                }
+                            }
+                            if (recruite.Count == 0)
+                            {
+                                show("请勾选");
+                                return;
+                            }
+                            else
+                            {
+                                try
+                                {
+                                    foreach (var item in accountList)
+                                    {
+                                        nCountry = Constant.getNCountry(item.typeOfCountry);
+                                        try {
+                                           
+                                             cityFilter = filterrecruit.Text;    
+                                        }
+                                        catch(Exception ex)
+                                        {
+                                            throw ex;
+                                        }
+                                        Delay();
+                                        ThreadPool.QueueUserWorkItem(new WaitCallback(recruit), new RecruitEntity() { account = item, nCountry = nCountry, recruite = recruite, soldierAmount = soldierAmount, cityFilter = cityFilter });
+                                    }
+                                }
+                                catch (Exception ex)
+                                {
+
+                                    throw ex;
+                                }
+                               
+                            }
+                        }
+
                     }
                     else
                     {
-                        //defenseSetting
-                        foreach (var item in defenseSetting.Controls)
-                        {
-                            if ((item as CheckBox).Checked)
-                            {
-                                recruite.Add((item as CheckBox).Text);
-
-                            }
-                        }
-                        if (recruite.Count == 0)
-                        {
-                            show("请勾选");
-                            return;
-                        }
-                        else
-                        {
-                            foreach (var item in accountList)
-                            {
-                                nCountry = Constant.getNCountry(item.typeOfCountry);
-                                string cityFilter = filterrecruit.Text;
-                                //Thread recruiteThr = new Thread(delegate() { });
-                                //recruiteThr.Start();     
-                                recrite(item, nCountry, recruite, soldierAmount, cityFilter); 
-                            }                           
-                        }                       
+                        show("请选择要招募的兵种");
+                        return;
                     }
-                    
                 }
                 else
                 {
-                    show("请选择要招募的兵种");
-                    return;
+                    show("请输入要招兵的数量");
                 }
             }
-            else
+            catch (Exception ex)
             {
-                show("请输入要招兵的数量");
-            }           
+                throw ex;
+            }            
         }
 
-
-        private void recrite(AccountModel account, int nCountry, List<string> recruite, int soldierAmount, string cityFilter)
+        #region 延时方法非阻塞， thread sleep会阻塞导致界面无法显示
+        public static void Delay()
         {
-            foreach (var village in account.village)
+            var workerThreads = 0;
+            var completionPortThreads = 0;
+            ThreadPool.GetAvailableThreads(out workerThreads, out completionPortThreads);
+            DateTime current = DateTime.Now;
+            if(completionPortThreads<10)
+            while (current.AddMilliseconds(5000) > DateTime.Now)
             {
-                foreach (var soldierName in recruite)
+                Application.DoEvents();
+            }
+            return;
+        }
+        #endregion
+
+
+        private void recruit(object obj)
+        {
+            try
+            {
+                RecruitEntity entity = obj as RecruitEntity;
+                var account = entity.account;
+                var nCountry = entity.nCountry;
+                var recruite = entity.recruite;
+                var soldierAmount = entity.soldierAmount;
+                var cityFilter = entity.cityFilter;
+                foreach (var village in account.village)
                 {
-                    if (Constant.GetSldTypeByName(nCountry, soldierName) != -1)//必须获取兵种type
+                    foreach (var soldierName in recruite)
                     {
-                        string type = Constant.GetSldTypeByName(nCountry, soldierName).ToString();
-                        if (account.goldProp >5)
+                        if (Constant.GetSldTypeByName(nCountry, soldierName) != -1)//必须获取兵种type
                         {
-                            recruiteSoldier(soldierAmount.ToString(), type, soldierName, nCountry, village, account, cityFilter);
+                            string type = Constant.GetSldTypeByName(nCountry, soldierName).ToString();
+                            if (account.goldProp > 5)
+                            {
+                                try
+                                {
+                                    recruiteSoldier(soldierAmount.ToString(), type, soldierName, nCountry, village, account, cityFilter);
+                                }
+                                catch (Exception ex)
+                                {
+                                    throw ex;
+                                }
+
+                            }
+                            else
+                            {
+                                try
+                                {
+                                    string soldierHome = Constant.GetSoldierHome(soldierName);
+                                    string btid = Constant.GetBldTypeByName(soldierHome).ToString();
+                                    if (village.buildings != null && village.buildings.Count > 0 && village.buildings.Where(item => { return item.buildingName == soldierHome; }).FirstOrDefault() != null)
+                                    {
+                                        string bid = village.buildings.Find(item => { return item.buildingName == soldierHome; }).buildingId;
+                                        mainHelper.RecruitSoliderByBug(nCountry, village, btid, bid, account, type, Constant.recruiteIndex);
+                                        //break;
+                                    }
+                                }
+                                catch (Exception ex)
+                                {
+                                    throw ex;
+                                }
+                                
+                            }
                         }
-                        else
-                        {
-                            mainHelper.RecruitSoliderByBug(nCountry, village, account, type, Constant.recruiteIndex);
-                            break;
-                        }                        
                     }
                 }
             }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+           
         }
         //招兵
         private void recruiteSoldier(string num, string type, string soldierName,int nCountry,village village,AccountModel account,string cityFilter)
@@ -737,7 +878,7 @@ namespace javascripttest
             }
             string btid = Constant.getSoldierBtidByName(soldierName).ToString();
             string bid = string.Empty;
-            if (village.buildings.Where(k => Constant.GetBldTypeByName(k.buildingName).ToString() == type).Count() > 0)//保证招兵的建筑存在
+            if (village.buildings != null && village.buildings.Count > 0 && village.buildings.Where(k => Constant.GetBldTypeByName(k.buildingName).ToString() == type).Count() > 0)//保证招兵的建筑存在
             {
                 string recruitMessage = mainHelper.RecruitSolider(nCountry, village, account, type, num, Constant.recruiteIndex, btid);
                 if (recruitMessage.Contains("招募数量错误"))
@@ -792,7 +933,7 @@ namespace javascripttest
             this.registerCode.Text = this.eventregular.LoadFromRegistry("RegCodefinQ").ToString();
         }
 
-        private Queue<AccountModel> WarQueue;
+        //private Queue<AccountModel> WarQueue;
         private bool defensePause=false;
         //private int battle.defenseUpperAmount  =0;
         private string[] soldierType;
@@ -807,19 +948,7 @@ namespace javascripttest
         {
             soldiers = new Dictionary<string, int>();//初始化兵力显示列表
             soldierType=new string[3];
-            Battle battle = new Battle();
-            if (WarQueue == null || WarQueue.Count == 0)
-            {
-                foreach (AccountModel ccaccount in accountList)
-                {
-                    WarQueue.Enqueue(ccaccount);
-                }
-            }
-            if (WarQueue == null || WarQueue.Count == 0)
-            {
-                MessageBox.Show("请检查你的账号");
-                return;
-            }            
+            Battle battle = new Battle();           
             if (Direct_city.Checked)
             {
                 battle.directType = "city";
@@ -910,21 +1039,33 @@ namespace javascripttest
         }
         private void StartBattle(Battle battle)
         {
-            new Thread(delegate()
+            try
             {
-                while (!defensePause)
-                {
-                    AccountModel account = WarQueue.Dequeue();
-                    Battle(account, battle);
-                    //Thread BattleThr = new Thread(delegate() {});
-                    //BattleThr.Start();               
-                    if (WarQueue == null || WarQueue.Count() == 0)
+                defenseThr = new ThreadWorkers(() => {
+                    var index = accountList.Count() == defenseThr.index ? 0 : defenseThr.index;
+                    for (var i = index ; i < accountList.Count(); i++)
                     {
-                        show("出征完毕");
+                        defenseThr.index = i+1;
+                        if (!defenseThr.stop)
+                        {
+                            Battle(accountList[i], battle);
+                        }
+                    }
+                    if (defenseThr.stop)
+                    {
+                        refreshLog("任务暂停", Constant.defenseIndex);
                         return;
                     }
-                }
-            }).Start();
+                    refreshLog("出征完毕", Constant.defenseIndex);
+                });
+
+                defenseThr.stop = false;
+                defenseThr.Start();
+            }
+            catch (Exception ex) {
+
+            }
+            
         }
 
         private void Battle(AccountModel account,Battle battle)        
@@ -1124,10 +1265,11 @@ namespace javascripttest
                                     //double percent = Math.Round((float)Convert.ToInt32(battle.DefensePattern.Replace("%", "")) / 100, 2);
                                     //string soldiernum=(Convert.ToInt32(village.soldierss[i])*percent).ToString().Split(new char[]{'.'})[0];
                                     string soldiernum = mainHelper.doubleous(village.soldierss[soldierT], battle.DefensePattern);
-                                    if (Convert.ToInt32(soldiernum) > 0 && Convert.ToInt32(soldiernum)<battle.defenseUpperAmount)
-                                        soldierlist += "soldier[" + soldierT + "]=" + Convert.ToInt32(soldiernum) + "&";
-                                    else
-                                        soldierlist += "soldier[" + soldierT + "]=" + battle.defenseUpperAmount + "&";
+                                    if(Convert.ToInt32(soldiernum) > 0)
+                                        if ( Convert.ToInt32(soldiernum)<battle.defenseUpperAmount)
+                                            soldierlist += "soldier[" + soldierT + "]=" + Convert.ToInt32(soldiernum) + "&";
+                                        else
+                                            soldierlist += "soldier[" + soldierT + "]=" + battle.defenseUpperAmount + "&";
                                 }
                                 else
                                 {
@@ -1349,12 +1491,7 @@ namespace javascripttest
        
         private void defenseBattlePause_Click(object sender, EventArgs e)
         {
-            defensePause = true;
-        }
-
-        private void DefenseBattleStop_Click(object sender, EventArgs e)
-        {
-            WarQueue.Clear();
+            defenseThr.stop = true;
         }
 
         //continue/break
@@ -1384,60 +1521,15 @@ namespace javascripttest
                 {
                     if (upgradeResource is CheckBox)
                     {
-                        resourceList.Add((upgradeResource as CheckBox).Text);
+                        if ((upgradeResource as CheckBox).Checked)
+                        {
+                            resourceList.Add((upgradeResource as CheckBox).Text);
+                        }
                     }
                 }
                 string createBuildingText=CreateBuildingName.Text;
                 Thread upGradeThr = new Thread(delegate() { Upgrade(buildingList, createBuildingText, resourceList); });
                 upGradeThr.Start();
-            //    foreach (AccountModel account in accountList)
-            //    {
-            //        foreach (village village in account.village)
-            //        {
-            //            var spaceBuiding = village.buildings.Where(building => (!string.IsNullOrEmpty(building.buildingName)));
-            //            int createbtid = Constant.GetBldTypeByName(CreateBuildingName.Text);
-            //            if (spaceBuiding.Count() > 0 && createbtid != -1)
-            //            {
-            //                string createMessage = BuildingCreate(village, spaceBuiding, createbtid.ToString(), account, 0);
-            //            }
-            //            foreach (Control upgradeBuilding in buildingsCollection.Controls)
-            //            {
-            //                if (upgradeBuilding is CheckBox)
-            //                {
-            //                    if ((upgradeBuilding as CheckBox).Checked)
-            //                    {
-            //                        string objBuildingName = (upgradeBuilding as CheckBox).Text;
-            //                        string upgradebtid = Constant.GetBldTypeByName(objBuildingName).ToString();
-            //                        var compatiableBuilding = village.buildings.Where(building => building.buildingName == objBuildingName && building.buidinglevel<20);
-            //                        if (upgradebtid != "-1" && compatiableBuilding.Count() > 0)
-            //                        {
-            //                            Building building = compatiableBuilding.FirstOrDefault();
-            //                            string upgradMessage = mainHelper.BuildingUpgrade(village, building.buildingId, account, 0);
-            //                            if(upgradMessage.Contains("已有建筑任务"))
-            //                            break;                                         
-            //                        }
-            //                    }
-            //                }
-            //            }
-            //            foreach (Control upgradeResource in resourseCollection.Controls)
-            //            {
-            //                if (upgradeResource is CheckBox)
-            //                {
-            //                    string objResourceName = (upgradeResource as CheckBox).Text;
-            //                    var compatiableResource = village.resources.Where(resource => resource.resourceName == objResourceName);
-            //                    if (compatiableResource.Count() > 0)
-            //                    {
-            //                        resourceInfo objResource = compatiableResource.FirstOrDefault();
-            //                        if (Convert.ToInt32(objResource.resourceNum) < 20)
-            //                        {
-            //                            string objrid = objResource.resourceId;
-            //                            string upgradeResourceMessage = mainHelper.UpgradeResources(village, objrid, account, 0);
-            //                        }
-            //                    }
-            //                }
-            //            }
-            //        }
-            //    }
             }
             catch (Exception ex)
             {
@@ -1447,303 +1539,343 @@ namespace javascripttest
         //建筑和资源升级
         private void Upgrade(List<string> buildings, string createBuildingText, List<string> resources)
         {
-            string upgradMessage = string.Empty;
-            foreach (AccountModel account in accountList)
+            while (true)
             {
-                foreach (village village in account.village)
+                refreshAccount();
+                string upgradMessage = string.Empty;
+                foreach (AccountModel account in accountList)
                 {
-                    //创建并升级建筑，智能建设
-                    #region
-                    if (village.IsStateVillage == "1")
-                        continue;
-                    //创建建筑
-                    if (string.IsNullOrEmpty(createBuildingText))
+                    foreach (village village in account.village)
                     {
-                        var spaceBuiding = village.buildings.Where(building => (!string.IsNullOrEmpty(building.buildingName)));                        
-                        var existBuilding = village.buildings.Where(building => building.buildingName == createBuildingText);
-                        int createbtid = Constant.GetBldTypeByName(createBuildingText);                        
-                        string createMessage = string.Empty;
-                        if (spaceBuiding.Count() > 0 && createbtid != -1)
+                        //创建并升级建筑，智能建设
+                        #region
+                        if (village.IsStateVillage == "1")
+                            continue;
+                        //创建建筑
+                        if (string.IsNullOrEmpty(createBuildingText))
                         {
-                            if (existBuilding.Count() == 0)
+                            var spaceBuiding = village.buildings.Where(building => (!string.IsNullOrEmpty(building.buildingName)));
+                            var existBuilding = village.buildings.Where(building => building.buildingName == createBuildingText);
+                            int createbtid = Constant.GetBldTypeByName(createBuildingText);
+                            string createMessage = string.Empty;
+                            if (spaceBuiding.Count() > 0 && createbtid != -1)
                             {
-                                var buildingBingshe = village.buildings.Where(building => building.buildingName == "兵舍");
-                                var buildingBingsheLevel3 = village.buildings.Where(building => building.buildingName == "兵舍" && building.buidinglevel > 2);
-
-                                var buildingZhongjun = village.buildings.Where(building => building.buildingName == "中军帐");
-                                var buildingZhongjunlevel5 = village.buildings.Where(building => building.buildingName == "中军帐" && building.buidinglevel > 4);
-                                var buildingZhongjunlevel20 = village.buildings.Where(building => building.buildingName == "中军帐" && building.buidinglevel == 20);
-
-                                var buildingJiaochang = village.buildings.Where(building => building.buildingName == "校场");
-                                var buildingJiaochanglevel3 = village.buildings.Where(building => building.buildingName == "校场" && building.buidinglevel > 2);
-                                var buildingJiaochanglevel5 = village.buildings.Where(building => building.buildingName == "校场" && building.buidinglevel > 4);
-                                var buildingJiaochanglevel10 = village.buildings.Where(building => building.buildingName == "校场" && building.buidinglevel > 9);
-                                var buildingJiaochanglevle20 = village.buildings.Where(building => building.buildingName == "校场" && building.buidinglevel == 20);
-
-                                var buildingBingqisi=village.buildings.Where(building=>building.buildingName=="兵器司");
-                                var buildingBingqisilevel3 = village.buildings.Where(building => building.buildingName == "兵器司" && building.buidinglevel > 2);
-
-                                var buildingGuandi = village.buildings.Where(building => building.buildingName == "官邸");
-                                var buildingBieyuanlevel5 = village.buildings.Where(building => building.buildingName == "别院"&&building.buidinglevel>4);
-                                var buildingGuandilevel5 = village.buildings.Where(building => building.buildingName == "官邸" && building.buidinglevel > 4);
-
-                                var buildingXueguan=village.buildings.Where(building=>building.buildingName=="学馆");
-                                var buildingXueguanlevel5=village.buildings.Where(building=>building.buildingName=="学馆"&&building.buidinglevel>4);
-                                
-
-
-                            兵舍:
-                                if (createBuildingText == "兵舍")
+                                if (existBuilding.Count() == 0)
                                 {
-                                    if (buildingZhongjun.Count() == 0)
+                                    var buildingBingshe = village.buildings.Where(building => building.buildingName == "兵舍");
+                                    var buildingBingsheLevel3 = village.buildings.Where(building => building.buildingName == "兵舍" && building.buidinglevel > 2);
+
+                                    var buildingZhongjun = village.buildings.Where(building => building.buildingName == "中军帐");
+                                    var buildingZhongjunlevel5 = village.buildings.Where(building => building.buildingName == "中军帐" && building.buidinglevel > 4);
+                                    var buildingZhongjunlevel20 = village.buildings.Where(building => building.buildingName == "中军帐" && building.buidinglevel == 20);
+
+                                    var buildingJiaochang = village.buildings.Where(building => building.buildingName == "校场");
+                                    var buildingJiaochanglevel3 = village.buildings.Where(building => building.buildingName == "校场" && building.buidinglevel > 2);
+                                    var buildingJiaochanglevel5 = village.buildings.Where(building => building.buildingName == "校场" && building.buidinglevel > 4);
+                                    var buildingJiaochanglevel10 = village.buildings.Where(building => building.buildingName == "校场" && building.buidinglevel > 9);
+                                    var buildingJiaochanglevle20 = village.buildings.Where(building => building.buildingName == "校场" && building.buidinglevel == 20);
+
+                                    var buildingBingqisi = village.buildings.Where(building => building.buildingName == "兵器司");
+                                    var buildingBingqisilevel3 = village.buildings.Where(building => building.buildingName == "兵器司" && building.buidinglevel > 2);
+
+                                    var buildingGuandi = village.buildings.Where(building => building.buildingName == "官邸");
+                                    var buildingBieyuanlevel5 = village.buildings.Where(building => building.buildingName == "别院" && building.buidinglevel > 4);
+                                    var buildingGuandilevel5 = village.buildings.Where(building => building.buildingName == "官邸" && building.buidinglevel > 4);
+
+                                    var buildingXueguan = village.buildings.Where(building => building.buildingName == "学馆");
+                                    var buildingXueguanlevel5 = village.buildings.Where(building => building.buildingName == "学馆" && building.buidinglevel > 4);
+
+
+
+                                    兵舍:
+                                    if (createBuildingText == "兵舍")
                                     {
-                                        createBuildingText = "中军帐";
-                                    }
-                                    createMessage = BuildingCreate(village, spaceBuiding, createbtid.ToString(), account, 0);
-                                }
-                            伤兵营:
-                                if (createBuildingText == "伤兵营")
-                                {
-                                    if (buildingZhongjun.Count() == 0)
-                                    {
-                                        createBuildingText = "中军帐";
-                                        createMessage = BuildingCreate(village, spaceBuiding, createbtid.ToString(), account, 0);
-                                    }                                    
-                                    else if (buildingBingshe.Count() == 0)
-                                    {
-                                        createBuildingText = "兵舍";
-                                        goto 兵舍;
-                                    }
-                                    else 
-                                        createMessage = BuildingCreate(village, spaceBuiding, createbtid.ToString(), account, 0);
-                                    
-                                }
-                            校场:
-                                if (createBuildingText == "校场")
-                                {
-                                    if (buildingBingshe.Count() == 0)
-                                    {
-                                        createBuildingText = "兵舍";
-                                        goto 兵舍;
-                                    }
-                                    else if (buildingBingqisilevel3.Count() == 0)
-                                    {
-                                        upgradMessage = UpdateBuilding(buildings, "兵舍", village, account);
-                                        if (upgradMessage.Contains("已有建筑任务"))
-                                            continue;
-                                    }
-                                    else
-                                    {
-                                        if (spaceBuiding.Count() == 0)
+                                        if (buildingZhongjun.Count() == 0)
                                         {
-
+                                            createBuildingText = "中军帐";
                                         }
-                                        else
-                                        {
-                                            createMessage = BuildingCreate(village, spaceBuiding, createbtid.ToString(), account, 0);
-                                        }
+                                        createMessage = BuildingCreate(village, spaceBuiding, createbtid.ToString(), account, 0);
                                     }
-                                         
-                                }
-                            别院:
-                                if (createBuildingText == "别院")
-                                {
-                                    if (village.Ismain != "1")
+                                    伤兵营:
+                                    if (createBuildingText == "伤兵营")
                                     {
                                         if (buildingZhongjun.Count() == 0)
                                         {
                                             createBuildingText = "中军帐";
                                             createMessage = BuildingCreate(village, spaceBuiding, createbtid.ToString(), account, 0);
                                         }
-                                        else if (buildingZhongjunlevel5.Count() == 0)
+                                        else if (buildingBingshe.Count() == 0)
                                         {
-                                            upgradMessage = UpdateBuilding(buildings, "中军帐", village, account);
+                                            createBuildingText = "兵舍";
+                                            goto 兵舍;
+                                        }
+                                        else
+                                            createMessage = BuildingCreate(village, spaceBuiding, createbtid.ToString(), account, 0);
+
+                                    }
+                                    校场:
+                                    if (createBuildingText == "校场")
+                                    {
+                                        if (buildingBingshe.Count() == 0)
+                                        {
+                                            createBuildingText = "兵舍";
+                                            goto 兵舍;
+                                        }
+                                        else if (buildingBingqisilevel3.Count() == 0)
+                                        {
+                                            upgradMessage = UpdateBuilding(buildings, "兵舍", village, account);
                                             if (upgradMessage.Contains("已有建筑任务"))
                                                 continue;
                                         }
                                         else
                                         {
-                                            createMessage = BuildingCreate(village, spaceBuiding, createbtid.ToString(), account, 0);
-                                        }   
-                                    }
-                                    
-                                }
-                            官邸:
-                                if (createBuildingText == "官邸")
-                                {
-                                    if (village.Ismain == "1")
-                                    {
-                                        if (buildingZhongjun.Count() == 0)
-                                        {
-                                            createBuildingText = "中军帐";
-                                            createMessage = BuildingCreate(village, spaceBuiding, createbtid.ToString(), account, 0);
+                                            if (spaceBuiding.Count() == 0)
+                                            {
+
+                                            }
+                                            else
+                                            {
+                                                createMessage = BuildingCreate(village, spaceBuiding, createbtid.ToString(), account, 0);
+                                            }
                                         }
-                                        else if (buildingZhongjunlevel5.Count() == 0)
+
+                                    }
+                                    别院:
+                                    if (createBuildingText == "别院")
+                                    {
+                                        if (village.Ismain != "1")
                                         {
-                                            upgradMessage = UpdateBuilding(buildings, "中军帐", village, account);
-                                            if (upgradMessage.Contains("已有建筑任务"))
-                                                continue;
+                                            if (buildingZhongjun.Count() == 0)
+                                            {
+                                                createBuildingText = "中军帐";
+                                                createMessage = BuildingCreate(village, spaceBuiding, createbtid.ToString(), account, 0);
+                                            }
+                                            else if (buildingZhongjunlevel5.Count() == 0)
+                                            {
+                                                upgradMessage = UpdateBuilding(buildings, "中军帐", village, account);
+                                                if (upgradMessage.Contains("已有建筑任务"))
+                                                    continue;
+                                            }
+                                            else
+                                            {
+                                                createMessage = BuildingCreate(village, spaceBuiding, createbtid.ToString(), account, 0);
+                                            }
                                         }
-                                        else
+
+                                    }
+                                    官邸:
+                                    if (createBuildingText == "官邸")
+                                    {
+                                        if (village.Ismain == "1")
                                         {
-                                            createMessage = BuildingCreate(village, spaceBuiding, createbtid.ToString(), account, 0);
+                                            if (buildingZhongjun.Count() == 0)
+                                            {
+                                                createBuildingText = "中军帐";
+                                                createMessage = BuildingCreate(village, spaceBuiding, createbtid.ToString(), account, 0);
+                                            }
+                                            else if (buildingZhongjunlevel5.Count() == 0)
+                                            {
+                                                upgradMessage = UpdateBuilding(buildings, "中军帐", village, account);
+                                                if (upgradMessage.Contains("已有建筑任务"))
+                                                    continue;
+                                            }
+                                            else
+                                            {
+                                                createMessage = BuildingCreate(village, spaceBuiding, createbtid.ToString(), account, 0);
+                                            }
                                         }
                                     }
-                                }
-                            兵器司:
-                                if (createBuildingText == "兵器司")
-                                {
-                                    if (buildingJiaochang.Count() == 0)
+                                    兵器司:
+                                    if (createBuildingText == "兵器司")
                                     {
-                                        createBuildingText = "校场";
-                                        goto 校场;
-                                    }
-                                    else if (buildingJiaochanglevel3.Count() == 0)
-                                    {
-                                        upgradMessage = UpdateBuilding(buildings, "校场", village, account);
-                                        if (upgradMessage.Contains("已有建筑任务"))
-                                            continue;
-                                    }
-                                    else
-                                        createMessage = BuildingCreate(village, spaceBuiding, createbtid.ToString(), account, 0);
-                                }
-                            土木司:
-                                if (createBuildingText == "土木司"||createBuildingText == "斥候营")
-                                {
-                                    if (buildingJiaochang.Count() == 0)
-                                    {
-                                        createBuildingText = "校场";
-                                        goto 校场;
-                                    }
-                                    else if (buildingJiaochanglevel5.Count() == 0)
-                                    {
-                                        upgradMessage = UpdateBuilding(buildings, "校场", village, account);
-                                        if (upgradMessage.Contains("已有建筑任务"))
-                                            continue;
-                                    }
-                                    else
-                                        createMessage = BuildingCreate(village, spaceBuiding, createbtid.ToString(), account, 0);
-                                }                          
-                            马场:
-                                if (createBuildingText == "马场")
-                                {
-                                    if (!(buildingBingqisilevel3.Count() != 0 && buildingJiaochanglevel5.Count() != 0))
-                                    {
-                                        if (buildingBingqisi.Count() == 0)
-                                        {
-                                            createBuildingText = "兵器司";
-                                            goto 兵器司;
-                                        }
-                                        else
-                                        {
-                                            upgradMessage = UpdateBuilding(buildings, "兵器司", village, account);
-                                            if (upgradMessage.Contains("已有建筑任务"))
-                                                continue;
-                                        }
                                         if (buildingJiaochang.Count() == 0)
                                         {
                                             createBuildingText = "校场";
                                             goto 校场;
                                         }
-                                        else
+                                        else if (buildingJiaochanglevel3.Count() == 0)
                                         {
                                             upgradMessage = UpdateBuilding(buildings, "校场", village, account);
                                             if (upgradMessage.Contains("已有建筑任务"))
                                                 continue;
-
-                                        }
-                                    }
-                                    else
-                                        createMessage = BuildingCreate(village, spaceBuiding, createbtid.ToString(), account, 0);
-                                }
-
-                            学馆:
-                                if (createBuildingText == "学馆")
-                                {
-                                    if (buildingJiaochang.Count() == 0)
-                                    {
-                                        createBuildingText = "校场";
-                                        goto 校场;
-                                    }
-                                    else if (buildingJiaochanglevel10.Count() == 0)
-                                    {
-                                        upgradMessage = UpdateBuilding(buildings, "校场", village, account);
-                                        if (upgradMessage.Contains("已有建筑任务"))
-                                            continue;
-                                    }
-                                    else
-                                        createMessage = BuildingCreate(village, spaceBuiding, createbtid.ToString(), account, 0);
-                                }
-                            工匠坊:
-                                if (createBuildingText == "工匠坊")
-                                {
-                                    if (buildingJiaochang.Count() == 0)
-                                    {
-                                        createBuildingText = "校场";
-                                        goto 校场;
-                                    }
-                                    else if (buildingJiaochanglevel10.Count() == 0)
-                                    {
-                                        upgradMessage = UpdateBuilding(buildings, "校场", village, account);
-                                        if (upgradMessage.Contains("已有建筑任务"))
-                                            continue;
-                                    }
-                                    else
-                                        createMessage = BuildingCreate(village, spaceBuiding, createbtid.ToString(), account, 0);
-                                }
-                            虎贲营:
-                                if (createBuildingText == "虎贲营")
-                                {
-                                    if (!(buildingZhongjunlevel20.Count() != 0 && buildingJiaochanglevle20.Count() != 0))
-                                    {
-
-                                        if (buildingZhongjun.Count() == 0)
-                                        {
-                                            createBuildingText = "中军帐";
-                                            createMessage = BuildingCreate(village, spaceBuiding, createbtid.ToString(), account, 0);
                                         }
                                         else
-                                        {
-                                            upgradMessage = UpdateBuilding(buildings, "中军帐", village, account);
-                                            if (upgradMessage.Contains("已有建筑任务"))
-                                                continue;
-                                        }
+                                            createMessage = BuildingCreate(village, spaceBuiding, createbtid.ToString(), account, 0);
+                                    }
+                                    土木司:
+                                    if (createBuildingText == "土木司" || createBuildingText == "斥候营")
+                                    {
                                         if (buildingJiaochang.Count() == 0)
                                         {
                                             createBuildingText = "校场";
                                             goto 校场;
                                         }
-                                        else
+                                        else if (buildingJiaochanglevel5.Count() == 0)
                                         {
                                             upgradMessage = UpdateBuilding(buildings, "校场", village, account);
                                             if (upgradMessage.Contains("已有建筑任务"))
                                                 continue;
+                                        }
+                                        else
+                                            createMessage = BuildingCreate(village, spaceBuiding, createbtid.ToString(), account, 0);
+                                    }
+                                    马场:
+                                    if (createBuildingText == "马场")
+                                    {
+                                        if (!(buildingBingqisilevel3.Count() != 0 && buildingJiaochanglevel5.Count() != 0))
+                                        {
+                                            if (buildingBingqisi.Count() == 0)
+                                            {
+                                                createBuildingText = "兵器司";
+                                                goto 兵器司;
+                                            }
+                                            else
+                                            {
+                                                upgradMessage = UpdateBuilding(buildings, "兵器司", village, account);
+                                                if (upgradMessage.Contains("已有建筑任务"))
+                                                    continue;
+                                            }
+                                            if (buildingJiaochang.Count() == 0)
+                                            {
+                                                createBuildingText = "校场";
+                                                goto 校场;
+                                            }
+                                            else
+                                            {
+                                                upgradMessage = UpdateBuilding(buildings, "校场", village, account);
+                                                if (upgradMessage.Contains("已有建筑任务"))
+                                                    continue;
 
+                                            }
+                                        }
+                                        else
+                                            createMessage = BuildingCreate(village, spaceBuiding, createbtid.ToString(), account, 0);
+                                    }
+
+                                    学馆:
+                                    if (createBuildingText == "学馆")
+                                    {
+                                        if (buildingJiaochang.Count() == 0)
+                                        {
+                                            createBuildingText = "校场";
+                                            goto 校场;
+                                        }
+                                        else if (buildingJiaochanglevel10.Count() == 0)
+                                        {
+                                            upgradMessage = UpdateBuilding(buildings, "校场", village, account);
+                                            if (upgradMessage.Contains("已有建筑任务"))
+                                                continue;
+                                        }
+                                        else
+                                            createMessage = BuildingCreate(village, spaceBuiding, createbtid.ToString(), account, 0);
+                                    }
+                                    工匠坊:
+                                    if (createBuildingText == "工匠坊")
+                                    {
+                                        if (buildingJiaochang.Count() == 0)
+                                        {
+                                            createBuildingText = "校场";
+                                            goto 校场;
+                                        }
+                                        else if (buildingJiaochanglevel10.Count() == 0)
+                                        {
+                                            upgradMessage = UpdateBuilding(buildings, "校场", village, account);
+                                            if (upgradMessage.Contains("已有建筑任务"))
+                                                continue;
+                                        }
+                                        else
+                                            createMessage = BuildingCreate(village, spaceBuiding, createbtid.ToString(), account, 0);
+                                    }
+                                    虎贲营:
+                                    if (createBuildingText == "虎贲营")
+                                    {
+                                        if (!(buildingZhongjunlevel20.Count() != 0 && buildingJiaochanglevle20.Count() != 0))
+                                        {
+
+                                            if (buildingZhongjun.Count() == 0)
+                                            {
+                                                createBuildingText = "中军帐";
+                                                createMessage = BuildingCreate(village, spaceBuiding, createbtid.ToString(), account, 0);
+                                            }
+                                            else
+                                            {
+                                                upgradMessage = UpdateBuilding(buildings, "中军帐", village, account);
+                                                if (upgradMessage.Contains("已有建筑任务"))
+                                                    continue;
+                                            }
+                                            if (buildingJiaochang.Count() == 0)
+                                            {
+                                                createBuildingText = "校场";
+                                                goto 校场;
+                                            }
+                                            else
+                                            {
+                                                upgradMessage = UpdateBuilding(buildings, "校场", village, account);
+                                                if (upgradMessage.Contains("已有建筑任务"))
+                                                    continue;
+
+                                            }
+                                        }
+                                        else
+                                            createMessage = BuildingCreate(village, spaceBuiding, createbtid.ToString(), account, 0);
+                                    }
+                                    督造司:
+                                    if (createBuildingText == "督造司")
+                                    {
+                                        if (village.Ismain == "1")
+                                        {
+                                            if (!(buildingGuandi.Count() != 0 && buildingXueguanlevel5.Count() != 0))
+                                            {
+                                                if (buildingGuandi.Count() == 0)
+                                                {
+                                                    createBuildingText = "官邸";
+                                                    goto 官邸;
+                                                }
+                                                if (buildingXueguan.Count() == 0)
+                                                {
+                                                    createBuildingText = "学馆";
+                                                    goto 学馆;
+                                                }
+                                                else
+                                                {
+                                                    upgradMessage = UpdateBuilding(buildings, "学馆", village, account);
+                                                    if (upgradMessage.Contains("已有建筑任务"))
+                                                        continue;
+                                                }
+                                            }
+                                            else
+                                            {
+                                                createMessage = BuildingCreate(village, spaceBuiding, createbtid.ToString(), account, 0);
+                                            }
                                         }
                                     }
-                                    else
-                                        createMessage = BuildingCreate(village, spaceBuiding, createbtid.ToString(), account, 0);
-                                }
-                            督造司:
-                                if (createBuildingText == "督造司")
-                                {
-                                    if (village.Ismain == "1")
+                                    盟旗:
+                                    if (createBuildingText == "盟旗")
                                     {
-                                        if (!(buildingGuandi.Count() != 0 && buildingXueguanlevel5.Count() != 0))
+                                        if (village.Ismain == "1" && buildingGuandilevel5.Count() == 0)
                                         {
                                             if (buildingGuandi.Count() == 0)
                                             {
                                                 createBuildingText = "官邸";
                                                 goto 官邸;
                                             }
-                                            if (buildingXueguan.Count() == 0)
+                                            else
                                             {
-                                                createBuildingText = "学馆";
-                                                goto 学馆;
+                                                upgradMessage = UpdateBuilding(buildings, "官邸", village, account);
+                                                if (upgradMessage.Contains("已有建筑任务"))
+                                                    continue;
+                                            }
+                                        }
+                                        else if (village.Ismain == "0" && buildingBieyuanlevel5.Count() == 0)
+                                        {
+                                            if (buildingGuandi.Count() == 0)
+                                            {
+                                                createBuildingText = "别院";
+                                                goto 别院;
                                             }
                                             else
                                             {
-                                                upgradMessage = UpdateBuilding(buildings, "学馆", village, account);
+                                                upgradMessage = UpdateBuilding(buildings, "别院", village, account);
                                                 if (upgradMessage.Contains("已有建筑任务"))
                                                     continue;
                                             }
@@ -1753,76 +1885,54 @@ namespace javascripttest
                                             createMessage = BuildingCreate(village, spaceBuiding, createbtid.ToString(), account, 0);
                                         }
                                     }
+
                                 }
-                            盟旗:
-                                if (createBuildingText == "盟旗")
-                                {
-                                    if (village.Ismain == "1" && buildingGuandilevel5.Count() == 0)
-                                    {
-                                        if (buildingGuandi.Count() == 0)
-                                        {
-                                            createBuildingText = "官邸";
-                                            goto 官邸;
-                                        }
-                                        else
-                                        {
-                                            upgradMessage = UpdateBuilding(buildings, "官邸", village, account);
-                                            if (upgradMessage.Contains("已有建筑任务"))
-                                                continue;
-                                        }
-                                    }
-                                    else if (village.Ismain == "0" && buildingBieyuanlevel5.Count() == 0)
-                                    {
-                                        if (buildingGuandi.Count() == 0)
-                                        {
-                                            createBuildingText = "别院";
-                                            goto 别院;
-                                        }
-                                        else
-                                        {
-                                            upgradMessage = UpdateBuilding(buildings, "别院", village, account);
-                                            if (upgradMessage.Contains("已有建筑任务"))
-                                                continue;
-                                        }
-                                    }
-                                    else
-                                    {
-                                        createMessage = BuildingCreate(village, spaceBuiding, createbtid.ToString(), account, 0);
-                                    }
-                                }
-                                
+
                             }
-                             
                         }
-                    }
-                    //升级建筑
-                    if(buildings.Count()>0)
-                    foreach (var item in buildings)
-                    {
-                        string objBuildingName = item;                        
-                        upgradMessage = UpdateBuilding(buildings, objBuildingName, village, account);
-                        if (upgradMessage.Contains("已有建筑任务"))
-                            continue;
-                    }
-                    #endregion
-                    //升级资源
-                    if(resources.Count()>0)
-                    foreach (var item in resources)
-                    {
-                        var compatiableResource = village.resources.Where(resource => resource.resourceName == item);
-                        if (compatiableResource.Count() > 0)
-                        {
-                            resourceInfo objResource = compatiableResource.FirstOrDefault();
-                            if (Convert.ToInt32(objResource.resourceNum) < 20)
+                        //升级建筑
+                        if (buildings.Count() > 0)
+                            foreach (var item in buildings)
                             {
-                                string objrid = objResource.resourceId;
-                                string upgradeResourceMessage = mainHelper.UpgradeResources(village, objrid, account, 0);
+                                string objBuildingName = item;
+                                upgradMessage = UpdateBuilding(buildings, objBuildingName, village, account);
+                                if (upgradMessage.Contains("已有建筑任务"))
+                                    continue;
                             }
-                        }
+                        #endregion
+                        //升级资源
+                        if (resources.Count() > 0)
+                            foreach (var item in resources)
+                            {
+                                var compatiableResource = village.resources.Where(resource => resource.resourceName == item);
+                                if (compatiableResource.Count() > 0)
+                                {
+                                    int min = compatiableResource.Min(t => Convert.ToInt32(t.resourceNum));
+                                    var minresource = compatiableResource.Where(t => Convert.ToInt32(t.resourceNum) == min);
+                                    resourceInfo objResource = minresource.FirstOrDefault();
+                                    if (Convert.ToInt32(objResource.resourceNum) < 20)
+                                    {
+                                        string objrid = objResource.resourceId;
+                                        string upgradeResourceMessage = mainHelper.UpgradeResources(village, objrid, account, 0);
+                                    }
+                                }
+                            }
                     }
                 }
-            }
+                Thread.Sleep(360000);
+            }         
               
+        }
+
+        private void refreshAccount()
+        {
+            lock(accountList)
+            for (var i = 0; i < accountList.Count(); i++)
+            {
+                var account = accountList[i];
+                mainHelper.InitialAccountInfo(ref account);
+                accountList[i] = account;
+            }
         }
         /// <summary>
         /// 创建建筑
@@ -1980,9 +2090,9 @@ namespace javascripttest
                            
         }
 
-        public void InitReport()
+        public void InitValues()
         {
-            
+            traderAccountIndex = 0;
         }
 
         private void migrate_start_Click(object sender, EventArgs e)
@@ -2018,7 +2128,7 @@ namespace javascripttest
                 show("请输入正确的y坐标");
                 return;
             }
-              else
+            else
             {
                 cargo.Trader_Target_Y = Trader_Target_Y.Text.Trim();
             }
@@ -2059,8 +2169,8 @@ namespace javascripttest
             {
                 cargo.restrictTime = "0";
             }
-
-            TraderThr = new Thread(delegate() { StartTradeTask(cargo); });
+            TraderThr = new ThreadWorkers(delegate() { StartTradeTask(cargo); });
+            TraderThr.stop = false;
             TraderThr.Start();
         }
 
@@ -2073,71 +2183,78 @@ namespace javascripttest
 
         private void StartTradeTask(cargo cargo)
         {
-            foreach (var account in accountList)
+            var index = accountList.Count() == TraderThr.index  ? 0 : TraderThr.index;
+            for (var i=index;i< accountList.Count();i++)
             {
-                foreach (var village in account.village)
-                {
-                    try
+                if (!TraderThr.stop)
+                    foreach (var village in accountList[i].village)
                     {
-                        var markets = village.buildings.Where(build => build.buildingName == "集市");
-                        if (markets.Count() > 0)
+                        TraderThr.index = i+1;
+                        try
                         {
-                            Building market = markets.FirstOrDefault();
-                            string url = "http://" + Constant.Server_Url + "/index.php?act=build.worksite&bid=" + market.buildingId + "&villageid=" + village.VillageID + "&rand=";
-                            string regexStr = "(?<=(目前可运输最多资源.*?load_sum\">)).*?(?=(</span>))";
-                            string maxCount = mainHelper.commonFunction(account, url, regexStr);
+                            var markets = village.buildings.Where(build => build.buildingName == "集市");
+                            if (markets.Count() > 0)
+                            {
+                                Building market = markets.FirstOrDefault();
+                                string url = "http://" + Constant.Server_Url + "/index.php?act=build.worksite&bid=" + market.buildingId + "&villageid=" + village.VillageID + "&rand=";
+                                string regexStr = "(?<=(目前可运输最多资源.*?load_sum\">)).*?(?=(</span>))";
+                                string maxCount = mainHelper.commonFunction(accountList[i], url, regexStr);
 
-                            string PostStr = "Trader_Resource_Lumber=" + mainHelper.doubleous(maxCount, cargo.Trader_Resource_Lumber.ToString()) + "&Trader_Resource_Clay=" + mainHelper.doubleous(maxCount, cargo.Trader_Resource_Clay.ToString()) + "&Trader_Resource_Iron=" + mainHelper.doubleous(maxCount, cargo.Trader_Resource_Iron.ToString()) + "&Trader_Resource_Crop=" + mainHelper.doubleous(maxCount, cargo.Trader_Resource_Crop.ToString()) + "&trade_num=1&Trader_Target_X=" + cargo.Trader_Target_X + "&Trader_Target_Y=" + cargo.Trader_Target_Y + "&con_num=";
-                            url = "http://" + Constant.Server_Url + "/index.php?act=build.act&btid=18&    do=startTrade&villageid=" + village.VillageID + "&rand=";
-                            string readyTrade = mainHelper.PostForm(url, Constant.Server_Url, "http://" + Constant.Server_Url, account, PostStr);
-                            if (readyTrade.Contains("外挂使用者"))
-                            {
-                                string logger = string.Format("被检测出使用外挂！！！，暂停运输", village.VillageName);
-                                refreshLog(logger, Constant.cargoIndex);
-                                break;
-                            }
-                            string time = mainHelper.getParaValue("(?<=(<td>需要时间.*?>)).+?(?=<)", readyTrade);
-                            if (readyTrade.Contains("需要时间"))
-                            {                                                        
-                                if ((cargo.restrictTime != "0") && time.Contains(":"))
+                                string PostStr = "Trader_Resource_Lumber=" + mainHelper.doubleous(maxCount, cargo.Trader_Resource_Lumber.ToString()) + "&Trader_Resource_Clay=" + mainHelper.doubleous(maxCount, cargo.Trader_Resource_Clay.ToString()) + "&Trader_Resource_Iron=" + mainHelper.doubleous(maxCount, cargo.Trader_Resource_Iron.ToString()) + "&Trader_Resource_Crop=" + mainHelper.doubleous(maxCount, cargo.Trader_Resource_Crop.ToString()) + "&trade_num=1&Trader_Target_X=" + cargo.Trader_Target_X + "&Trader_Target_Y=" + cargo.Trader_Target_Y + "&con_num=";
+                                url = "http://" + Constant.Server_Url + "/index.php?act=build.act&btid=18&do=startTrade&villageid=" + village.VillageID + "&rand=";
+                                string readyTrade = mainHelper.PostForm(url, Constant.Server_Url, "http://" + Constant.Server_Url, accountList[i], PostStr);
+                                if (readyTrade.Contains("外挂使用者"))
                                 {
-                                    double num1=0;                                    
-                                    string[] splitTime = time.Split(new char[] { ':' });
-                                    if (splitTime.Length == 3) num1 = 60 * Convert.ToInt32(splitTime[0])+Convert.ToInt32(splitTime[1]);
-                                    if (splitTime.Length == 2) num1 = Convert.ToInt32(splitTime[0]);
-                                    if(num1>Convert.ToInt32(cargo.restrictTime))
-                                    {
-                                        refreshLog(string.Format("城镇 {0} 运输到 {1} {2}超出时间限制 ", village.VillageName, cargo.Trader_Target_X, cargo.Trader_Target_Y), Constant.cargoIndex);
-                                        continue;
-                                    }                                    
+                                    string logger = string.Format("被检测出使用外挂！！！，暂停运输", village.VillageName);
+                                    refreshLog(logger, Constant.cargoIndex);
+                                    break;
                                 }
-                               
-                            }
-                            url = "http://" + Constant.Server_Url + "/index.php?act=build.act&btid=18&do=submitTrade&villageid=" + village.VillageID + "&rand=";
-                            string TranResult = mainHelper.PostForm(url, Constant.Server_Url, "http://" + Constant.Server_Url, account, PostStr);
-                            TranResult = mainHelper.getParaValue("(?<=(<locat act.*?>)).+?(?=</locat)", TranResult);
-                            if (TranResult == "资源开始运输")
-                            {
-                                refreshLog(string.Format("城镇 {0} 将于{1} 运输到 {2} {3} ", village.VillageName, time, cargo.Trader_Target_X, cargo.Trader_Target_Y), Constant.cargoIndex);
+                                string time = mainHelper.getParaValue("(?<=(<td>需要时间.*?>)).+?(?=<)", readyTrade);
+                                if (readyTrade.Contains("需要时间"))
+                                {                                                        
+                                    if ((cargo.restrictTime != "0") && time.Contains(":"))
+                                    {
+                                        double num1=0;                                    
+                                        string[] splitTime = time.Split(new char[] { ':' });
+                                        if (splitTime.Length == 3) num1 = 60 * Convert.ToInt32(splitTime[0])+Convert.ToInt32(splitTime[1]);
+                                        if (splitTime.Length == 2) num1 = Convert.ToInt32(splitTime[0]);
+                                        if(num1>Convert.ToInt32(cargo.restrictTime))
+                                        {
+                                            refreshLog(string.Format("城镇 {0} 运输到 {1} {2}超出时间限制 ", village.VillageName, cargo.Trader_Target_X, cargo.Trader_Target_Y), Constant.cargoIndex);
+                                            continue;
+                                        }                                    
+                                    }
+                                }
+                                url = "http://" + Constant.Server_Url + "/index.php?act=build.act&btid=18&do=submitTrade&villageid=" + village.VillageID + "&rand=";
+                                string TranResult = mainHelper.PostForm(url, Constant.Server_Url, "http://" + Constant.Server_Url, accountList[i], PostStr);
+                                TranResult = mainHelper.getParaValue("(?<=(<locat act.*?>)).+?(?=</locat)", TranResult);
+                                if (TranResult == "资源开始运输")
+                                {
+                                    refreshLog(string.Format("城镇 {0} 将于{1} 运输到 {2} {3} ", village.VillageName, time, cargo.Trader_Target_X, cargo.Trader_Target_Y), Constant.cargoIndex);
+                                }
+                                else
+                                {
+                                    refreshLog(string.Format("城镇 {0} 将于{1} 运输到 {2} {3} ", village.VillageName, time, cargo.Trader_Target_X, cargo.Trader_Target_Y), Constant.cargoIndex);
+                                }
+
                             }
                             else
                             {
-                                refreshLog(string.Format("城镇 {0} 将于{1} 运输到 {2} {3} ", village.VillageName, time, cargo.Trader_Target_X, cargo.Trader_Target_Y), Constant.cargoIndex);
+                                string logger = string.Format("城镇：{0}  没有集市哦！",village.VillageName);
+                                refreshLog(logger, Constant.cargoIndex);
                             }
-
                         }
-                        else
+                        catch
                         {
-                            string logger = string.Format("城镇：{0}  没有集市哦！",village.VillageName);
-                            refreshLog(logger, Constant.cargoIndex);
+                            refreshLog("运输错误", Constant.cargoIndex);
                         }
                     }
-                    catch
-                    { 
-                        
-                    }
-                }
             }
+            if (TraderThr.stop) {
+                refreshLog("运输暂停", Constant.cargoIndex);
+                return;
+            }
+            refreshLog("运输完成", Constant.cargoIndex);
         }
         /// <summary>
         /// 祭天
@@ -2200,7 +2317,7 @@ namespace javascripttest
             string regexStr = "现有量：</strong>(?<count>\\d+)</li></ul>";
             foreach (AccountModel account in accountList)
             {
-                MatchCollection matchs = mainHelper.commonFunction1(account, url, regexStr,"<html id=\"floatblockleft\"><!\\[CDATA\\[.*?(>\\]\\]></html>)");
+                MatchCollection matchs = mainHelper.commonFunction2(account, url, regexStr,"floatblockleft.*?html");
                 if (matchs.Count>0)
                 foreach (Match match in matchs)
                 {
@@ -2223,8 +2340,8 @@ namespace javascripttest
             //        refreshLog(account.chief+": "+ItemName+" 数量："+itemCount, 5);
             //        regexStr = "storage.goback.*?(&num=)";
             //    }
-                string regexStr = @"<strong>现有量.*?>(?<num>\w+)</li>.*?(?<url>storage.goback.*?')";
-                MatchCollection matchs = mainHelper.commonFunction1(account, url, regexStr);
+                string regexStr = @"<strong>现有量.*?>(?<num>\w+)</li>";
+                MatchCollection matchs = mainHelper.commonFunction2(account, url, regexStr, "搜索道具.*?\\]\\]");
                 if (matchs.Count > 0)
                 {
                     foreach (Match match in matchs)
@@ -2379,7 +2496,7 @@ namespace javascripttest
                     foreach (var account in CurrenList)
                     {
                         Interlocked.Increment(ref threadCount);
-                        ThreadPool.QueueUserWorkItem(new WaitCallback(loginKunLunServer), account);                        
+                        ThreadPool.QueueUserWorkItem(new WaitCallback(loginEntrance), account);                        
                     }
                     //等待线程全部完成
                     while (threadCount > 0)
@@ -2493,7 +2610,7 @@ namespace javascripttest
             this.attack_start88.BeginInvoke(new MethodInvoker(() => { this.attack_start88.Enabled = false; }));
             this.attack_suspend.BeginInvoke(new MethodInvoker(() => { this.attack_suspend.Enabled = true; }));
             this.attack_end.BeginInvoke(new MethodInvoker(() => { this.attack_end.Enabled = true; }));
-            if (AttackThr == null || AttackThr.ThreadState == ThreadState.Aborted || AttackThr.ThreadState == ThreadState.Stopped)
+            if (AttackThr == null || AttackThr.ThreadState == System.Threading.ThreadState.Aborted || AttackThr.ThreadState == System.Threading.ThreadState.Stopped)
             {
                 AttackThr = new Thread(delegate() { Attack_Start(battle); });
                 AttackThr.Start();
@@ -2506,7 +2623,7 @@ namespace javascripttest
 
         private void attack_suspend_Click(object sender, EventArgs e)
         {
-            if (AttackThr!=null&&AttackThr.ThreadState == ThreadState.Running)
+            if (AttackThr!=null&&AttackThr.ThreadState == System.Threading.ThreadState.Running)
             {
                 AttackThr.Suspend();
                 this.attack_start88.BeginInvoke(new MethodInvoker (() => { this.attack_start88.Enabled = true; }));
@@ -2517,7 +2634,7 @@ namespace javascripttest
 
         private void attack_end_Click(object sender, EventArgs e)
         {
-            if (AttackThr != null && AttackThr.ThreadState == ThreadState.Running || AttackThr.ThreadState == ThreadState.Suspended)
+            if (AttackThr != null && AttackThr.ThreadState == System.Threading.ThreadState.Running || AttackThr.ThreadState == System.Threading.ThreadState.Suspended)
             {
                 this.attack_start88.BeginInvoke(new MethodInvoker(() => { this.attack_start88.Enabled = true; }));
                 this.attack_suspend.BeginInvoke(new MethodInvoker(() => { this.attack_suspend.Enabled = false; }));
@@ -3105,11 +3222,9 @@ namespace javascripttest
                                     setControl(control, relativeitem);
                                 }
                             }
-
                         }
                     }
                 }
-
             }
             catch (Exception ex)
             {
@@ -3135,6 +3250,144 @@ namespace javascripttest
             {
                 (control as ComboBox).SelectedIndex = Convert.ToInt32(node.state);
             }
+            else if(control is ListView)
+            {
+                if(!string.IsNullOrEmpty(node.state))
+                {
+                    foreach(var item in node.state.Split(','))
+                    {
+                        string xx = item.Replace("'","");
+                        (control as ListView).Items.Add(xx, xx, null);
+                    }
+                }
+            }
+        }
+
+        private void addleague_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(alliance.Text))
+            {
+                if (handSelected.SelectedIndex == 0)
+                {
+                    if (umeng.Items.Find(alliance.Text, true).Length == 0)
+                    {
+                        umeng.Items.Add(alliance.Text,alliance.Text,null);
+                        setAttr(umeng, e);
+                    }                   
+                }
+                else
+                {
+                    if (enemyleague.Items.Find(alliance.Text, true).Length == 0)
+                    {
+                        enemyleague.Items.Add(alliance.Text, alliance.Text, null);
+                        setAttr(enemyleague, e);
+                    }                      
+                }                
+            }
+        }
+
+        private void delleague_Click(object sender, EventArgs e)
+        {
+            if (handSelected.SelectedIndex == 0)
+            {
+                foreach (ListViewItem item in umeng.SelectedItems)
+                {
+                    if (umeng.InvokeRequired)
+                        umeng.BeginInvoke(new MethodInvoker(() => { umeng.Items.Remove(item); }));
+                    else
+                        umeng.Items.Remove(item);
+                }
+
+            }
+            else
+            {
+                foreach (ListViewItem item in enemyleague.SelectedItems)
+                {
+                    if (enemyleague.InvokeRequired)
+                        enemyleague.BeginInvoke(new MethodInvoker(() => { enemyleague.Items.Remove(item); }));
+                    else
+                        enemyleague.Items.Remove(item);
+                }
+            }
+            setAttr(sender, e);
+        }
+
+        private void SoldiersType_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+            ComboBox obj = sender as ComboBox;
+            if (obj.SelectedIndex == 0)
+            {
+                attackSetting.Visible = true;
+                defenseSetting.Visible = false;
+            }
+            else
+            {
+                attackSetting.Visible = false;
+                defenseSetting.Visible = true;
+            }
+        }
+
+        private void changeBtn_Click(object sender, EventArgs e)
+        {
+            for (var i=0;i<accountList.Count;i++)
+            {
+                AccountModel account = accountList[i];
+                string url = @"http://www.kunlun.com/?act=passport.do_reset_password";
+                string hostUrl = @"www.kunlun.com";
+                string referenceUrl = @"http://www.kunlun.com/?act=passport.changepwd";
+                string OriginUrl = @"http://www.kunlun.com";
+                string form_str = string.Format("old_password={0}&password={1}&password_retype={1}",account.password,pwdTxt.Text.ToString());
+                //printCookie(ref account);
+                string result = urlCommand.PostForm1(url, hostUrl, OriginUrl, referenceUrl,account, form_str);                
+                if (result.Contains("新密码修改成功！"))
+                {
+                    refreshLog(string.Format("账号：{0} {1}修改成功",account.chief,account.AccountName), Constant.pwdIndex);
+                }
+            }                
+        }
+        
+        public void printCookie(ref AccountModel account)
+        {
+            var getCookie = urlCommand.Html_get(@"https://login.kunlun.com/?act=user.gettoken", ref account);
+            //if (account.cookies.Count > 0)
+            //{
+            //    try
+            //    {
+            //        CookieCollection cookies = null;
+            //        foreach (var hostitem in new[] { "http://" + "login.kunlun.com", "http://" + account.Server_url })
+            //        {
+            //            var uri = new Uri(hostitem);
+            //            cookies = account.cookies.GetCookies(uri);
+            //            foreach (var item in cookies)
+            //            {
+            //                if (!item.ToString().Contains("logout"))
+            //                {
+            //                    Cookie current = (Cookie)item;
+            //                    //current.Domain = hostUrl;
+            //                    account.cookies.Add(new Uri("http://" + hostUrl), current);
+            //                }
+            //            }
+            //        }
+
+            //    }
+            //    catch (Exception ex)
+            //    {
+
+            //    }
+            //    finally
+            //    {
+            //        //if (enumerator is IDisposable)
+            //        //{
+            //        //    (enumerator as IDisposable).Dispose();
+            //        //}
+            //    }
+            
+            //}
+        }
+
+        private void TranPause_Click(object sender, EventArgs e)
+        {
+            TraderThr.stop = true;
         }
     }
 }

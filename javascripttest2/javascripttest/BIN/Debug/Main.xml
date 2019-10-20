@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <controls>
-  <Control name="cb_bingying" state="false" controlType="CheckBox" />
+  <Control name="cb_bingying" state="true" controlType="CheckBox" />
   <Control name="cb_chihouying" state="false" controlType="CheckBox" />
   <Control name="CreateBuildingName" state="1" controlType="ComboBox" />
-  <Control name="Trader_Target_X" state="12" controlType="TextBox" />
+  <Control name="Trader_Target_X" state="479" controlType="TextBox" />
   <Control name="Direct_city" state="true" controlType="RadioButton" />
   <Control name="Direct_graincentre" state="false" controlType="RadioButton" />
   <Control name="SoldiersType" state="1" controlType="ComboBox" />
@@ -29,29 +29,50 @@
   <Control name="ch_pili" state="false" controlType="CheckBox" />
   <Control name="ch_chongche" state="false" controlType="CheckBox" />
   <Control name="SoldiersAmount" state="2000" controlType="TextBox" />
-  <Control name="Battle_type" state="3" controlType="ComboBox" />
-  <Control name="wei_piaodao" state="true" controlType="CheckBox" />
-  <Control name="wu_zhongqi" state="true" controlType="CheckBox" />
+  <Control name="Battle_type" state="0" controlType="ComboBox" />
+  <Control name="wei_piaodao" state="false" controlType="CheckBox" />
+  <Control name="wu_zhongqi" state="false" controlType="CheckBox" />
   <Control name="chihou" state="false" controlType="CheckBox" />
-  <Control name="shu_qiangqi" state="true" controlType="CheckBox" />
-  <Control name="wu_jinweiqi" state="true" controlType="CheckBox" />
-  <Control name="shu_changqiang" state="true" controlType="CheckBox" />
-  <Control name="wu_gebing" state="true" controlType="CheckBox" />
+  <Control name="shu_qiangqi" state="false" controlType="CheckBox" />
+  <Control name="wu_jinweiqi" state="false" controlType="CheckBox" />
+  <Control name="shu_changqiang" state="false" controlType="CheckBox" />
+  <Control name="wu_gebing" state="false" controlType="CheckBox" />
   <Control name="wei_zhongbu" state="true" controlType="CheckBox" />
-  <Control name="DefenseUpper" state="6000" controlType="TextBox" />
-  <Control name="DefenseLower" state="01000" controlType="TextBox" />
+  <Control name="DefenseUpper" state="1" controlType="TextBox" />
+  <Control name="DefenseLower" state="0" controlType="TextBox" />
   <Control name="DefensePattern" state="0" controlType="ComboBox" />
-  <Control name="Trader_Target_Y" state="12" controlType="TextBox" />
-  <Control name="Trader_Resource_Lumber" state="10" controlType="TextBox" />
-  <Control name="Trader_Resource_Clay" state="10" controlType="TextBox" />
-  <Control name="Trader_Resource_Iron" state="10" controlType="TextBox" />
-  <Control name="Trader_Resource_Crop" state="10" controlType="TextBox" />
+  <Control name="Trader_Target_Y" state="619" controlType="TextBox" />
+  <Control name="Trader_Resource_Lumber" state="1" controlType="TextBox" />
+  <Control name="Trader_Resource_Clay" state="1" controlType="TextBox" />
+  <Control name="Trader_Resource_Iron" state="1" controlType="TextBox" />
+  <Control name="Trader_Resource_Crop" state="1" controlType="TextBox" />
   <Control name="Tran_Timespan" state="10" controlType="TextBox" />
   <Control name="restrictTime" state="10" controlType="TextBox" />
   <Control name="checkBox13" state="false" controlType="CheckBox" />
   <Control name="cb_hubenying" state="false" controlType="CheckBox" />
   <Control name="DefenseNum" state="1" controlType="TextBox" />
   <Control name="cityFilter" state="0" controlType="ComboBox" />
-  <Control name="x_Coord" state="98" controlType="TextBox" />
-  <Control name="y_Coord" state="882" controlType="TextBox" />
+  <Control name="x_Coord" state="525" controlType="TextBox" />
+  <Control name="y_Coord" state="525" controlType="TextBox" />
+  <Control name="umeng" state="'【戰神】五虎','☜梦☞御龙营','☜梦☞非诚勿扰','☜梦☞卫戍军团','☜梦☞笑傲风云','【纵横】四海','☜梦☞兄弟情深','纵横☆桃源农场','【纵横】血色','☜梦☞情谊','☜梦☞亮剑','☜梦☞天道','【纵横】风云','☜梦☞天道龙盟','【天道】神龙','☜梦☞青龙分盟','纵横☆万顷洋','☜梦☞双剑','☜梦☞大汉青龙','☜梦☞轩辕','【纵横】天下会','☜梦☞天府骑','☜梦☞赵','☜梦☞仁風武義','纵横☜雇佣军☞','【纵横】真2君','【纵横】承影','【纵横】江湖','【纵横】群英','☜梦☞大汉朱雀','☜梦☞风云','☜梦☞风云盟','☜梦☞胡杨','☜梦☞虎卫军','☜梦☞聚义','☜梦☞天道1','☜梦☞天道2','☜梦☞天道破城','☜梦☞铁骨三军','☜梦☞陷阵营','☜梦☞笑傲分','☜梦☞兄弟聚义','☜梦☞徐氏','☜梦☞隐士家园','☜梦☞幽冥','☜梦☞重剑','☜梦☞骤风','☜圣♧剑☞','【戰神】大唐军','☜梦☞神机营','纵横●義兇弚','纵横北方不拜','【纵横】神盟','【神】佣兵天下','【戰神】九帝','【戰神】闪电','【戰神】雷神','【纵横】暴风','【纵横】錦衣衛','【纵横】神機營','【纵横】幽州','【纵横】战魂','【纵横】哆咪情','【纵横】风暴','【纵横】冷血','纵横★大汉盟','☜梦☞6666','【纵横】后勤營','〖群英〗友情','☜梦☞圣域','永恒聚义【情聚交州】','铁血情义友情狼','☜梦☞老虎吃猪','〖群英〗恶狼盟','【纵横】铁血'" controlType="ListView" />
+  <Control name="enemyleague" state="1111,1112,1113,1114" controlType="ListView" />
+  <Control name="cb_xueguan" state="false" controlType="CheckBox" />
+  <Control name="filterrecruit" state="1" controlType="ComboBox" />
+  <Control name="cb_nongtian" state="true" controlType="CheckBox" />
+  <Control name="cb_shangbingying" state="false" controlType="CheckBox" />
+  <Control name="cb_zhongjunzhang" state="false" controlType="CheckBox" />
+  <Control name="cb_jiaochang" state="false" controlType="CheckBox" />
+  <Control name="cb_tumusi" state="true" controlType="CheckBox" />
+  <Control name="cb_jishi" state="false" controlType="CheckBox" />
+  <Control name="cb_bingqisi" state="false" controlType="CheckBox" />
+  <Control name="cb_yetiejian" state="false" controlType="CheckBox" />
+  <Control name="cb_gongjiangfang" state="false" controlType="CheckBox" />
+  <Control name="cb_mengqi" state="false" controlType="CheckBox" />
+  <Control name="cb_zhaoxianguan" state="false" controlType="CheckBox" />
+  <Control name="cb_bieyuan" state="false" controlType="CheckBox" />
+  <Control name="cb_chengqiang" state="false" controlType="CheckBox" />
+  <Control name="cb_jianta" state="false" controlType="CheckBox" />
+  <Control name="cb_gewufang" state="false" controlType="CheckBox" />
+  <Control name="checkBox14" state="false" controlType="CheckBox" />
+  <Control name="checkBox15" state="false" controlType="CheckBox" />
 </controls>

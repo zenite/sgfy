@@ -63,7 +63,7 @@ namespace javascripttest
         {
             getGlodProp(ref  account);
             List<village> villages = new List<village>();
-            string html = httpHelper.Html_get(this.commonUrl.url_head + "act=build.status&villageid=" + account.villageid + "&rand=" + this.Rand().ToString(), this.commonUrl.url, account);
+            string html = httpHelper.Html_get(this.commonUrl.url_head + "act=build.status&villageid=" + account.villageid + "&rand=" + this.Rand().ToString(), this.commonUrl.url, account,true);
             MatchCollection matchs = new Regex("<village id=\"(?<_villageId>\\d+)\" name=\"(?<_villageName>\\S+)\" x=\"(?<_x>\\d+)\" y=\"(?<_y>\\d+)\" state=\"(?<_state>\\S+)\" ismain=\"(?<_ismain>\\d+)\" isstatevillage=\"(?<_isstatevillage>\\d+)\" assistant=\"(?<_assistant>\\d+)\" />", RegexOptions.None).Matches(html);
             foreach (Match item in matchs)
             {                
@@ -79,7 +79,7 @@ namespace javascripttest
                     IsAssistant = item.Groups["_assistant"].Value
                 };               
 
-                string buildinghtml = httpHelper.Html_get(this.commonUrl.url_head + "act=build.status&villageid=" + village.VillageID + "&rand=" + this.Rand().ToString(), this.commonUrl.url, account);
+                string buildinghtml = httpHelper.Html_get(this.commonUrl.url_head + "act=build.status&villageid=" + village.VillageID + "&rand=" + this.Rand().ToString(), this.commonUrl.url, account, true);
                 Match corps_increase = new Regex("crop.*?increase=\"(?<increase>(\\d|(-?(\\d+)?(.\\d+))))\"", RegexOptions.None).Match(buildinghtml);
 
                 string crops_per = corps_increase.Groups["increase"].Value;
@@ -118,7 +118,7 @@ namespace javascripttest
                 village.buildings = buildingList;
 
                 
-                string resourceHtml = httpHelper.Html_get(this.commonUrl.url_head + "act=resources.status&villageid=" + village.VillageID + "&rand=" + this.Rand().ToString(), commonUrl.url, account);
+                string resourceHtml = httpHelper.Html_get(this.commonUrl.url_head + "act=resources.status&villageid=" + village.VillageID + "&rand=" + this.Rand().ToString(), commonUrl.url, account, true);
                 string resource = new Regex(@"\]\]></html(.|\n|\r|\s)*?><!\[CDATA\[", RegexOptions.None).Replace(resourceHtml, "");
                 MatchCollection resourcematchs = new Regex("<area.*?sgtitle=\"(?<_bname>.*?)\\s(?<_blevel>.*?)\"\\sshape=.*?rid=(?<_rid>\\d+?)'", RegexOptions.None).Matches(resource);
                 List<resourceInfo> resourselist = new List<resourceInfo>();
@@ -140,7 +140,7 @@ namespace javascripttest
                 }
                 village.resources = resourselist;
 
-                string soldierhtml = httpHelper.Html_get(this.commonUrl.url_head + "act=build.worksite&bid=" + village.bid + "&villageid=" + village.VillageID + "&rand=" + this.Rand().ToString(), commonUrl.url,account);
+                string soldierhtml = httpHelper.Html_get(this.commonUrl.url_head + "act=build.worksite&bid=" + village.bid + "&villageid=" + village.VillageID + "&rand=" + this.Rand().ToString(), commonUrl.url,account, true);
                 string soldiers = new Regex(@"\]\]></html(.|\n|\r|\s)*?><!\[CDATA\[", RegexOptions.None).Replace(soldierhtml, "");
                 soldiers = new Regex(@"\n|\r|\s\s", RegexOptions.None).Replace(soldiers, "");
                 MatchCollection soldierlist = new Regex("自己的军队.*?<th colspan=\"3\">(?<_mainGeneral>.*?)</th>.*?武将.*?soldier.*?\">(?<_soldier0>.*?)</td>.*?soldier.*?\">(?<_soldier1>.*?)</td>.*?soldier.*?\">(?<_soldier2>.*?)</td>.*?soldier.*?\">(?<_soldier3>.*?)</td>.*?soldier.*?\">(?<_soldier4>.*?)</td>.*?soldier.*?\">(?<_soldier5>.*?)</td>.*?soldier.*?\">(?<_soldier6>.*?)</td>.*?soldier.*?\">(?<_soldier7>.*?)</td>.*?soldier.*?\">(?<_soldier8>.*?)</td>.*?soldier.*?\">(?<_soldier9>.*?)</td>.*?soldier.*?\">(?<_soldier10>.*?)</td>.*?soldier.*?\">(?<_soldier11>.*?)</td>.*?soldier.*?\">(?<_soldier12>.*?)</td>.*?soldier.*?\">(?<_soldier13>.*?)</td>.*?soldier.*?\">(?<_soldier14>.*?)</td>.*?soldier.*?\">(?<_soldier15>.*?)</td>.*?generalcol\">(?<_soldier16>.*?)</td>", RegexOptions.None).Matches(soldiers);
@@ -369,11 +369,38 @@ namespace javascripttest
             }
             return list;
         }
-        
+
+        public SourceInfo getSourceInfo(AccountModel account, string villageId)
+        {
+            string html = httpHelper.Html_get(this.commonUrl.url_head + "act=index.queueinfo&userid="+ account.user_id+ "&villageid=" + villageId + "&rand=" + this.Rand().ToString(), this.commonUrl.url, account);
+            SourceInfo source = new SourceInfo();
+            //MatchCollection Originalmatchs = new Regex(@"<select.*?general1.*?</select>", RegexOptions.Singleline).Matches(html);
+            Match match = new Regex("lumber.*?now=\"(?<lumber_now>.*?)\".*?max=\"(?<lumber_max>.*?)\".*?clay.*?now=\"(?<clay_now>.*?)\".*?max=\"(?<clay_max>.*?)\".*?iron.*?now=\"(?<iron_now>.*?)\".*?max=\"(?<iron_max>.*?)\".*?crop.*?now=\"(?<crop_now>.*?)\".*?max=\"(?<crop_max>.*?)\".*?population.*?now=\"(?<population_now>.*?)\".*?max=\"(?<population_max>.*?)\"", RegexOptions.Singleline).Match(html);
+            try
+            {
+                source.lumber_now = double.Parse(match.Groups["lumber_now"].Value);
+                source.iron_now = double.Parse(match.Groups["iron_now"].Value);
+                source.clay_now = double.Parse(match.Groups["clay_now"].Value);
+                source.crop_now = double.Parse(match.Groups["crop_now"].Value);
+                source.population_now = double.Parse(match.Groups["population_now"].Value);
+                source.lumber_max = double.Parse(match.Groups["lumber_max"].Value);
+                source.iron_max = double.Parse(match.Groups["iron_max"].Value);
+                source.clay_max = double.Parse(match.Groups["clay_max"].Value);
+                source.crop_max = double.Parse(match.Groups["crop_max"].Value);
+                source.population_max = double.Parse(match.Groups["population_max"].Value);
+            }
+            catch (Exception ex)
+            { }
+            finally
+            {
+
+            }
+            return source;
+        }
 
         public bool checkLoginout(ref AccountModel account)
         {
-            string html = httpHelper.Html_get(this.commonUrl.url_head + "act=build.status&villageid=" + account.villageid + "&rand=" + this.Rand().ToString(), this.commonUrl.url, account);
+            string html = httpHelper.Html_get(this.commonUrl.url_head + "act=build.status&villageid=" + account.villageid + "&rand=" + this.Rand().ToString(), this.commonUrl.url, account,true);
             if (html.ToLower().Contains("login.logout"))
                 return true;
             return false;
@@ -432,9 +459,9 @@ namespace javascripttest
         }
 
 
-        public string RecruitSoliderByBug(int ncountry,village village, AccountModel account, string type,int logIndex)
+        public string RecruitSoliderByBug(int ncountry,village village,string btid,string bid, AccountModel account, string type,int logIndex)
         {
-                string str = httpHelper.Html_get(this.commonUrl.url_head + "act=build.act&do=max_raise&btid=5&consume_type=-1&userid="+account.user_id+"&bid="+village.bid+"&type= " + type +"&villageid=" + village.VillageID + "&rand=" + this.Rand().ToString(), commonUrl.url, account);
+                string str = httpHelper.Html_get(this.commonUrl.url_head + "act=build.act&do=max_raise&btid="+ btid + "&consume_type=-1&userid="+account.user_id+"&bid="+village.bid + "&type= " + type +"&villageid=" + village.VillageID + "&rand=" + this.Rand().ToString(), commonUrl.url, account);
             str = this.getParaValue("(?<=(<locat act.*?>)).+?(?=</locat)", str);
             string invTypeName = string.Empty;
          
@@ -443,6 +470,17 @@ namespace javascripttest
          
             return str;
            // act=build.act&do=max_raise&bid=20&btid=5&type=2&consume_type=0&userid=385&villageid=7117&wc2au=2ad2541&rand=598646
+        }
+
+
+        public string RecruitSoliderByBug(int ncountry, village village, string btid,string bid, AccountModel account, string type)
+        {
+            string str = httpHelper.Html_get(this.commonUrl.url_head + "act=build.act&do=max_raise&btid="+ btid + "&consume_type=-1&userid=" + account.user_id + "&bid=" + bid + "&type= " + type + "&villageid=" + village.VillageID + "&rand=" + this.Rand().ToString(), commonUrl.url, account);
+            str = this.getParaValue("(?<=(<locat act.*?>)).+?(?=</locat)", str);
+            string invTypeName = string.Empty;
+           // logger = account.chief + " 城镇" + village.VillageName + "：bug招募" + Constant.m_strSoldierNames[ncountry, Convert.ToInt32(type)];
+            return str;
+            // act=build.act&do=max_raise&bid=20&btid=5&type=2&consume_type=0&userid=385&villageid=7117&wc2au=2ad2541&rand=598646
         }
 
         //伤兵
@@ -1155,7 +1193,8 @@ namespace javascripttest
         {
             
             string str = httpHelper.Html_get(commonUrl.url_head + "act=map.detail&uitx=" + x + "&uity=" + y + "&userid="+account.user_id+"&villageid=" + account.villageid + "&rand=" + this.Rand().ToString(), Constant.Server_Url, account);
-            MatchCollection matchs = new Regex("class=\"nowposition\"><strong>(?<city>\\S+)</strong>.*strong class=\"dark_monarch\">(?<chief>\\S+)</strong>.*class=\"dark_normalgeneral\">(?<hand>\\S+)</strong", RegexOptions.Singleline).Matches(str);
+            MatchCollection matchs = new Regex("nowposition\"><strong>(?<city>\\S+)</strong>.*dark_monarch\">(?<chief>\\S+)</strong>(.*dark_normalgeneral\">(?<hand>\\S+)</strong>|.*联盟：(?<hand>\\S+)</li>).*dark_content\">(?<typeOfCountry>\\S+)</strong>.*dark_content\">(?<population>\\S+)</strong>.*dark_union\">(?<rankOfNobility>\\S+)</strong>", RegexOptions.Singleline).Matches(str);
+                                                        
             entity.NodeAttack node = new NodeAttack();
             if(matchs.Count>0)
             {
@@ -1239,7 +1278,7 @@ namespace javascripttest
 
         public string reserveRuneToRune(AccountModel account)
         {
-            string str = httpHelper.Html_get(Constant.Server_Url + "act=rune.reserveRuneToRune&rand=" + this.Rand().ToString(), Constant.Server_Url, account);
+            string str = httpHelper.Html_get(this.commonUrl.url_head + "act=rune.reserveRuneToRune&userid=" + account.user_id+ "&villageid="+account.villageid+"&rand=" + this.Rand().ToString(), Constant.Server_Url, account);
             str = this.getParaValue("(?<=(<locat act=.*?>)).*?(?=(</locat>))", str);           
             if (str == "")
             {
@@ -1295,6 +1334,14 @@ namespace javascripttest
             str = new Regex(filterRegex, RegexOptions.None).Replace(str, "");
             MatchCollection matchs = new Regex(regexStr, RegexOptions.None).Matches(str);
             return matchs;            
+        }
+        public MatchCollection commonFunction2(AccountModel account, string url, string regexStr, string filterRegex)
+        {
+            string str = string.Empty;
+            str = httpHelper.Html_get(url + this.Rand().ToString(), "http://" + Constant.Server_Url, account);
+            string value = new Regex(filterRegex, RegexOptions.Singleline).Match(str).Value;
+            MatchCollection matchs = new Regex(regexStr, RegexOptions.Singleline).Matches(value);
+            return matchs;
         }
         public MatchCollection commonFunction1(AccountModel account, string url, string regexStr)
         {
@@ -1532,6 +1579,8 @@ namespace javascripttest
             string str = httpHelper.Html_get(this.commonUrl.url_head + "act=build.act&do=start_war&bid=" + zhongjun + "&btid=9&target_general_level=0&type=" + type + " &battlearray=0&" + soldierlist + "x=" + x + "&y=" + y + "&userid=" + account.user_id + "&keep=all&villageid=" + village.VillageID + "&rand=" + this.Rand().ToString(), commonUrl.url, account);
             var strmsg = string.Empty;
             strmsg = this.getParaValue("(?<=(<locat act.*?>)).+?(?=</locat)", str);
+            if (strmsg.Contains("没有足够数量的士兵"))
+                return "没有足够数量的士兵";
             if (strmsg.Contains("传令兵"))
             {
                 string message=(string) ExtBatman(village.VillageID, account);
@@ -1562,7 +1611,7 @@ namespace javascripttest
             }
             return str;           
         }
-        public string attack(string x, string y, village village, AccountModel account, string soldierlist,string type,out string costTime,out bool success)
+        public string attack(string x, string y, village village, AccountModel account, string soldierlist,string type,out string costTime,out bool success,string genName="")
         {
             success = false;
             string str1 = string.Empty;
@@ -1593,7 +1642,13 @@ namespace javascripttest
 
             str = httpHelper.Html_get(this.commonUrl.url_head + "act=build.act&do=start_war&btid=9&start=1&target_general_level=0&type=" + type + " &battlearray=0&" + soldierlist + "x=" + x + "&y=" + y + "&userid=" + account.user_id + "&keep=all&villageid=" + village.VillageID + "&rand=" + this.Rand().ToString(), commonUrl.url, account);
             str = this.getParaValue("(?<=(<locat act=.*?>)).*?(?=(</locat>))", str);
-
+            if (type == "3" && !soldierlist.Contains("general2"))
+            {
+                str = account.chief + "    " + village.VillageName + "武将"+ genName + "：   前往 X:" + x + " Y:" + y + " 需时 " + str3 + " 于 " + str4 + " 到达";
+                costTime = str3;
+                success = true;
+            }
+            else
             if (str == "")
             {
                 str = account.chief + "    " + village.VillageName + "出兵：   前往 X:" + x + " Y:" + y + " 需时 " + str3 + " 于 " + str4 + " 到达";

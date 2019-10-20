@@ -17,4 +17,12 @@ namespace javascripttest.entity
         public string Time { get; set; }
         
     }
+    
+    public class City : NodeAttack
+    {
+        public string population { get; set; }
+        public string rankOfNobility { get; set; }
+        public string typeOfCountry { get; set; }
+        
+    }
 }

@@ -19,6 +19,7 @@ namespace javascripttest
         public const int cargoIndex = 3;
         public const int attackIndex = 4;
         public const int otherIndex = 5;
+        public const int pwdIndex = 6;
         public static int[,] m_nBaseOff;
         public static int[,] m_nBaseRaiseSec;
         public static int[,] m_nBaseSpd;
@@ -50,6 +51,8 @@ namespace javascripttest
         public static string[] m_strPartyName;
         public static string[] m_strResNames;
         public static string[,] m_strSoldierNames;
+        public static string[] m_strSoldierType;
+        public static string[] m_strBidType;
         public static string[,] m_strSoldierRice;
         public static string[] m_strSpecialTradeNames;
         public static string[] m_strSoldierBtidName;
@@ -119,6 +122,8 @@ namespace javascripttest
             m_strPartyName = new string[] { "汉军", "黄巾", "董卓", "袁绍", "孙权", "曹操", "孟获", "刘备", "刘表", "马腾" };
             m_strResNames = new string[] { "林场", "石矿", "铁矿", "农田" };
             m_strSoldierNames = new string[,] { { "朴刀兵", "重步兵", "近卫兵", "轻骑兵", "青州骑兵", "冲车", "霹雳车", "说客", "垦荒者", "斥候骑兵", "长弓兵", "弓骑兵" }, { "民兵", "长枪兵", "大刀兵", "枪骑兵", "羽林卫", "冲车", "霹雳车", "说客", "垦荒者", "斥候", "弩兵", "连弩兵" }, { "戈兵", "剑兵", "女骑兵", "重装骑兵", "近卫骑兵", "冲车", "霹雳车", "说客", "垦荒者", "斥候骑兵", "弓兵", "神臂弓兵" } };
+            m_strSoldierType = new string[] {  "朴刀兵, 重步兵, 近卫兵, 民兵, 长枪兵, 大刀兵, 戈兵, 剑兵" ,  "轻骑兵, 青州骑兵, 枪骑兵, 羽林卫, 女骑兵, 重装骑兵, 近卫骑兵" ,  "斥候骑兵, 长弓兵, 弓骑兵, 斥候, 弩兵, 连弩兵, 弓兵, 神臂弓兵" , "冲车,霹雳车" };
+            m_strBidType = new string[] { "兵舍", "马场", "斥候营", "工匠坊" };
             m_strSoldierRice = new string[,] { { "1", "1", "1", "3", "4", "0", "0", "0", "0", "2", "2", "3" }, { "1", "1", "1", "2", "3", "0", "0", "0", "0", "1", "2", "2" }, { "1", "1", "2", "2", "3", "0", "0", "0", "0", "2", "2", "3" } };
             m_strSoldierBtidName = new string[]{"朴刀兵, 重步兵, 近卫兵,民兵, 长枪兵, 大刀兵,戈兵, 剑兵","轻骑兵, 青州骑兵,枪骑兵, 羽林卫,女骑兵, 重装骑兵, 近卫骑兵 ","斥候骑兵, 长弓兵, 弓骑兵,斥候, 弩兵, 连弩兵,, 弓兵, 神臂弓兵", "冲车, 霹雳车","说客, 垦荒者"};
             m_strSpecialTradeNames = new string[] { "运输骑兵", "木牛流马", "水运" };
@@ -182,6 +187,18 @@ namespace javascripttest
                 }
             }
             return -1;
+        }
+        //获取兵营
+        public static string GetSoldierHome( string strName)
+        {
+            for (int i = 0; i < 12; i++)
+            {
+                if (m_strSoldierType[i].Contains(strName))
+                {
+                    return m_strBidType[i];
+                }
+            }
+            return "兵舍";
         }
         public static int getSRiceByName(int nCountry, string strName)
         {

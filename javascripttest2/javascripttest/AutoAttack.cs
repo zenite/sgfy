@@ -10,7 +10,9 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using System.Reflection;
+using javascripttest.BLL;
+using System.Text.RegularExpressions;
 
 namespace javascripttest
 {
@@ -30,6 +32,7 @@ namespace javascripttest
         private string[] nodeList;
         private List<entity.NodeAttack> offense;
         private List<entity.NodeAttack> destroy;
+        public Regular.SetConfig mainConfig;
         public AutoAttack(AccountModel account, string user_id, MainLogic mainHelper)
         {
             this.account = account;
@@ -41,7 +44,7 @@ namespace javascripttest
             destroyConfig = new BLL.HandlerAttack("Attack\\" + this.account.chief + "\\destroy", "AutoAttack", nodeList);
             offense = new List<NodeAttack>();
             destroy = new List<NodeAttack>();
-            ActiveOffenseControl = new Control[] { Setting, this};
+            ActiveOffenseControl = new Control[] { Setting, this, groupBox1 , groupBox4 ,recruitSetting , groupBox5 };
             ActiveDestroyControl = new Control[] { destroySettings, groupBox3 };
         }
         
@@ -140,10 +143,17 @@ namespace javascripttest
             villegelist.ValueMember = "Value";
             this.villegelist.SelectedIndexChanged += new System.EventHandler(this.villegelist_SelectedIndexChanged);
 
+            Initial_Auto();
             BindTarget();
             Bind(Villages[0].VillageID);
             setOffenseControlState();
             setDestroyControlState();
+            txtContain.SelectedIndex = 0;
+        }
+        private void Initial_Auto()
+        {
+            league.SelectedIndex = 0;
+            txtContain.SelectedIndex = 0;
         }
 
         private bool CheckSetting()
@@ -163,8 +173,8 @@ namespace javascripttest
                 }
             }
             catch (Exception ex)
-            { 
-                
+            {
+                throw ex;
             }
             
             return result;
@@ -172,6 +182,7 @@ namespace javascripttest
 
         private bool CheckSetting1()
         {
+
             bool result = true;
             if (type.SelectedIndex == 0 && C_general1.SelectedIndex == 0)
             {
@@ -188,7 +199,7 @@ namespace javascripttest
             }
             catch (Exception ex)
             {
-
+                throw ex;
             }
 
             return result;
@@ -201,28 +212,35 @@ namespace javascripttest
         private bool checkCurrentSolider(GroupBox sett,int flag=0)
         {
             bool result = true;
-            Control.ControlCollection controls = sett.Controls;
-            foreach (Control control in controls)
-            { 
-                if(control.Name.Contains("soldier") && control is TextBox)
+            try
+            {
+               
+                Control.ControlCollection controls = sett.Controls;
+                foreach (Control control in controls)
                 {
-                    TextBox textbox = control as TextBox;
-                    try 
+                    if (control.Name.Contains("soldier") && control is TextBox)
                     {
-                        if (Convert.ToInt32(villageSoldier[Convert.ToInt32(textbox.Name.Split('_')[flag+1])]) < Convert.ToInt32(string.IsNullOrEmpty(textbox.Text.Trim()) ? "0" : textbox.Text.Trim()))
+                        TextBox textbox = control as TextBox;
+                        try
                         {
-                            result = false;
+                            if (Convert.ToInt32(villageSoldier[Convert.ToInt32(textbox.Name.Split('_')[flag + 1])]) < Convert.ToInt32(string.IsNullOrEmpty(textbox.Text.Trim())?"0": textbox.Text.Trim()))
+                            {
+                                result = false;
+                            }
                         }
-                    }
-                    catch (Exception ex)
-                    {
-                        throw ex;
+                        catch (Exception ex)
+                        {
+                            //throw ex;
+                        }
                     }
                 }
             }
+            catch (Exception eee)
+            { }
             return result;
         }
 
+      
         private bool C(TextBox textbox)
         {
             string value = string.IsNullOrEmpty(textbox.Text.Trim()) ? "0" : textbox.Text.Trim();       
@@ -250,11 +268,6 @@ namespace javascripttest
                 MessageBox.Show("请选择攻击模式");
                 return;
             }
-            //Attack attack = getCurrentAttack();
-            //if (dbHelper.insertAttack(attack))
-            //{
-            //    ReBindGrid();
-            //}
             entity.NodeAttack attack = mainHelper.GetCityInfo(this.x_cor.Text, this.y_cor.Text, account);
             attack.VillageId = VillageId;
             if (attack.name != null)
@@ -338,6 +351,7 @@ namespace javascripttest
             DataTable dt = toDataSource_G( villageId);
             bindGe1(dt);
             bindGe2(dt);
+            bindGe3(dt);
         }
 
         private void bindGe1(DataTable dt)
@@ -390,6 +404,15 @@ namespace javascripttest
             GeneralList.DisplayMember = "Name";
             GeneralList.ValueMember = "Value";
             
+        }
+        private void bindGe3(DataTable dt)
+        {          
+            DataTable gen = dt.Copy();
+            gen.Rows.RemoveAt(0);
+            GenSuppotList.DataSource = null;
+            GenSuppotList.DataSource = gen;
+            GenSuppotList.DisplayMember = "Name";
+            GenSuppotList.ValueMember = "Value";
         }
         private void getSodliers(string villageId)
         {
@@ -530,7 +553,7 @@ namespace javascripttest
                     this.AttackTarget.BeginInvoke(new Action(() =>
                     {
                         if (offense.Count() > 0)
-                            this.AttackTarget.DataSource = new BindingList<entity.NodeAttack>(offense);
+                            this.AttackTarget.DataSource = ConvertDtbyInstance(offense);
                         else
                             this.AttackTarget.DataSource = null;
                         //this.AttackTarget.Sort(AttackTarget.Columns[0], ListSortDirection.Ascending);
@@ -546,11 +569,36 @@ namespace javascripttest
                 if (destroy != null)
                     this.DestroyTarget.BeginInvoke(new Action(() =>
                     {
-                        this.DestroyTarget.DataSource = new BindingList<entity.NodeAttack>(destroy);
+                        this.DestroyTarget.DataSource = ConvertDtbyInstance(destroy);
                     }));
             }).Start();
         }
-      
+        public DataTable ConvertDtbyInstance(List<NodeAttack> list)
+        {
+            Type type = typeof(NodeAttack);
+            DataTable dt = new DataTable();
+            PropertyInfo[] ps = type.GetProperties();
+            if (ps.Count() > 0)
+            {
+                foreach (var item in ps)
+                {
+                    dt.Columns.Add(new DataColumn(item.Name, typeof(string)));
+                }
+            }
+            if (list.Count() > 0)
+            {
+                foreach (NodeAttack litem in list)
+                {
+                    DataRow dr = dt.NewRow();
+                    foreach (var item in ps)
+                    {
+                        dr[item.Name] = item.GetValue(litem, null);
+                    }
+                    dt.Rows.Add(dr);
+                }
+            }
+            return dt;
+        }
 
         private void BindTarget()
         {
@@ -592,16 +640,18 @@ namespace javascripttest
 
         private void AttackStart_Click(object sender, EventArgs e)
         {
-            new Thread(delegate() {
+            
+            new Thread(delegate ()
+            {
                 string x = string.Empty;
                 string y = string.Empty;
                 string type = string.Empty;
                 string general1 = string.Empty;
-                bool Repeat =false;
+                bool Repeat = false;
                 while (offenseConfig.getAttackXml(VillageId).Count() > 0)
                 {
                     village village = account.village.Find(item => item.VillageID == VillageId);
-                    string urlstr = getSoldierStr(out x, out y, out type, out general1,out Repeat);
+                    string urlstr = getSoldierStr(out x, out y, out type, out general1, out Repeat);
                     List<General> list = mainHelper.GetVillageGenerals(account, VillageId);
                     if (list.Find(item => item.Gid == general1 && item.Status == "待命") != null)
                     {
@@ -617,11 +667,100 @@ namespace javascripttest
                             ReBindOffense();
                         }
                         recordMsg(msg, listView1);
-                        Thread.Sleep(TimeToMilesecond(costTime)*2);
-                    }            
-                }              
+                        Thread.Sleep(TimeToMilesecond(costTime) * 2);
+                        recuiteSoldiers();
+                    }
+                }
             }).Start();
+
+        }
+
+        public void recuiteSoldiers()
+        {
+            if (!checkSource())
+                return;
+            int nCountry = 0;
+            List<string> recruite = new List<string>();
            
+            foreach (var item in recruitSetting.Controls)
+            {
+                if ((item as CheckBox).Checked)
+                {
+                    recruite.Add((item as CheckBox).Text);
+                }
+            }
+            if (recruite.Count == 0)
+            {
+                show("请勾选");
+                return;
+            }
+            else
+            {
+                nCountry = Constant.getNCountry(account.typeOfCountry);
+                Thread recruiteThr = new Thread(delegate () { recrite(account, nCountry, recruite); });
+                recruiteThr.Start();
+                
+            }
+        }
+        private bool checkSource()
+        {
+            bool result = false;
+            SourceInfo info = mainHelper.getSourceInfo(account, VillageId);
+            if (!info.population_max.HasValue||!recruitApply.Checked) return result;
+            if (isFullSource.Checked)
+            {
+                if (checkLevel(0.9, 4, info))
+                    result = true;
+            }
+            else
+            {
+                if (checkLevel(0.9, 3, info))
+                    result = true;
+            }
+            return result;
+        }
+        public bool checkLevel(double percent,int count, SourceInfo info)
+        {
+            bool result = false;
+            int total = 0;
+            if (info.clay_now / info.clay_max > percent) total += 1;
+            if (info.crop_now / info.crop_max > percent) total += 1;
+            if (info.iron_now / info.iron_max > percent) total += 1;
+            if (info.lumber_now / info.lumber_max > percent) total += 1;
+            if (total >= count) result = true;
+            return result;
+
+        }
+        private void show(string message)
+        {
+            MessageBox.Show(message);
+        }
+        private string lastsoldierName = string.Empty;
+        private void recrite(AccountModel account, int nCountry, List<string> recruite)
+        {
+            List<string> soldierlist = new List<string>();
+            foreach (var soldierName in recruite)
+            {
+                if (Constant.GetSldTypeByName(nCountry, soldierName) != -1)//必须获取兵种type
+                {
+                    soldierlist.Add(soldierName);
+                }
+            }
+            string soldier = string.Empty; string type = string.Empty;
+            int lastindex = 0;
+            if (soldierlist.Count > 0&&account.goldProp<6)
+            {
+                lastindex = string.IsNullOrEmpty(lastsoldierName) ? 0 : soldierlist.Contains(lastsoldierName)? soldierlist.IndexOf(lastsoldierName):0;
+                lastindex = lastindex+1 <= soldierlist.Count-1 ? lastindex+1 : 0;
+                soldier = soldierlist[lastindex];
+                type = Constant.GetSldTypeByName(nCountry, soldier).ToString();
+                string soldierHome = Constant.GetSoldierHome(soldier);
+                village village = account.village.Find(item => { return item.VillageID == VillageId; });
+                string bid = village.buildings.Find(item =>{ return item.buildingName == soldierHome; }).buildingId;
+                string btid = Constant.GetBldTypeByName(soldierHome).ToString();
+                mainHelper.RecruitSoliderByBug(nCountry, village,btid,bid, account, type);
+                lastsoldierName = soldier;
+            }          
         }
         public int TimeToMilesecond(string costTime)
         { 
@@ -674,7 +813,7 @@ namespace javascripttest
                 Repeat = false;
                 x = node.x;
                 y = node.y;
-                type = getRepeat(this.type); ;
+                type = getRepeat(this.type); 
                 //Aindex = dr["Aindex"].ToString();
                 general1 = croThrVal(this.general1);
             }          
@@ -969,32 +1108,33 @@ namespace javascripttest
                 setTextbox(soldier_4,soldier4.Text);
                 setTextbox(soldier_11, soldier11.Text);
             }
-            else
-            {
-                setTextbox(soldier_0 , "");
-                setTextbox(soldier_1 , "");
-                setTextbox(soldier_2 , "");
-                setTextbox(soldier_4 , "");
-                setTextbox(soldier_11, "");
-            }
+            //else
+            //{
+            //    setTextbox(soldier_0 , "");
+            //    setTextbox(soldier_1 , "");
+            //    setTextbox(soldier_2 , "");
+            //    setTextbox(soldier_4 , "");
+            //    setTextbox(soldier_11, "");
+            //}
         }
 
         private void C_AddCoor_Click(object sender, EventArgs e)
         {
 
-            if (!CheckSetting())
+            if (!CheckSetting1())
                 return;
             if (type.SelectedIndex < 0)
             {
                 MessageBox.Show("请选择攻击模式");
                 return;
             }
-            entity.NodeAttack attack = mainHelper.GetCityInfo(this.x_cor.Text, this.y_cor.Text, account);
+            entity.NodeAttack attack = mainHelper.GetCityInfo(this.C_xcor.Text, this.C_ycor.Text, account);
             attack.VillageId = VillageId;
             if (attack.name != null)
             {
-                offenseConfig.setAttribute(attack, "Attacks");
-                ReBindOffense();
+
+                destroyConfig.setAttribute(attack, "Attacks");
+                ReBindDestroy();
             }
           
         }
@@ -1120,7 +1260,327 @@ namespace javascripttest
                 }
             }
             return;
-        }   
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            new Thread(delegate () {
+                int mapcx = 0; int mapcy = 0; int mapcwidth = 0; int startindex = 1;
+                int nextDistance = 0;
+                Migration migration = new Migration();
+                DataTable dt = new DataTable();
+                dt.Columns.Add(new DataColumn("mx", typeof(string)));
+                dt.Columns.Add(new DataColumn("my", typeof(string)));
+                dt.Columns.Add(new DataColumn("mcity", typeof(string)));
+                dt.Columns.Add(new DataColumn("mchief", typeof(string)));
+                dt.Columns.Add(new DataColumn("mrankOfNobility", typeof(string)));
+                dt.Columns.Add(new DataColumn("mpopulation", typeof(string)));
+                dt.Columns.Add(new DataColumn("mtypeOfCountry", typeof(string)));
+                dt.Columns.Add(new DataColumn("mhand", typeof(string)));
+                try
+                {
+                    if (int.TryParse(mapx.Text, out mapcx) && int.TryParse(mapy.Text, out mapcy) && int.TryParse(mapwidth.Text, out mapcwidth))
+                    {
+                        if (mapcwidth > 0)
+                        {
+                            while (nextDistance <= mapcwidth)
+                            {
+                                Queue<string> cooque = migration.get_XY_List(mapcx, mapcy, startindex, out nextDistance);
+                                while (cooque.Count() > 0)
+                                {
+                                    string co = cooque.Dequeue();
+                                    string url = "http://" + Constant.Server_Url + "/index.php?act=map.detail&uitx=" + co.Split(',')[0] + "&uity=" + co.Split(',')[1] + "&rand=";
+                                    string regexStr = "nowposition\"><strong>(?<city>\\S+)</strong>.*dark_monarch\">(?<chief>\\S+)</strong>(.*dark_normalgeneral\">(?<hand>\\S+)</strong>|.*联盟：(?<hand>\\S+)</li>).*dark_content\">(?<typeOfCountry>\\S+)</strong>.*dark_content\">(?<population>\\S+)</strong>.*dark_union\">(?<rankOfNobility>\\S+)</strong>";
+                                    MatchCollection matchs = mainHelper.commonFunction2(account, url, regexStr, "floatblockright.*?html");
+                                    City city = new City();
+                                    if (matchs != null && matchs.Count > 0)
+                                    {
+                                        city.x = co.Split(',')[0];
+                                        city.y = co.Split(',')[1];
+                                        city.city = matchs[0].Groups["city"].ToString();
+                                        city.chief = matchs[0].Groups["chief"].ToString();
+                                        city.hand = matchs[0].Groups["hand"].ToString();
+                                        city.population = matchs[0].Groups["population"].ToString();
+                                        city.rankOfNobility = matchs[0].Groups["rankOfNobility"].ToString();
+                                        city.typeOfCountry = matchs[0].Groups["typeOfCountry"].ToString();
+                                        MapAddRow(city, ref dt);
+                                    }
+                                }
+                                
+                                startindex++;
+                            }
+                            if (Maps.InvokeRequired)
+                                Maps.BeginInvoke(new MethodInvoker(() =>
+                                {
+                                    Maps.DataSource = dt;
+                                    Maps.Refresh();
+                                }));
+                            else
+                            {
+                                Maps.DataSource = dt;
+                                Maps.Refresh();
+                            }                           
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }).Start();
+            
+         
+        }
+        public void MapAddRow(City city,ref DataTable dt)
+        {
+            DataRow dr = dt.NewRow();
+            dr["mx"] = city.x;
+            dr["my"] = city.y;
+            dr["mcity"] = city.city;
+            dr["mchief"] = city.chief;
+            dr["mrankOfNobility"] = city.rankOfNobility;
+            dr["mpopulation"] = city.population;
+            dr["mtypeOfCountry"] = city.typeOfCountry;
+            dr["mhand"] = city.hand;
+            dt.Rows.Add(dr);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            DataTable dt = new DataTable();
+            DataView dv = new DataView();
+            if(!string.IsNullOrEmpty(deltxt.Text))
+            {
+                try
+                {
+                    if (Maps.DataSource != null)
+                    {
+                        dt = (DataTable)Maps.DataSource;
+                    }
+                    dt.TableName = "xx";
+                    dv.Table = dt;
+                    int popdown = int.Parse(string.IsNullOrEmpty(popdownlimit.Text) ? "0" : popdownlimit.Text);
+                    if (txtContain.SelectedIndex == 0)
+                    {
+                        dv.RowFilter = string.Format("mchief not like '%{0}%' and mhand not like '%{0}%' and mpopulation>{1}", deltxt.Text, popdown);
+                    }
+                    else
+                    {
+                        dv.RowFilter = string.Format("mchief  like '%{0}%' or mhand  like '%{0}%' and mpopulation>{1}", deltxt.Text, popdown);
+                    }
+                    Maps.DataSource = dv.ToTable();
+                    Maps.Refresh();
+                }
+                catch (Exception ex)
+                {
+
+                }
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (Maps.DataSource != null)
+            {
+                if (!CheckSetting())
+                    return;
+                if (type.SelectedIndex < 0)
+                {
+                    MessageBox.Show("请选择攻击模式");
+                    return;
+                }
+                DataSet ds = new DataSet();
+                DataTable dt = Maps.DataSource as DataTable;
+                dt.Columns.Add(new DataColumn("name", typeof(string)));
+                dt.Columns.Add(new DataColumn("NodeName", typeof(string)));
+                dt.Columns.Add(new DataColumn("VillageId", typeof(string)));
+                dt.Columns.Add(new DataColumn("Time", typeof(string)));
+                dt.Columns.Remove("mrankOfNobility");
+                dt.Columns.Remove("mpopulation");
+                dt.Columns.Remove("mtypeOfCountry");
+                try
+                {
+                    dt.Columns["mx"].ColumnName = "x";
+                    dt.Columns["my"].ColumnName = "y";
+                    dt.Columns["mcity"].ColumnName = "city";
+                    dt.Columns["mchief"].ColumnName = "chief";
+                    dt.Columns["mhand"].ColumnName = "hand";
+                    foreach (DataRow item in dt.Rows)
+                    {
+                        item["name"] = "Attack";
+                        item["NodeName"] = "Attack";
+                        item["VillageId"] =VillageId;
+                        item["Time"] = System.DateTime.Now;
+                    }
+                    ds.Tables.Add(dt);
+                    if (!checkCurrentSolider(Setting))
+                    {
+                        MessageBox.Show("当前城镇出兵数量错误");
+                        return;
+                    }
+                    new Thread(delegate () {
+                        offenseConfig.AttackAttribute(ds, "Attacks", "Attack");
+                        ReBindOffense();
+                    }).Start();
+                }
+                catch (Exception ex)
+                {
+                    
+                }
+                
+                return;
+            }
+        }
+
+
+
+        private void mapimport_Click(object sender, EventArgs e)
+        {
+            if (!CheckSetting1())
+                return;
+            if (type.SelectedIndex < 0)
+            {
+                MessageBox.Show("请选择攻击模式");
+                return;
+            }
+            DataSet ds = new DataSet();
+            DataTable dt = (Maps.DataSource as DataTable).Copy();
+            dt.Columns.Add(new DataColumn("name", typeof(string)));
+            dt.Columns.Add(new DataColumn("NodeName", typeof(string)));
+            dt.Columns.Add(new DataColumn("VillageId", typeof(string)));
+            dt.Columns.Add(new DataColumn("Time", typeof(string)));
+            dt.Columns.Remove("mrankOfNobility");
+            dt.Columns.Remove("mpopulation");
+            dt.Columns.Remove("mtypeOfCountry");
+            try
+            {
+                dt.Columns["mx"].ColumnName = "x";
+                dt.Columns["my"].ColumnName = "y";
+                dt.Columns["mcity"].ColumnName = "city";
+                dt.Columns["mchief"].ColumnName = "chief";
+                dt.Columns["mhand"].ColumnName = "hand";
+                foreach (DataRow item in dt.Rows)
+                {
+                    item["name"] = "Attack";
+                    item["NodeName"] = "Attack";
+                    item["VillageId"] =VillageId;
+                    item["Time"] = System.DateTime.Now;
+                }
+                ds.Tables.Add(dt);
+                if (!checkCurrentSolider(destroySettings,1))
+                {
+                    MessageBox.Show("当前城镇出兵数量错误");
+                    return;
+                }
+                new Thread(delegate () {
+                    destroyConfig.AttackAttribute(ds, "Attacks", "Attack");
+                    ReBindDestroy();
+                }).Start();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+                
+            return;
+        }
+         public static int StrToInt(string str)
+         {
+             return int.Parse(str);
+         }
+         private void filter_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                List<entity.Node> nodes = new List<Node>();
+            nodes = mainConfig.getMainXml();
+            string state = string.Empty;
+            
+            if (league.SelectedIndex == 0)
+            {
+                state = (from a in nodes where a.name == "umeng" select a.state).FirstOrDefault();
+            }
+            else
+            {
+                state = (from a in nodes where a.name == "enemyleague" select a.state).FirstOrDefault();
+            }
+            
+            DataTable dt = new DataTable();
+            DataView dv = new DataView();
+           
+            if (Maps.DataSource != null)
+            {
+                dt = (DataTable)Maps.DataSource;
+            }
+            dt.TableName = "xx";
+            dv.Table = dt;
+            if(!state.Contains(","))
+                dv.RowFilter = string.Format("mhand not like '%{0}%'", state);
+            else
+                dv.RowFilter ="mhand not in ("+ state + ")";
+            Maps.DataSource = dv.ToTable();
+            Maps.Refresh();
+            }
+            catch (Exception ex)
+            {
+
+            }
+            
+        }
+
+        private void genSupport_Click(object sender, EventArgs e)
+        {
+            string x = gen_x.Text;
+            string y = gen_y.Text;
+            string costtime = string.Empty;
+            if (string.IsNullOrEmpty(x) || string.IsNullOrEmpty(y))
+            {
+                show("请检查武将支援的城镇坐标是否正确");
+            }
+            else {
+                new Task(() => {
+                    List<General> list = mainHelper.GetVillageGenerals(account, VillageId);
+                    Queue<string> FollowGenerals = new Queue<string>();//跟车武将
+                    if (GenSuppotList.Items.Count > 0)
+                    {
+                        for (var i = 0; i < GenSuppotList.Items.Count; i++)
+                        {
+                            if (GenSuppotList.GetItemChecked(i))
+                            {
+                                FollowGenerals.Enqueue((GenSuppotList.Items[i] as DataRowView).Row["Value"].ToString());
+                            }
+                        }
+                    }
+                    foreach (string f in FollowGenerals)
+                    {
+                        if (list.Find(item => item.Gid == f && (item.Status == "待命" || item.Status == "流亡" || item.Status.Trim() == "太守")) == null)
+                            continue;
+                        else
+                        {
+                            bool success = false;
+                            village village = account.village.Find(item => item.VillageID == VillageId);
+                            string message=mainHelper.attack(x, y, village, account, string.Format("general1={0}&",f), "3", out costtime, out success, (GenSuppotList.DataSource as DataTable).AsEnumerable().Where(fi=>  fi.Field<string>("Value").ToString() == f).FirstOrDefault().Field<string>("Name").ToString());
+                            if (success)
+                                recordMsg(message,GenInfo);
+                            Thread.Sleep(3500);
+                        }
+                    }
+                    
+                }).Start();
+            }
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox checkbox = sender as CheckBox;
+            if (GenSuppotList.Items.Count > 0)
+            {
+                for (int i = 0; i < GenSuppotList.Items.Count; i++)
+                {
+                    GenSuppotList.SetItemChecked(i, checkbox.Checked);
+                }
+            }
+        }
     }
 }
 

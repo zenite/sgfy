@@ -3,3 +3,13 @@
 ################################################################################
 
 *.xml
+/javascripttest2/.vs/javascripttest/v15/Server/sqlite3/storage.ide-wal
+/javascripttest2/.vs/javascripttest/v15/Server/sqlite3/storage.ide-shm
+/javascripttest2/.vs/javascripttest/v15/Server/sqlite3/storage.ide
+/javascripttest2/.vs/javascripttest/v15/Server/sqlite3/db.lock
+/javascripttest2/.vs/javascripttest/v15/.suo
+/javascripttest2/.vs/javascripttest/v14/.suo
+/javascripttest2/.vs/javascripttest/DesignTimeBuild/.dtbcache
+/javascripttest2/javascripttest/BIN/Debug/SgTool/Users11.db
+/javascripttest2/javascripttest/BIN/Debug/SgTool/Users-LAPTOP-PLLJ8FQ0.db
+/javascripttest2/javascripttest/OBJ/Debug

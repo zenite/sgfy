@@ -39,9 +39,9 @@ namespace javascripttest
             string login_serverurl = "h90.sg.kunlun.com";
             string server_url = "http://" + login_serverurl;
             //获取验证码图片
-            AccountModel account = new AccountModel(); 
+            AccountModel account = new AccountModel();
             Login_Start:
-            string image_path=(string)urlCommand.getImage(ref account, "login.kunlun.com", "http://sg.kunlun.com/");
+            string image_path = "";
             dialogbox dialog = new dialogbox();
             Image tmp_img = Image.FromFile(image_path);
             Image img_copy =new Bitmap(tmp_img);

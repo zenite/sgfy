@@ -59,6 +59,10 @@
     </Reference>
     <Reference Include="Microsoft.JScript" />
     <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.SQLite">
@@ -91,6 +95,7 @@
     <Compile Include="BLL\ControlValueXmlConstruction.cs" />
     <Compile Include="BLL\Extra.cs" />
     <Compile Include="BLL\HandlerAttack.cs" />
+    <Compile Include="BLL\HttpUpload.cs" />
     <Compile Include="BLL\Migration.cs" />
     <Compile Include="BLL\SoftReg.cs" />
     <Compile Include="BLL\winApiHelper.cs" />
@@ -104,8 +109,12 @@
     <Compile Include="entity\commonurl.cs" />
     <Compile Include="entity\Constant.cs" />
     <Compile Include="entity\General.cs" />
+    <Compile Include="entity\HttpCodeEntity.cs" />
     <Compile Include="entity\Node.cs" />
     <Compile Include="entity\NodeAttack.cs" />
+    <Compile Include="entity\RecruitEntity.cs" />
+    <Compile Include="entity\SourceInfo.cs" />
+    <Compile Include="entity\ThreadWorkers.cs" />
     <Compile Include="entity\TuntianInfo.cs" />
     <Compile Include="BLL\ExcelHelper.cs" />
     <Compile Include="entity\village.cs" />
@@ -203,9 +212,9 @@
     <EmbeddedResource Include="test.resx">
       <DependentUpon>test.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="BIN\Debug - Copy\javascripttest.vshost.exe.manifest" />
     <None Include="BIN\Debug\javascripttest.exe.config" />
     <None Include="BIN\Debug\javascripttest.vshost.exe.config" />
-    <None Include="BIN\Debug\javascripttest.vshost.exe.manifest" />
     <None Include="BIN\Debug\SgTool\Users3.db" />
     <None Include="packages.config" />
     <None Include="Resources\User" />

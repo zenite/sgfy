@@ -137,4 +137,7 @@
     <value>Users</value>
     <comment>用户数据库名称</comment>
   </data>
+  <data name="webServiceUrl" xml:space="preserve">
+    <value>http://localhost:8021/b</value>
+  </data>
 </root>

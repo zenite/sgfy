@@ -62,13 +62,17 @@ namespace javascripttest
 
         public void refreshgrid(string chief, string city, string x, string y, string corp)
         {
-            DataRow dr = table.NewRow();
-            dr["chief"]=chief;
-            dr["city"]=city;
-            dr["x"]=x;
-            dr["y"]=y;
-            dr["output"] = corp;
-            table.Rows.Add(dr);            
+            lock (table)
+            {
+                DataRow dr = table.NewRow();
+                dr["chief"] = chief;
+                dr["city"] = city;
+                dr["x"] = x;
+                dr["y"] = y;
+                dr["output"] = corp;
+                table.Rows.Add(dr);
+            }
+                     
         }
 
         public void refreshGrid()
