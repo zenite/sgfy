@@ -213,7 +213,21 @@ namespace javascripttest
                 }                         
             account.cookies = cookies;
         }
+        public void setCookies1(ref AccountModel account,string url)
+        {
+            foreach (Cookie cookie in account.cookies.GetCookies(new Uri("http://www" +url+"/" )))
+            {
+                try
+                {
+                     MainLogic.InternetSetCookie("http://sg" + url + "/", cookie.Name, cookie.Value);
+                }
+                catch (Exception ex)
+                {
 
+                }
+            }
+         
+        }
 
         /// <summary>
         /// 重设cookie
@@ -229,7 +243,17 @@ namespace javascripttest
             MainLogic.InternetSetCookie("http://" + Constant.Server_Url + "/", "loginfrom", "");
         }
 
-
+        public void ClearIECookie(string url)
+        {
+            MainLogic.InternetSetCookie("http://" + url + "/", "broadcast_ids", "");
+            MainLogic.InternetSetCookie("http://" + url + "/", "KL_SESSIONID", "");
+            MainLogic.InternetSetCookie("http://" + url + "/", "PHPSESSID", "");
+            MainLogic.InternetSetCookie("http://" + url + "/", "KL_UTMP", "");
+            MainLogic.InternetSetCookie("http://" + url + "/", "KL_SSO", "");
+            MainLogic.InternetSetCookie("http://" + url + "/", "KL_PERSON", "");
+            MainLogic.InternetSetCookie("http://" + url + "/", "equiplist_order", "");
+            MainLogic.InternetSetCookie("http://" + url + "/", "loginfrom", "");
+        }
 
         public string StoreAccount(ref AccountModel account)
         {

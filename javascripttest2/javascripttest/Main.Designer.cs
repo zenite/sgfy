@@ -261,7 +261,6 @@
             this.cb_zhongjunzhang = new System.Windows.Forms.CheckBox();
             this.cb_machang = new System.Windows.Forms.CheckBox();
             this.cb_bingying = new System.Windows.Forms.CheckBox();
-            this.report = new javascripttest.report();
             this.armyact = new System.Windows.Forms.TabControl();
             this.changePwd = new System.Windows.Forms.TabPage();
             this.log6 = new System.Windows.Forms.ListBox();
@@ -280,6 +279,9 @@
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
+            this.changepwdBtn = new System.Windows.Forms.Button();
+            this.report = new javascripttest.report();
+            this.xxlog = new System.Windows.Forms.Button();
             this.other.SuspendLayout();
             this.groupbox111.SuspendLayout();
             this.groupBox18.SuspendLayout();
@@ -2860,14 +2862,6 @@
             this.cb_bingying.UseVisualStyleBackColor = true;
             this.cb_bingying.CheckedChanged += new System.EventHandler(this.setAttr);
             // 
-            // report
-            // 
-            this.report.Location = new System.Drawing.Point(14, 185);
-            this.report.Margin = new System.Windows.Forms.Padding(1);
-            this.report.Name = "report";
-            this.report.Size = new System.Drawing.Size(1162, 343);
-            this.report.TabIndex = 9;
-            // 
             // armyact
             // 
             this.armyact.Controls.Add(this.construction);
@@ -3035,12 +3029,42 @@
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
+            // changepwdBtn
+            // 
+            this.changepwdBtn.Location = new System.Drawing.Point(850, 10);
+            this.changepwdBtn.Name = "changepwdBtn";
+            this.changepwdBtn.Size = new System.Drawing.Size(75, 23);
+            this.changepwdBtn.TabIndex = 17;
+            this.changepwdBtn.Text = "修改密碼";
+            this.changepwdBtn.UseVisualStyleBackColor = true;
+            this.changepwdBtn.Click += new System.EventHandler(this.changepwdBtn_Click);
+            // 
+            // report
+            // 
+            this.report.Location = new System.Drawing.Point(14, 185);
+            this.report.Margin = new System.Windows.Forms.Padding(1);
+            this.report.Name = "report";
+            this.report.Size = new System.Drawing.Size(1162, 337);
+            this.report.TabIndex = 9;
+            // 
+            // xxlog
+            // 
+            this.xxlog.Location = new System.Drawing.Point(931, 10);
+            this.xxlog.Name = "xxlog";
+            this.xxlog.Size = new System.Drawing.Size(75, 23);
+            this.xxlog.TabIndex = 17;
+            this.xxlog.Text = "xxlog";
+            this.xxlog.UseVisualStyleBackColor = true;
+            this.xxlog.Click += new System.EventHandler(this.xxlog_Click);
+            // 
             // Main
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1207, 612);
+            this.Controls.Add(this.xxlog);
+            this.Controls.Add(this.changepwdBtn);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
@@ -3376,6 +3400,8 @@
         private System.Windows.Forms.Button changeBtn;
         private System.Windows.Forms.TextBox pwdTxt;
         private System.Windows.Forms.ListBox log6;
+        private System.Windows.Forms.Button changepwdBtn;
+        private System.Windows.Forms.Button xxlog;
     }
 }
 

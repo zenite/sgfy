@@ -92,7 +92,35 @@ namespace javascripttest
             }
             return null;
         }
+        public byte[] getnewImage( AccountModel account, string hostUlr, string referenceUlr)
+        {
+            string imageUlr = "http://login.kunlun.com/?act=index.captcha&r=0.7004946304950863";
+            HttpWebRequest req = (HttpWebRequest)WebRequest.Create(imageUlr);
+            req.CookieContainer = account.cookies;
+            req.Accept = "image/webp,image/*,*/*;q=0.8";
+            req.Headers.Add("Accept-Language", "en-US,en;q=0.8");
+            req.Referer = "http://sg.kunlun.com/";
+            req.Host = "login.kunlun.com";
+            req.UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36";
 
+            string path = string.Empty;
+            try
+            {
+                path = "TmpBmp.bmp";
+                using (HttpWebResponse response = (HttpWebResponse)req.GetResponse())
+                {
+                    Stream imageStream = response.GetResponseStream();
+                    //account.cookies.Add(response.Cookies);
+                    //Bitmap streamImage = new Bitmap(imageStream);
+                    return StreamToBytes(imageStream);
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+            return null;
+        }
         public byte[] StreamToBytes(Stream stream)
         {
             byte[] buffer = new byte[16 * 1024];
@@ -263,7 +291,7 @@ namespace javascripttest
                 req.CookieContainer = account.cookies;
                 req.Method = "Post";
                 req.Accept = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3";
-                req.Headers.Add("Accept-Encoding", "gzip, deflate");
+                //req.Headers.Add("Accept-Encoding", "gzip, deflate");
                 req.Headers.Add("Accept-Language", "zh-CN,zh;q=0.9");
                 req.KeepAlive = true;
                 req.Referer = refernceUrl;
@@ -277,7 +305,7 @@ namespace javascripttest
                 req.Headers.Add("Upgrade-Insecure-Requests", "1");
                 byte[] bytes = Encoding.GetEncoding("utf-8").GetBytes(form_string);
                 req.ContentLength = bytes.Length;
-                req.UserAgent = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.87 Safari/537.36";
+                req.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.100 Safari/537.36";
                 Stream requestStream = req.GetRequestStream();
                 requestStream.Write(bytes, 0, bytes.Length);
                 requestStream.Close();
@@ -432,6 +460,129 @@ namespace javascripttest
                     {
                         request.CookieContainer.Add(response.Cookies);
                         string result = getGb2312(str5);
+                        if (result.ToLower().Contains("login.logout"))
+                            relogin(account);
+                        return result;
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
+                    finally { }
+
+                }
+                finally
+                {
+                    try
+                    {
+                        if (response != null)
+                        {
+                            response.Close();
+                        }
+                    }
+                    catch
+                    {
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return string.Empty;
+        }
+
+        public string Html_get2(string url, ref AccountModel account, string refer)
+        {
+            HttpWebRequest request;
+            HttpWebResponse response;
+            try
+            {
+                request = (HttpWebRequest)WebRequest.Create(new Uri(url));
+                request.CookieContainer = new CookieContainer();
+                request.CookieContainer = account.cookies;
+                request.Method = "GET";
+                request.KeepAlive = true;
+                request.UserAgent = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.87 Safari/537.36";
+                request.Accept = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3";
+                request.Headers.Add("Accept-Encoding", "gzip, deflate");
+                //request.IfModifiedSince = "Sat, 09 Nov 2019 09:24:56 GMT";
+                
+                request.Headers.Add("Accept-Language", "zh-CN,zh;q=0.9");
+                if(!string.IsNullOrEmpty(refer))
+                 request.Referer = refer;
+                request.Headers.Add("Upgrade-Insecure-Requests", "1");
+                //request.Headers.Add("Sec-Fetch-Mode", "navigate");
+                //request.Headers.Add("Sec-Fetch-Site", "same-site");
+                request.Host = "www.kunlun.com";
+             
+                response = (HttpWebResponse)request.GetResponse();
+                try
+                {
+                    string str5 = new StreamReader(response.GetResponseStream(), Encoding.UTF8).ReadToEnd();
+                    request.Abort();
+                    try
+                    {
+                        account.cookies.Add(response.Cookies);
+                        string result = getGb2312(str5);
+                        if (result.ToLower().Contains("login.logout"))
+                            relogin(account);
+                        return result;
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
+                    finally { }
+
+                }
+                finally
+                {
+                    try
+                    {
+                        if (response != null)
+                        {
+                            response.Close();
+                        }
+                    }
+                    catch
+                    {
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return string.Empty;
+        }
+
+        public string Html_get3(string url, ref AccountModel account, string refer)
+        {
+            HttpWebRequest request;
+            HttpWebResponse response;
+            try
+            {
+                request = (HttpWebRequest)WebRequest.Create(new Uri(url));
+                request.CookieContainer = new CookieContainer();
+                request.CookieContainer = account.cookies;
+                request.Method = "GET";
+                request.KeepAlive = true;
+                request.UserAgent = "*/*";
+                request.Accept = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3";
+                //request.Headers.Add("Accept-Encoding", "gzip, deflate");
+                request.Headers.Add("Accept-Language", "zh-CN,zh;q=0.9");
+                if (!string.IsNullOrEmpty(refer))
+                    request.Referer = refer;
+                request.Host = "login.kunlun.com";
+
+                response = (HttpWebResponse)request.GetResponse();
+                try
+                {
+                    string result = new StreamReader(response.GetResponseStream(), Encoding.UTF8).ReadToEnd();
+                    request.Abort();
+                    try
+                    {
+                        account.cookies.Add(response.Cookies);
+                        
                         if (result.ToLower().Contains("login.logout"))
                             relogin(account);
                         return result;

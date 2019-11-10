@@ -57,7 +57,16 @@
     <Reference Include="Evtlog">
       <HintPath>..\..\50\jiafang\Evtlog.dll</HintPath>
     </Reference>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.JScript" />
+    <Reference Include="Microsoft.mshtml, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\packages\Unofficial.Microsoft.mshtml.7.0.3300\lib\net40\Microsoft.mshtml.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -96,9 +105,17 @@
     <Compile Include="BLL\Extra.cs" />
     <Compile Include="BLL\HandlerAttack.cs" />
     <Compile Include="BLL\HttpUpload.cs" />
+    <Compile Include="BLL\LogHelper.cs" />
     <Compile Include="BLL\Migration.cs" />
+    <Compile Include="BLL\ScriptEngine.cs" />
     <Compile Include="BLL\SoftReg.cs" />
     <Compile Include="BLL\winApiHelper.cs" />
+    <Compile Include="ChangePwd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChangePwd.Designer.cs">
+      <DependentUpon>ChangePwd.cs</DependentUpon>
+    </Compile>
     <Compile Include="DbHelper\ComGeneric.cs" />
     <Compile Include="DbHelper\SqlHelper.cs" />
     <Compile Include="entity\AbstractNode.cs" />
@@ -186,6 +203,9 @@
     <EmbeddedResource Include="AutoAttack.resx">
       <DependentUpon>AutoAttack.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ChangePwd.resx">
+      <DependentUpon>ChangePwd.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="dialogbox.resx">
       <DependentUpon>dialogbox.cs</DependentUpon>
     </EmbeddedResource>
@@ -216,6 +236,9 @@
     <None Include="BIN\Debug\javascripttest.exe.config" />
     <None Include="BIN\Debug\javascripttest.vshost.exe.config" />
     <None Include="BIN\Debug\SgTool\Users3.db" />
+    <None Include="log4net.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <None Include="Resources\User" />
   </ItemGroup>
@@ -249,6 +272,7 @@
     <Content Include="BIN\Debug\NewTmp.bmp" />
     <Content Include="BIN\Debug\RSA.JS" />
     <Content Include="jsscript\JavaScript1.js" />
+    <Content Include="jsscript\kl_login.js" />
     <Content Include="s92.html" />
     <Content Include="s92\1.gif" />
     <Content Include="s92\12%281%29.gif" />
@@ -325,7 +349,6 @@
     <Content Include="s92\zh_cn_npcinfo.js" />
     <Content Include="jsscript\core.js" />
     <Content Include="jsscript\game.js" />
-    <Content Include="jsscript\kl_login.js" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">

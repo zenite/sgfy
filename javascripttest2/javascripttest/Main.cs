@@ -69,7 +69,7 @@ namespace javascripttest
         private commonurl commonUrl;
         private string Imgusername;
         private string Imgpwd;
-        
+        //private static Mutex corMutex;
         private object obj = new object();
         private static object MonitorObj=new object();
         private static object MonitorObj1 = new object();
@@ -342,7 +342,7 @@ namespace javascripttest
                 newaccount.Initial_Status = account.Initial_Status;
                 account = newaccount;
 
-                
+                //Mutex corMutex = new Mutex(false, "login");
                 try
                 {
                     Monitor.Enter(MonitorObj);
@@ -369,17 +369,11 @@ namespace javascripttest
                     //    Monitor.Exit(MonitorObj);
                     //    goto Login_Start;
                     //}
-                    printCookie(ref account);
-                    HttpCodeEntity codeentity = new HttpCodeEntity();
-                    using (Mutex corMutex = new Mutex(false, "getPicPython"))
-                    {
-                        byte[] imageBytes = urlCommand.getImage(ref account, "login.kunlun.com", "http://sg.kunlun.com/");
-                        var base64str = Convert.ToBase64String(imageBytes);
-                        corMutex.WaitOne();
-                        var coderesult = urlCommand.PostData("http://localhost:8021/b", "1.jpg", imageBytes, null);
-                        codeentity = (HttpCodeEntity)JsonConvert.DeserializeObject(coderesult, typeof(HttpCodeEntity));
-                        corMutex.ReleaseMutex();
-                    }
+                    printCookie("https://login.kunlun.com/?act=user.gettoken", ref account, "https://go.kunlun.com/?ref=http://sg.kunlun.com");
+                    byte[] imageBytes = urlCommand.getImage(ref account, "login.kunlun.com", "http://sg.kunlun.com/");
+                    var base64str = Convert.ToBase64String(imageBytes);
+                    var coderesult = urlCommand.PostData("http://localhost:8021/b", "1.jpg", imageBytes,null);
+                    var codeentity = (HttpCodeEntity)JsonConvert.DeserializeObject(coderesult, typeof(HttpCodeEntity));
                     code = codeentity.value;
                     //code = recognise(image_path);
                     if (code.Length != 4)
@@ -3337,7 +3331,7 @@ namespace javascripttest
                 string referenceUrl = @"http://www.kunlun.com/?act=passport.changepwd";
                 string OriginUrl = @"http://www.kunlun.com";
                 string form_str = string.Format("old_password={0}&password={1}&password_retype={1}",account.password,pwdTxt.Text.ToString());
-                //printCookie(ref account);
+                printCookie("http://www.kunlun.com/?act=passport.changepwd", ref account,"");
                 string result = urlCommand.PostForm1(url, hostUrl, OriginUrl, referenceUrl,account, form_str);                
                 if (result.Contains("新密码修改成功！"))
                 {
@@ -3346,9 +3340,10 @@ namespace javascripttest
             }                
         }
         
-        public void printCookie(ref AccountModel account)
+
+        public void printCookie(string url,ref AccountModel account, string refer)
         {
-            var getCookie = urlCommand.Html_get(@"https://login.kunlun.com/?act=user.gettoken", ref account);
+            var getCookie = urlCommand.Html_get2(url, ref account,  refer);
             //if (account.cookies.Count > 0)
             //{
             //    try
@@ -3388,6 +3383,22 @@ namespace javascripttest
         private void TranPause_Click(object sender, EventArgs e)
         {
             TraderThr.stop = true;
+        }
+
+        private void changepwdBtn_Click(object sender, EventArgs e)
+        {
+            var  form = new ChangePwd();
+            form.Show();
+        }
+
+        private void xxlog_Click(object sender, EventArgs e)
+        {
+            LogHelper.Info("111");
+        }
+
+        private void xxlog_Click_1(object sender, EventArgs e)
+        {
+
         }
     }
 }
