@@ -50,6 +50,9 @@ namespace javascripttest
 
        
         public string city_num{ set; get; }//账号城镇数量
+
+        public string originalserver { set; get; }
+        public string originalperson { set; get; }
     }
     public class urlService
     {

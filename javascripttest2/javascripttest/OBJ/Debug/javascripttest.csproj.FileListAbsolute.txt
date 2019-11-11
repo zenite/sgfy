@@ -159,5 +159,5 @@ E:\微软云\OneDrive\新建文件夹\sgfy\javascripttest2\javascripttest\obj\De
 E:\微软云\OneDrive\新建文件夹\sgfy\javascripttest2\javascripttest\obj\Debug\javascripttest.pdb
 E:\微软云\OneDrive\新建文件夹\sgfy\javascripttest2\javascripttest\bin\Debug\log4net.dll
 E:\微软云\OneDrive\新建文件夹\sgfy\javascripttest2\javascripttest\bin\Debug\log4net.xml
-E:\微软云\OneDrive\新建文件夹\sgfy\javascripttest2\javascripttest\obj\Debug\javascripttest.csprojResolveAssemblyReference.cache
 E:\微软云\OneDrive\新建文件夹\sgfy\javascripttest2\javascripttest\bin\Debug\log4net.config
+E:\微软云\OneDrive\新建文件夹\sgfy\javascripttest2\javascripttest\obj\Debug\javascripttest.csprojResolveAssemblyReference.cache

@@ -212,7 +212,7 @@ namespace javascripttest
                 string server_url = "http://" + login_serverurl;
                 //登陆官网，获取相应cookie
                 string serverurl = server_url + "/index.php?act=login.form";
-                account.hasMulti = "0";
+                //account.hasMulti = "0";
             
                 //获取验证码图片                
                 Login_Start:
@@ -254,7 +254,7 @@ namespace javascripttest
                         refreshLog("账号：" + account.username + "密码有误，请确认", 0);
                         DbHelper.UpdateError(account, "1");//账号密码错误
                         Monitor.Exit(MonitorObj);
-                        Interlocked.Decrement(ref threadCount);
+                        //Interlocked.Decrement(ref threadCount);
                         return;
                     }
                     else if (result.Contains("用户不存在"))
@@ -262,7 +262,7 @@ namespace javascripttest
                         refreshLog("账号:" + account.username + "用户不存在", 0);
                         DbHelper.UpdateError(account, "2");//用户不存在
                         Monitor.Exit(MonitorObj);
-                        Interlocked.Decrement(ref threadCount);
+                        //Interlocked.Decrement(ref threadCount);
                         return;
                     }
                     else if (!result.Contains("success"))
@@ -279,14 +279,16 @@ namespace javascripttest
                         printCookie("http://www.kunlun.com/?act=passport.changepwd", ref account, "http://sg.kunlun.com/2009/0309/article_497.html");
                         lock (accountList)
                         {
-                            var exsit = accountList.Find(item => { if (item.user_id == account.user_id) return true; else return false; });
+                            var exsit = accountList.Find(item => { if (item.username == account.username) return true; else return false; });
                             if (exsit != null)
                             {
                                 accountList.Remove(exsit);
                             }
                             accountList.Add(account);
                         }
-                        Interlocked.Decrement(ref threadCount);
+
+                        refreshLog(string.Format("账号:{0}登录成功",account.username), Constant.pwdIndex);
+                        //Interlocked.Decrement(ref threadCount);
                         Monitor.Exit(MonitorObj);
                     }
                 }

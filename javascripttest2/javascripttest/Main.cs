@@ -2885,25 +2885,25 @@ namespace javascripttest
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if(folderBrowserDialog1.ShowDialog()==DialogResult.OK)
+            if(openFileDialog1.ShowDialog()==DialogResult.OK)
             {
-                string foldername = folderBrowserDialog1.SelectedPath;
-                DirectoryInfo dir=new DirectoryInfo(foldername);
-                string filepath = string.Empty;
+                string filepath = openFileDialog1.FileName;
+                //DirectoryInfo dir=new DirectoryInfo(foldername);
+                //string filepath = string.Empty;
                 
-                FileInfo[] files = dir.GetFiles();
-                if (files.Length > 0)
-                {
-                    foreach (var item in files)
-                    {
-                        filepath = item.FullName;
+                //FileInfo[] files = dir.GetFiles();
+                //if (files.Length > 0)
+                //{
+                    //foreach (var item in files)
+                    //{
+                        //filepath = item.FullName;
                         DBUti dbhelper = new DBUti(filepath);
                         DataSet ds = dbhelper.getAllAccount1();
                         if (ds != null && ds.Tables.Count > 0)
                         {
                             foreach (DataRow row in ds.Tables[0].Rows)
                             {
-                                if (new SqlHelper().checkAccount3(row["user_id"].ToString(), dir.Name)) 
+                                if (new SqlHelper().checkAccount3(row["user_id"].ToString(), "myaccount")) 
                                 {
                                     AccountModel account = new AccountModel();
                                     account.username = row["username"].ToString();
@@ -2915,12 +2915,14 @@ namespace javascripttest
                                     account.user_id = row["user_id"].ToString();
                                     account.typeOfCountry = row["typeOfCountry"].ToString();
                                     account.rankOfNobility = row["rankOfNobility"].ToString();
-                                    new SqlHelper().ExecuteInsert(account, dir.Name);
+                                    account.originalperson = originalperson.Text.ToString();
+                                    account.originalserver = originalserver.Text.ToString();
+                                    new SqlHelper().ExecuteInsert(account, "mutilaccount");
                                 }
                             }
                         }
-                    }
-                }
+                    //}
+                //}
             }
             refreshLog("数据录入完毕", 0);
         }
@@ -3123,7 +3125,9 @@ namespace javascripttest
                                     account.Server_url = row["Server_url"].ToString();
                                     //account.cookieStr = row["cookieStr"].ToString();
                                     account.AccountName = row["AccountName"].ToString();
-                                    new SqlHelper().ExecuteInsert1(account, dir.Name);
+                                    account.originalperson = originalperson.Text.ToString();
+                                    account.originalserver =originalserver.Text.ToString() ;
+                                    new SqlHelper().ExecuteInsert1(account);
                                 }
                             }
                         }

@@ -14,22 +14,23 @@ namespace javascripttest.DbHelper
         private string constr { set; get; }        
         public SqlHelper()
         {
-            constr ="Data Source=LocalHost;Integrated Security=SSPI;Initial Catalog=test;";
+            //constr ="Data Source=LocalHost;Integrated Security=SSPI;Initial Catalog=test;";
+            constr = "Data Source=LocalHost;Integrated Security=SSPI;Initial Catalog=ThreeCountry;";
         }
         public bool ExecuteInsert( AccountModel account,string dbName)
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendFormat("insert into {10} (username,password,cookieStr,hasMulti,Server_Url,user_id,villageid,chief,typeOfCountry,rankOfNobility,Initial_Status,city_num) values(N'{0}',N'{1}',N'{2}',N'{3}',N'{4}',N'{5}',N'{6}',N'{7}',N'{8}',N'{9}','hasInitial',N'{11}')", account.username, account.password, account.cookieStr, account.hasMulti, account.Server_url, account.user_id, account.villageid, account.chief, account.typeOfCountry, account.rankOfNobility, dbName,account.city_num);
+            sb.AppendFormat("insert into {10} (id,username,password,cookieStr,hasMulti,Server_Url,user_id,villageid,chief,typeOfCountry,rankOfNobility,Initial_Status,city_num,originalperson,originalserver) values(N'{5}',N'{0}',N'{1}',N'{2}',N'{3}',N'{4}',N'{5}',N'{6}',N'{7}',N'{8}',N'{9}','hasInitial',N'{11}',N'{12}',N'{13}')", account.username, account.password, account.cookieStr, account.hasMulti, account.Server_url, account.user_id, account.villageid, account.chief, account.typeOfCountry, account.rankOfNobility, dbName,account.city_num, account.originalperson, account.originalserver);
             int rowIndex = ExecuteInsert(sb.ToString());
             if (rowIndex > 0) return true;            
             return false;
         }
 
-        public bool ExecuteInsert1(AccountModel account, string dbName)
+        public bool ExecuteInsert1(AccountModel account)
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendFormat("insert into {4} (username,password,AccountName,Server_url) values(N'{0}',N'{1}',N'{2}',N'{3}')", account.username, account.password, account.AccountName,account.Server_url, dbName);
-            int rowIndex = ExecuteInsert(sb.ToString());
+            sb.AppendFormat("insert into {4} (username,password,AccountName,Server_url,originalperson,originalserver) values(N'{0}',N'{1}',N'{2}',N'{3}',N'{5}',N'{6}')", account.username, account.password, account.AccountName,account.Server_url, "myaccount",account.originalperson,account.originalserver);
+            int rowIndex = ExecuteInsert(sb.ToString(), "Data Source=LocalHost;Integrated Security=SSPI;Initial Catalog=ThreeCountry;");
             if (rowIndex > 0) return true;
             return false;
         }
@@ -107,6 +108,21 @@ namespace javascripttest.DbHelper
                 }
             }
             return rowIndex;
-        }       
+        }
+        public int ExecuteInsert(string sqlstr,string connectstr)
+        {
+            int rowIndex = 0;
+            using (SqlConnection sqlcon = new SqlConnection(connectstr))
+            {
+                sqlcon.Open();
+                using (SqlCommand com = new SqlCommand(sqlstr, sqlcon))
+                {
+
+                    com.CommandType = CommandType.Text;
+                    rowIndex = com.ExecuteNonQuery();
+                }
+            }
+            return rowIndex;
+        }
     }
 }
